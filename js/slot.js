@@ -221,15 +221,20 @@ export class Slot {
       await this.particlesAnimation(false);
       this.shade.style.opacity = '0.20';
     } else {
-      this.shade.style.opacity = '';
-      await animate(this.shade, [{ opacity: 0 }, { opacity: 0.55 }], this.grade === 'legendary' ? 300 : 400);
-      this.shade.style.opacity = '0.55';
+      await hold(reduced() ? 1 : this.grade === 'legendary' ? 180 : 200);
+      const opacity = this.grade === 'legendary' ? .45 : .38;
+      await animate(this.shade, [{ opacity: 0 }, { opacity }], this.grade === 'legendary' ? 300 : 400);
+      this.shade.style.opacity = String(opacity);
       if (this.grade === 'legendary') {
+        const crack = document.createElement('div'); crack.className = 'effect-crack';
+        this.effects.append(crack);
+        await animate(crack, [{ opacity: 0, scale: '.4' }, { opacity: 1, scale: '1' }], 420);
+        crack.remove();
         this.machine.classList.add('winner');
         await animate(this.app, [{ transform: 'translateX(0)' }, { transform: 'translateX(4px)' }, { transform: 'translateX(-4px)' }, { transform: 'translateX(0)' }], 240);
       }
       await this.particlesAnimation(true);
-      if (this.grade === 'legendary') await animate(this.flash, [{ opacity: 0 }, { opacity: 0.55 }, { opacity: 0 }], 120);
+      // Legendary flash happens behind the revealed silhouette in the card modal.
     }
   }
 }

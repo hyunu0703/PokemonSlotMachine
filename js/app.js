@@ -71,20 +71,78 @@ async function init() {
         ui['win-actions'].hidden = false;
         ui['continue'].disabled = true; ui['view-collection'].disabled = true; ui['card-close'].disabled = true;
         ui['card-modal'].className = `reward ${grade} revealing`;
-        ui['modal-card'].style.filter = grade === 'mythical' ? 'brightness(0)' : '';
+        // Move the existing artwork through the reveal, then return it to its card.
+        const illustration = card.querySelector('.card-illustration');
+        const artwork = illustration.firstElementChild;
+        const information = [card.querySelector('.dex'), card.querySelector('.card-name'), card.querySelector('.type-badges'), card.querySelector('.grade-badge')];
+        const bottom = card.querySelector('.card-bottom');
+        const body = document.createElement('div'); body.className = 'reveal-body';
+        const aura = document.createElement('div'); aura.className = 'reveal-aura';
+        const wave = document.createElement('div'); wave.className = 'reveal-wave';
+        const orbit = document.createElement('div'); orbit.className = 'reveal-orbit';
+        orbit.textContent = '✧';
+        card.classList.add('forming');
+        card.style.opacity = '0';
+        for (const node of [...information, bottom]) node.style.opacity = '0';
+        body.style.opacity = '0'; aura.style.opacity = '0'; wave.style.opacity = '0'; orbit.style.opacity = '0';
+        ui['reveal-stage'].append(aura, wave, orbit, body);
+        slot.shade.style.opacity = '0'; // The modal backdrop now supplies the grade's dimming.
         ui['card-modal'].showModal();
-        if (grade === 'mythical') {
-          await animate(ui['modal-card'], [{ filter: 'brightness(0)', opacity: 0 }, { filter: 'brightness(0)', opacity: 1 }], 300);
-          ui['reveal-stage'].classList.add('ring-glow');
-          await animate(ui['reveal-stage'], [{ opacity: 0.5 }, { opacity: 1 }], 300);
+        const target = artwork.getBoundingClientRect();
+        const stage = ui['reveal-stage'].getBoundingClientRect();
+        body.style.width = target.width + 'px'; body.style.height = target.height + 'px';
+        body.style.left = (target.left - stage.left) + 'px'; body.style.top = (target.top - stage.top) + 'px';
+        const offsetY = stage.height / 2 - (target.top - stage.top + target.height / 2);
+        const full = 'translateY(' + offsetY + 'px) scale(1.3)';
+        body.style.transform = full;
+        body.append(artwork);
+        try {
+          if (grade !== 'normal') {
+            body.style.filter = 'brightness(0)';
+            if (grade === 'mythical') {
+              await animate(aura, [{ opacity: 0, transform: 'scale(.30)' }, { opacity: 1, transform: 'scale(1)' }], 500);
+              aura.style.opacity = '1';
+            }
+            await animate(body, [{ opacity: 0 }, { opacity: 1 }], grade === 'legendary' ? 300 : 380);
+            body.style.opacity = '1';
+            if (grade === 'legendary') {
+              await animate(aura, [{ opacity: 0, transform: 'scale(.5)' }, { opacity: 1, transform: 'scale(1)' }], 320);
+              aura.style.opacity = '1';
+              await animate(ui['reveal-stage'], [{ backgroundColor: 'transparent' }, { backgroundColor: 'rgba(255,230,160,.55)' }, { backgroundColor: 'transparent' }], 120);
+            } else {
+              await animate(orbit, [{ opacity: 0, transform: 'rotate(0deg)' }, { opacity: 1, offset: .25 }, { opacity: 0, transform: 'rotate(180deg)' }], 500);
+            }
+            await animate(body, [{ filter: 'brightness(0)' }, { filter: 'brightness(1)' }], grade === 'legendary' ? 360 : 450);
+            body.style.filter = '';
+            if (grade === 'mythical') await animate(wave, [{ opacity: .8, transform: 'scale(.3)' }, { opacity: 0, transform: 'scale(1.4)' }], 400);
+          } else {
+            await animate(body, [{ opacity: 0, transform: 'translateY(' + (offsetY + 18) + 'px) scale(.91)' }, { opacity: 1, transform: 'translateY(' + offsetY + 'px) scale(1.404)', offset: .7 }, { opacity: 1, transform: full }], 360);
+            body.style.opacity = '1';
+            await animate(body, [{ transform: full }, { transform: 'translateY(' + (offsetY - 10) + 'px) scale(1.3)' }, { transform: full }], 260);
+          }
+          await animate(card, grade === 'mythical'
+            ? [{ opacity: 0, clipPath: 'inset(0 100% 100% 0 round 22px)' }, { opacity: 1, clipPath: 'inset(0 round 22px)' }]
+            : [{ opacity: 0, transform: 'scale(.94)' }, { opacity: 1, transform: 'scale(1)' }], grade === 'normal' ? 280 : grade === 'legendary' ? 300 : 480);
+          card.style.opacity = '1';
+          await animate(body, [{ transform: full }, { transform: 'translateY(0) scale(1)' }], grade === 'normal' ? 380 : grade === 'legendary' ? 450 : 500);
+          illustration.append(artwork); body.remove(); aura.remove();
+          card.classList.remove('forming');
+          // Reveal metadata only after the card is complete, at the specified intervals.
+          const gap = grade === 'mythical' ? 100 : 80;
+          await Promise.all(information.map(async (node, index) => {
+            await animate(node, [{ opacity: 0 }, { opacity: 1 }], 140, { delay: matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : index * gap });
+            node.style.opacity = '1';
+            if (index === 2) bottom.style.opacity = '1';
+          }));
+          ui['card-modal'].classList.remove('revealing');
+          await animate(ui['modal-title'], [{ opacity: 0 }, { opacity: 1 }], grade === 'normal' ? 220 : grade === 'legendary' ? 260 : 280);
+        } finally {
+          illustration.append(artwork);
+          body.remove(); aura.remove(); wave.remove(); orbit.remove();
+          card.classList.remove('forming'); card.style.opacity = '';
+          for (const node of [...information, bottom]) node.style.opacity = '';
+          ui['card-modal'].classList.remove('revealing');
         }
-        ui['modal-card'].style.filter = '';
-        ui['modal-card'].classList.add('flipping');
-        await animate(ui['modal-card'], [{ transform: 'translateY(24px) rotateY(180deg)', opacity: 0 }, { transform: 'translateY(0) rotateY(180deg)', opacity: 1 }], 320);
-        await animate(ui['modal-card'], [{ transform: 'rotateY(180deg)' }, { transform: 'rotateY(0)' }], grade === 'mythical' ? 760 : 520, { easing: 'ease-in-out' });
-        ui['modal-card'].classList.remove('flipping');
-        ui['card-modal'].classList.remove('revealing');
-        ui['reveal-stage'].classList.remove('ring-glow');
       },
       onCollect(p) {
         if (!ids.has(p.id)) { ids.add(p.id); persist(); sync(); }
