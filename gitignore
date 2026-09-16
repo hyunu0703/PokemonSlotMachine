@@ -1,0 +1,23 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+
+# Node / build
+node_modules/
+dist/
+
+# Vercel
+.vercel/
+
+# Logs
+*.log
+
+# Environment files
+.env
+.env.*
+!.env.example

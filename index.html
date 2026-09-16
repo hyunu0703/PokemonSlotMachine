@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#FDECF4">
+  <title>Pokémon · Slot Collection</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='12' fill='%23FDECF4'/%3E%3Ctext x='20' y='29' text-anchor='middle' font-size='30' fill='%23EE86AE'%3E✦%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    // ES modules and JSON fetch require an HTTP origin. Show an actionable message
+    // before the module loader is blocked when index.html is double-clicked.
+    if (location.protocol === 'file:') {
+      document.addEventListener('DOMContentLoaded', function () {
+        var status = document.getElementById('load-status');
+        if (status) status.innerHTML = '이 페이지는 파일을 직접 열면 실행되지 않습니다.<br><strong>Start-Server.cmd</strong>를 실행한 뒤, 열린 브라우저에서 이용해 주세요.';
+      });
+    }
+  </script>
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <div class="decoration" aria-hidden="true"><span>✦</span><span>○</span><span>✧</span><span>✦</span><span>○</span></div>
+  <header class="header">
+    <a href="#home" class="brand" aria-label="홈"><span class="brand-icon">✦</span><span>Pokémon<small>SLOT COLLECTION</small></span></a>
+    <nav aria-label="메인 메뉴">
+      <button data-page="home" aria-current="page">HOME</button><button data-page="slot">SLOT</button><button data-page="collection">COLLECTION</button><button data-page="settings">SETTINGS</button>
+    </nav>
+  </header>
+  <main id="app" aria-busy="true">
+    <p id="load-status" role="status">도감을 준비하고 있어요…</p>
+    <section id="home" class="screen" hidden aria-labelledby="home-title">
+      <div class="home-copy"><span class="eyebrow">A LITTLE SPIN, A NEW DISCOVERY</span><h1 id="home-title">작은 설렘을 돌리고,<br><em>나만의 도감</em>을 채워요.</h1><p>슬롯을 돌려 카드를 수집하세요.</p><button class="primary" id="start">SLOT START <span>↗</span></button></div>
+      <div class="home-art" aria-hidden="true"><span class="art-star">✦</span><div class="art-card art-back">✧</div><div class="art-card art-front"><small>Pokémon</small><div class="monster"></div><b>SLOT COLLECTION</b></div><span class="art-spark">✧</span></div>
+      <div class="panel home-progress"><div><span class="eyebrow">MY COLLECTION</span><h2>차곡차곡, 나의 수집 기록</h2></div><div class="progress-summary"><b id="home-count">0 / 1025</b><span id="home-percent">0.0%</span><progress id="home-progress" value="0" max="1025">0%</progress></div></div>
+    </section>
+    <section id="slot" class="screen" hidden aria-labelledby="slot-title">
+      <div class="section-heading"><span class="eyebrow">SPIN & DISCOVER</span><h1>오늘은 어떤 만남이 기다릴까요?</h1><p>세 칸이 같아지면 새로운 카드가 찾아와요.</p></div>
+      <div id="slot-tabs" class="tabs" aria-label="슬롯 종류"><button data-grade="normal" aria-pressed="true">✧ 일반</button><button data-grade="legendary" aria-pressed="false">✦ 전설</button><button data-grade="mythical" aria-pressed="false">☾ 환상</button></div>
+      <div id="machine" class="machine normal"><div class="machine-top"><span>✧</span><h2 id="slot-title">일반 슬롯</h2><span>✧</span></div><div class="reels" aria-label="슬롯 결과"><div class="reel"><div class="reel-track"></div></div><div class="reel"><div class="reel-track"></div></div><div class="reel"><div class="reel-track"></div></div></div><div class="machine-controls"><button id="spin" class="spin" disabled>SPIN <span>↻</span></button><p id="slot-status" role="status">새로운 카드를 만나보세요.</p></div><div class="machine-stats"><span>당첨 확률 <b id="win-rate">50%</b></span><span>남은 카드 <b id="remaining">931</b></span></div></div>
+      <div class="panel candidates-panel"><div><h3>이번 SPIN 후보</h3><span id="candidate-count">0마리</span></div><div id="candidates" class="candidates"><p class="muted">SPIN을 누르면 후보가 선택돼요.</p></div></div>
+    </section>
+    <section id="collection" class="screen" hidden aria-labelledby="collection-title">
+      <div class="section-heading left"><span class="eyebrow">YOUR LITTLE DISCOVERIES</span><h1 id="collection-title">COLLECTION</h1><p>하나씩 모여 완성되는 나만의 스티커북.</p></div>
+      <div class="panel collection-tools"><div class="collection-progress"><b id="collection-count">0 / 1025</b><span id="collection-percent">0.0%</span><progress id="collection-progress" value="0" max="1025">0%</progress></div><div class="tabs" id="collection-tabs" aria-label="도감 등급"><button data-grade="all" aria-pressed="true">전체</button><button data-grade="normal" aria-pressed="false">일반</button><button data-grade="legendary" aria-pressed="false">전설</button><button data-grade="mythical" aria-pressed="false">환상</button></div><div class="filters"><label>세대<select id="generation"><option value="all">전체 세대</option></select></label><label>타입<select id="type"><option value="all">전체 타입</option></select></label><label class="search-label">검색<input id="search" type="search" placeholder="이름 또는 도감 번호" autocomplete="off"></label></div></div>
+      <p id="filter-count" class="muted"></p><div id="card-grid" class="card-grid"></div><p id="empty" class="empty" hidden>검색 조건에 맞는 포켓몬이 없습니다.</p>
+    </section>
+    <section id="settings" class="screen" hidden aria-labelledby="settings-title"><div class="section-heading"><span class="eyebrow">MAKE YOURSELF AT HOME</span><h1 id="settings-title">SETTINGS</h1></div><div class="panel settings-panel"><div class="setting"><span>효과음</span><button id="sound" class="toggle" role="switch" aria-checked="true">ON</button></div><div class="setting"><span>배경음악</span><button id="music" class="toggle" role="switch" aria-checked="true">ON</button></div><div class="reset-area"><button id="reset-open" class="danger">수집 데이터 초기화</button></div></div></section>
+  </main>
+  <footer>Pokémon <span>✦</span> Slot Collection</footer>
+  <dialog id="card-modal" aria-labelledby="modal-title"><div class="modal-inner"><button id="card-close" class="close" aria-label="닫기">×</button><h2 id="modal-title">NEW CARD!</h2><div id="reveal-stage"><div id="modal-card"></div></div><div id="win-actions" class="modal-actions"><button id="continue" class="primary">계속 SPIN</button><button id="view-collection" class="secondary">도감 보기</button></div></div></dialog>
+  <dialog id="reset-modal" aria-labelledby="reset-title"><div class="confirm-inner"><h2 id="reset-title">정말 모든 카드 수집 기록을 초기화하시겠습니까?</h2><p>초기화한 데이터는 복구할 수 없습니다.</p><div class="modal-actions"><button id="reset-cancel" class="secondary">취소</button><button id="reset-confirm" class="danger">초기화</button></div></div></dialog>
+  <div id="win-effects" aria-hidden="true"><div class="effect-shade"></div><div class="effect-particles"></div><div class="effect-flash"></div></div>
+  <p id="toast" role="status" hidden></p>
+</body>
+</html>
