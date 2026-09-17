@@ -24,3 +24,6 @@
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:1ms!important;animation-iteration-count:1!important;transition-duration:1ms!important;scroll-behavior:auto!important}.pokemon-card.mythical:before{animation:none}.reel.blur .reel-track{filter:none}}
 
 
+
+.candidates>.slot-symbol{min-height:66px;justify-content:flex-start}
+.reveal-type{position:absolute;width:128px;height:128px;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;object-fit:contain;filter:drop-shadow(0 0 18px #FFFFFF80)}

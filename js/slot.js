@@ -1,4 +1,4 @@
-import { GRADES, dexLabel, imageOrPlaceholder, preloadImages } from './data.js';
+import { GRADES, imageOrPlaceholder, preloadImages } from './data.js';
 
 export const SLOT_CONFIG = Object.freeze({
   normal: Object.freeze({ total: 931, candidateLimit: 10, winRate: 0.50, stops: [1900, 2100, 2300] }),
@@ -42,13 +42,10 @@ export function stopTimes(grade, result) {
 export function slotSymbol(p) {
   const symbol = document.createElement('div');
   symbol.className = 'slot-symbol';
-  const circle = document.createElement('span');
-  circle.className = `number-placeholder${p ? '' : ' miss'}`;
-  circle.textContent = p ? String(p.id).padStart(3, '0') : 'MISS';
-  symbol.append(imageOrPlaceholder(p?.slotImage, circle, p?.nameKo || 'MISS'));
-  const name = document.createElement('span');
-  name.className = 'symbol-name'; name.textContent = p ? p.nameKo : '다음 기회에';
-  symbol.append(name);
+  const placeholder = document.createElement('span');
+  placeholder.setAttribute('aria-hidden', 'true');
+  symbol.append(imageOrPlaceholder(p?.slotImage, placeholder, ''));
+  symbol.setAttribute('aria-label', p ? '포켓몬 초상화' : '빈 슬롯');
   return symbol;
 }
 
@@ -112,8 +109,7 @@ export class Slot {
       track.style.transform = ''; track.replaceChildren(placeholder);
     }
     this.candidatesUI.replaceChildren();
-    const hint = document.createElement('p'); hint.className = 'muted'; hint.textContent = 'SPIN을 누르면 후보가 선택돼요.';
-    this.candidatesUI.append(hint); this.candidateCount.textContent = '0마리';
+    this.candidateCount.textContent = '0마리';
     this.status.textContent = '새로운 카드를 만나보세요.';
   }
   refresh() {
@@ -136,9 +132,7 @@ export class Slot {
     if (!remaining.length) { this.refresh(); return; }
     const config = SLOT_CONFIG[this.grade];
     const candidates = selectCandidates(remaining, config.candidateLimit);
-    this.candidatesUI.replaceChildren(...candidates.map(p => {
-      const item = slotSymbol(p); item.title = `${dexLabel(p.id)} ${p.nameKo}`; return item;
-    }));
+    this.candidatesUI.replaceChildren(...candidates.map(slotSymbol));
     this.candidateCount.textContent = `${candidates.length}마리`;
     const won = Math.random() < config.winRate;
     const result = createResult(candidates, won);
@@ -191,7 +185,7 @@ export class Slot {
               stopped[i] = true;
               this.reels[i].classList.remove('moving', 'blur');
               track.replaceChildren(slotSymbol(result[i]));
-              this.reels[i].setAttribute('aria-label', result[i] ? `${dexLabel(result[i].id)} ${result[i].nameKo}` : 'MISS');
+              this.reels[i].setAttribute('aria-label', result[i] ? '포켓몬 초상화' : '빈 슬롯');
             }
             const bounceT = Math.min(1, (elapsed - end) / (reduced() ? 1 : 220));
             const bounce = bounceT < 0.35 ? 8 * bounceT / 0.35 : bounceT < 0.7 ? 8 - 13 * (bounceT - 0.35) / 0.35 : -5 + 5 * (bounceT - 0.7) / 0.3;
@@ -213,6 +207,7 @@ export class Slot {
     }));
   }
   async celebrate() {
+    await hold(reduced() ? 1 : 180);
     this.shade.style.opacity = '0';
     this.effects.className = `active ${this.grade}`;
     if (this.grade === 'normal') {
@@ -226,10 +221,6 @@ export class Slot {
       await animate(this.shade, [{ opacity: 0 }, { opacity }], this.grade === 'legendary' ? 300 : 400);
       this.shade.style.opacity = String(opacity);
       if (this.grade === 'legendary') {
-        const crack = document.createElement('div'); crack.className = 'effect-crack';
-        this.effects.append(crack);
-        await animate(crack, [{ opacity: 0, scale: '.4' }, { opacity: 1, scale: '1' }], 420);
-        crack.remove();
         this.machine.classList.add('winner');
         await animate(this.app, [{ transform: 'translateX(0)' }, { transform: 'translateX(4px)' }, { transform: 'translateX(-4px)' }, { transform: 'translateX(0)' }], 240);
       }

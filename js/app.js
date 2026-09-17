@@ -1,6 +1,39 @@
-import { loadData } from './data.js';
+import { loadData, TYPES } from './data.js';
 import { Collection, createCard } from './collection.js';
 import { Slot, animate } from './slot.js';
+
+// Inline type pictograms reuse the existing type palette; no asset requests or library.
+const TYPE_SHAPES = {
+  normal: '<circle cx="32" cy="32" r="16" fill="none" stroke="white" stroke-width="8"/>',
+  fire: '<path d="M35 8c3 15 17 20 15 33C48 59 16 59 14 41c-1-10 8-18 12-24-1 12 3 14 6 15 5-8 4-16 3-24z"/>',
+  water: '<path d="M32 7C25 20 13 31 13 41a19 19 0 0038 0C51 31 39 20 32 7z"/>',
+  electric: '<path d="M33 5L13 36h17l-4 23 25-35H35l8-19z"/>',
+  grass: '<path d="M53 10C18 8 7 27 16 44L42 22 22 51C46 60 58 36 53 10z"/>',
+  ice: '<path d="M32 7v50M10 19l44 26M10 45l44-26M24 10l8 8 8-8M24 54l8-8 8 8" fill="none" stroke="white" stroke-width="5"/>',
+  fighting: '<path d="M14 32V20h8V12h8v-2h8v5h8v13h6v15L40 55H24L12 43z"/>',
+  poison: '<path d="M10 30a22 20 0 0144 0v10H44v13h-8V43h-8v10h-8V40H10z"/><circle cx="24" cy="30" r="5" fill="currentColor"/><circle cx="40" cy="30" r="5" fill="currentColor"/>',
+  ground: '<path d="M7 51L23 15h14l20 36H7zm14-8h22L31 25z" fill-rule="evenodd"/>',
+  flying: '<path d="M8 45C10 19 30 13 58 10L40 28H26l-5 5h15l-9 9H17l-5 9z"/>',
+  psychic: '<path d="M30 35c-12-10 6-22 15-10 13 20-21 36-32 13C0 11 43-2 54 20" fill="none" stroke="white" stroke-width="6" stroke-linecap="round"/>',
+  bug: '<ellipse cx="32" cy="36" rx="14" ry="21"/><path d="M22 19L15 8m27 11 7-11M18 29H8m38 0h10M18 43 8 50m38-7 10 7M32 21v35" fill="none" stroke="white" stroke-width="4"/>',
+  rock: '<path d="M9 43L16 18 39 10 55 30 49 51 25 56z"/><path d="M16 18l15 17 24-5M31 35l-6 21" fill="none" stroke="currentColor" stroke-width="3"/>',
+  ghost: '<path d="M11 35a21 24 0 0142 0v18l-10-6-11 8-11-8-10 6z"/><circle cx="24" cy="31" r="4" fill="currentColor"/><circle cx="40" cy="31" r="4" fill="currentColor"/>',
+  dragon: '<path d="M10 53l5-20 14-10-2-15 13 8 13-4-4 20-12 7 3 16-13-9z"/><circle cx="40" cy="24" r="3" fill="currentColor"/>',
+  dark: '<path d="M42 9a24 24 0 100 46A27 27 0 0142 9z"/>',
+  steel: '<path d="M19 9h26l13 23-13 23H19L6 32z"/><circle cx="32" cy="32" r="12" fill="currentColor"/>',
+  fairy: '<path d="M32 5l7 19 20 8-20 7-7 20-8-20-19-7 19-8z"/>',
+};
+function typeImage(type) {
+  const [label, color] = TYPES[type];
+  const image = new Image();
+  image.className = 'reveal-type'; image.alt = label;
+  image.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 80 80">' +
+    '<circle cx="40" cy="40" r="39" fill="' + color + '"/>' +
+    '<g transform="translate(8 8)" fill="white" color="' + color + '">' + TYPE_SHAPES[type] + '</g></svg>');
+  return image;
+}
+const hold = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 export const SAVE_KEY = 'pokemonSlotSaveV1';
 export function readSave(validIds, storage) {
@@ -84,6 +117,9 @@ async function init() {
         card.classList.add('forming');
         card.style.opacity = '0';
         for (const node of [...information, bottom]) node.style.opacity = '0';
+        body.style.filter = 'brightness(0)';
+        body.setAttribute('aria-hidden', 'true');
+        card.setAttribute('aria-hidden', 'true');
         body.style.opacity = '0'; aura.style.opacity = '0'; wave.style.opacity = '0'; orbit.style.opacity = '0';
         ui['reveal-stage'].append(aura, wave, orbit, body);
         slot.shade.style.opacity = '0'; // The modal backdrop now supplies the grade's dimming.
@@ -97,6 +133,15 @@ async function init() {
         body.style.transform = full;
         body.append(artwork);
         try {
+          // Only one type image exists at a time, in the data's original order.
+          for (const type of p.types) {
+            const image = typeImage(type);
+            await image.decode();
+            ui['reveal-stage'].append(image);
+            await hold(550);
+            await animate(image, [{ opacity: 1 }, { opacity: 0 }], 150, { duration: 150 });
+            image.remove();
+          }
           if (grade !== 'normal') {
             body.style.filter = 'brightness(0)';
             if (grade === 'mythical') {
@@ -108,17 +153,19 @@ async function init() {
             if (grade === 'legendary') {
               await animate(aura, [{ opacity: 0, transform: 'scale(.5)' }, { opacity: 1, transform: 'scale(1)' }], 320);
               aura.style.opacity = '1';
-              await animate(ui['reveal-stage'], [{ backgroundColor: 'transparent' }, { backgroundColor: 'rgba(255,230,160,.55)' }, { backgroundColor: 'transparent' }], 120);
+              await animate(ui['reveal-stage'], [{ backgroundColor: 'transparent' },{ backgroundColor: 'transparent' }], 120);
             } else {
               await animate(orbit, [{ opacity: 0, transform: 'rotate(0deg)' }, { opacity: 1, offset: .25 }, { opacity: 0, transform: 'rotate(180deg)' }], 500);
             }
-            await animate(body, [{ filter: 'brightness(0)' }, { filter: 'brightness(1)' }], grade === 'legendary' ? 360 : 450);
+            await animate(body, [{ filter: 'brightness(0)' }, { filter: 'brightness(1)' }], grade === 'legendary' ? 360 : 700);
             body.style.filter = '';
             if (grade === 'mythical') await animate(wave, [{ opacity: .8, transform: 'scale(.3)' }, { opacity: 0, transform: 'scale(1.4)' }], 400);
           } else {
             await animate(body, [{ opacity: 0, transform: 'translateY(' + (offsetY + 18) + 'px) scale(.91)' }, { opacity: 1, transform: 'translateY(' + offsetY + 'px) scale(1.404)', offset: .7 }, { opacity: 1, transform: full }], 360);
             body.style.opacity = '1';
             await animate(body, [{ transform: full }, { transform: 'translateY(' + (offsetY - 10) + 'px) scale(1.3)' }, { transform: full }], 260);
+            await animate(body, [{ filter: 'brightness(0)' }, { filter: 'brightness(1)' }], 220);
+            body.style.filter = '';
           }
           await animate(card, grade === 'mythical'
             ? [{ opacity: 0, clipPath: 'inset(0 100% 100% 0 round 22px)' }, { opacity: 1, clipPath: 'inset(0 round 22px)' }]
@@ -134,11 +181,14 @@ async function init() {
             node.style.opacity = '1';
             if (index === 2) bottom.style.opacity = '1';
           }));
+          card.removeAttribute('aria-hidden');
           ui['card-modal'].classList.remove('revealing');
           await animate(ui['modal-title'], [{ opacity: 0 }, { opacity: 1 }], grade === 'normal' ? 220 : grade === 'legendary' ? 260 : 280);
         } finally {
           illustration.append(artwork);
           body.remove(); aura.remove(); wave.remove(); orbit.remove();
+          ui['reveal-stage'].querySelector('.reveal-type')?.remove();
+          card.removeAttribute('aria-hidden');
           card.classList.remove('forming'); card.style.opacity = '';
           for (const node of [...information, bottom]) node.style.opacity = '';
           ui['card-modal'].classList.remove('revealing');
