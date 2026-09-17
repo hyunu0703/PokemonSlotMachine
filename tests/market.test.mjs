@@ -2,9 +2,9 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { performance } from 'node:perf_hooks';
 import { validateData } from '../js/data.js';
-import { readSave, SAVE_KEY } from '../js/storage.js';
+import { readSave, writeSave, encodeSave, decodeSave, SAVE_KEY } from '../js/storage.js';
 import { SLOT_CONFIG, selectCandidates, createResult, Slot } from '../js/slot.js';
-import { MARKET_CONFIG as C, createMarket, validMarket, advanceMarket, marketTick, generateNews, newsModifiers, shockChange, changePercent, priceHistory, acquire, spend, sell, assets } from '../js/market.js';
+import { MARKET_CONFIG as C, createMarket, validMarket, advanceMarket, marketTick, generateNews, newsModifiers, shockChange, changePercent, priceHistory, marketReturn, acquire, spend, sell, assets } from '../js/market.js';
 
 const data = validateData(JSON.parse(fs.readFileSync(new URL('../data/pokemon-data.json', import.meta.url))));
 const store = value => ({ getItem: key => key === SAVE_KEY ? JSON.stringify(value) : null });
@@ -16,6 +16,7 @@ const now = new Date(2026, 8, 17, 7, 55).getTime();
 const save = readSave(data.ids, store({ version: 1, collectedIds: [1, 1, 150, -1, 2000], soundEnabled: false }));
 const ids = new Set(save.collectedIds);
 save.market = createMarket(data.records, now, random);
+save.version = 4;
 
 test('V1 migration, unique discovery and initial TC', () => {
   assert.deepEqual(save.collectedIds, [1, 150]); assert.equal(save.quantity[1], 1); assert.equal(save.tc, C.initialTC); assert.equal(save.soundEnabled, false);
@@ -221,5 +222,84 @@ test('fractional average stays unrounded through partial sale and last sale clea
   sell(wallet,1); assert.equal(wallet.averageAcquisitionPrice[1],average);
   sell(wallet,1); assert.equal(wallet.averageAcquisitionPrice[1],average);
   sell(wallet,1); assert.equal(wallet.averageAcquisitionPrice[1],undefined);
+});
+test('trade totals match exact tick prices through rollover and migration offset', () => {
+  for (const oldTicks of [0,37,300]) {
+    const m=createMarket(small,now,random);
+    advanceMarket(m,small,now+oldTicks*C.tickMs,random,oldTicks,false);
+    let c=m.cards[1],volumes=c.trade24h.volumes;const expected=[];
+    for(let i=1;i<=450;i++) {
+      marketTick(m,small,random);
+      const t=c.trade24h;assert.equal(t.volumes,volumes);
+      const volume=t.volumes[(m.trade24h.head+143)%144];expected.push({volume,amount:volume*c.currentPrice});
+      if(expected.length>144)expected.shift();
+      assert.equal(m.trade24h.count,Math.min(i,144));assert.equal(t.volumes.length,Math.min(i,144));
+      assert.equal(t.volumeTotal,expected.reduce((sum,x)=>sum+x.volume,0));
+      assert.equal(t.amountTotal,expected.reduce((sum,x)=>sum+x.amount,0));
+      assert.deepEqual(Object.keys(t).sort(),['amountTotal','volumeTotal','volumes']);
+      if(i===147){const loaded=readSave(data.ids,store({...save,market:m}));assert.deepEqual(loaded.market,m);Object.assign(m,loaded.market);c=m.cards[1];volumes=c.trade24h.volumes;}
+    }
+  }
+});
+test('trade endpoints and amounts use finalized current tick price', () => {
+  const m=createMarket(small,now,()=>.5),c=m.cards[1];m.overall.state=m.sectors.normal.state='NORMAL';
+  for(const [quote,roll,volume,total] of [[1000,.999,100,100000],[1100,.799,80,188000],[1000,0,1,189000]]) {
+    c.currentPrice=c.fairPrice=quote;c.volatility=1e-10;c.trend=0;c.trendRemaining=18;c.momentum=0;
+    // Zero would trigger a shock; the reused price draw is the only zero in this tick.
+    let draws=0;marketTick(m,small,()=>++draws===1?roll:.999);
+    assert.equal(c.currentPrice,quote);assert.equal(c.trade24h.volumes.at(-1),volume);assert.equal(c.trade24h.amountTotal,total);
+  }
+});
+test('market return uses oldest available price in O(1), including wrapped history', () => {
+  const m=createMarket(small,now,random),c=m.cards[1];assert.equal(marketReturn(c),0);
+  const quotes=[c.currentPrice];
+  for(let i=1;i<=300;i++){marketTick(m,small,random);quotes.push(c.currentPrice);const base=quotes[Math.max(0,quotes.length-145)];assert.equal(marketReturn(c),(c.currentPrice-base)/base*100);}
+  for(const value of [0,undefined,NaN,Infinity]){const bad=structuredClone(c);bad.priceHistory.values[bad.priceHistory.head]=value;assert.equal(marketReturn(bad),0);}
+});
+test('migration catchup is price-only; next saved version accumulates trade history', () => {
+  const original=createMarket(small,now,random);delete original.trade24h;delete original.cards[1].trade24h;
+  const loaded=readSave(data.ids,store({...save,version:3,market:original}));assert.equal(loaded.version,3);
+  advanceMarket(loaded.market,small,now+300*C.tickMs,random,300,false);
+  assert.deepEqual(loaded.market.trade24h,{head:0,count:0});assert.deepEqual(loaded.market.cards[1].trade24h,{volumes:[],volumeTotal:0,amountTotal:0});
+  loaded.version=4;const reloaded=readSave(data.ids,store(loaded));advanceMarket(reloaded.market,small,now+600*C.tickMs,random,300);
+  assert.equal(reloaded.market.trade24h.count,144);assert.ok(reloaded.market.cards[1].trade24h.amountTotal>0);
+});
+test('trade storage stays bounded after 7/30/365 days', () => {
+  const m=createMarket(small,now,random);
+  for(const days of [7,30,365]) {
+    advanceMarket(m,small,now+days*86400000,random,days*144);
+    assert.equal(m.trade24h.count,144);assert.equal(m.cards[1].trade24h.volumes.length,144);
+    assert.ok(validMarket(m,small));
+  }
+});
+test('synchronous compression is lossless for Unicode, repetition, dictionary saturation and random input', () => {
+  let state=314159;const next=()=>((state=(Math.imul(state,1664525)+1013904223)>>>0)/4294967296);
+  const texts=['','{}','a'.repeat(100000),JSON.stringify({text:'포켓몬 🎉 \u0000',number:1033.3333333333333}),
+    JSON.stringify(Array.from({length:100000},()=>Math.floor(next()*1e12)))];
+  for(const text of texts)assert.equal(decodeSave(encodeSave(text)),text);
+  for(let i=0;i<100;i++){const text=JSON.stringify(Array.from({length:i*7},()=>String.fromCharCode(Math.floor(next()*65536))));assert.equal(decodeSave(encodeSave(text)),text);}
+});
+test('damaged compression is rejected and failed writes preserve old data', () => {
+  const encoded=encodeSave(JSON.stringify({...save,market:createMarket(small,now,random)}));
+  const start=encoded.indexOf(':',encoded.indexOf(':',5)+1)+1;
+  for(const bad of [encoded.slice(0,-1),encoded+'x',encoded.slice(0,start)+'\uffff'+encoded.slice(start+1),encoded.replace(/^PSZ1:/,'PSZ2:'),encoded.replace(/^PSZ1:[^:]+:/,'PSZ1:999999999999999:'),encoded.replace(/^PSZ1:(\d+):[0-9a-f]+:/,'PSZ1:$1:0:')]){
+    const storage={getItem:()=>bad,setItem:()=>assert.fail('corrupt input was overwritten')};
+    assert.throws(()=>readSave(data.ids,storage),/원본 저장은 보존/);
+  }
+  let raw=encoded;assert.throws(()=>writeSave(save,{setItem(){throw Error('QuotaExceededError');}}));assert.equal(raw,encoded);
+});
+test('7/30/365-day complete saves compress below 4 MiB and reload identically', () => {
+  let state=7654;const next=()=>((state=(Math.imul(state,1664525)+1013904223)>>>0)/4294967296);
+  const start=1700000000000,market=createMarket(data.records,start,next);
+  const full={version:4,collectedIds:data.records.map(p=>p.id),quantity:Object.fromEntries(data.records.map(p=>[p.id,100])),
+    averageAcquisitionPrice:Object.fromEntries(data.records.map(p=>[p.id,market.cards[p.id].currentPrice])),tc:500000,soundEnabled:true,musicEnabled:true,market};
+  let raw;const storage={getItem:()=>raw,setItem:(key,value)=>{assert.equal(key,SAVE_KEY);raw=value;}};
+  for(const days of [7,30,365]){
+    advanceMarket(market,data.records,start+days*86400000,next,days*144);
+    const json=JSON.stringify(full),before=2*(SAVE_KEY.length+json.length),time=performance.now();writeSave(full,storage);
+    const after=2*(SAVE_KEY.length+raw.length),elapsed=performance.now()-time;
+    assert.equal(decodeSave(raw),json);assert.deepEqual(readSave(data.ids,storage),full);assert.equal(JSON.stringify(full),json);
+    assert.ok(after<4*1024*1024);console.log(days+' days: '+(before/1024/1024).toFixed(3)+' / '+(after/1024/1024).toFixed(3)+' MiB, reduction '+((1-after/before)*100).toFixed(1)+'%, encode '+elapsed.toFixed(0)+' ms');
+  }
 });
 console.log(`${passed} test groups passed.`);

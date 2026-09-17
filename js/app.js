@@ -1,4 +1,4 @@
-import { SAVE_KEY, readSave } from './storage.js';
+import { SAVE_KEY, readSave, writeSave } from './storage.js';
 export { SAVE_KEY, readSave } from './storage.js';
 import { createMarket, validMarket, advanceMarket, MARKET_CONFIG, spend, acquire, sell } from './market.js';
 import { MarketView, money } from './market-view.js';
@@ -59,7 +59,7 @@ async function init() {
     const updateWallet = () => { byId('wallet').textContent = money(save.tc); };
     const persist = () => {
       save.collectedIds = [...ids];
-      try { localStorage.setItem(SAVE_KEY, JSON.stringify(save)); }
+      try { writeSave(save); }
       catch { toast('저장 공간을 사용할 수 없어 이번 변경을 저장하지 못했습니다.'); }
     };
     const showPage = page => {
@@ -216,7 +216,7 @@ async function init() {
       let result, updated = false;
       try {
         do {
-          result = advanceMarket(save.market, data.records, now);
+          result = advanceMarket(save.market, data.records, now, Math.random, 36, save.version >= 4);
           updated ||= result.ticks > 0;
           if (result.remaining) {
             byId('market-time').textContent = '시장 기록을 반영하는 중… 남은 ' + result.remaining + ' Tick';
@@ -229,6 +229,7 @@ async function init() {
             save.averageAcquisitionPrice[id] = quote; updated = true;
           }
         }
+        if (save.version < 4) { save.version = 4; updated = true; }
         if (updated) { persist(); marketView.render(); }
       } finally { marketUpdating = false; slot.refresh(); }
     }

@@ -1,5 +1,5 @@
 import { GRADES, imageOrPlaceholder } from './data.js';
-import { assets, changePercent, priceHistory, MARKET_CONFIG } from './market.js';
+import { assets, changePercent, priceHistory, marketReturn, MARKET_CONFIG } from './market.js';
 
 export const money = n => n.toLocaleString('ko-KR') + ' TC';
 const percent = n => n === null ? '기록 부족' : `${n > 0 ? '+' : ''}${n.toFixed(2)}%`;
@@ -91,8 +91,9 @@ export class MarketView {
     const grade = this.ui['market-grade'].value, query = this.ui['market-search'].value.trim().toLowerCase(), sort = this.ui['market-sort'].value;
     const market = this.save.market;
     const records = this.data.records.filter(p => (grade === 'all' || grade === p.grade) && (!query || p.nameKo.includes(query) || p.nameEn.toLowerCase().includes(query) || String(p.id) === query));
-    const value = p => sort === 'quantity' ? this.save.quantity[p.id] ?? 0 : sort === 'change' ? changePercent(market.cards[p.id]) ?? 0 : market.cards[p.id].currentPrice;
-    records.sort((a, b) => value(b) - value(a) || a.id - b.id);
+    const value = p => sort === 'amount' ? market.cards[p.id].trade24h.amountTotal
+      : sort === 'volume' ? market.cards[p.id].trade24h.volumeTotal : marketReturn(market.cards[p.id]);
+    records.sort((a, b) => sort === 'return-low' ? value(a) - value(b) : value(b) - value(a));
     const pages = Math.max(1, Math.ceil(records.length / this.pageSize)); this.page = Math.max(0, Math.min(this.page, pages - 1));
     this.ui['market-rows'].replaceChildren(...records.slice(this.page * this.pageSize, (this.page + 1) * this.pageSize).map(p => {
       const row = node('tr', ''), c = market.cards[p.id], change = changePercent(c);

@@ -19,6 +19,13 @@ const regime = random => ({ state: Object.keys(STATE_BIAS)[integer(0, 3, random)
 
 const hourMs = MARKET_CONFIG.tickMs * 6;
 const buffer = () => ({ values: [], head: 0, count: 0 });
+const tradeBuffer = () => ({ volumes: [], volumeTotal: 0, amountTotal: 0 });
+function appendTrade(trade, index, volume, quote, oldQuote) {
+  const oldVolume = trade.volumes[index] ?? 0;
+  trade.volumeTotal += volume - oldVolume;
+  trade.amountTotal = trade.amountTotal - oldQuote * oldVolume + quote * volume;
+  trade.volumes[index] = volume;
+}
 function append(history, value, limit) {
   history.values[history.head] = value;
   history.head = (history.head + 1) % limit;
@@ -36,7 +43,9 @@ function updateStats(card, value) {
 
 export function migrateMarket(market) {
   if (!market?.cards || !Number.isFinite(market.lastMarketUpdate)) return market;
+  market.trade24h = { head: 0, count: 0 };
   for (const c of Object.values(market.cards)) {
+    if (c && typeof c === 'object') c.trade24h = tradeBuffer();
     if (!Array.isArray(c?.priceHistory) || !c.priceHistory.length
       || !c.priceHistory.every(n => Number.isFinite(n) && n >= 1 && n <= 1e12)) continue;
     const old = c.priceHistory;
@@ -74,11 +83,11 @@ export function createMarket(records, now = Date.now(), random = Math.random) {
       const startingPrice = price(config.average * weight(p.id) / mean);
       cards[p.id] = { cardId: p.id, rarity: grade, startingPrice, fairPrice: startingPrice,
         currentPrice: startingPrice, volatility: config.volatility, trend: 0,
-        trendStrength: 0, trendRemaining: 0, momentum: 0, priceHistory: buffer(), hourlyHistory: buffer(),
+        trendStrength: 0, trendRemaining: 0, momentum: 0, trade24h: tradeBuffer(), priceHistory: buffer(), hourlyHistory: buffer(),
         highestPrice: startingPrice, lowestPrice: startingPrice, averagePrice: startingPrice, sampleCount: 1 };
     }
   }
-  return { cards, overall: regime(random), sectors, lastMarketUpdate: now, activeNews: [], newsHistory: [], newsSlots: [] };
+  return { cards, trade24h: { head: 0, count: 0 }, overall: regime(random), sectors, lastMarketUpdate: now, activeNews: [], newsHistory: [], newsSlots: [] };
 }
 
 export function validMarket(market, records) {
@@ -95,6 +104,9 @@ export function validMarket(market, records) {
     && Number.isInteger(n.duration) && n.duration > 0 && n.duration <= 12
     && Number.isInteger(n.remaining) && n.remaining >= 0 && n.remaining <= n.duration && Number.isFinite(n.time);
   return !!market && Number.isFinite(market.lastMarketUpdate) && market.lastMarketUpdate >= 0
+    && Number.isInteger(market.trade24h?.head) && market.trade24h.head >= 0 && market.trade24h.head < MARKET_CONFIG.historyLimit
+    && Number.isInteger(market.trade24h.count) && market.trade24h.count >= 0 && market.trade24h.count <= MARKET_CONFIG.historyLimit
+    && (market.trade24h.count === MARKET_CONFIG.historyLimit || market.trade24h.head === market.trade24h.count)
     && stateOK(market.overall) && Object.keys(MARKET_CONFIG.grades).every(g => stateOK(market.sectors?.[g]))
     && Array.isArray(market.activeNews) && market.activeNews.length <= 40 && market.activeNews.every(newsOK)
     && Array.isArray(market.newsHistory) && market.newsHistory.length <= MARKET_CONFIG.newsLimit && market.newsHistory.every(newsOK)
@@ -107,6 +119,11 @@ export function validMarket(market, records) {
         && Number.isInteger(c.trendRemaining) && c.trendRemaining >= 0 && c.trendRemaining <= 18
         && Number.isFinite(c.momentum) && Math.abs(c.momentum) <= .08
         && bufferOK(c.priceHistory, MARKET_CONFIG.historyLimit) && bufferOK(c.hourlyHistory, MARKET_CONFIG.hourlyHistoryLimit)
+        && Array.isArray(c.trade24h?.volumes) && c.trade24h.volumes.length === market.trade24h.count
+        && c.trade24h.volumes.every(n => Number.isInteger(n) && n >= 1 && n <= 100)
+        && Number.isInteger(c.trade24h.volumeTotal) && c.trade24h.volumeTotal === c.trade24h.volumes.reduce((sum, n) => sum + n, 0)
+        && Number.isFinite(c.trade24h.amountTotal) && c.trade24h.amountTotal >= 0
+        && c.priceHistory.count >= market.trade24h.count
         && [c.highestPrice, c.lowestPrice, c.averagePrice].every(positive)
         && c.lowestPrice <= c.averagePrice && c.averagePrice <= c.highestPrice
         && Number.isSafeInteger(c.sampleCount) && c.sampleCount > 0;
@@ -169,7 +186,7 @@ export function shockChange(grade, up, random = Math.random) {
   return config.surge.at(-1)[2];
 }
 
-export function marketTick(market, records, random = Math.random) {
+export function marketTick(market, records, random = Math.random, recordTrades = true) {
   const time = market.lastMarketUpdate + MARKET_CONFIG.tickMs;
   for (const n of market.activeNews) n.remaining--;
   market.activeNews = market.activeNews.filter(n => n.remaining > 0);
@@ -190,7 +207,8 @@ export function marketTick(market, records, random = Math.random) {
     const bias = STATE_BIAS[market.overall.state] + STATE_BIAS[market.sectors[p.grade].state] * .7 + newsBias;
     const momentum = c.momentum * (.18 + Math.min(activity, .5));
     const sideways = market.overall.state === 'SIDEWAYS' ? .65 : 1;
-    let change = bias + c.trend * c.trendStrength + momentum + between(-1, 1, random) * c.volatility * (1 + activity) * sideways;
+    const tickRandom = random();
+    let change = bias + c.trend * c.trendStrength + momentum + (-1 + 2 * tickRandom) * c.volatility * (1 + activity) * sideways;
     if (random() < config.shockChance * (1 + activity)) {
       const upChance = clamp(.5 + bias * 12 + momentum * 4, .08, .92);
       change = shockChange(p.grade, random() < upChance, random);
@@ -204,24 +222,38 @@ export function marketTick(market, records, random = Math.random) {
     c.fairPrice = clamp(c.fairPrice * (1 + bias * .03) + (c.currentPrice - c.fairPrice) * .002, 1, 1e12);
     const next = price(c.currentPrice * (1 + change));
     c.momentum = clamp(c.momentum * .65 + (next / c.currentPrice - 1) * .35, -.08, .08);
+    // Price history excludes currentPrice: the outgoing trade is 143 ticks behind it.
+    const oldQuote = recordTrades && market.trade24h.count === MARKET_CONFIG.historyLimit
+      ? previous(c.priceHistory, MARKET_CONFIG.historyLimit - 1) : 0;
     append(c.priceHistory, c.currentPrice, MARKET_CONFIG.historyLimit);
     c.currentPrice = next;
     if (Math.floor(time / hourMs) > Math.floor(market.lastMarketUpdate / hourMs)) append(c.hourlyHistory, next, MARKET_CONFIG.hourlyHistoryLimit);
     updateStats(c, next);
+    if (recordTrades) appendTrade(c.trade24h, market.trade24h.head, integer(1, 100, () => tickRandom), next, oldQuote);
+  }
+  if (recordTrades) {
+    market.trade24h.head = (market.trade24h.head + 1) % MARKET_CONFIG.historyLimit;
+    market.trade24h.count = Math.min(market.trade24h.count + 1, MARKET_CONFIG.historyLimit);
   }
   market.lastMarketUpdate = time;
 }
 
-export function advanceMarket(market, records, now = Date.now(), random = Math.random, maxTicks = 36) {
+export function advanceMarket(market, records, now = Date.now(), random = Math.random, maxTicks = 36, recordTrades = true) {
   const elapsed = Math.max(0, Math.floor((now - market.lastMarketUpdate) / MARKET_CONFIG.tickMs));
   const ticks = Math.min(elapsed, maxTicks);
-  for (let i = 0; i < ticks; i++) marketTick(market, records, random);
+  for (let i = 0; i < ticks; i++) marketTick(market, records, random, recordTrades);
   return { ticks, remaining: elapsed - ticks };
 }
 
 export function changePercent(card, ticks = 1) {
   const value = previous(card.priceHistory, ticks);
   return value === undefined ? null : (card.currentPrice / value - 1) * 100;
+}
+export function marketReturn(card) {
+  const base = previous(card.priceHistory, card.priceHistory.count);
+  if (!Number.isFinite(base) || base <= 0 || !Number.isFinite(card.currentPrice)) return 0;
+  const result = (card.currentPrice - base) / base * 100;
+  return Number.isFinite(result) ? result : 0;
 }
 export function assets(save) {
   const cards = Object.entries(save.quantity).reduce((sum, [id, count]) => sum + count * (save.market.cards[id]?.currentPrice ?? 0), 0);
