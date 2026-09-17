@@ -1,9 +1,9 @@
 import { GRADES, imageOrPlaceholder, preloadImages } from './data.js';
 
 export const SLOT_CONFIG = Object.freeze({
-  normal: Object.freeze({ total: 931, candidateLimit: 10, winRate: 0.50, stops: [1900, 2100, 2300] }),
-  legendary: Object.freeze({ total: 71, candidateLimit: 7, winRate: 0.20, stops: [2100, 2350, 2600] }),
-  mythical: Object.freeze({ total: 23, candidateLimit: 4, winRate: 0.10, stops: [2250, 2525, 2800] }),
+  normal: Object.freeze({ cost: 1000, total: 931, candidateLimit: 10, winRate: 0.50, stops: [1900, 2100, 2300] }),
+  legendary: Object.freeze({ cost: 25000, total: 71, candidateLimit: 7, winRate: 0.20, stops: [2100, 2350, 2600] }),
+  mythical: Object.freeze({ cost: 150000, total: 23, candidateLimit: 4, winRate: 0.10, stops: [2250, 2525, 2800] }),
 });
 
 export function selectCandidates(remaining, limit, random = Math.random) {
@@ -65,8 +65,9 @@ function travel(t, end) {
 }
 
 export class Slot {
-  constructor(data, ids, { onBusy, onWin, onCollect }) {
+  constructor(data, ids, { onBusy, onWin, onCollect, onStart, canSpend }) {
     this.data = data; this.ids = ids; this.onBusy = onBusy; this.onWin = onWin; this.onCollect = onCollect;
+    this.onStart = onStart; this.canSpend = canSpend;
     this.grade = 'normal'; this.isSpinning = false;
     this.pools = { normal: [], legendary: [], mythical: [] };
     for (const p of data.records) this.pools[p.grade].push(p);
@@ -77,6 +78,7 @@ export class Slot {
     this.spinButton = document.getElementById('spin');
     this.title = document.getElementById('slot-title');
     this.rate = document.getElementById('win-rate');
+    this.costLabel = document.getElementById('slot-cost');
     this.remainingLabel = document.getElementById('remaining');
     this.status = document.getElementById('slot-status');
     this.candidatesUI = document.getElementById('candidates');
@@ -101,7 +103,7 @@ export class Slot {
     });
     this.resetVisuals(); this.refresh();
   }
-  remaining() { return this.pools[this.grade].filter(p => !this.ids.has(p.id)); }
+  remaining() { return this.pools[this.grade]; }
   resetVisuals() {
     for (const track of this.tracks) {
       const placeholder = document.createElement('div');
@@ -118,7 +120,8 @@ export class Slot {
     this.title.textContent = `${GRADES[this.grade]} 슬롯`;
     this.rate.textContent = `${SLOT_CONFIG[this.grade].winRate * 100}%`;
     this.remainingLabel.textContent = `${count} / ${this.data.counts[this.grade]}`;
-    this.spinButton.disabled = this.isSpinning || count === 0;
+    this.spinButton.disabled = this.isSpinning || count === 0 || !this.canSpend(SLOT_CONFIG[this.grade].cost);
+    this.costLabel.textContent = SLOT_CONFIG[this.grade].cost.toLocaleString('ko-KR') + ' TC';
     this.spinButton.firstChild.textContent = count ? 'SPIN ' : 'COMPLETE ';
     if (!count) this.status.textContent = 'COMPLETE · 모든 카드를 수집했습니다.';
     for (const tab of this.tabs) {
@@ -131,11 +134,14 @@ export class Slot {
     const remaining = this.remaining();
     if (!remaining.length) { this.refresh(); return; }
     const config = SLOT_CONFIG[this.grade];
+    if (!this.onStart(config.cost)) { this.status.textContent = 'TC가 부족하거나 시장을 갱신 중입니다.'; this.refresh(); return; }
     const candidates = selectCandidates(remaining, config.candidateLimit);
     this.candidatesUI.replaceChildren(...candidates.map(slotSymbol));
     this.candidateCount.textContent = `${candidates.length}마리`;
     const won = Math.random() < config.winRate;
     const result = createResult(candidates, won);
+    // Persist the outcome together with the charged spin before any asynchronous animation.
+    if (won) this.onCollect(result[0]);
     this.isSpinning = true; this.onBusy(true); this.refresh();
     this.status.textContent = '새로운 만남을 기다리는 중…';
     try {
@@ -144,7 +150,6 @@ export class Slot {
       if (won) {
         await this.celebrate();
         await this.onWin(result[0], this.grade);
-        this.onCollect(result[0]);
         this.status.textContent = `${result[0].nameKo} 카드를 획득했습니다!`;
       } else {
         this.status.textContent = '아쉬워요! 다시 한번 돌려볼까요?';

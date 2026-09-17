@@ -49,8 +49,9 @@ export function collectionCounts(records, ids) {
 }
 
 export class Collection {
-  constructor(data, ids, onCard) {
+  constructor(data, ids, onCard, quantity = {}) {
     this.data = data; this.ids = ids;
+    this.quantity = quantity;
     this.filters = { grade: 'all', generation: 'all', type: 'all', search: '' };
     this.grid = document.getElementById('card-grid');
     this.tabs = [...document.querySelectorAll('#collection-tabs button')];
@@ -91,6 +92,7 @@ export class Collection {
       button.dataset.id = p.id;
       button.setAttribute('aria-label', `${dexLabel(p.id)} ${acquired ? p.nameKo : '미획득'}`);
       button.append(createCard(p, acquired, true));
+      if (acquired) button.append(element('span', 'quantity-badge', `보유 ${this.quantity[p.id] ?? 0}장`));
       fragment.append(button); this.buttons.set(p.id, button);
     }
     this.grid.replaceChildren(fragment);

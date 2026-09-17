@@ -1,3 +1,7 @@
+import { SAVE_KEY, readSave } from './storage.js';
+export { SAVE_KEY, readSave } from './storage.js';
+import { createMarket, validMarket, advanceMarket, MARKET_CONFIG, spend, acquire, sell } from './market.js';
+import { MarketView, money } from './market-view.js';
 import { loadData, TYPES } from './data.js';
 import { Collection, createCard } from './collection.js';
 import { Slot, animate } from './slot.js';
@@ -35,22 +39,6 @@ function typeImage(type) {
 }
 const hold = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-export const SAVE_KEY = 'pokemonSlotSaveV1';
-export function readSave(validIds, storage) {
-  const defaults = { version: 1, collectedIds: [], soundEnabled: true, musicEnabled: true };
-  try {
-    storage ??= globalThis.localStorage;
-    const parsed = JSON.parse(storage.getItem(SAVE_KEY));
-    if (!parsed || parsed.version !== 1) return defaults;
-    return {
-      version: 1,
-      collectedIds: [...new Set((Array.isArray(parsed.collectedIds) ? parsed.collectedIds : []).filter(id => Number.isInteger(id) && validIds.has(id)))],
-      soundEnabled: typeof parsed.soundEnabled === 'boolean' ? parsed.soundEnabled : true,
-      musicEnabled: typeof parsed.musicEnabled === 'boolean' ? parsed.musicEnabled : true,
-    };
-  } catch { return defaults; }
-}
-
 async function init() {
   const byId = id => document.getElementById(id);
   const ui = Object.fromEntries(['app', 'load-status', 'home-count', 'home-percent', 'home-progress', 'card-modal', 'modal-title', 'modal-card', 'reveal-stage', 'win-actions', 'card-close', 'continue', 'view-collection', 'reset-modal', 'sound', 'music', 'toast'].map(id => [id, byId(id)]));
@@ -65,6 +53,10 @@ async function init() {
     const data = await loadData();
     const save = readSave(data.ids);
     const ids = new Set(save.collectedIds);
+    if (!validMarket(save.market, data.records)) save.market = createMarket(data.records);
+    let marketUpdating = false;
+    let marketView;
+    const updateWallet = () => { byId('wallet').textContent = money(save.tc); };
     const persist = () => {
       save.collectedIds = [...ids];
       try { localStorage.setItem(SAVE_KEY, JSON.stringify(save)); }
@@ -77,28 +69,37 @@ async function init() {
         if (button.dataset.page === page) button.setAttribute('aria-current', 'page');
         else button.removeAttribute('aria-current');
       }
+      if (page === 'market') { marketView?.render(); void catchUp(); }
+      if (page === 'collection') collection.render();
       window.scrollTo({ top: 0, behavior: 'instant' });
     };
     const closeCard = () => { if (!revealing) ui['card-modal'].close(); };
     const collection = new Collection(data, ids, p => {
       if (!ids.has(p.id)) { toast('아직 획득하지 않은 포켓몬입니다.'); return; }
-      ui['modal-title'].textContent = p.nameKo;
+      ui['modal-title'].textContent = `${p.nameKo} · 보유 ${save.quantity[p.id] ?? 0}장`;
       ui['modal-card'].replaceChildren(createCard(p));
       ui['win-actions'].hidden = true;
       ui['card-modal'].className = 'detail';
       ui['card-modal'].showModal();
-    });
+    }, save.quantity);
     const sync = () => {
       ui['home-count'].textContent = `${ids.size} / ${data.records.length}`;
       ui['home-percent'].textContent = `${(ids.size / data.records.length * 100).toFixed(1)}%`;
       ui['home-progress'].value = ids.size;
-      slot.refresh(); collection.render();
+      updateWallet(); slot.refresh();
+      if (!byId('collection').hidden) collection.render();
+      marketView?.render();
     };
     const slot = new Slot(data, ids, {
+      canSpend(cost) { return !marketUpdating && save.tc >= cost; },
+      onStart(cost) {
+        if (marketUpdating || !spend(save, cost)) return false;
+        persist(); updateWallet(); return true;
+      },
       onBusy(value) { busy = value; for (const button of nav) button.disabled = value; },
       async onWin(p, grade) {
         revealing = true; lastAcquired = p.id;
-        ui['modal-title'].textContent = grade === 'normal' ? 'NEW CARD!' : grade === 'legendary' ? 'LEGENDARY' : 'MYTHICAL DISCOVERED';
+        ui['modal-title'].textContent = save.quantity[p.id] > 1 ? `DUPLICATE · 보유 ${save.quantity[p.id]}장` : grade === 'normal' ? 'NEW CARD!' : grade === 'legendary' ? 'LEGENDARY' : 'MYTHICAL DISCOVERED';
         const card = createCard(p);
         ui['modal-card'].replaceChildren(card);
         ui['win-actions'].hidden = false;
@@ -192,15 +193,39 @@ async function init() {
           card.classList.remove('forming'); card.style.opacity = '';
           for (const node of [...information, bottom]) node.style.opacity = '';
           ui['card-modal'].classList.remove('revealing');
+          revealing = false;
+          ui['continue'].disabled = false; ui['view-collection'].disabled = false; ui['card-close'].disabled = false;
+          ui['continue'].focus();
         }
       },
-      onCollect(p) {
-        if (!ids.has(p.id)) { ids.add(p.id); persist(); sync(); }
-        revealing = false;
-        ui['continue'].disabled = false; ui['view-collection'].disabled = false; ui['card-close'].disabled = false;
-        ui['continue'].focus();
-      },
+      onCollect(p) { acquire(save, ids, p.id); persist(); sync(); },
     });
+    marketView = new MarketView(data, save, (id, all) => {
+      if (marketUpdating || busy) return;
+      // Settle elapsed time first so a sale always uses the current market quote.
+      if (Date.now() - save.market.lastMarketUpdate >= MARKET_CONFIG.tickMs) {
+        void catchUp(); toast('시장 가격을 갱신했습니다. 현재 가격을 확인한 뒤 매도해 주세요.'); return;
+      }
+      const proceeds = sell(save, id, all);
+      if (proceeds) { persist(); sync(); toast(money(proceeds) + '를 받았습니다.'); }
+    });
+    async function catchUp() {
+      if (marketUpdating) return;
+      marketUpdating = true; slot.refresh();
+      const now = Date.now();
+      let result, updated = false;
+      try {
+        do {
+          result = advanceMarket(save.market, data.records, now);
+          updated ||= result.ticks > 0;
+          if (result.remaining) {
+            byId('market-time').textContent = '시장 기록을 반영하는 중… 남은 ' + result.remaining + ' Tick';
+            await hold(0);
+          }
+        } while (result.remaining);
+        if (updated) { persist(); marketView.render(); }
+      } finally { marketUpdating = false; slot.refresh(); }
+    }
     for (const button of nav) button.addEventListener('click', () => showPage(button.dataset.page));
     document.querySelector('.brand').addEventListener('click', event => { event.preventDefault(); showPage('home'); });
     byId('start').addEventListener('click', () => showPage('slot'));
@@ -217,11 +242,16 @@ async function init() {
     byId('reset-open').addEventListener('click', () => { if (!busy) ui['reset-modal'].showModal(); });
     byId('reset-cancel').addEventListener('click', () => ui['reset-modal'].close());
     byId('reset-confirm').addEventListener('click', () => {
-      if (busy) return;
-      ids.clear(); persist(); slot.resetVisuals(); sync(); ui['reset-modal'].close();
-      toast('수집 데이터가 초기화되었습니다.');
+      if (busy || marketUpdating) return;
+      ids.clear(); for (const id of Object.keys(save.quantity)) delete save.quantity[id];
+      save.tc = MARKET_CONFIG.initialTC; save.market = createMarket(data.records);
+      persist(); slot.resetVisuals(); sync(); ui['reset-modal'].close();
+      toast('수집·TC·시장 데이터가 초기화되었습니다.');
     });
-    persist(); sync(); showPage('home');
+    await catchUp(); persist(); sync(); showPage('home');
+    setInterval(() => { void catchUp(); }, 15000);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) void catchUp(); });
+    window.addEventListener('focus', () => { void catchUp(); });
     ui['load-status'].hidden = true; ui.app.setAttribute('aria-busy', 'false');
   } catch (error) {
     ui['load-status'].textContent = `${error.message} 정적 파일을 제공하는 로컬 미리보기에서 열어주세요.`;
