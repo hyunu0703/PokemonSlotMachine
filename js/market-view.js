@@ -13,12 +13,16 @@ const node = (tag, text, className = '') => {
 export class MarketView {
   constructor(data, save, onSell) {
     this.data = data; this.save = save; this.selected = data.records[0].id;
-    this.page = 0; this.pageSize = 25; this.period = '1H';
-    this.ui = Object.fromEntries(['market', 'market-assets', 'market-detail', 'market-news', 'market-rows', 'market-grade', 'market-search', 'market-sort', 'market-page', 'market-prev', 'market-next', 'market-time'].map(id => [id, document.getElementById(id)]));
+    this.page = 0; this.pageSize = 25; this.period = '1H'; this.ownedSort = 'price';
+    this.ui = Object.fromEntries(['market', 'market-assets', 'market-detail', 'market-news', 'market-rows', 'market-grade', 'market-search', 'market-sort', 'market-page', 'market-prev', 'market-next', 'market-time', 'market-owned-sort', 'market-owned-rows', 'market-owned-empty'].map(id => [id, document.getElementById(id)]));
     for (const id of ['market-grade', 'market-search', 'market-sort']) this.ui[id].addEventListener(id === 'market-search' ? 'input' : 'change', () => { this.page = 0; this.renderList(); });
     this.ui['market-prev'].addEventListener('click', () => { this.page--; this.renderList(); });
     this.ui['market-next'].addEventListener('click', () => { this.page++; this.renderList(); });
-    this.ui['market-rows'].addEventListener('click', event => {
+    this.ui['market-owned-sort'].addEventListener('click', event => {
+      const button = event.target.closest('[data-sort]');
+      if (button) { this.ownedSort = button.dataset.sort; this.renderOwned(); }
+    });
+    for (const id of ['market-rows', 'market-owned-rows']) this.ui[id].addEventListener('click', event => {
       const button = event.target.closest('[data-card]');
       if (button) { this.selected = Number(button.dataset.card); this.renderDetail(); }
     });
@@ -38,7 +42,7 @@ export class MarketView {
     }));
     this.ui['market-time'].textContent = `최근 갱신 ${dateLabel(market.lastMarketUpdate)} · 다음 ${dateLabel(market.lastMarketUpdate + MARKET_CONFIG.tickMs)} · 10분마다 갱신`;
 
-    this.renderDetail(); this.renderList(); this.renderNews();
+    this.renderDetail(); this.renderList(); this.renderNews(); this.renderOwned();
   }
   renderDetail() {
     const p = this.data.byId.get(this.selected), card = this.save.market.cards[p.id], count = this.save.quantity[p.id] ?? 0;
@@ -85,6 +89,33 @@ export class MarketView {
     }));
     this.ui['market-page'].textContent = `${this.page + 1} / ${pages} · ${records.length}종목`;
     this.ui['market-prev'].disabled = this.page === 0; this.ui['market-next'].disabled = this.page >= pages - 1;
+  }
+  renderOwned() {
+    const records = this.data.records.filter(p => this.save.quantity[p.id] > 0);
+    const price = p => this.save.market?.cards[p.id]?.currentPrice;
+    const gain = p => {
+      const average = this.save.averageAcquisitionPrice?.[p.id], quote = price(p);
+      if (!Number.isFinite(average) || average <= 0 || !Number.isFinite(quote) || quote <= 0) return null;
+      const result = (quote - average) / average * 100;
+      return Number.isFinite(result) ? result : null;
+    };
+    const value = this.ownedSort === 'return' ? p => gain(p) ?? -Infinity : p => price(p) ?? -Infinity;
+    records.sort((a, b) => value(b) - value(a));
+    for (const button of this.ui['market-owned-sort'].children) button.setAttribute('aria-pressed', String(button.dataset.sort === this.ownedSort));
+    this.ui['market-owned-empty'].hidden = records.length > 0;
+    this.ui['market-owned-rows'].hidden = records.length === 0;
+    this.ui['market-owned-rows'].replaceChildren(...records.map(p => {
+      const row = node('article', '', 'market-owned-item'), info = node('div', '', 'market-owned-info');
+      const button = node('button', p.nameKo, 'market-name'); button.dataset.card = p.id;
+      const name = node('div', '', 'market-owned-name'); name.append(button, node('span', '×' + this.save.quantity[p.id]));
+      const average = this.save.averageAcquisitionPrice?.[p.id], quote = price(p), change = gain(p);
+      const stats = node('div', '', 'market-owned-stats');
+      stats.append(node('span', '평균 획득가 ' + (Number.isFinite(average) && average > 0 ? money(Math.round(average)) : '기록 부족')),
+        node('span', '현재가 ' + (Number.isFinite(quote) && quote > 0 ? money(quote) : '기록 부족')),
+        node('span', '수익률 ' + percent(change), change === 0 ? '' : directionClass(change)));
+      info.append(name, stats); row.append(imageOrPlaceholder(p.slotImage, node('span', '✧'), p.nameKo, true), info);
+      return row;
+    }));
   }
   renderNews() {
     const market = this.save.market;

@@ -192,4 +192,34 @@ test('hour boundary survives fractional timestamp and reload; corrupt buffers ar
     const broken=JSON.parse(JSON.stringify(m)); damage(broken.cards[1]); assert.equal(validMarket(broken,small),false);
   }
 });
+test('owned average follows weighted acquisitions, partial sale, full sale and reacquisition', () => {
+  const wallet = { quantity: {}, averageAcquisitionPrice: {}, tc: 0, market: createMarket(small, now, random) }, found = new Set();
+  const c = wallet.market.cards[1];
+  c.currentPrice = 100; acquire(wallet, found, 1);
+  c.currentPrice = 300; acquire(wallet, found, 1); assert.equal(wallet.averageAcquisitionPrice[1], 200);
+  sell(wallet, 1); assert.equal(wallet.averageAcquisitionPrice[1], 200);
+  c.currentPrice = 400; acquire(wallet, found, 1); assert.equal(wallet.averageAcquisitionPrice[1], 300);
+  sell(wallet, 1, true); assert.equal(wallet.averageAcquisitionPrice[1], undefined);
+  c.currentPrice = 250; acquire(wallet, found, 1); assert.equal(wallet.averageAcquisitionPrice[1], 250);
+  const raw = { ...wallet, version: 3, collectedIds: [...found] };
+  assert.deepEqual(readSave(data.ids, store(raw)).averageAcquisitionPrice, { 1: 250 });
+  raw.averageAcquisitionPrice = { 1: -1, 2: 500 };
+  assert.deepEqual(readSave(data.ids, store(raw)).averageAcquisitionPrice, {});
+});
+test('average save normalization accepts positive finite numbers and numeric strings only', () => {
+  for (const [input, expected] of [[1200,1200],['1200',1200],[' 1200.5 ',1200.5],[1e15,1e15],[0,undefined],[-1,undefined],[NaN,undefined],[Infinity,undefined],['Infinity',undefined],['',undefined],['  ',undefined],['abc',undefined],[null,undefined],[undefined,undefined],[true,undefined],[[],undefined]]) {
+    const loaded = readSave(data.ids, store({version:3,collectedIds:[1,2],quantity:{1:3,2:0},averageAcquisitionPrice:{1:input,2:1200}}));
+    assert.equal(loaded.averageAcquisitionPrice[1],expected);
+    assert.equal(loaded.averageAcquisitionPrice[2],undefined);
+  }
+});
+test('fractional average stays unrounded through partial sale and last sale clears it', () => {
+  const wallet={quantity:{1:2},averageAcquisitionPrice:{1:1100},tc:0,market:createMarket(small,now,random)};
+  wallet.market.cards[1].currentPrice=900; acquire(wallet,new Set([1]),1);
+  assert.equal(wallet.averageAcquisitionPrice[1],(1100*2+900)/3);
+  const average=wallet.averageAcquisitionPrice[1];
+  sell(wallet,1); assert.equal(wallet.averageAcquisitionPrice[1],average);
+  sell(wallet,1); assert.equal(wallet.averageAcquisitionPrice[1],average);
+  sell(wallet,1); assert.equal(wallet.averageAcquisitionPrice[1],undefined);
+});
 console.log(`${passed} test groups passed.`);

@@ -232,7 +232,11 @@ export function spend(save, cost) {
   save.tc -= cost; return true;
 }
 export function acquire(save, ids, id) {
-  ids.add(id); save.quantity[id] = (save.quantity[id] ?? 0) + 1;
+  const count = save.quantity[id] ?? 0, quote = save.market.cards[id].currentPrice;
+  save.averageAcquisitionPrice ??= {};
+  const average = count > 0 ? save.averageAcquisitionPrice[id] ?? quote : quote;
+  save.averageAcquisitionPrice[id] = average + (quote - average) / (count + 1);
+  ids.add(id); save.quantity[id] = count + 1;
 }
 export function sell(save, id, all = false) {
   const count = save.quantity[id] ?? 0;
@@ -241,5 +245,6 @@ export function sell(save, id, all = false) {
   const proceeds = save.market.cards[id].currentPrice * quantity;
   if (!Number.isSafeInteger(proceeds) || !Number.isSafeInteger(save.tc + proceeds)) return 0;
   save.quantity[id] -= quantity; save.tc += proceeds;
+  if (!save.quantity[id] && save.averageAcquisitionPrice) delete save.averageAcquisitionPrice[id];
   return proceeds;
 }

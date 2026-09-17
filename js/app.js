@@ -223,6 +223,12 @@ async function init() {
             await hold(0);
           }
         } while (result.remaining);
+        for (const [id, count] of Object.entries(save.quantity)) {
+          const quote = save.market.cards[id]?.currentPrice;
+          if (count > 0 && save.averageAcquisitionPrice[id] === undefined && Number.isFinite(quote) && quote > 0) {
+            save.averageAcquisitionPrice[id] = quote; updated = true;
+          }
+        }
         if (updated) { persist(); marketView.render(); }
       } finally { marketUpdating = false; slot.refresh(); }
     }
@@ -244,6 +250,7 @@ async function init() {
     byId('reset-confirm').addEventListener('click', () => {
       if (busy || marketUpdating) return;
       ids.clear(); for (const id of Object.keys(save.quantity)) delete save.quantity[id];
+      save.averageAcquisitionPrice = {};
       save.tc = MARKET_CONFIG.initialTC; save.market = createMarket(data.records);
       persist(); slot.resetVisuals(); sync(); ui['reset-modal'].close();
       toast('수집·TC·시장 데이터가 초기화되었습니다.');

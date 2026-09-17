@@ -108,6 +108,78 @@ const key = 'pokemonSlotSaveV1';
     assert.deepEqual(v3.quantity,legacy.quantity); assert.equal(v3.market.cards[1].currentPrice,legacy.market.cards[1].currentPrice);
     assert.equal(v3.market.cards[1].priceHistory.count,1);
     console.log('PASS V2 market migration, hourly chart and ring-buffer reload');
+    await page.evaluate(k => {
+      const s = JSON.parse(localStorage.getItem(k)); s.collectedIds = [1, 2, 3]; s.quantity = {1: 2, 2: 1, 3: 0};
+      s.market.cards[1].currentPrice = 200; s.market.cards[2].currentPrice = 300;
+      s.averageAcquisitionPrice = {1: 100, 2: 250, 3: 10}; localStorage.setItem(k, JSON.stringify(s));
+    }, key);
+    await page.reload(); await ready(); await nav('market');
+    assert.equal(await page.locator('#market-assets .market-stat').count(), 3);
+    assert.equal(await page.locator('#market-owned-rows article').count(), 2);
+    assert.equal(await page.locator('#market-owned-rows button').first().getAttribute('data-card'), '2');
+    await page.locator('#market-owned-sort [data-sort=return]').click();
+    assert.equal(await page.locator('#market-owned-rows button').first().getAttribute('data-card'), '1');
+    assert.match(await page.locator('#market-owned-rows article').first().innerText(), /\+100.00%/);
+    await page.locator('#market-owned-rows [data-card="1"]').click();
+    await page.locator('[data-sell="one"]').click(); assert.equal((await read()).averageAcquisitionPrice[1],100);
+    await page.locator('[data-sell="all"]').click(); assert.equal(await page.locator('#market-owned-rows article').count(),1);
+    assert.equal((await read()).averageAcquisitionPrice[1],undefined);
+    await page.locator('#market-owned-rows [data-card="2"]').click(); await page.locator('[data-sell="all"]').click();
+    assert.equal(await page.locator('#market-owned-empty').isVisible(),true);
+    await page.evaluate(k => {
+      const s = JSON.parse(localStorage.getItem(k)); s.quantity[1]=2; s.market.lastMarketUpdate -= 37 * 60000; delete s.averageAcquisitionPrice;
+      localStorage.setItem(k, JSON.stringify(s));
+    }, key);
+    await page.reload(); await ready(); const corrected=await read();
+    assert.equal(corrected.averageAcquisitionPrice[1],corrected.market.cards[1].currentPrice);
+    await page.reload(); await ready(); assert.deepEqual((await read()).averageAcquisitionPrice,corrected.averageAcquisitionPrice);
+    await nav('market'); assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+    console.log('PASS owned price/return sorting, partial/full sale, empty state, legacy average repair and persistence');
+    await page.evaluate(k => {
+      const s=JSON.parse(localStorage.getItem(k)); s.collectedIds=[1,2,3,4];s.quantity={1:1,2:1,3:1,4:1};
+      s.averageAcquisitionPrice={1:1000,2:'1000',3:1000,4:1000};
+      for(const [id,quote] of [[1,950],[2,1200],[3,1030],[4,1000]])s.market.cards[id].currentPrice=quote;
+      localStorage.setItem(k,JSON.stringify(s));
+    },key);
+    await page.reload();await ready();await nav('market');
+    const order=()=>page.locator('#market-owned-rows [data-card]').evaluateAll(nodes=>nodes.map(n=>Number(n.dataset.card)));
+    await page.locator('#market-owned-sort [data-sort=return]').click();assert.deepEqual(await order(),[2,3,4,1]);
+    assert.equal((await read()).averageAcquisitionPrice[2],1000);
+    assert.equal(await page.locator('#market-owned-sort [aria-pressed=true]').count(),1);
+    const averageBefore=(await read()).averageAcquisitionPrice;
+    const timeBefore=(await read()).market.lastMarketUpdate;
+    await page.evaluate(t=>{Date.now=()=>t+600000;window.dispatchEvent(new Event('focus'));},timeBefore);
+    await page.waitForFunction(({k,t})=>JSON.parse(localStorage.getItem(k)).market.lastMarketUpdate===t+600000,{k:key,t:timeBefore});
+    const ticked=await read();assert.deepEqual(ticked.averageAcquisitionPrice,averageBefore);
+    assert.equal(await page.locator('#market-owned-sort [data-sort=return]').getAttribute('aria-pressed'),'true');
+    const expected=[1,2,3,4].sort((a,b)=>(ticked.market.cards[b].currentPrice-1000)-(ticked.market.cards[a].currentPrice-1000));
+    assert.deepEqual(await order(),expected);
+    for(const width of [1440,390]) {
+      await page.setViewportSize({width,height:1000});
+      const layout=await page.evaluate(()=>{const box=s=>{const r=document.querySelector(s).getBoundingClientRect();return {top:r.top,bottom:r.bottom,left:r.left,right:r.right};};return {owned:box('.market-owned'),news:box('.market-news'),detail:box('#market-detail'),list:box('.market-list'),overflow:document.documentElement.scrollWidth>innerWidth};});
+      assert.equal(layout.overflow,false);
+      if(width>767){assert.equal(layout.owned.top,layout.news.top);assert.ok(layout.owned.right<=layout.news.left);}else assert.ok(layout.news.top>=layout.owned.bottom);
+      assert.ok(layout.detail.top>=Math.max(layout.owned.bottom,layout.news.bottom));assert.ok(layout.list.top>=layout.detail.bottom);
+      await page.screenshot({path:path.join(require('node:os').tmpdir(),'market-owned-'+width+'.png'),fullPage:true});
+    }
+    // Exercise display guards without changing the application save or registering events.
+    await page.evaluate(async()=>{
+      const {MarketView}=await import('./js/market-view.js'); const {loadData}=await import('./js/data.js');
+      window.ownedTest={data:await loadData(),save:{quantity:{1:1,2:1,3:1,4:1},averageAcquisitionPrice:{1:1000,2:1000,3:1000,4:1033.333333},market:{cards:{1:{currentPrice:1100},2:{currentPrice:900},3:{currentPrice:1000},4:{currentPrice:1100}}}},ownedSort:'return',ui:Object.fromEntries(['market-owned-sort','market-owned-rows','market-owned-empty'].map(id=>[id,document.getElementById(id)]))};
+      MarketView.prototype.renderOwned.call(window.ownedTest);
+    });
+    const rows=page.locator('#market-owned-rows article');
+    assert.match(await rows.nth(0).innerText(),/\+10.00%/);assert.equal(await rows.nth(0).locator('.market-up').count(),1);
+    assert.match(await rows.nth(1).innerText(),/1,033 TC/);assert.match(await rows.nth(2).innerText(),/0.00%/);
+    assert.equal(await rows.nth(2).locator('.market-up,.market-down,.muted').count(),0);
+    assert.match(await rows.nth(3).innerText(),/-10.00%/);assert.equal(await rows.nth(3).locator('.market-down').count(),1);
+    await page.evaluate(async()=>{const {MarketView}=await import('./js/market-view.js');const t=window.ownedTest;t.data.records=[t.data.records[1],t.data.records[0]];t.save.quantity={1:1,2:1};t.save.market.cards[1].currentPrice=t.save.market.cards[2].currentPrice=1000;t.ownedSort='price';MarketView.prototype.renderOwned.call(t);});
+    assert.deepEqual(await order(),[2,1]);
+    for(const invalid of [0,-1,null,'1200','abc',Infinity,NaN,undefined]) {
+      await page.evaluate(async value=>{const {MarketView}=await import('./js/market-view.js');const t=window.ownedTest;t.save.averageAcquisitionPrice[1]=value;delete t.save.market.cards[2];MarketView.prototype.renderOwned.call(t);},invalid);
+      assert.doesNotMatch(await page.locator('#market-owned-rows').innerText(),/NaN|Infinity/);
+    }
+    console.log('PASS offline correction, numeric strings, live tick sort retention, colors, rounding, stable ties, invalid values and PC/mobile layout');
     assert.deepEqual(errors, []); console.log('PASS no browser console errors');
   } finally { await browser.close(); server.close(); }
 })().catch(e => { console.error(e); server.close(); process.exitCode = 1; });
