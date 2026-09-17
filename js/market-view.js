@@ -14,7 +14,7 @@ export class MarketView {
   constructor(data, save, onSell) {
     this.data = data; this.save = save; this.selected = data.records[0].id;
     this.page = 0; this.pageSize = 25; this.period = '1H';
-    this.ui = Object.fromEntries(['market', 'market-assets', 'market-detail', 'market-news', 'market-rows', 'market-grade', 'market-search', 'market-sort', 'market-page', 'market-prev', 'market-next', 'market-time', 'market-sectors'].map(id => [id, document.getElementById(id)]));
+    this.ui = Object.fromEntries(['market', 'market-assets', 'market-detail', 'market-news', 'market-rows', 'market-grade', 'market-search', 'market-sort', 'market-page', 'market-prev', 'market-next', 'market-time'].map(id => [id, document.getElementById(id)]));
     for (const id of ['market-grade', 'market-search', 'market-sort']) this.ui[id].addEventListener(id === 'market-search' ? 'input' : 'change', () => { this.page = 0; this.renderList(); });
     this.ui['market-prev'].addEventListener('click', () => { this.page--; this.renderList(); });
     this.ui['market-next'].addEventListener('click', () => { this.page++; this.renderList(); });
@@ -32,12 +32,12 @@ export class MarketView {
     if (this.ui.market.hidden) return;
     const summary = assets(this.save), market = this.save.market;
     this.ui['market-assets'].replaceChildren(...[
-      ['총 자산', money(summary.total)], ['보유 TC', money(summary.tc)], ['보유 카드 평가액', money(summary.cards)], ['전체 시장', market.overall.state],
+      ['총 자산', money(summary.total)], ['보유 TC', money(summary.tc)], ['보유 카드 평가액', money(summary.cards)],
     ].map(([label, value]) => {
       const box = node('div', '', 'panel market-stat'); box.append(node('span', label, 'muted'), node('strong', value)); return box;
     }));
     this.ui['market-time'].textContent = `최근 갱신 ${dateLabel(market.lastMarketUpdate)} · 다음 ${dateLabel(market.lastMarketUpdate + MARKET_CONFIG.tickMs)} · 10분마다 갱신`;
-    this.ui['market-sectors'].textContent = Object.entries(market.sectors).map(([g, s]) => `${GRADES[g]} ${s.state} (${s.remaining} Tick)`).join('  ·  ');
+
     this.renderDetail(); this.renderList(); this.renderNews();
   }
   renderDetail() {

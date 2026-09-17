@@ -2,7 +2,7 @@
 export const MARKET_CONFIG = Object.freeze({
   tickMs: 600000, historyLimit: 144, hourlyHistoryLimit: 168, initialTC: 500000,
   stateMin: 6, stateMax: 30, newsHours: [8, 12, 18], newsChance: .65,
-  newsLimit: 40, restorationGap: .3, restorationChance: .18,
+  newsLimit: 5, restorationGap: .3, restorationChance: .18,
   grades: {
     normal: { average: 2000, volatility: .035, shockChance: .006, crash: [.1, .8], surge: [[.7, .1, .5], [.2, .5, 1.5], [.08, 1.5, 3], [.02, 3, 5]] },
     legendary: { average: 125000, volatility: .015, shockChance: .004, crash: [.1, .3], surge: [[1, .1, .5]] },
@@ -96,7 +96,7 @@ export function validMarket(market, records) {
     && Number.isInteger(n.remaining) && n.remaining >= 0 && n.remaining <= n.duration && Number.isFinite(n.time);
   return !!market && Number.isFinite(market.lastMarketUpdate) && market.lastMarketUpdate >= 0
     && stateOK(market.overall) && Object.keys(MARKET_CONFIG.grades).every(g => stateOK(market.sectors?.[g]))
-    && Array.isArray(market.activeNews) && market.activeNews.length <= MARKET_CONFIG.newsLimit && market.activeNews.every(newsOK)
+    && Array.isArray(market.activeNews) && market.activeNews.length <= 40 && market.activeNews.every(newsOK)
     && Array.isArray(market.newsHistory) && market.newsHistory.length <= MARKET_CONFIG.newsLimit && market.newsHistory.every(newsOK)
     && Array.isArray(market.newsSlots) && market.newsSlots.length <= 12 && market.newsSlots.every(x => typeof x === 'string')
     && records.every(p => {

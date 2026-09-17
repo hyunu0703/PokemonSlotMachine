@@ -14,6 +14,9 @@ export function readSave(validIds, storage) {
       const n = parsed.quantity?.[id];
       quantity[id] = parsed.version === 1 ? 1 : Number.isSafeInteger(n) && n >= 0 ? n : 0;
     }
+    if (Array.isArray(parsed.market?.newsHistory)) {
+      parsed.market.newsHistory = parsed.market.newsHistory.sort((a, b) => b?.time - a?.time).slice(0, MARKET_CONFIG.newsLimit);
+    }
     return { ...defaults, collectedIds, quantity,
       tc: parsed.version >= 2 && Number.isSafeInteger(parsed.tc) && parsed.tc >= 0 ? parsed.tc : defaults.tc,
       market: parsed.version >= 2 ? (parsed.version === 2 ? migrateMarket(parsed.market) : parsed.market) : null,
