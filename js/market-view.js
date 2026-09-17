@@ -1,5 +1,5 @@
 import { GRADES, imageOrPlaceholder } from './data.js';
-import { assets, changePercent, MARKET_CONFIG } from './market.js';
+import { assets, changePercent, priceHistory, MARKET_CONFIG } from './market.js';
 
 export const money = n => n.toLocaleString('ko-KR') + ' TC';
 const percent = n => n === null ? '기록 부족' : `${n > 0 ? '+' : ''}${n.toFixed(2)}%`;
@@ -55,7 +55,7 @@ export class MarketView {
     for (const period of ['1H', '6H', '24H', 'ALL']) {
       const button = node('button', period); button.dataset.period = period; button.setAttribute('aria-pressed', String(period === this.period)); periods.append(button);
     }
-    const history = card.priceHistory.slice(-({ '1H': 7, '6H': 37, '24H': 145, ALL: MARKET_CONFIG.historyLimit }[this.period]));
+    const { values: history, start, end } = priceHistory(card, this.save.market.lastMarketUpdate, this.period);
     const chart = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     chart.setAttribute('viewBox', '0 0 600 190'); chart.setAttribute('role', 'img'); chart.setAttribute('aria-label', `${p.nameKo} ${this.period} 가격 차트. 최저 ${Math.min(...history)} TC, 최고 ${Math.max(...history)} TC`); chart.classList.add('market-chart');
     const low = Math.min(...history), high = Math.max(...history), spread = high - low || high * .05;
@@ -63,7 +63,7 @@ export class MarketView {
     if (history.length === 1) points.push(`580,165`);
     const line = document.createElementNS(chart.namespaceURI, 'polyline'); line.setAttribute('points', points.join(' ')); line.setAttribute('fill', 'none'); line.setAttribute('stroke', '#A782E3'); line.setAttribute('stroke-width', '3'); chart.append(line);
     const range = node('p', `최저 ${money(low)} · 최고 ${money(high)} · ${history.length}개 기록`, 'muted');
-    const chartNote = node('p', `ALL은 보관된 최근 최대 24시간입니다. ${dateLabel(this.save.market.lastMarketUpdate - (history.length - 1) * MARKET_CONFIG.tickMs)} ~ ${dateLabel(this.save.market.lastMarketUpdate)}`, 'muted');
+    const chartNote = node('p', `ALL은 최근 7일의 시간별 기록입니다. ${dateLabel(start)} ~ ${dateLabel(end)}`, 'muted');
     const holding = node('p', `현재 보유 ${count}장 · 평가액 ${money(count * card.currentPrice)}`, 'market-holding');
     const sales = node('div', '', 'modal-actions');
     for (const [kind, label] of [['one', '1장 매도'], ['all', '전체 매도']]) {

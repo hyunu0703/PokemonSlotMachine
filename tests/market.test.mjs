@@ -4,7 +4,7 @@ import { performance } from 'node:perf_hooks';
 import { validateData } from '../js/data.js';
 import { readSave, SAVE_KEY } from '../js/storage.js';
 import { SLOT_CONFIG, selectCandidates, createResult, Slot } from '../js/slot.js';
-import { MARKET_CONFIG as C, createMarket, validMarket, advanceMarket, marketTick, generateNews, newsModifiers, shockChange, changePercent, acquire, spend, sell, assets } from '../js/market.js';
+import { MARKET_CONFIG as C, createMarket, validMarket, advanceMarket, marketTick, generateNews, newsModifiers, shockChange, changePercent, priceHistory, acquire, spend, sell, assets } from '../js/market.js';
 
 const data = validateData(JSON.parse(fs.readFileSync(new URL('../data/pokemon-data.json', import.meta.url))));
 const store = value => ({ getItem: key => key === SAVE_KEY ? JSON.stringify(value) : null });
@@ -90,7 +90,7 @@ test('persistent regimes, fair value drift, positive prices, bounded history and
   advanceMarket(m, data.records, now + 200 * C.tickMs, random, 200);
   console.log('200 ticks / 1025 cards:', (performance.now() - start).toFixed(0), 'ms');
   assert.ok(validMarket(m, data.records));
-  assert.ok(Object.values(m.cards).every(c => c.priceHistory.length === 145 && c.currentPrice > 0));
+  assert.ok(Object.values(m.cards).every(c => c.priceHistory.count === 144 && c.currentPrice > 0));
   assert.notEqual(m.cards[1].fairPrice, m.cards[1].startingPrice);
   assert.notEqual(m.cards[1].fairPrice, m.cards[1].currentPrice);
   const raw = { ...save, collectedIds: [...ids], market: m };
@@ -121,5 +121,75 @@ test('market/news/momentum alter shock direction; regime persists', () => {
     outcomes.push(c.currentPrice - before);
   }
   assert.ok(outcomes[0] < 0 && outcomes[1] > 0);
+});
+
+const small = [data.records[0]];
+test('145th daily and 169th hourly samples overwrite oldest; charts and statistics stay exact', () => {
+  const start = 3600000, m = createMarket(small, start, random), c = m.cards[1];
+  const samples = [c.currentPrice], hourly = [];
+  const dailyValues = c.priceHistory.values, hourlyValues = c.hourlyHistory.values;
+  for (let i = 1; i <= 169 * 6; i++) {
+    marketTick(m, small, random); samples.push(c.currentPrice);
+    if (i % 6 === 0) hourly.push(c.currentPrice);
+    assert.equal(c.priceHistory.values, dailyValues); assert.equal(c.hourlyHistory.values, hourlyValues);
+    assert.equal(c.priceHistory.count, Math.min(i, 144));
+    assert.equal(c.hourlyHistory.count, Math.min(Math.floor(i / 6), 168));
+    if ([144, 145, 1008, 1014].includes(i)) {
+      assert.deepEqual(priceHistory(c, m.lastMarketUpdate).values, samples.slice(-145));
+      assert.deepEqual(priceHistory(c, m.lastMarketUpdate, 'ALL').values, hourly.slice(-168));
+      assert.equal(changePercent(c, 144), (c.currentPrice / samples.at(-145) - 1) * 100);
+    }
+  }
+  assert.equal(c.highestPrice, Math.max(...samples)); assert.equal(c.lowestPrice, Math.min(...samples));
+  assert.equal(c.sampleCount, samples.length);
+  assert.ok(Math.abs(c.averagePrice - samples.reduce((a,b) => a+b,0) / samples.length) < 1e-6);
+  for (const [period, count] of [['1H',7], ['6H',37], ['24H',145]]) {
+    const chart = priceHistory(c,m.lastMarketUpdate,period);
+    assert.deepEqual(chart.values,samples.slice(-count)); assert.equal(chart.end-chart.start,(count-1)*C.tickMs);
+  }
+});
+test('7/30/365-day offline catchup stays bounded, reload continues identically', () => {
+  const m = createMarket(small, now, () => .5);
+  for (const days of [7,30,365]) {
+    let result;
+    do { result = advanceMarket(m,small,now+days*86400000,() => .5); } while (result.remaining);
+    assert.ok(validMarket(m,small));
+    assert.equal(m.cards[1].priceHistory.values.length,144); assert.equal(m.cards[1].hourlyHistory.values.length,168);
+    assert.equal(m.cards[1].sampleCount,days*144+1);
+  }
+  const reloaded = readSave(data.ids,store({...save,market:m})).market;
+  assert.deepEqual(reloaded,m);
+  marketTick(reloaded,small,() => .5); marketTick(m,small,() => .5); assert.deepEqual(reloaded,m);
+});
+test('V2 migration trims oversized history, samples hours, preserves economy and statistics', () => {
+  for (const length of [1,145,2000]) {
+    const m = createMarket(small,now,random), c = m.cards[1];
+    const values = Array.from({length},(_,i) => i+1);
+    c.priceHistory = values; c.currentPrice = values.at(-1);
+    delete c.hourlyHistory; delete c.highestPrice; delete c.lowestPrice; delete c.averagePrice; delete c.sampleCount;
+    const migrated = readSave(data.ids,store({...save,version:2,market:m,tc:12345}));
+    const card = migrated.market.cards[1];
+    assert.equal(migrated.version,3); assert.equal(migrated.tc,12345); assert.deepEqual(migrated.quantity,save.quantity);
+    assert.ok(validMarket(migrated.market,small));
+    assert.deepEqual(priceHistory(card,now).values,values.slice(-145));
+    const expected = values.filter((_,i) => {
+      const t = now-(length-1-i)*C.tickMs;
+      return t > now-7*86400000 && Math.floor(t/3600000)>Math.floor((t-C.tickMs)/3600000);
+    });
+    assert.deepEqual(card.hourlyHistory.count ? priceHistory(card,now,'ALL').values : [],expected);
+    assert.equal(card.highestPrice,length); assert.equal(card.lowestPrice,1); assert.equal(card.averagePrice,(length+1)/2); assert.equal(card.sampleCount,length);
+  }
+});
+test('hour boundary survives fractional timestamp and reload; corrupt buffers are rejected', () => {
+  const start = 55*60000+1234, m = createMarket(small,start,random);
+  marketTick(m,small,random);
+  assert.equal(m.cards[1].hourlyHistory.count,1);
+  assert.equal(priceHistory(m.cards[1],m.lastMarketUpdate,'ALL').end,start+C.tickMs);
+  const copy = JSON.parse(JSON.stringify(m));
+  advanceMarket(copy,small,start+6*C.tickMs,random,6); assert.equal(copy.cards[1].hourlyHistory.count,1);
+  marketTick(copy,small,random); assert.equal(copy.cards[1].hourlyHistory.count,2);
+  for (const damage of [c => c.priceHistory.head=-1,c => c.priceHistory.count=145,c => c.hourlyHistory.values.push(0),c => c.averagePrice=NaN]) {
+    const broken=JSON.parse(JSON.stringify(m)); damage(broken.cards[1]); assert.equal(validMarket(broken,small),false);
+  }
 });
 console.log(`${passed} test groups passed.`);

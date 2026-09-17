@@ -28,7 +28,7 @@ const key = 'pokemonSlotSaveV1';
     await page.goto('http://127.0.0.1:4174'); await ready();
     assert.equal((await read()).tc, 500000);
     await nav('market'); assert.equal(await page.locator('#market-rows tr').count(), 25);
-    await page.screenshot({ path: 'tests/market-desktop.png', fullPage: true });
+    await page.screenshot({ path: path.join(require('node:os').tmpdir(), 'market-desktop.png'), fullPage: true });
     console.log('PASS initial page, navigation, market summary, 25-row pagination and screenshot');
     await nav('slot');
     await page.evaluate(() => { Math.random = () => 0; });
@@ -69,7 +69,7 @@ const key = 'pokemonSlotSaveV1';
       const s = JSON.parse(localStorage.getItem(k)); s.tc = 0; s.market.lastMarketUpdate = Date.now() - 37 * 60000; localStorage.setItem(k, JSON.stringify(s));
     }, key);
     const old = await read(); await page.reload(); await ready();
-    const caught = await read(); assert.equal(caught.market.lastMarketUpdate, old.market.lastMarketUpdate + 30 * 60000); assert.equal(caught.market.cards[1].priceHistory.length, 4);
+    const caught = await read(); assert.equal(caught.market.lastMarketUpdate, old.market.lastMarketUpdate + 30 * 60000); assert.equal(caught.market.cards[1].priceHistory.count, 3);
     await nav('slot'); assert.equal(await page.locator('#spin').isDisabled(), true);
     for (const grade of ['legendary', 'mythical']) { await page.locator(`#slot-tabs [data-grade="${grade}"]`).click(); assert.equal(await page.locator('#spin').isDisabled(), true); }
     console.log('PASS 37-minute offline catchup and insufficient TC in all slots');
@@ -85,12 +85,29 @@ const key = 'pokemonSlotSaveV1';
     // Accelerate the local simulation for chart/news and storage-size verification.
     await page.evaluate(k => { const s = JSON.parse(localStorage.getItem(k)); s.market.lastMarketUpdate -= 2 * 86400000; localStorage.setItem(k, JSON.stringify(s)); }, key);
     await page.reload(); await ready(); await nav('market');
-    assert.equal((await read()).market.cards[1].priceHistory.length, 145);
-    await page.screenshot({ path: 'tests/market-history.png', fullPage: true });
+    assert.equal((await read()).market.cards[1].priceHistory.count, 144);
+    await page.locator('[data-period="ALL"]').click();
+    assert.ok((await read()).market.cards[1].hourlyHistory.count >= 48);
+    assert.match(await page.locator('#market-detail').innerText(), /최근 7일/);
+    const historySave = await read(); await page.reload(); await ready(); assert.deepEqual(await read(), historySave); await nav('market');
+    await page.screenshot({ path: path.join(require('node:os').tmpdir(), 'market-history.png'), fullPage: true });
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.screenshot({ path: 'tests/market-mobile.png', fullPage: true });
+    await page.screenshot({ path: path.join(require('node:os').tmpdir(), 'market-mobile.png'), fullPage: true });
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
     console.log('PASS two-day catchup, bounded history and responsive mobile layout');
+    await page.evaluate(k => {
+      const s = JSON.parse(localStorage.getItem(k)); s.version = 2;
+      for (const c of Object.values(s.market.cards)) {
+        c.priceHistory = [c.currentPrice-1, c.currentPrice];
+        delete c.hourlyHistory; delete c.highestPrice; delete c.lowestPrice; delete c.averagePrice; delete c.sampleCount;
+      }
+      localStorage.setItem(k, JSON.stringify(s));
+    }, key);
+    const legacy = await read(); await page.reload(); await ready();
+    const v3 = await read(); assert.equal(v3.version,3); assert.equal(v3.tc,legacy.tc);
+    assert.deepEqual(v3.quantity,legacy.quantity); assert.equal(v3.market.cards[1].currentPrice,legacy.market.cards[1].currentPrice);
+    assert.equal(v3.market.cards[1].priceHistory.count,1);
+    console.log('PASS V2 market migration, hourly chart and ring-buffer reload');
     assert.deepEqual(errors, []); console.log('PASS no browser console errors');
   } finally { await browser.close(); server.close(); }
 })().catch(e => { console.error(e); server.close(); process.exitCode = 1; });
