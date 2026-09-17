@@ -38,3 +38,5 @@
 
 .market-owned{padding:26px;min-width:0;align-self:start}.market-owned h2{font-size:18px;margin:0 0 16px}.market-owned .tabs{margin-bottom:16px}.market-owned>.muted{margin:0}.market-owned-item{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid #EFE5ED}.market-owned-item>.image-holder{width:64px;height:64px;flex:none}.market-owned-info{min-width:0;flex:1}.market-owned-name{display:flex;align-items:center;flex-wrap:wrap;gap:8px}.market-owned-name .market-name{height:auto;min-height:36px;padding:0;text-align:left;white-space:normal;overflow-wrap:anywhere}.market-owned-stats{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:12px;line-height:1.7;overflow-wrap:anywhere}.market-owned-stats span{max-width:100%}#market-detail{margin-bottom:24px}
 @media(max-width:767px){.market-owned{padding:20px 16px}.market-owned-stats{flex-direction:column;gap:4px}}
+
+.market-stat .market-valuation{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 12px}.market-total-return{font-size:13px;white-space:nowrap}

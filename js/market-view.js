@@ -35,10 +35,22 @@ export class MarketView {
   render() {
     if (this.ui.market.hidden) return;
     const summary = assets(this.save), market = this.save.market;
+    const basis = Object.entries(this.save.quantity).reduce((sum, [id, count]) => {
+      if (count <= 0) return sum;
+      const average = this.save.averageAcquisitionPrice?.[id];
+      return Number.isFinite(average) && average > 0 ? sum + average * count : NaN;
+    }, 0);
+    const totalReturn = Number.isFinite(basis) && basis > 0 ? (summary.cards - basis) / basis * 100 : null;
     this.ui['market-assets'].replaceChildren(...[
-      ['총 자산', money(summary.total)], ['보유 TC', money(summary.tc)], ['보유 카드 평가액', money(summary.cards)],
-    ].map(([label, value]) => {
-      const box = node('div', '', 'panel market-stat'); box.append(node('span', label, 'muted'), node('strong', value)); return box;
+      ['총 자산', money(summary.total)], ['보유 TC', money(summary.tc)], ['보유 카드 평가액', money(summary.cards), totalReturn],
+    ].map(([label, value, gain]) => {
+      const box = node('div', '', 'panel market-stat'), amount = node('strong', value);
+      if (Number.isFinite(gain)) {
+        amount.className = 'market-valuation';
+        const change = node('span', percent(gain), 'market-total-return ' + (gain === 0 ? '' : directionClass(gain)));
+        change.setAttribute('aria-label', '전체 수익률 ' + percent(gain)); amount.append(change);
+      }
+      box.append(node('span', label, 'muted'), amount); return box;
     }));
     this.ui['market-time'].textContent = `최근 갱신 ${dateLabel(market.lastMarketUpdate)} · 다음 ${dateLabel(market.lastMarketUpdate + MARKET_CONFIG.tickMs)} · 10분마다 갱신`;
 
