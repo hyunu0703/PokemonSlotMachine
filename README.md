@@ -11,3 +11,5 @@ MARKET은 카드 가격 확인과 판매 전용입니다. 초기 자금은 500,0
 저장은 기존 localStorage 키 `pokemonSlotSaveV1`의 version 2 형식입니다. 기존 version 1 수집 카드는 각 1장으로 이전됩니다. 설정의 게임 초기화는 수집·보유량·TC·시장 전체에 적용됩니다. 재화가 부족하면 보유 카드를 판매해야 하며, 무료 재지급 기능은 없습니다.
 
 검증: `node tests/market.test.mjs`. 브라우저 검증은 Playwright와 Edge가 있는 개발 환경에서 `node tests/browser.test.cjs`로 실행합니다. Playwright가 외부 경로에 설치되어 있으면 `PLAYWRIGHT_MODULE`에 해당 패키지 폴더를 지정하세요. 검증 서버는 별도 포트 4174와 임시 브라우저 세션을 사용하므로 실제 플레이 저장에 영향을 주지 않습니다.
+
+Pokémon 및 Pokémon 캐릭터 이름은 Nintendo의 상표입니다. 이 저장소는 판매 및 수입화를 하지 않습니다.
