@@ -1,5 +1,5 @@
 import { GRADES, TYPES, imageOrPlaceholder, typeImage } from './data.js';
-import { assets, changePercent, priceHistory, marketReturn, MARKET_CONFIG } from './market.js';
+import { assets, changePercent, currentTradeAmount, currentTradeVolume, priceHistory, MARKET_CONFIG } from './market.js';
 
 export const money = n => n.toLocaleString('ko-KR') + ' TC';
 const percent = n => n === null ? '기록 부족' : `${n > 0 ? '+' : ''}${n.toFixed(2)}%`;
@@ -102,9 +102,13 @@ export class MarketView {
     const grade = this.ui['market-grade'].value, query = this.ui['market-search'].value.trim().toLowerCase(), sort = this.ui['market-sort'].value;
     const market = this.save.market;
     const records = this.data.records.filter(p => (grade === 'all' || grade === p.grade) && (!query || p.nameKo.includes(query) || p.nameEn.toLowerCase().includes(query) || String(p.id) === query));
-    const value = p => sort === 'amount' ? market.cards[p.id].trade24h.amountTotal
-      : sort === 'volume' ? market.cards[p.id].trade24h.volumeTotal : marketReturn(market.cards[p.id]);
-    records.sort((a, b) => sort === 'return-low' ? value(a) - value(b) : value(b) - value(a));
+    const value = p => sort === 'amount' ? currentTradeAmount(market, market.cards[p.id])
+      : sort === 'volume' ? currentTradeVolume(market, market.cards[p.id]) : changePercent(market.cards[p.id], 1) ?? 0;
+    const namedId = ['amount', 'volume'].includes(sort) && market.activeNews[0]?.target === 'card' ? market.activeNews[0].cardId : null;
+    records.sort((a, b) => {
+      if (namedId !== null) { if (a.id === namedId) return -1; if (b.id === namedId) return 1; }
+      return sort === 'return-low' ? value(a) - value(b) : value(b) - value(a);
+    });
     const pages = Math.max(1, Math.ceil(records.length / this.pageSize)); this.page = Math.max(0, Math.min(this.page, pages - 1));
     this.ui['market-rows'].replaceChildren(...records.slice(this.page * this.pageSize, (this.page + 1) * this.pageSize).map(p => {
       const row = node('tr', ''), c = market.cards[p.id], change = changePercent(c);

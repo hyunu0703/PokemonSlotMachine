@@ -17,7 +17,7 @@ export const NEWS_CONFIG = Object.freeze({
   rarityImpact: Object.freeze([.03, .10]), rarityRotation: Object.freeze([.01, .03]),
   typeImpact: Object.freeze([.05, .20]), typeWeakness: Object.freeze([.03, .15]),
   cardImpact: Object.freeze([.10, .50]), cardTypeImpact: Object.freeze([.01, .05]),
-  rarityBias: .04, typeBias: .06, cardBias: .12,
+  rarityBias: .04, typeBias: .06, cardBias: .12, tradeScale: 120, maxTradeVolume: 1e9,
 });
 const clamp = (x, low, high) => Math.max(low, Math.min(high, x));
 const between = (a, b, random) => a + (b - a) * random();
@@ -137,7 +137,7 @@ export function validMarket(market, records) {
         && Number.isFinite(c.momentum) && Math.abs(c.momentum) <= .08
         && bufferOK(c.priceHistory, MARKET_CONFIG.historyLimit) && bufferOK(c.hourlyHistory, MARKET_CONFIG.hourlyHistoryLimit)
         && Array.isArray(c.trade24h?.volumes) && c.trade24h.volumes.length === market.trade24h.count
-        && c.trade24h.volumes.every(n => Number.isInteger(n) && n >= 1 && n <= 100)
+        && c.trade24h.volumes.every(n => Number.isSafeInteger(n) && n >= 1 && n <= NEWS_CONFIG.maxTradeVolume)
         && Number.isInteger(c.trade24h.volumeTotal) && c.trade24h.volumeTotal === c.trade24h.volumes.reduce((sum, n) => sum + n, 0)
         && Number.isFinite(c.trade24h.amountTotal) && c.trade24h.amountTotal >= 0
         && c.priceHistory.count >= market.trade24h.count
@@ -289,6 +289,18 @@ export function shockChange(grade, up, random = Math.random) {
   return config.surge.at(-1)[2];
 }
 
+// Deterministic trade noise is separate from price RNG, so market activity never changes price outcomes.
+function tradeRoll(time, id) {
+  let x = (Math.floor(time / MARKET_CONFIG.tickMs) ^ Math.imul(id, 0x9e3779b1)) >>> 0;
+  x ^= x >>> 16; x = Math.imul(x, 0x7feb352d); x ^= x >>> 15; x = Math.imul(x, 0x846ca68b); x ^= x >>> 16;
+  return (x >>> 0) / 4294967296;
+}
+
+function newsTradeVolume(time, id, activity) {
+  const base = 1 + Math.floor(tradeRoll(time, id) * 100);
+  return Math.min(NEWS_CONFIG.maxTradeVolume, Math.max(1, Math.round(base * (1 + activity * NEWS_CONFIG.tradeScale))));
+}
+
 export function marketTick(market, records, random = Math.random, recordTrades = true) {
   const time = market.lastMarketUpdate + MARKET_CONFIG.tickMs;
   market.activeNews = [];
@@ -296,7 +308,7 @@ export function marketTick(market, records, random = Math.random, recordTrades =
   for (const state of [market.overall, ...Object.values(market.sectors)]) {
     if (--state.remaining <= 0) Object.assign(state, regime(random));
   }
-  const modifiers = newsModifiers(market.activeNews);
+  const modifiers = newsModifiers(market.activeNews), trades = [];
   for (const p of records) {
     const c = market.cards[p.id], config = MARKET_CONFIG.grades[p.grade];
     let newsBias = 0, newsRange = 0, activity = 0;
@@ -333,9 +345,30 @@ export function marketTick(market, records, random = Math.random, recordTrades =
     c.currentPrice = next;
     if (Math.floor(time / hourMs) > Math.floor(market.lastMarketUpdate / hourMs)) append(c.hourlyHistory, next, MARKET_CONFIG.hourlyHistoryLimit);
     updateStats(c, next);
-    if (recordTrades) appendTrade(c.trade24h, market.trade24h.head, integer(1, 100, () => tickRandom), next, oldQuote);
+    if (recordTrades) {
+      // Counter headlines keep the previous dominant type highly traded while the new counter type rises.
+      const active = market.activeNews[0];
+      const tradeActivity = active?.transition === 'counter' && active.opposedType && p.types.includes(active.opposedType)
+        ? Math.max(activity, Math.min(active.impact * 2, 1)) : activity;
+      const oldVolume = c.trade24h.volumes[market.trade24h.head] ?? 0;
+      trades.push({ c, id: p.id, quote: next, oldQuote, oldVolume, volume: newsTradeVolume(time, p.id, tradeActivity) });
+    }
   }
   if (recordTrades) {
+    // A named-Pokemon headline guarantees that Pokemon leads this 10-minute Tick in both volume and traded amount.
+    const namedId = market.activeNews[0]?.target === 'card' ? market.activeNews[0].cardId : null;
+    const named = trades.find(t => t.id === namedId);
+    if (named) {
+      let maxVolume = 0, maxAmount = 0;
+      for (const trade of trades) if (trade !== named) {
+        maxVolume = Math.max(maxVolume, trade.volume);
+        maxAmount = Math.max(maxAmount, trade.quote * trade.volume);
+      }
+      const volumeLead = Math.floor(maxVolume) + 1;
+      const amountLead = Math.ceil((maxAmount + 1) / named.quote);
+      named.volume = Math.min(NEWS_CONFIG.maxTradeVolume, Math.max(named.volume, volumeLead, amountLead));
+    }
+    for (const trade of trades) appendTrade(trade.c.trade24h, market.trade24h.head, trade.volume, trade.quote, trade.oldQuote);
     market.trade24h.head = (market.trade24h.head + 1) % MARKET_CONFIG.historyLimit;
     market.trade24h.count = Math.min(market.trade24h.count + 1, MARKET_CONFIG.historyLimit);
   }
@@ -354,6 +387,16 @@ export function advanceDebugTicks(market, records, count, random = Math.random, 
   if (!Number.isInteger(count) || count < 1 || count > 100) return 0;
   for (let i = 0; i < count; i++) marketTick(market, records, random, recordTrades);
   return count;
+}
+
+
+export function currentTradeVolume(market, card) {
+  if (!market?.trade24h?.count || !card?.trade24h?.volumes) return 0;
+  const index = (market.trade24h.head - 1 + MARKET_CONFIG.historyLimit) % MARKET_CONFIG.historyLimit;
+  return card.trade24h.volumes[index] ?? 0;
+}
+export function currentTradeAmount(market, card) {
+  return currentTradeVolume(market, card) * (card?.currentPrice ?? 0);
 }
 
 export function changePercent(card, ticks = 1) {

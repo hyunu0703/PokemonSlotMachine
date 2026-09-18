@@ -4,7 +4,7 @@ import { performance } from 'node:perf_hooks';
 import { TYPES, TYPE_EFFECTIVENESS, TYPE_COUNTERS, typeEffectiveness, typeMultiplier, validateData } from '../js/data.js';
 import { readSave, writeSave, encodeSave, decodeSave, SAVE_KEY } from '../js/storage.js';
 import { SLOT_CONFIG, selectCandidates, createResult, Slot } from '../js/slot.js';
-import { MARKET_CONFIG as C, NEWS_CONFIG, createMarket, validMarket, advanceMarket, marketTick, generateNews, newsModifiers, shockChange, changePercent, priceHistory, marketReturn, acquire, spend, sell, assets } from '../js/market.js';
+import { MARKET_CONFIG as C, NEWS_CONFIG, createMarket, validMarket, advanceMarket, marketTick, generateNews, newsModifiers, shockChange, changePercent, priceHistory, marketReturn, currentTradeAmount, currentTradeVolume, acquire, spend, sell, assets } from '../js/market.js';
 
 const data = validateData(JSON.parse(fs.readFileSync(new URL('../data/pokemon-data.json', import.meta.url))));
 const store = value => ({ getItem: key => key === SAVE_KEY ? JSON.stringify(value) : null });
@@ -289,15 +289,51 @@ test('trade totals match exact tick prices through rollover and migration offset
     }
   }
 });
-test('trade endpoints and amounts use finalized current tick price', () => {
-  const m=createMarket(small,now,()=>.5),c=m.cards[1];m.overall.state=m.sectors.normal.state='NORMAL';
-  for(const [quote,roll,volume,total] of [[1000,.999,100,100000],[1100,.799,80,188000],[1000,0,1,189000]]) {
-    c.currentPrice=c.fairPrice=quote;c.volatility=1e-10;c.trend=0;c.trendRemaining=18;c.momentum=0;
-    // Pre-mark this news time so this test isolates trade-volume math from news RNG consumption.
-    m.newsHistory = [{ time: m.lastMarketUpdate + C.tickMs }]; m.activeNews = [];
-    let draws=0;marketTick(m,small,()=>++draws===1?roll:.999);
-    assert.equal(c.currentPrice,quote);assert.equal(c.trade24h.volumes.at(-1),volume);assert.equal(c.trade24h.amountTotal,total);
-  }
+test('trade amounts use finalized current tick price and trade noise is independent from price RNG', () => {
+  const a=createMarket(small,now,()=>.5),b=structuredClone(a);
+  for(const m of [a,b]) { const c=m.cards[1];m.overall.state=m.sectors.normal.state='NORMAL';c.currentPrice=c.fairPrice=1000;c.volatility=1e-10;c.trend=0;c.trendRemaining=18;c.momentum=0; }
+  a.newsHistory=[{time:a.lastMarketUpdate+C.tickMs}];b.newsHistory=[{time:b.lastMarketUpdate+C.tickMs}];
+  marketTick(a,small,()=>.2);marketTick(b,small,()=>.8);
+  const av=a.cards[1].trade24h.volumes.at(-1),bv=b.cards[1].trade24h.volumes.at(-1);
+  assert.equal(av,bv);
+  assert.equal(a.cards[1].trade24h.amountTotal,av*a.cards[1].currentPrice);
+  assert.equal(b.cards[1].trade24h.amountTotal,bv*b.cards[1].currentPrice);
+});
+
+test('type news makes its type dominate virtual trade activity', () => {
+  const m=createMarket(data.records,now,()=>.5);
+  marketTick(m,data.records,()=>.3);
+  const news=m.activeNews[0];assert.equal(news.target,'type');
+  const latest=(p)=>m.cards[p.id].trade24h.volumes[(m.trade24h.head+C.historyLimit-1)%C.historyLimit];
+  const target=data.records.filter(p=>p.types.includes(news.type)).map(latest);
+  const other=data.records.filter(p=>!p.types.includes(news.type)).map(latest);
+  const average=a=>a.reduce((sum,n)=>sum+n,0)/a.length;
+  assert.ok(average(target)>average(other)*5);
+});
+
+test('counter news keeps previous type active while the counter type joins the leaders', () => {
+  const m=createMarket(data.records,now,()=>.5);
+  m.newsStory={type:'fire',previousType:null,counterType:null,pokemonId:null,streak:3};
+  const rolls=[.3,.5,.4,.5,.5];let i=0;const r=()=>rolls[i++]??.5;
+  marketTick(m,data.records,r);
+  const news=m.activeNews[0];assert.equal(news.target,'type');assert.equal(news.transition,'counter');assert.equal(news.opposedType,'fire');
+  const latest=(p)=>m.cards[p.id].trade24h.volumes[(m.trade24h.head+C.historyLimit-1)%C.historyLimit];
+  const average=a=>a.reduce((sum,n)=>sum+n,0)/a.length;
+  const current=average(data.records.filter(p=>p.types.includes(news.type)).map(latest));
+  const previous=average(data.records.filter(p=>p.types.includes(news.opposedType)).map(latest));
+  const unrelated=average(data.records.filter(p=>!p.types.includes(news.type)&&!p.types.includes(news.opposedType)).map(latest));
+  assert.ok(current>unrelated*4);assert.ok(previous>unrelated*2);
+});
+
+test('named-Pokemon news guarantees first place in current Tick trade volume and amount', () => {
+  const m=createMarket(data.records,now,()=>.5);
+  for(let i=0;i<20;i++)marketTick(m,data.records,()=>.3);
+  const rolls=[.9,.9,.9,.5,.5];let i=0;const r=()=>rolls[i++]??.5;
+  marketTick(m,data.records,r);
+  const news=m.activeNews[0];assert.equal(news.target,'card');
+  const named=m.cards[news.cardId];
+  assert.equal(currentTradeVolume(m,named),Math.max(...Object.values(m.cards).map(c=>currentTradeVolume(m,c))));
+  assert.equal(currentTradeAmount(m,named),Math.max(...Object.values(m.cards).map(c=>currentTradeAmount(m,c))));
 });
 test('market return uses oldest available price in O(1), including wrapped history', () => {
   const m=createMarket(small,now,random),c=m.cards[1];assert.equal(marketReturn(c),0);
