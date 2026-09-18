@@ -1,6 +1,6 @@
 import { SAVE_KEY, readSave, writeSave } from './storage.js';
 export { SAVE_KEY, readSave } from './storage.js';
-import { createMarket, validMarket, advanceMarket, MARKET_CONFIG, spend, acquire, sell } from './market.js';
+import { createMarket, validMarket, advanceMarket, advanceDebugTicks, MARKET_CONFIG, spend, acquire, sell } from './market.js';
 import { MarketView, money } from './market-view.js';
 import { loadData, TYPES } from './data.js';
 import { Collection, createCard } from './collection.js';
@@ -38,6 +38,7 @@ function typeImage(type) {
   return image;
 }
 const hold = ms => new Promise(resolve => setTimeout(resolve, ms));
+const MARKET_DEBUG = ['localhost', '127.0.0.1'].includes(location.hostname);
 
 async function init() {
   const byId = id => document.getElementById(id);
@@ -209,6 +210,25 @@ async function init() {
       const proceeds = sell(save, id, all);
       if (proceeds) { persist(); sync(); toast(money(proceeds) + '를 받았습니다.'); }
     });
+    const debugPanel = byId('market-debug');
+    const debugButtons = [...document.querySelectorAll('[data-debug-ticks]')];
+    if (MARKET_DEBUG) debugPanel.hidden = false;
+    const runDebugTicks = count => {
+      if (!MARKET_DEBUG || marketUpdating || busy) return;
+      marketUpdating = true; slot.refresh();
+      for (const button of debugButtons) button.disabled = true;
+      try {
+        const ticks = advanceDebugTicks(save.market, data.records, count, Math.random, save.version >= 4);
+        if (!ticks) return;
+        persist(); marketView.render();
+        const minutes = ticks * 10;
+        toast(`${ticks} Tick (${minutes >= 60 ? `${Math.floor(minutes / 60)}시간 ${minutes % 60}분` : `${minutes}분`}) 진행했습니다.`);
+      } finally {
+        marketUpdating = false; slot.refresh();
+        for (const button of debugButtons) button.disabled = false;
+      }
+    };
+    for (const button of debugButtons) button.addEventListener('click', () => runDebugTicks(Number(button.dataset.debugTicks)));
     async function catchUp() {
       if (marketUpdating) return;
       marketUpdating = true; slot.refresh();

@@ -43,6 +43,14 @@
     </section>
     <section id="market" class="screen" hidden aria-labelledby="market-title">
       <div class="section-heading left"><span class="eyebrow">TRADE COIN · CARD EXCHANGE</span><h1 id="market-title">MARKET</h1><p>카드의 가치를 살펴보고, 다음 만남을 준비해요.</p></div>
+      <div id="market-debug" class="panel market-debug" hidden>
+        <div><strong>DEVELOPER TICK</strong><span>로컬 테스트 전용 · 기존 10분 Tick 로직을 그대로 실행합니다.</span></div>
+        <div class="market-debug-actions" aria-label="개발용 시장 Tick 진행">
+          <button class="secondary" data-debug-ticks="1">+1 Tick</button>
+          <button class="secondary" data-debug-ticks="10">+10 Tick</button>
+          <button class="secondary" data-debug-ticks="100">+100 Tick</button>
+        </div>
+      </div>
       <div id="market-assets" class="market-assets"></div>
       <div class="market-columns"><section class="panel market-owned" aria-labelledby="market-owned-title">
         <h2 id="market-owned-title">현재 보유 중인 포켓몬</h2>

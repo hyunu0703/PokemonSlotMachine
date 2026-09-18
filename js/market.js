@@ -179,15 +179,48 @@ function nextStory(story, random) {
 }
 
 function storyTitle(news, card) {
-  if (news.transition === 'rarity') return `${GRADES[news.target]} 포켓몬 강세… 수집 자금 집중`;
-  if (news.target === 'card') {
-    if (news.transition === 'counter') return `${typeLabel(news.opposedType)} 대응 카드로 ${card.nameKo} 주목`;
-    if (news.transition === 'continue') return `${card.nameKo} 집중 조명… ${typeLabel(news.type)} 강세 이어져`;
-    return `새로운 수집 이슈… ${card.nameKo} 거래 급증`;
+  // Headline variety is derived from the news id so wording never consumes market RNG or changes prices.
+  const pick = variants => {
+    let hash = 0;
+    for (let i = 0; i < news.id.length; i++) hash = (hash * 31 + news.id.charCodeAt(i)) >>> 0;
+    return variants[hash % variants.length];
+  };
+  const type = news.type ? typeLabel(news.type) : '';
+  const opposed = news.opposedType ? typeLabel(news.opposedType) : '';
+  if (news.transition === 'rarity') {
+    const grade = `${GRADES[news.target]} 포켓몬`;
+    return pick([
+      `${grade} 거래량 증가`, `${grade} 매수세 우세`, `${grade} 수요 증가`, `${grade} 시장 관심 확대`,
+      `${grade} 집중 매집 포착`, `${grade} 희귀 매물 품귀`, `${grade} 가격 급등`, `${grade} 거래대금 증가`,
+    ]);
   }
-  if (news.transition === 'counter') return `${typeLabel(news.opposedType)} 대응 연구 진전… ${typeLabel(news.type)} 수요 급증`;
-  if (news.transition === 'continue') return `${typeLabel(news.type)} 강세 지속… 관련 카드 거래 확대`;
-  return `시장 관심 급변… ${typeLabel(news.type)} 거래량 증가`;
+  if (news.target === 'card') {
+    const name = card.nameKo;
+    if (news.transition === 'counter') return pick([
+      `${opposed} 견제 카드 ${name} 매수세 우세`, `${name} 대응 수요 증가`, `${name} 거래량 증가`, `${name} 집중 매집 포착`,
+      `${name} 시장 관심 확대`, `${name} 희귀 매물 품귀`, `${opposed} 약세 속 ${name} 가격 급등`, `${name} 카운터 수요 증가`,
+    ]);
+    if (news.transition === 'continue') return pick([
+      `${name} 거래량 증가`, `${name} 가격 급등`, `${name} 매수세 우세`, `${name} 수요 증가`,
+      `${name} 시장 관심 확대`, `${name} 집중 매집 포착`, `${name} 희귀 매물 품귀`, `${type} 강세 속 ${name} 거래대금 증가`,
+    ]);
+    return pick([
+      `${name} 신규 매수세 유입·거래량 증가`, `${name} 단기 가격 급등`, `${name} 시장 관심 확대`, `${name} 수요 증가`,
+      `${name} 매수세 우세`, `${name} 집중 매집 포착`, `${name} 희귀 매물 품귀`, `${name} 거래대금 증가`,
+    ]);
+  }
+  if (news.transition === 'counter') return pick([
+    `${opposed} 견제 확산·${type} 매수세 우세`, `${type} 대응 수요 증가`, `${type} 거래량 증가`, `${opposed} 수요 감소·${type} 관심 확대`,
+    `${type} 집중 매집 포착`, `${opposed} 약세 전환·${type} 시장 우세`, `${type} 관련 카드 품귀`, `${opposed} 가격 급락·${type} 수요 증가`,
+  ]);
+  if (news.transition === 'continue') return pick([
+    `${type} 거래량 증가`, `${type} 매수세 우세`, `${type} 수요 증가`, `${type} 시장 영향력 확대`,
+    `${type} 집중 매집 포착`, `${type} 인기 카드 품귀`, `${type} 단기 가격 급등`, `${type} 거래대금 증가`,
+  ]);
+  return pick([
+    `${type} 신규 매수세 유입·거래량 증가`, `${type} 새로운 강세 흐름 포착`, `${type} 시장 관심 확대`, `${type} 수요 증가`,
+    `${type} 단기 가격 급등`, `${type} 매수세 우세`, `${type} 관련 카드 품귀`, `${type} 거래대금 증가`,
+  ]);
 }
 
 export function generateNews(market, records, time, random = Math.random) {
@@ -314,6 +347,13 @@ export function advanceMarket(market, records, now = Date.now(), random = Math.r
   const ticks = Math.min(elapsed, maxTicks);
   for (let i = 0; i < ticks; i++) marketTick(market, records, random, recordTrades);
   return { ticks, remaining: elapsed - ticks };
+}
+
+// Development-only helper: run the exact market Tick logic a fixed number of times.
+export function advanceDebugTicks(market, records, count, random = Math.random, recordTrades = true) {
+  if (!Number.isInteger(count) || count < 1 || count > 100) return 0;
+  for (let i = 0; i < count; i++) marketTick(market, records, random, recordTrades);
+  return count;
 }
 
 export function changePercent(card, ticks = 1) {
