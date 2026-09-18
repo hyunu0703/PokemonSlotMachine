@@ -1,10 +1,10 @@
-import { GRADES, imageOrPlaceholder } from './data.js';
+import { GRADES, TYPES, imageOrPlaceholder } from './data.js';
 import { assets, changePercent, priceHistory, marketReturn, MARKET_CONFIG } from './market.js';
 
 export const money = n => n.toLocaleString('ko-KR') + ' TC';
 const percent = n => n === null ? '기록 부족' : `${n > 0 ? '+' : ''}${n.toFixed(2)}%`;
 const directionClass = n => n > 0 ? 'market-up' : n < 0 ? 'market-down' : 'muted';
-const targetLabel = (n, data) => n.target === 'card' ? data.byId.get(n.cardId)?.nameKo : GRADES[n.target] ?? '전체 시장';
+const targetLabel = (n, data) => n.target === 'card' ? data.byId.get(n.cardId)?.nameKo : n.target === 'type' ? `${TYPES[n.type]?.[0] ?? n.type}타입` : `${GRADES[n.target] ?? n.target} 포켓몬`;
 const dateLabel = t => new Date(t).toLocaleString('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' });
 const node = (tag, text, className = '') => {
   const el = document.createElement(tag); el.textContent = text; el.className = className; return el;
@@ -133,11 +133,11 @@ export class MarketView {
   renderNews() {
     const market = this.save.market;
     this.ui['market-news'].replaceChildren(...market.newsHistory.map(n => {
-      const active = market.activeNews.find(a => a.id === n.id && a.time === n.time);
       const item = node('details', '', 'market-news-item'), summary = node('summary', '');
-      summary.append(node('small', `${dateLabel(n.time)} · ${n.direction > 0 ? '호재' : n.direction < 0 ? '악재' : '중립'}`, directionClass(n.direction)), node('strong', n.title));
-      item.append(summary, node('p', `대상: ${targetLabel(n, this.data)} · 강도: ${n.strength === 2 ? '강함' : '보통'} · ${active ? `남은 ${active.remaining * 10}분 / 영향 ${Math.round(active.remaining / active.duration * 100)}%` : '효과 종료'}`)); return item;
+      summary.append(node('small', `${dateLabel(n.time)} · 시장 뉴스`, 'market-up'), node('strong', n.title));
+      const impact = `주요 변동폭 ±${Math.round(n.impact * 100)}%`;
+      item.append(summary, node('p', `대상: ${targetLabel(n, this.data)} · ${impact} · 10분 Tick에 즉시 반영`)); return item;
     }));
-    if (!market.newsHistory.length) this.ui['market-news'].append(node('p', '아직 시장 뉴스가 없습니다. 매일 08시·12시·18시에 확률적으로 발행됩니다.', 'muted'));
+    if (!market.newsHistory.length) this.ui['market-news'].append(node('p', '아직 시장 뉴스가 없습니다. 시장 뉴스는 10분 Tick마다 갱신됩니다.', 'muted'));
   }
 }

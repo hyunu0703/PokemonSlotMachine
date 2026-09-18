@@ -1,8 +1,9 @@
+import { GRADES, TYPES, TYPE_COUNTERS } from './data.js';
+
 // Pure simulation/economy functions. All time and randomness can be supplied by tests.
 export const MARKET_CONFIG = Object.freeze({
   tickMs: 600000, historyLimit: 144, hourlyHistoryLimit: 168, initialTC: 500000,
-  stateMin: 6, stateMax: 30, newsHours: [8, 12, 18], newsChance: .65,
-  newsLimit: 5, restorationGap: .3, restorationChance: .18,
+  stateMin: 6, stateMax: 30, newsLimit: 5, restorationGap: .3, restorationChance: .18,
   grades: {
     normal: { average: 2000, volatility: .035, shockChance: .006, crash: [.1, .8], surge: [[.7, .1, .5], [.2, .5, 1.5], [.08, 1.5, 3], [.02, 3, 5]] },
     legendary: { average: 125000, volatility: .015, shockChance: .004, crash: [.1, .3], surge: [[1, .1, .5]] },
@@ -10,6 +11,14 @@ export const MARKET_CONFIG = Object.freeze({
   },
 });
 export const STATE_BIAS = { NORMAL: 0, BULL: .006, BEAR: -.006, SIDEWAYS: 0 };
+export const NEWS_CONFIG = Object.freeze({
+  scope: Object.freeze({ rarity: .2, type: .5, card: .3 }),
+  story: Object.freeze({ continue: .4, counter: .35, fresh: .25 }),
+  rarityImpact: Object.freeze([.03, .10]), rarityRotation: Object.freeze([.01, .03]),
+  typeImpact: Object.freeze([.05, .20]), typeWeakness: Object.freeze([.03, .15]),
+  cardImpact: Object.freeze([.10, .50]), cardTypeImpact: Object.freeze([.01, .05]),
+  rarityBias: .04, typeBias: .06, cardBias: .12,
+});
 const clamp = (x, low, high) => Math.max(low, Math.min(high, x));
 const between = (a, b, random) => a + (b - a) * random();
 const integer = (a, b, random) => Math.floor(between(a, b + 1, random));
@@ -87,7 +96,8 @@ export function createMarket(records, now = Date.now(), random = Math.random) {
         highestPrice: startingPrice, lowestPrice: startingPrice, averagePrice: startingPrice, sampleCount: 1 };
     }
   }
-  return { cards, trade24h: { head: 0, count: 0 }, overall: regime(random), sectors, lastMarketUpdate: now, activeNews: [], newsHistory: [], newsSlots: [] };
+  return { cards, trade24h: { head: 0, count: 0 }, overall: regime(random), sectors, lastMarketUpdate: now, activeNews: [], newsHistory: [],
+    newsStory: { type: null, previousType: null, counterType: null, pokemonId: null, streak: 0 } };
 }
 
 export function validMarket(market, records) {
@@ -97,20 +107,27 @@ export function validMarket(market, records) {
     && h.count >= 0 && h.count <= limit && h.values.length === h.count
     && Number.isInteger(h.head) && h.head >= 0 && h.head < limit
     && (h.count === limit || h.head === h.count) && h.values.every(positive);
+  const typeOK = t => t === null || Object.hasOwn(TYPES, t);
   const newsOK = n => n && typeof n.id === 'string' && typeof n.title === 'string'
-    && ['all', 'normal', 'legendary', 'mythical', 'card'].includes(n.target)
+    && ['normal', 'legendary', 'mythical', 'type', 'card'].includes(n.target)
     && (n.target !== 'card' || records.some(p => p.id === n.cardId))
-    && [-1, 0, 1].includes(n.direction) && Number.isFinite(n.strength) && n.strength > 0 && n.strength <= 2
-    && Number.isInteger(n.duration) && n.duration > 0 && n.duration <= 12
-    && Number.isInteger(n.remaining) && n.remaining >= 0 && n.remaining <= n.duration && Number.isFinite(n.time);
+    && typeOK(n.type ?? null) && typeOK(n.opposedType ?? null)
+    && ['rarity', 'continue', 'counter', 'fresh'].includes(n.transition)
+    && Number.isFinite(n.impact) && n.impact > 0 && n.impact <= .5
+    && Number.isFinite(n.secondaryImpact) && n.secondaryImpact >= 0 && n.secondaryImpact <= .15
+    && Number.isFinite(n.time);
+  const story = market?.newsStory;
+  const storyOK = story && typeOK(story.type) && typeOK(story.previousType) && typeOK(story.counterType)
+    && (story.pokemonId === null || records.some(p => p.id === story.pokemonId))
+    && Number.isInteger(story.streak) && story.streak >= 0 && story.streak <= 1000000;
   return !!market && Number.isFinite(market.lastMarketUpdate) && market.lastMarketUpdate >= 0
     && Number.isInteger(market.trade24h?.head) && market.trade24h.head >= 0 && market.trade24h.head < MARKET_CONFIG.historyLimit
     && Number.isInteger(market.trade24h.count) && market.trade24h.count >= 0 && market.trade24h.count <= MARKET_CONFIG.historyLimit
     && (market.trade24h.count === MARKET_CONFIG.historyLimit || market.trade24h.head === market.trade24h.count)
     && stateOK(market.overall) && Object.keys(MARKET_CONFIG.grades).every(g => stateOK(market.sectors?.[g]))
-    && Array.isArray(market.activeNews) && market.activeNews.length <= 40 && market.activeNews.every(newsOK)
+    && storyOK
+    && Array.isArray(market.activeNews) && market.activeNews.length <= 1 && market.activeNews.every(newsOK)
     && Array.isArray(market.newsHistory) && market.newsHistory.length <= MARKET_CONFIG.newsLimit && market.newsHistory.every(newsOK)
-    && Array.isArray(market.newsSlots) && market.newsSlots.length <= 12 && market.newsSlots.every(x => typeof x === 'string')
     && records.every(p => {
       const c = market.cards?.[p.id];
       return c && c.cardId === p.id && c.rarity === p.grade && [c.startingPrice, c.fairPrice, c.currentPrice].every(positive)
@@ -130,47 +147,100 @@ export function validMarket(market, records) {
     });
 }
 
-const targetLabels = { all: '포켓몬 카드', normal: '일반 카드', legendary: '전설 카드', mythical: '환상 카드' };
-const headlines = {
-  '1': ['수집 수요 확대… 거래 심리 개선', '신규 수집층 유입에 관심 증가', '희소성 재평가 움직임 확산'],
-  '-1': ['차익 실현 매물 증가… 투자 심리 위축', '시장 과열 우려에 관망세 확대', '수요 둔화 조짐에 가격 부담 부각'],
-  '0': ['매수·매도 전망 엇갈려… 변동성 주목', '수집가 평가 분분… 방향성 탐색', '거래 관심 증가 속 관망세 지속'],
-};
+const TYPE_KEYS = Object.keys(TYPES);
+const GRADE_KEYS = Object.keys(MARKET_CONFIG.grades);
+const choose = (items, random) => items[integer(0, items.length - 1, random)];
+const typeLabel = type => `${TYPES[type][0]}타입`;
 
-export function generateNews(market, records, time, random = Math.random) {
-  const current = new Date(time);
-  for (const hour of MARKET_CONFIG.newsHours) {
-    const slot = new Date(current.getFullYear(), current.getMonth(), current.getDate(), hour).getTime();
-    if (slot <= time - MARKET_CONFIG.tickMs || slot > time) continue;
-    const key = `${current.getFullYear()}-${current.getMonth() + 1}-${current.getDate()}-${hour}`;
-    if (market.newsSlots.includes(key)) continue;
-    market.newsSlots.push(key); market.newsSlots = market.newsSlots.slice(-12);
-    if (random() >= MARKET_CONFIG.newsChance) continue;
-    const target = ['all', 'normal', 'legendary', 'mythical', 'card'][integer(0, 4, random)];
-    const card = target === 'card' ? records[integer(0, records.length - 1, random)] : null;
-    const direction = [-1, 0, 1][integer(0, 2, random)];
-    const variant = integer(0, 2, random);
-    const id = `${target}-${card?.id ?? 0}-${direction}-${variant}`;
-    if (market.activeNews.some(n => n.id === id)) continue;
-    const duration = integer(6, 12, random);
-    const news = { id, target, cardId: card?.id ?? null, direction, strength: random() < .2 ? 2 : 1,
-      duration, remaining: duration, time: slot,
-      title: `${card?.nameKo ?? targetLabels[target]} ${headlines[direction][variant]}` };
-    market.activeNews.push(news);
-    market.newsHistory.unshift({ ...news });
-    market.newsHistory = market.newsHistory.slice(0, MARKET_CONFIG.newsLimit);
+export function migrateNewsSystem(market) {
+  if (!market?.cards) return market;
+  const validStory = market.newsStory && (market.newsStory.type === null || Object.hasOwn(TYPES, market.newsStory.type));
+  if (!validStory) {
+    market.newsStory = { type: null, previousType: null, counterType: null, pokemonId: null, streak: 0 };
+    market.activeNews = []; market.newsHistory = [];
   }
+  delete market.newsSlots;
+  return market;
 }
 
-// Compile additive modifiers once per tick, rather than scanning news for every card.
+function nextStory(story, random) {
+  if (!story.type || !Object.hasOwn(TYPES, story.type)) {
+    return { transition: 'fresh', type: choose(TYPE_KEYS, random), previousType: null };
+  }
+  const roll = random();
+  if (roll < NEWS_CONFIG.story.continue) return { transition: 'continue', type: story.type, previousType: story.previousType };
+  if (roll < NEWS_CONFIG.story.continue + NEWS_CONFIG.story.counter) {
+    const counters = TYPE_COUNTERS[story.type];
+    return { transition: 'counter', type: choose(counters, random), previousType: story.type };
+  }
+  const blocked = new Set([story.type, ...TYPE_COUNTERS[story.type]]);
+  const unrelated = TYPE_KEYS.filter(type => !blocked.has(type));
+  return { transition: 'fresh', type: choose(unrelated, random), previousType: story.type };
+}
+
+function storyTitle(news, card) {
+  if (news.transition === 'rarity') return `${GRADES[news.target]} 포켓몬 강세… 수집 자금 집중`;
+  if (news.target === 'card') {
+    if (news.transition === 'counter') return `${typeLabel(news.opposedType)} 대응 카드로 ${card.nameKo} 주목`;
+    if (news.transition === 'continue') return `${card.nameKo} 집중 조명… ${typeLabel(news.type)} 강세 이어져`;
+    return `새로운 수집 이슈… ${card.nameKo} 거래 급증`;
+  }
+  if (news.transition === 'counter') return `${typeLabel(news.opposedType)} 대응 연구 진전… ${typeLabel(news.type)} 수요 급증`;
+  if (news.transition === 'continue') return `${typeLabel(news.type)} 강세 지속… 관련 카드 거래 확대`;
+  return `시장 관심 급변… ${typeLabel(news.type)} 거래량 증가`;
+}
+
+export function generateNews(market, records, time, random = Math.random) {
+  if (market.newsHistory[0]?.time === time) return market.newsHistory[0];
+  market.activeNews = [];
+  const scopeRoll = random();
+  let news, card = null;
+  if (scopeRoll < NEWS_CONFIG.scope.rarity) {
+    const target = choose(GRADE_KEYS, random);
+    news = { id: `rarity-${target}-${time}`, target, cardId: null, type: null, opposedType: null, transition: 'rarity',
+      impact: between(...NEWS_CONFIG.rarityImpact, random), secondaryImpact: between(...NEWS_CONFIG.rarityRotation, random), time };
+  } else {
+    const next = nextStory(market.newsStory, random);
+    let target = scopeRoll < NEWS_CONFIG.scope.rarity + NEWS_CONFIG.scope.type ? 'type' : 'card';
+    if (target === 'card') {
+      const pool = records.filter(p => p.types.includes(next.type));
+      if (pool.length) card = choose(pool, random); else target = 'type';
+    }
+    const opposedType = next.transition === 'counter' ? next.previousType
+      : next.transition === 'continue' ? choose(TYPE_COUNTERS[next.type], random) : null;
+    news = { id: `${target}-${card?.id ?? next.type}-${time}`, target, cardId: card?.id ?? null, type: next.type, opposedType,
+      transition: next.transition, impact: between(...(target === 'card' ? NEWS_CONFIG.cardImpact : NEWS_CONFIG.typeImpact), random),
+      secondaryImpact: between(...(target === 'card' ? NEWS_CONFIG.cardTypeImpact : NEWS_CONFIG.typeWeakness), random), time };
+    market.newsStory = { type: next.type, previousType: next.previousType, counterType: opposedType, pokemonId: card?.id ?? null,
+      streak: next.transition === 'continue' ? market.newsStory.streak + 1 : 1 };
+  }
+  news.title = storyTitle(news, card);
+  market.activeNews.push(news); market.newsHistory.unshift({ ...news });
+  market.newsHistory = market.newsHistory.slice(0, MARKET_CONFIG.newsLimit);
+  return news;
+}
+
+// News creates a large one-tick swing range; a small directional bias makes the story target stronger without permanent price inflation.
 export function newsModifiers(news) {
   const modifiers = {};
+  const add = (key, range, direction, biasRate) => {
+    const modifier = modifiers[key] ??= { bias: 0, range: 0, activity: 0 };
+    modifier.bias += direction * range * biasRate;
+    modifier.range += range;
+    modifier.activity += Math.min(range * 2, 1);
+  };
   for (const n of news) {
-    const key = n.target === 'card' ? `card-${n.cardId}` : n.target;
-    const modifier = modifiers[key] ??= { bias: 0, activity: 0 };
-    const strength = n.strength * n.remaining / n.duration;
-    modifier.bias += n.direction * strength * .008;
-    modifier.activity += strength * .15;
+    if (GRADE_KEYS.includes(n.target)) {
+      add(n.target, n.impact, 1, NEWS_CONFIG.rarityBias);
+      for (const grade of GRADE_KEYS) if (grade !== n.target) add(grade, n.secondaryImpact, -1, NEWS_CONFIG.rarityBias);
+      continue;
+    }
+    if (n.target === 'type') add(`type-${n.type}`, n.impact, 1, NEWS_CONFIG.typeBias);
+    if (n.target === 'card') {
+      add(`card-${n.cardId}`, n.impact, 1, NEWS_CONFIG.cardBias);
+      add(`type-${n.type}`, n.secondaryImpact, 1, NEWS_CONFIG.typeBias);
+    }
+    if (n.opposedType) add(`type-${n.opposedType}`, n.secondaryImpact, -1, NEWS_CONFIG.typeBias);
   }
   return modifiers;
 }
@@ -188,8 +258,7 @@ export function shockChange(grade, up, random = Math.random) {
 
 export function marketTick(market, records, random = Math.random, recordTrades = true) {
   const time = market.lastMarketUpdate + MARKET_CONFIG.tickMs;
-  for (const n of market.activeNews) n.remaining--;
-  market.activeNews = market.activeNews.filter(n => n.remaining > 0);
+  market.activeNews = [];
   generateNews(market, records, time, random);
   for (const state of [market.overall, ...Object.values(market.sectors)]) {
     if (--state.remaining <= 0) Object.assign(state, regime(random));
@@ -197,9 +266,9 @@ export function marketTick(market, records, random = Math.random, recordTrades =
   const modifiers = newsModifiers(market.activeNews);
   for (const p of records) {
     const c = market.cards[p.id], config = MARKET_CONFIG.grades[p.grade];
-    let newsBias = 0, activity = 0;
-    for (const key of ['all', p.grade, `card-${p.id}`]) {
-      newsBias += modifiers[key]?.bias ?? 0; activity += modifiers[key]?.activity ?? 0;
+    let newsBias = 0, newsRange = 0, activity = 0;
+    for (const key of [p.grade, `card-${p.id}`, ...p.types.map(type => `type-${type}`)]) {
+      newsBias += modifiers[key]?.bias ?? 0; newsRange += modifiers[key]?.range ?? 0; activity += modifiers[key]?.activity ?? 0;
     }
     if (--c.trendRemaining <= 0) {
       c.trend = integer(-1, 1, random); c.trendStrength = between(.0005, .004, random); c.trendRemaining = integer(4, 18, random);
@@ -208,7 +277,9 @@ export function marketTick(market, records, random = Math.random, recordTrades =
     const momentum = c.momentum * (.18 + Math.min(activity, .5));
     const sideways = market.overall.state === 'SIDEWAYS' ? .65 : 1;
     const tickRandom = random();
-    let change = bias + c.trend * c.trendStrength + momentum + (-1 + 2 * tickRandom) * c.volatility * (1 + activity) * sideways;
+    const randomDirection = -1 + 2 * tickRandom;
+    let change = bias + c.trend * c.trendStrength + momentum + randomDirection * Math.min(newsRange, .65)
+      + randomDirection * c.volatility * (1 + activity) * sideways;
     if (random() < config.shockChance * (1 + activity)) {
       const upChance = clamp(.5 + bias * 12 + momentum * 4, .08, .92);
       change = shockChange(p.grade, random() < upChance, random);

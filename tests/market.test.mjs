@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { performance } from 'node:perf_hooks';
-import { validateData } from '../js/data.js';
+import { TYPES, TYPE_EFFECTIVENESS, TYPE_COUNTERS, typeEffectiveness, typeMultiplier, validateData } from '../js/data.js';
 import { readSave, writeSave, encodeSave, decodeSave, SAVE_KEY } from '../js/storage.js';
 import { SLOT_CONFIG, selectCandidates, createResult, Slot } from '../js/slot.js';
-import { MARKET_CONFIG as C, createMarket, validMarket, advanceMarket, marketTick, generateNews, newsModifiers, shockChange, changePercent, priceHistory, marketReturn, acquire, spend, sell, assets } from '../js/market.js';
+import { MARKET_CONFIG as C, NEWS_CONFIG, createMarket, validMarket, advanceMarket, marketTick, generateNews, newsModifiers, shockChange, changePercent, priceHistory, marketReturn, acquire, spend, sell, assets } from '../js/market.js';
 
 const data = validateData(JSON.parse(fs.readFileSync(new URL('../data/pokemon-data.json', import.meta.url))));
 const store = value => ({ getItem: key => key === SAVE_KEY ? JSON.stringify(value) : null });
@@ -20,6 +20,25 @@ save.version = 4;
 
 test('V1 migration, unique discovery and initial TC', () => {
   assert.deepEqual(save.collectedIds, [1, 150]); assert.equal(save.quantity[1], 1); assert.equal(save.tc, C.initialTC); assert.equal(save.soundEnabled, false);
+});
+test('official 18-type effectiveness table', () => {
+  assert.deepEqual(Object.keys(TYPE_EFFECTIVENESS).sort(), Object.keys(TYPES).sort());
+  for (const row of Object.values(TYPE_EFFECTIVENESS)) {
+    for (const [type, value] of Object.entries(row)) {
+      assert.ok(Object.hasOwn(TYPES, type)); assert.ok([0, .5, 2].includes(value));
+    }
+  }
+  assert.equal(typeEffectiveness('water', 'fire'), 2);
+  assert.equal(typeEffectiveness('electric', 'ground'), 0);
+  assert.equal(typeEffectiveness('normal', 'ghost'), 0);
+  assert.equal(typeEffectiveness('fairy', 'dragon'), 2);
+  assert.equal(typeEffectiveness('fire', 'water'), .5);
+  assert.equal(typeEffectiveness('water', 'electric'), 1);
+  assert.equal(typeMultiplier('ground', ['fire', 'flying']), 0);
+  assert.equal(typeMultiplier('rock', ['fire', 'flying']), 4);
+  assert.deepEqual(TYPE_COUNTERS.fire, ['water', 'ground', 'rock']);
+  assert.deepEqual(TYPE_COUNTERS.dragon, ['ice', 'dragon', 'fairy']);
+  for (const [defend, attacks] of Object.entries(TYPE_COUNTERS)) for (const attack of attacks) assert.equal(typeEffectiveness(attack, defend), 2);
 });
 test('1025 prices normalized to rarity averages', () => {
   assert.equal(Object.keys(save.market.cards).length, 1025);
@@ -57,20 +76,53 @@ test('37 elapsed minutes = 3 ticks, remainder and reverse time retained', () => 
   assert.equal(advanceMarket(save.market, data.records, now, random).ticks, 0); assert.equal(JSON.stringify(save.market), snapshot);
   assert.equal(changePercent(save.market.cards[1], 144), null);
 });
-test('news slots, duplicate suppression, decay, concurrent cancellation', () => {
+test('every 10-minute tick creates one story news and duplicate time is suppressed', () => {
   const m = createMarket(data.records, now, random);
-  const time = now + C.tickMs;
-  generateNews(m, data.records, time, () => .1); assert.equal(m.activeNews.length, 1);
-  generateNews(m, data.records, time, () => .1); assert.equal(m.activeNews.length, 1);
-  const n = m.activeNews[0], before = newsModifiers([n]).all.bias;
-  n.remaining--; assert.ok(Math.abs(newsModifiers([n]).all.bias) < Math.abs(before));
-  assert.equal(newsModifiers([n, { ...n, direction: 1 }]).all.bias, 0);
-  const prices = JSON.stringify(m.cards); generateNews(m, data.records, time, () => .1); assert.equal(JSON.stringify(m.cards), prices);
-  m.newsSlots = []; m.activeNews = []; m.newsHistory = [];
-  for (const hour of C.newsHours) generateNews(m, data.records, new Date(2026, 8, 17, hour).getTime(), random);
-  assert.equal(m.newsSlots.length, 3);
-  m.activeNews = [{ ...n, remaining: 1 }]; m.lastMarketUpdate = new Date(2026, 8, 17, 10).getTime();
-  marketTick(m, data.records, random); assert.equal(m.activeNews.length, 0);
+  for (let i = 1; i <= 8; i++) marketTick(m, data.records, random);
+  assert.equal(m.newsHistory.length, C.newsLimit);
+  assert.equal(m.activeNews.length, 1);
+  assert.equal(m.newsHistory[0].time, now + 8 * C.tickMs);
+  const snapshot = JSON.stringify(m.newsHistory);
+  generateNews(m, data.records, m.newsHistory[0].time, random);
+  assert.equal(JSON.stringify(m.newsHistory), snapshot);
+});
+test('story transition follows 40% continue, 35% counter, 25% unrelated', () => {
+  const make = () => { const m = createMarket(data.records, now, () => .5); m.newsStory = { type: 'fire', previousType: null, counterType: null, pokemonId: null, streak: 2 }; return m; };
+  const withRolls = values => () => values.shift() ?? .5;
+  let m = make(), n = generateNews(m, data.records, now + C.tickMs, withRolls([.3, .1, 0, .5, .5]));
+  assert.equal(n.transition, 'continue'); assert.equal(n.type, 'fire'); assert.equal(m.newsStory.streak, 3);
+  m = make(); n = generateNews(m, data.records, now + C.tickMs, withRolls([.3, .5, 0, .5, .5]));
+  assert.equal(n.transition, 'counter'); assert.ok(TYPE_COUNTERS.fire.includes(n.type)); assert.equal(n.opposedType, 'fire');
+  m = make(); n = generateNews(m, data.records, now + C.tickMs, withRolls([.3, .9, 0, .5, .5]));
+  assert.equal(n.transition, 'fresh'); assert.notEqual(n.type, 'fire'); assert.ok(!TYPE_COUNTERS.fire.includes(n.type));
+  assert.deepEqual(NEWS_CONFIG.story, { continue: .4, counter: .35, fresh: .25 });
+});
+test('rarity, type and named-card news produce strong one-tick modifiers', () => {
+  let mods = newsModifiers([{ target: 'normal', impact: .1, secondaryImpact: .02 }]);
+  assert.equal(mods.normal.range, .1); assert.equal(mods.normal.bias, .1 * NEWS_CONFIG.rarityBias);
+  assert.equal(mods.legendary.range, .02); assert.equal(mods.legendary.bias, -.02 * NEWS_CONFIG.rarityBias);
+  mods = newsModifiers([{ target: 'type', type: 'fire', opposedType: 'water', impact: .2, secondaryImpact: .1 }]);
+  assert.equal(mods['type-fire'].range, .2); assert.equal(mods['type-fire'].bias, .2 * NEWS_CONFIG.typeBias);
+  assert.equal(mods['type-water'].range, .1); assert.equal(mods['type-water'].bias, -.1 * NEWS_CONFIG.typeBias);
+  mods = newsModifiers([{ target: 'card', cardId: 6, type: 'fire', opposedType: null, impact: .5, secondaryImpact: .05 }]);
+  assert.equal(mods['card-6'].range, .5); assert.equal(mods['card-6'].bias, .5 * NEWS_CONFIG.cardBias); assert.equal(mods['type-fire'].range, .05);
+});
+test('specific Pokemon news is selected from the current story type', () => {
+  const m = createMarket(data.records, now, () => .5);
+  m.newsStory = { type: 'fire', previousType: null, counterType: null, pokemonId: null, streak: 1 };
+  const rolls = [.9, .1, 0, 0, .5, .5];
+  const n = generateNews(m, data.records, now + C.tickMs, () => rolls.shift() ?? .5);
+  assert.equal(n.target, 'card'); assert.equal(n.type, 'fire');
+  assert.ok(data.byId.get(n.cardId).types.includes('fire'));
+});
+test('old news schema migrates without resetting card prices or histories', () => {
+  const m = createMarket(data.records, now, random), before = m.cards[1].currentPrice;
+  delete m.newsStory; m.newsSlots = ['old'];
+  m.activeNews = [{ id: 'old', target: 'all', direction: 1, strength: 1, duration: 6, remaining: 6, time: now, title: 'old' }];
+  m.newsHistory = [...m.activeNews];
+  const loaded = readSave(data.ids, store({ ...save, version: 4, market: m })).market;
+  assert.equal(loaded.cards[1].currentPrice, before); assert.equal(loaded.newsSlots, undefined);
+  assert.deepEqual(loaded.activeNews, []); assert.deepEqual(loaded.newsHistory, []); assert.ok(validMarket(loaded, data.records));
 });
 test('shock bounds and weighted extreme tail', () => {
   for (const grade of Object.keys(C.grades)) {
@@ -106,23 +158,19 @@ test('restoration is optional and uses current fairPrice', () => {
   m.overall = { state: 'NORMAL', remaining: 30 }; m.sectors[p.grade] = { state: 'NORMAL', remaining: 30 };
   const previous = c.currentPrice; marketTick(m, [p], () => .5); assert.equal(c.currentPrice, previous);
 });
-test('market/news/momentum alter shock direction; regime persists', () => {
+test('market regimes and momentum still influence prices with the new news system', () => {
   const outcomes = [];
   for (const sign of [-1, 1]) {
     const m = createMarket(data.records, now, () => .5), p = data.records[0], c = m.cards[p.id];
-    m.lastMarketUpdate = new Date(2026, 8, 17, 10).getTime();
     m.overall = { state: sign > 0 ? 'BULL' : 'BEAR', remaining: 20 };
     m.sectors[p.grade] = { state: 'NORMAL', remaining: 20 };
-    c.trendRemaining = 10; c.momentum = sign * .05;
-    m.activeNews = [{ id: 'test', target: 'all', direction: sign, strength: 1, remaining: 6, duration: 6 }];
-    const rolls = [.5, 0, .55, .1, .5];
-    const before = c.currentPrice;
-    marketTick(m, [p], () => rolls.shift() ?? .5);
-    assert.equal(m.overall.remaining, 19);
-    outcomes.push(c.currentPrice - before);
+    c.trendRemaining = 10; c.trend = 0; c.momentum = sign * .05;
+    const before = c.currentPrice; marketTick(m, [p], () => .5);
+    assert.equal(m.overall.remaining, 19); outcomes.push(c.currentPrice - before);
   }
   assert.ok(outcomes[0] < 0 && outcomes[1] > 0);
 });
+
 
 const small = [data.records[0]];
 test('145th daily and 169th hourly samples overwrite oldest; charts and statistics stay exact', () => {
@@ -245,7 +293,8 @@ test('trade endpoints and amounts use finalized current tick price', () => {
   const m=createMarket(small,now,()=>.5),c=m.cards[1];m.overall.state=m.sectors.normal.state='NORMAL';
   for(const [quote,roll,volume,total] of [[1000,.999,100,100000],[1100,.799,80,188000],[1000,0,1,189000]]) {
     c.currentPrice=c.fairPrice=quote;c.volatility=1e-10;c.trend=0;c.trendRemaining=18;c.momentum=0;
-    // Zero would trigger a shock; the reused price draw is the only zero in this tick.
+    // Pre-mark this news time so this test isolates trade-volume math from news RNG consumption.
+    m.newsHistory = [{ time: m.lastMarketUpdate + C.tickMs }]; m.activeNews = [];
     let draws=0;marketTick(m,small,()=>++draws===1?roll:.999);
     assert.equal(c.currentPrice,quote);assert.equal(c.trade24h.volumes.at(-1),volume);assert.equal(c.trade24h.amountTotal,total);
   }

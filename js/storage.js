@@ -1,4 +1,4 @@
-import { MARKET_CONFIG, migrateMarket } from './market.js';
+import { MARKET_CONFIG, migrateMarket, migrateNewsSystem } from './market.js';
 
 // Keep the original key so existing collections migrate in place.
 export const SAVE_KEY = 'pokemonSlotSaveV1';
@@ -76,7 +76,7 @@ export function readSave(validIds, storage) {
     }
     return { ...defaults, version: parsed.version < 4 ? 3 : 4, collectedIds, quantity, averageAcquisitionPrice,
       tc: parsed.version >= 2 && Number.isSafeInteger(parsed.tc) && parsed.tc >= 0 ? parsed.tc : defaults.tc,
-      market: parsed.version >= 2 ? (parsed.version < 4 ? migrateMarket(parsed.market) : parsed.market) : null,
+      market: parsed.version >= 2 ? migrateNewsSystem(parsed.version < 4 ? migrateMarket(parsed.market) : parsed.market) : null,
       soundEnabled: typeof parsed.soundEnabled === 'boolean' ? parsed.soundEnabled : true,
       musicEnabled: typeof parsed.musicEnabled === 'boolean' ? parsed.musicEnabled : true };
   } catch {

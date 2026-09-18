@@ -6,6 +6,41 @@ export const TYPES = Object.freeze({
   rock: ['바위', '#B69A67'], ghost: ['고스트', '#7F78B8'], dragon: ['드래곤', '#6E72D8'],
   dark: ['악', '#625B67'], steel: ['강철', '#9AA7B3'], fairy: ['페어리', '#ECA6D3'],
 });
+export const TYPE_EFFECTIVENESS = Object.freeze({
+  normal: Object.freeze({ rock: .5, ghost: 0, steel: .5 }),
+  fire: Object.freeze({ fire: .5, water: .5, grass: 2, ice: 2, bug: 2, rock: .5, dragon: .5, steel: 2 }),
+  water: Object.freeze({ fire: 2, water: .5, grass: .5, ground: 2, rock: 2, dragon: .5 }),
+  electric: Object.freeze({ water: 2, electric: .5, grass: .5, ground: 0, flying: 2, dragon: .5 }),
+  grass: Object.freeze({ fire: .5, water: 2, grass: .5, poison: .5, ground: 2, flying: .5, bug: .5, rock: 2, dragon: .5, steel: .5 }),
+  ice: Object.freeze({ fire: .5, water: .5, grass: 2, ice: .5, ground: 2, flying: 2, dragon: 2, steel: .5 }),
+  fighting: Object.freeze({ normal: 2, ice: 2, poison: .5, flying: .5, psychic: .5, bug: .5, rock: 2, ghost: 0, dark: 2, steel: 2, fairy: .5 }),
+  poison: Object.freeze({ grass: 2, poison: .5, ground: .5, rock: .5, ghost: .5, steel: 0, fairy: 2 }),
+  ground: Object.freeze({ fire: 2, electric: 2, grass: .5, poison: 2, flying: 0, bug: .5, rock: 2, steel: 2 }),
+  flying: Object.freeze({ electric: .5, grass: 2, fighting: 2, bug: 2, rock: .5, steel: .5 }),
+  psychic: Object.freeze({ fighting: 2, poison: 2, psychic: .5, dark: 0, steel: .5 }),
+  bug: Object.freeze({ fire: .5, grass: 2, fighting: .5, poison: .5, flying: .5, psychic: 2, ghost: .5, dark: 2, steel: .5, fairy: .5 }),
+  rock: Object.freeze({ fire: 2, ice: 2, fighting: .5, ground: .5, flying: 2, bug: 2, steel: .5 }),
+  ghost: Object.freeze({ normal: 0, psychic: 2, ghost: 2, dark: .5 }),
+  dragon: Object.freeze({ dragon: 2, steel: .5, fairy: 0 }),
+  dark: Object.freeze({ fighting: .5, psychic: 2, ghost: 2, dark: .5, fairy: .5 }),
+  steel: Object.freeze({ fire: .5, water: .5, electric: .5, ice: 2, rock: 2, steel: .5, fairy: 2 }),
+  fairy: Object.freeze({ fire: .5, fighting: 2, poison: .5, dragon: 2, dark: 2, steel: .5 }),
+});
+export const typeEffectiveness = (attackType, defendType) => TYPE_EFFECTIVENESS[attackType]?.[defendType] ?? 1;
+export const typeMultiplier = (attackType, defendTypes) => defendTypes.reduce((value, type) => value * typeEffectiveness(attackType, type), 1);
+
+export const TYPE_COUNTERS = Object.freeze({
+  normal: Object.freeze(['fighting']), fire: Object.freeze(['water', 'ground', 'rock']),
+  water: Object.freeze(['electric', 'grass']), electric: Object.freeze(['ground']),
+  grass: Object.freeze(['fire', 'ice', 'poison', 'flying', 'bug']), ice: Object.freeze(['fire', 'fighting', 'rock', 'steel']),
+  fighting: Object.freeze(['flying', 'psychic', 'fairy']), poison: Object.freeze(['ground', 'psychic']),
+  ground: Object.freeze(['water', 'grass', 'ice']), flying: Object.freeze(['electric', 'ice', 'rock']),
+  psychic: Object.freeze(['bug', 'ghost', 'dark']), bug: Object.freeze(['fire', 'flying', 'rock']),
+  rock: Object.freeze(['water', 'grass', 'fighting', 'ground', 'steel']), ghost: Object.freeze(['ghost', 'dark']),
+  dragon: Object.freeze(['ice', 'dragon', 'fairy']), dark: Object.freeze(['fighting', 'bug', 'fairy']),
+  steel: Object.freeze(['fire', 'fighting', 'ground']), fairy: Object.freeze(['poison', 'steel']),
+});
+
 export const GRADES = Object.freeze({ normal: '일반', legendary: '전설', mythical: '환상' });
 export const dexLabel = id => `No.${String(id).padStart(3, '0')}`;
 
