@@ -1,4 +1,4 @@
-import { GRADES, TYPES, imageOrPlaceholder } from './data.js';
+import { GRADES, TYPES, imageOrPlaceholder, typeImage } from './data.js';
 import { assets, changePercent, priceHistory, marketReturn, MARKET_CONFIG } from './market.js';
 
 export const money = n => n.toLocaleString('ko-KR') + ' TC';
@@ -8,6 +8,14 @@ const targetLabel = (n, data) => n.target === 'card' ? data.byId.get(n.cardId)?.
 const dateLabel = t => new Date(t).toLocaleString('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' });
 const node = (tag, text, className = '') => {
   const el = document.createElement(tag); el.textContent = text; el.className = className; return el;
+};
+const typeIcons = (types, containerClass = 'market-type-icons', iconClass = 'market-type-icon') => {
+  const icons = node('span', '', containerClass);
+  for (const type of types) {
+    const image = typeImage(type, iconClass);
+    if (image) icons.append(image);
+  }
+  return icons;
 };
 
 export class MarketView {
@@ -61,7 +69,10 @@ export class MarketView {
     const heading = node('div', '', 'market-card-heading');
     const fallback = node('span', '✧');
     heading.append(imageOrPlaceholder(p.cardImage, fallback, p.nameKo));
-    const info = node('div', ''); info.append(node('span', `${GRADES[p.grade]} · No.${p.id}`, 'eyebrow'), node('h2', p.nameKo), node('strong', money(card.currentPrice), 'market-price'));
+    const info = node('div', '');
+    const title = node('div', '', 'market-title-line');
+    title.append(node('h2', p.nameKo), typeIcons(p.types));
+    info.append(node('span', `${GRADES[p.grade]} · No.${p.id}`, 'eyebrow'), title, node('strong', money(card.currentPrice), 'market-price'));
     heading.append(info);
     const changes = node('div', '', 'market-changes');
     for (const [label, ticks] of [['10분', 1], ['1시간', 6], ['24시간', 144]]) {
@@ -97,7 +108,8 @@ export class MarketView {
     const pages = Math.max(1, Math.ceil(records.length / this.pageSize)); this.page = Math.max(0, Math.min(this.page, pages - 1));
     this.ui['market-rows'].replaceChildren(...records.slice(this.page * this.pageSize, (this.page + 1) * this.pageSize).map(p => {
       const row = node('tr', ''), c = market.cards[p.id], change = changePercent(c);
-      const name = node('td', ''), button = node('button', p.nameKo, 'market-name'); button.dataset.card = p.id; name.append(button);
+      const name = node('td', ''), nameLine = node('div', '', 'market-name-line'), button = node('button', p.nameKo, 'market-name');
+      button.dataset.card = p.id; nameLine.append(button, typeIcons(p.types, 'market-inline-types', 'market-inline-type-icon')); name.append(nameLine);
       row.append(name, node('td', GRADES[p.grade]), node('td', money(c.currentPrice)), node('td', percent(change), directionClass(change)), node('td', `${this.save.quantity[p.id] ?? 0}장`)); return row;
     }));
     this.ui['market-page'].textContent = `${this.page + 1} / ${pages} · ${records.length}종목`;
@@ -120,7 +132,8 @@ export class MarketView {
     this.ui['market-owned-rows'].replaceChildren(...records.map(p => {
       const row = node('article', '', 'market-owned-item'), info = node('div', '', 'market-owned-info');
       const button = node('button', p.nameKo, 'market-name'); button.dataset.card = p.id;
-      const name = node('div', '', 'market-owned-name'); name.append(button, node('span', '×' + this.save.quantity[p.id]));
+      const name = node('div', '', 'market-owned-name');
+      name.append(button, typeIcons(p.types, 'market-inline-types', 'market-inline-type-icon'), node('span', '×' + this.save.quantity[p.id]));
       const average = this.save.averageAcquisitionPrice?.[p.id], quote = price(p), change = gain(p);
       const stats = node('div', '', 'market-owned-stats');
       stats.append(node('span', '평균 획득가 ' + (Number.isFinite(average) && average > 0 ? money(Math.round(average)) : '기록 부족')),
