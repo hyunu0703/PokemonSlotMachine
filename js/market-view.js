@@ -3,6 +3,7 @@ import { assets, changePercent, currentTradeAmount, currentTradeVolume, priceHis
 
 export const money = n => n.toLocaleString('ko-KR') + ' TC';
 const percent = n => n === null ? '기록 부족' : `${n > 0 ? '+' : ''}${n.toFixed(2)}%`;
+const signedMoney = n => `${n > 0 ? '+' : ''}${Math.round(n).toLocaleString('ko-KR')} TC`;
 const directionClass = n => n > 0 ? 'market-up' : n < 0 ? 'market-down' : 'muted';
 const targetLabel = (n, data) => n.target === 'card' ? data.byId.get(n.cardId)?.nameKo : n.target === 'type' ? `${TYPES[n.type]?.[0] ?? n.type}타입` : `${GRADES[n.target] ?? n.target} 포켓몬`;
 const dateLabel = t => new Date(t).toLocaleString('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' });
@@ -57,6 +58,11 @@ export class MarketView {
         amount.className = 'market-valuation';
         const change = node('span', percent(gain), 'market-total-return ' + (gain === 0 ? '' : directionClass(gain)));
         change.setAttribute('aria-label', '전체 수익률 ' + percent(gain)); amount.append(change);
+        if (label === '보유 카드 평가액' && Number.isFinite(basis)) {
+          const profit = summary.cards - basis;
+          const profitNode = node('span', signedMoney(profit), 'market-total-return ' + (profit === 0 ? '' : directionClass(profit)));
+          profitNode.setAttribute('aria-label', '전체 손익 ' + signedMoney(profit)); amount.append(profitNode);
+        }
       }
       box.append(node('span', label, 'muted'), amount); return box;
     }));
@@ -138,11 +144,13 @@ export class MarketView {
       const button = node('button', p.nameKo, 'market-name'); button.dataset.card = p.id;
       const name = node('div', '', 'market-owned-name');
       name.append(button, typeIcons(p.types, 'market-inline-types', 'market-inline-type-icon'), node('span', '×' + this.save.quantity[p.id]));
-      const average = this.save.averageAcquisitionPrice?.[p.id], quote = price(p), change = gain(p);
+      const average = this.save.averageAcquisitionPrice?.[p.id], quote = price(p), change = gain(p), count = this.save.quantity[p.id];
+      const profit = Number.isFinite(average) && average > 0 && Number.isFinite(quote) && quote > 0 ? (quote - average) * count : null;
       const stats = node('div', '', 'market-owned-stats');
       stats.append(node('span', '평균 획득가 ' + (Number.isFinite(average) && average > 0 ? money(Math.round(average)) : '기록 부족')),
         node('span', '현재가 ' + (Number.isFinite(quote) && quote > 0 ? money(quote) : '기록 부족')),
-        node('span', '수익률 ' + percent(change), change === 0 ? '' : directionClass(change)));
+        node('span', '수익률 ' + percent(change), change === 0 ? '' : directionClass(change)),
+        node('span', Number.isFinite(profit) ? signedMoney(profit) : '기록 부족', Number.isFinite(profit) && profit !== 0 ? directionClass(profit) : ''));
       info.append(name, stats); row.append(imageOrPlaceholder(p.slotImage, node('span', '✧'), p.nameKo, true), info);
       return row;
     }));
