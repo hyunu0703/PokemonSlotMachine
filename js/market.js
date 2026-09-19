@@ -417,20 +417,21 @@ export function spend(save, cost) {
   if (!Number.isSafeInteger(cost) || cost <= 0 || save.tc < cost) return false;
   save.tc -= cost; return true;
 }
-export function acquire(save, ids, id) {
+export function acquire(save, ids, id, quantity = 1) {
+  const amount = Number.isSafeInteger(quantity) && quantity > 0 ? quantity : 1;
   const count = save.quantity[id] ?? 0, quote = save.market.cards[id].currentPrice;
   save.averageAcquisitionPrice ??= {};
   const average = count > 0 ? save.averageAcquisitionPrice[id] ?? quote : quote;
-  save.averageAcquisitionPrice[id] = average + (quote - average) / (count + 1);
-  ids.add(id); save.quantity[id] = count + 1;
+  save.averageAcquisitionPrice[id] = count > 0 ? (average * count + quote * amount) / (count + amount) : quote;
+  ids.add(id); save.quantity[id] = count + amount;
 }
-export function sell(save, id, all = false) {
+export function sell(save, id, quantity = 1) {
   const count = save.quantity[id] ?? 0;
   if (!count || !save.market.cards[id]) return 0;
-  const quantity = all ? count : 1;
-  const proceeds = save.market.cards[id].currentPrice * quantity;
+  const sellCount = quantity === true ? count : Math.min(count, Math.max(1, Math.floor(Number(quantity) || 1)));
+  const proceeds = save.market.cards[id].currentPrice * sellCount;
   if (!Number.isSafeInteger(proceeds) || !Number.isSafeInteger(save.tc + proceeds)) return 0;
-  save.quantity[id] -= quantity; save.tc += proceeds;
+  save.quantity[id] -= sellCount; save.tc += proceeds;
   if (!save.quantity[id] && save.averageAcquisitionPrice) delete save.averageAcquisitionPrice[id];
   return proceeds;
 }

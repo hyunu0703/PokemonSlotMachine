@@ -67,9 +67,10 @@ async function init() {
         persist(); updateWallet(); return true;
       },
       onBusy(value) { busy = value; for (const button of nav) button.disabled = value; },
-      async onWin(p, grade) {
+      async onWin(p, grade, quantity = 1, isNew = false) {
         revealing = true; lastAcquired = p.id;
-        ui['modal-title'].textContent = save.quantity[p.id] > 1 ? `DUPLICATE · 보유 ${save.quantity[p.id]}장` : grade === 'normal' ? 'NEW CARD!' : grade === 'legendary' ? 'LEGENDARY' : 'MYTHICAL DISCOVERED';
+        const suffix = quantity > 1 ? ` · ×${quantity}` : '';
+        ui['modal-title'].textContent = !isNew ? (quantity > 1 ? `DUPLICATE · +${quantity}장 · 보유 ${save.quantity[p.id]}장` : `DUPLICATE · 보유 ${save.quantity[p.id]}장`) : (grade === 'normal' ? 'NEW CARD!' : grade === 'legendary' ? 'LEGENDARY' : 'MYTHICAL DISCOVERED') + suffix;
         const card = createCard(p);
         ui['modal-card'].replaceChildren(card);
         ui['win-actions'].hidden = false;
@@ -168,15 +169,15 @@ async function init() {
           ui['continue'].focus();
         }
       },
-      onCollect(p) { acquire(save, ids, p.id); persist(); sync(); },
+      onCollect(p, quantity = 1) { acquire(save, ids, p.id, quantity); persist(); sync(); },
     });
-    marketView = new MarketView(data, save, (id, all) => {
+    marketView = new MarketView(data, save, (id, quantity) => {
       if (marketUpdating || busy) return;
       // Settle elapsed time first so a sale always uses the current market quote.
       if (Date.now() - save.market.lastMarketUpdate >= MARKET_CONFIG.tickMs) {
         void catchUp(); toast('시장 가격을 갱신했습니다. 현재 가격을 확인한 뒤 매도해 주세요.'); return;
       }
-      const proceeds = sell(save, id, all);
+      const proceeds = sell(save, id, quantity);
       if (proceeds) { persist(); sync(); toast(money(proceeds) + '를 받았습니다.'); }
     });
     const debugPanel = byId('market-debug');

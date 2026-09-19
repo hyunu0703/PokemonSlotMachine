@@ -42,7 +42,11 @@ export class MarketView {
     this.ui['market-detail'].addEventListener('click', event => {
       const button = event.target.closest('button');
       if (button?.dataset.period) { this.period = button.dataset.period; this.renderDetail(); }
-      if (button?.dataset.sell) onSell(this.selected, button.dataset.sell === 'all');
+      if (button?.dataset.sell) {
+        const input = this.ui['market-detail'].querySelector('[data-sell-quantity]');
+        const quantity = Math.max(1, Number(input?.value) || 1);
+        onSell(this.selected, quantity);
+      }
     });
   }
   // 선택한 포켓몬의 시장 상세 모달 표시
@@ -110,12 +114,50 @@ export class MarketView {
     const line = document.createElementNS(chart.namespaceURI, 'polyline'); line.setAttribute('points', points.join(' ')); line.setAttribute('fill', 'none'); line.setAttribute('stroke', '#A782E3'); line.setAttribute('stroke-width', '3'); chart.append(line);
     const range = node('p', `최저 ${money(low)} · 최고 ${money(high)} · ${history.length}개 기록`, 'muted');
     const chartNote = node('p', `ALL은 최근 7일의 시간별 기록입니다. ${dateLabel(start)} ~ ${dateLabel(end)}`, 'muted');
-    const holding = node('p', `현재 보유 ${count}장 · 평가액 ${money(count * card.currentPrice)}`, 'market-holding');
-    const sales = node('div', '', 'modal-actions');
-    for (const [kind, label] of [['one', '1장 매도'], ['all', '전체 매도']]) {
-      const button = node('button', label, kind === 'one' ? 'primary' : 'secondary'); button.dataset.sell = kind; button.disabled = !count; sales.append(button);
-    }
-    this.ui['market-detail'].replaceChildren(heading, changes, periods, chart, range, chartNote, holding, sales);
+    const average = this.save.averageAcquisitionPrice?.[p.id];
+    const gain = Number.isFinite(average) && average > 0 ? (card.currentPrice - average) / average * 100 : null;
+    const sellRow = node('div', '', 'market-sell-row');
+    const stat = (label, value, className = '') => {
+      const box = node('div', '', 'market-sell-stat');
+      box.append(node('small', label), node('strong', value, className)); return box;
+    };
+    sellRow.append(
+      stat('평균 획득가', Number.isFinite(average) && average > 0 ? money(Math.round(average)) : '기록 부족'),
+      stat('현재가', money(card.currentPrice))
+    );
+    const returnBox = node('div', '', 'market-sell-stat market-sell-return');
+    returnBox.append(node('small', '수익률 · 실제 수익'));
+    const returnValues = node('div', '', 'market-sell-return-values');
+    const percentNode = node('strong', percent(gain), gain === 0 ? '' : directionClass(gain));
+    const profitNode = node('strong', '기록 부족');
+    returnValues.append(percentNode, profitNode); returnBox.append(returnValues); sellRow.append(returnBox);
+
+    const quantityBox = node('label', '', 'market-sell-quantity');
+    quantityBox.append(node('small', `수량 · 보유 ${count}장`));
+    const quantityInput = document.createElement('input');
+    quantityInput.type = 'text'; quantityInput.inputMode = 'numeric'; quantityInput.pattern = '[0-9]*';
+    quantityInput.autocomplete = 'off'; quantityInput.value = count ? '1' : '0'; quantityInput.disabled = !count;
+    quantityInput.dataset.sellQuantity = '';
+    const normalizeQuantity = () => {
+      const digits = quantityInput.value.replace(/\D/g, '');
+      if (!digits) { quantityInput.value = ''; return 0; }
+      const value = Math.min(count, Math.max(1, Number(digits) || 1));
+      quantityInput.value = String(value); return value;
+    };
+    const updateProfit = () => {
+      const quantity = normalizeQuantity();
+      const profit = Number.isFinite(average) && average > 0 ? (card.currentPrice - average) * quantity : null;
+      profitNode.textContent = Number.isFinite(profit) ? signedMoney(profit) : '기록 부족';
+      profitNode.className = Number.isFinite(profit) && profit !== 0 ? directionClass(profit) : '';
+    };
+    quantityInput.addEventListener('input', updateProfit);
+    quantityInput.addEventListener('blur', () => { if (count && !quantityInput.value) quantityInput.value = '1'; updateProfit(); });
+    quantityBox.append(quantityInput); sellRow.append(quantityBox);
+
+    const sellButton = node('button', '매도', 'primary market-sell-button');
+    sellButton.dataset.sell = 'quantity'; sellButton.disabled = !count; sellRow.append(sellButton);
+    updateProfit();
+    this.ui['market-detail'].replaceChildren(heading, changes, periods, chart, range, chartNote, sellRow);
   }
   // Market 전체 목록 갱신
   renderList() {

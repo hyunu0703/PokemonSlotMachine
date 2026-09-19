@@ -68,7 +68,7 @@ export class Slot {
   constructor(data, ids, { onBusy, onWin, onCollect, onStart, canSpend }) {
     this.data = data; this.ids = ids; this.onBusy = onBusy; this.onWin = onWin; this.onCollect = onCollect;
     this.onStart = onStart; this.canSpend = canSpend;
-    this.grade = 'normal'; this.isSpinning = false;
+    this.grade = 'normal'; this.multiplier = 1; this.isSpinning = false;
     this.pools = { normal: [], legendary: [], mythical: [] };
     for (const p of data.records) this.pools[p.grade].push(p);
     this.machine = document.getElementById('machine');
@@ -76,6 +76,7 @@ export class Slot {
     this.tracks = [...document.querySelectorAll('.reel-track')];
     this.tabs = [...document.querySelectorAll('#slot-tabs button')];
     this.spinButton = document.getElementById('spin');
+    this.multiplierButtons = [...document.querySelectorAll('#slot-multipliers button')];
     this.title = document.getElementById('slot-title');
     this.rate = document.getElementById('win-rate');
     this.costLabel = document.getElementById('slot-cost');
@@ -97,6 +98,10 @@ export class Slot {
     }
     this.stars = [...this.particles.children];
     this.spinButton.addEventListener('click', () => this.spin());
+    for (const button of this.multiplierButtons) button.addEventListener('click', () => {
+      if (this.isSpinning) return;
+      this.multiplier = Number(button.dataset.multiplier); this.refresh();
+    });
     for (const tab of this.tabs) tab.addEventListener('click', () => {
       if (this.isSpinning) return;
       this.grade = tab.dataset.grade; this.resetVisuals(); this.refresh();
@@ -116,14 +121,19 @@ export class Slot {
   }
   refresh() {
     const count = this.remaining().length;
+    const cost = SLOT_CONFIG[this.grade].cost * this.multiplier;
     this.machine.className = `machine ${this.grade}`;
     this.title.textContent = `${GRADES[this.grade]} 슬롯`;
     this.rate.textContent = `${SLOT_CONFIG[this.grade].winRate * 100}%`;
     this.remainingLabel.textContent = `${count} / ${this.data.counts[this.grade]}`;
-    this.spinButton.disabled = this.isSpinning || count === 0 || !this.canSpend(SLOT_CONFIG[this.grade].cost);
-    this.costLabel.textContent = SLOT_CONFIG[this.grade].cost.toLocaleString('ko-KR') + ' TC';
+    this.spinButton.disabled = this.isSpinning || count === 0 || !this.canSpend(cost);
+    this.costLabel.textContent = cost.toLocaleString('ko-KR') + ' TC';
     this.spinButton.firstChild.textContent = count ? 'SPIN ' : 'COMPLETE ';
     if (!count) this.status.textContent = 'COMPLETE · 모든 카드를 수집했습니다.';
+    for (const button of this.multiplierButtons) {
+      button.disabled = this.isSpinning || count === 0;
+      button.setAttribute('aria-pressed', String(Number(button.dataset.multiplier) === this.multiplier));
+    }
     for (const tab of this.tabs) {
       tab.disabled = this.isSpinning;
       tab.setAttribute('aria-pressed', String(tab.dataset.grade === this.grade));
@@ -133,15 +143,16 @@ export class Slot {
     if (this.isSpinning) return;
     const remaining = this.remaining();
     if (!remaining.length) { this.refresh(); return; }
-    const config = SLOT_CONFIG[this.grade];
-    if (!this.onStart(config.cost)) { this.status.textContent = 'TC가 부족하거나 시장을 갱신 중입니다.'; this.refresh(); return; }
+    const config = SLOT_CONFIG[this.grade], multiplier = this.multiplier, cost = config.cost * multiplier;
+    if (!this.onStart(cost)) { this.status.textContent = 'TC가 부족하거나 시장을 갱신 중입니다.'; this.refresh(); return; }
     const candidates = selectCandidates(remaining, config.candidateLimit);
     this.candidatesUI.replaceChildren(...candidates.map(slotSymbol));
     this.candidateCount.textContent = `${candidates.length}마리`;
     const won = Math.random() < config.winRate;
     const result = createResult(candidates, won);
+    const isNew = won && !this.ids.has(result[0].id);
     // Persist the outcome together with the charged spin before any asynchronous animation.
-    if (won) this.onCollect(result[0]);
+    if (won) this.onCollect(result[0], multiplier);
     this.isSpinning = true; this.onBusy(true); this.refresh();
     this.status.textContent = '새로운 만남을 기다리는 중…';
     try {
@@ -149,8 +160,8 @@ export class Slot {
       await this.spinAnimation(candidates, result);
       if (won) {
         await this.celebrate();
-        await this.onWin(result[0], this.grade);
-        this.status.textContent = `${result[0].nameKo} 카드를 획득했습니다!`;
+        await this.onWin(result[0], this.grade, multiplier, isNew);
+        this.status.textContent = multiplier === 1 ? `${result[0].nameKo} 카드를 획득했습니다!` : `${result[0].nameKo} 카드 ${multiplier}장을 획득했습니다!`;
       } else {
         this.status.textContent = '아쉬워요! 다시 한번 돌려볼까요?';
         await hold(400);
