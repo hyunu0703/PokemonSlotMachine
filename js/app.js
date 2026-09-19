@@ -11,7 +11,7 @@ const MARKET_DEBUG = ['localhost', '127.0.0.1'].includes(location.hostname);
 
 async function init() {
   const byId = id => document.getElementById(id);
-  const ui = Object.fromEntries(['app', 'load-status', 'home-count', 'home-percent', 'home-progress', 'card-modal', 'modal-title', 'modal-card', 'reveal-stage', 'win-actions', 'card-close', 'continue', 'view-collection', 'reset-modal', 'sound', 'music', 'toast'].map(id => [id, byId(id)]));
+  const ui = Object.fromEntries(['app', 'load-status', 'home-count', 'home-percent', 'home-progress', 'card-modal', 'modal-title', 'modal-card', 'reveal-stage', 'win-actions', 'card-close', 'continue', 'view-collection', 'batch-result-modal', 'batch-result-title', 'batch-result-stats', 'batch-result-grid', 'batch-result-close', 'batch-result-confirm', 'reset-modal', 'sound', 'music', 'scroll-top', 'toast'].map(id => [id, byId(id)]));
   const nav = [...document.querySelectorAll('nav button')];
   const screens = [...document.querySelectorAll('.screen')];
   let busy = false, toastTimer, lastAcquired = null, revealing = false;
@@ -41,6 +41,7 @@ async function init() {
       }
       if (page === 'market') { marketView?.render(); void catchUp(); }
       if (page === 'collection') collection.render();
+      ui['scroll-top'].hidden = !['slot', 'market', 'collection'].includes(page);
       window.scrollTo({ top: 0, behavior: 'instant' });
     };
     const closeCard = () => { if (!revealing) ui['card-modal'].close(); };
@@ -170,6 +171,36 @@ async function init() {
         }
       },
       onCollect(p, quantity = 1) { acquire(save, ids, p.id, quantity); persist(); sync(); },
+      onBatchStart(cost, rewards) {
+        if (marketUpdating || !spend(save, cost)) return false;
+        const quantities = new Map();
+        for (const p of rewards) quantities.set(p.id, (quantities.get(p.id) ?? 0) + 1);
+        for (const [id, quantity] of quantities) acquire(save, ids, id, quantity);
+        persist(); sync(); return true;
+      },
+      async onBatchSummary(rewards, drawCount, grade) {
+        const grouped = new Map();
+        for (const p of rewards) {
+          const entry = grouped.get(p.id) ?? { pokemon: p, quantity: 0 };
+          entry.quantity++; grouped.set(p.id, entry);
+        }
+        ui['batch-result-title'].textContent = `${drawCount}회 SPIN 결과`;
+        ui['batch-result-stats'].textContent = `당첨 ${rewards.length}회 · 실패 ${drawCount - rewards.length}회 · 획득 ${grouped.size}종`;
+        const cards = [...grouped.values()].map(({ pokemon, quantity }) => {
+          const item = document.createElement('div'); item.className = 'collection-card batch-result-card';
+          item.append(createCard(pokemon));
+          const badge = document.createElement('span'); badge.className = 'batch-result-quantity'; badge.textContent = `×${quantity}`;
+          item.append(badge); return item;
+        });
+        if (cards.length) ui['batch-result-grid'].replaceChildren(...cards);
+        else {
+          const empty = document.createElement('p'); empty.className = 'muted batch-result-empty'; empty.textContent = '이번 SPIN에서는 당첨된 포켓몬이 없습니다.';
+          ui['batch-result-grid'].replaceChildren(empty);
+        }
+        ui['batch-result-modal'].className = `batch-result-modal ${grade}`;
+        ui['batch-result-modal'].showModal();
+        await new Promise(resolve => ui['batch-result-modal'].addEventListener('close', resolve, { once: true }));
+      },
     });
     marketView = new MarketView(data, save, (id, quantity) => {
       if (marketUpdating || busy) return;
@@ -233,6 +264,10 @@ async function init() {
         if (updated) { persist(); marketView.render(); }
       } finally { marketUpdating = false; slot.refresh(); }
     }
+    ui['scroll-top'].addEventListener('click', () => {
+      const behavior = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+      window.scrollTo({ top: 0, behavior });
+    });
     for (const button of nav) button.addEventListener('click', () => showPage(button.dataset.page));
     document.querySelector('.brand').addEventListener('click', event => { event.preventDefault(); showPage('home'); });
     byId('start').addEventListener('click', () => showPage('slot'));
@@ -241,6 +276,8 @@ async function init() {
     ui['card-modal'].addEventListener('cancel', event => { if (revealing) event.preventDefault(); });
     ui['card-modal'].addEventListener('click', event => { if (event.target === ui['card-modal']) closeCard(); });
     ui['view-collection'].addEventListener('click', () => { closeCard(); showPage('collection'); collection.reveal(lastAcquired); });
+    ui['batch-result-close'].addEventListener('click', () => ui['batch-result-modal'].close());
+    ui['batch-result-confirm'].addEventListener('click', () => ui['batch-result-modal'].close());
     for (const [id, key] of [['sound', 'soundEnabled'], ['music', 'musicEnabled']]) {
       const renderSetting = () => { ui[id].textContent = save[key] ? 'ON' : 'OFF'; ui[id].setAttribute('aria-checked', String(save[key])); };
       renderSetting();
