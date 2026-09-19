@@ -57,10 +57,14 @@
         <div id="market-owned-sort" class="tabs market-periods" aria-label="보유 포켓몬 정렬"><button data-sort="price" aria-pressed="true">가격 높은순</button><button data-sort="return" aria-pressed="false">수익률 높은순</button></div>
         <p id="market-owned-empty" class="muted">현재 보유 중인 포켓몬이 없습니다.</p>
         <div id="market-owned-rows" hidden></div>
+        <div id="market-owned-pagination" class="market-owned-pagination" hidden>
+          <button id="market-owned-prev" class="secondary">이전</button>
+          <span id="market-owned-page"></span>
+          <button id="market-owned-next" class="secondary">다음</button>
+        </div>
       </section><aside class="panel market-news"><h2>MARKET NEWS</h2><div id="market-news"></div></aside></div>
       <p id="market-time" class="muted" role="status"></p>
-      <div id="market-detail" class="panel market-detail"></div>
-      <div class="panel market-list"><div class="filters"><label>희귀도<select id="market-grade"><option value="all">전체</option><option value="normal">일반</option><option value="legendary">전설</option><option value="mythical">환상</option></select></label><label class="search-label">포켓몬 검색<input id="market-search" type="search" placeholder="이름 또는 도감 번호"></label><label>정렬<select id="market-sort"><option value="amount">거래대금</option><option value="volume">거래량 높은순</option><option value="return-high">수익률 높은순</option><option value="return-low">수익률 낮은순</option></select></label></div>
+      <div class="panel market-list"><div class="filters market-filters"><label>희귀도<select id="market-grade"><option value="all">전체</option><option value="normal">일반</option><option value="legendary">전설</option><option value="mythical">환상</option></select></label><label>속성<select id="market-type"><option value="all">전체</option></select></label><label class="search-label">포켓몬 검색<input id="market-search" type="search" placeholder="이름 또는 도감 번호"></label><label>정렬<select id="market-sort"><option value="amount">거래대금</option><option value="volume">거래량 높은순</option><option value="return-high">수익률 높은순</option><option value="return-low">수익률 낮은순</option></select></label></div>
       <div class="market-table-scroll"><table class="market-table"><thead><tr><th>포켓몬</th><th>희귀도</th><th>현재 가격</th><th>10분 등락률</th><th>보유 수량</th></tr></thead><tbody id="market-rows"></tbody></table></div>
       <div class="market-pagination"><button id="market-prev" class="secondary">이전</button><span id="market-page"></span><button id="market-next" class="secondary">다음</button></div></div>
     </section>
@@ -72,6 +76,7 @@
     <section id="settings" class="screen" hidden aria-labelledby="settings-title"><div class="section-heading"><span class="eyebrow">MAKE YOURSELF AT HOME</span><h1 id="settings-title">SETTINGS</h1></div><div class="panel settings-panel"><div class="setting"><span>효과음</span><button id="sound" class="toggle" role="switch" aria-checked="true">ON</button></div><div class="setting"><span>배경음악</span><button id="music" class="toggle" role="switch" aria-checked="true">ON</button></div><div class="reset-area"><button id="reset-open" class="danger">게임 데이터 초기화</button></div></div></section>
   </main>
   <footer>Pokémon <span>✦</span> Slot Collection</footer>
+  <dialog id="market-detail-modal" aria-label="포켓몬 시장 상세"><div class="market-detail-modal-inner"><button id="market-detail-close" class="close" aria-label="닫기">×</button><div id="market-detail" class="market-detail"></div></div></dialog>
   <dialog id="card-modal" aria-labelledby="modal-title"><div class="modal-inner"><button id="card-close" class="close" aria-label="닫기">×</button><h2 id="modal-title">NEW CARD!</h2><div id="reveal-stage"><div id="modal-card"></div></div><div id="win-actions" class="modal-actions"><button id="continue" class="primary">계속 SPIN</button><button id="view-collection" class="secondary">도감 보기</button></div></div></dialog>
   <dialog id="reset-modal" aria-labelledby="reset-title"><div class="confirm-inner"><h2 id="reset-title">카드 수집·보유량·TC·시장을 모두 초기화하시겠습니까?</h2><p>초기화한 데이터는 복구할 수 없습니다.</p><div class="modal-actions"><button id="reset-cancel" class="secondary">취소</button><button id="reset-confirm" class="danger">초기화</button></div></div></dialog>
   <div id="win-effects" aria-hidden="true"><div class="effect-shade"></div><div class="effect-particles"></div><div class="effect-flash"></div></div>
