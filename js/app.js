@@ -177,8 +177,18 @@ async function init() {
       if (Date.now() - save.market.lastMarketUpdate >= MARKET_CONFIG.tickMs) {
         void catchUp(); toast('시장 가격을 갱신했습니다. 현재 가격을 확인한 뒤 매도해 주세요.'); return;
       }
-      const proceeds = sell(save, id, quantity);
-      if (proceeds) { persist(); sync(); toast(money(proceeds) + '를 받았습니다.'); }
+      const count = save.quantity[id] ?? 0;
+      const sellCount = Math.min(count, Math.max(1, Math.floor(Number(quantity) || 1)));
+      const average = save.averageAcquisitionPrice?.[id], quote = save.market.cards[id]?.currentPrice;
+      const profit = Number.isFinite(average) && average > 0 && Number.isFinite(quote) ? (quote - average) * sellCount : null;
+      const returnRate = Number.isFinite(average) && average > 0 && Number.isFinite(quote) ? (quote - average) / average * 100 : null;
+      const proceeds = sell(save, id, sellCount);
+      if (proceeds) {
+        const history = Array.isArray(save.market.saleHistory) ? save.market.saleHistory : [];
+        history.unshift({ cardId: id, quantity: sellCount, profit, returnRate, time: Date.now() });
+        save.market.saleHistory = history.slice(0, 5);
+        persist(); sync(); toast(money(proceeds) + '를 받았습니다.');
+      }
     });
     const debugPanel = byId('market-debug');
     const debugButtons = [...document.querySelectorAll('[data-debug-ticks]')];

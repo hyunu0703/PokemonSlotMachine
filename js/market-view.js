@@ -6,6 +6,26 @@ const percent = n => n === null ? '기록 부족' : `${n > 0 ? '+' : ''}${n.toFi
 const signedMoney = n => `${n > 0 ? '+' : ''}${Math.round(n).toLocaleString('ko-KR')} TC`;
 const directionClass = n => n > 0 ? 'market-up' : n < 0 ? 'market-down' : 'muted';
 const targetLabel = (n, data) => n.target === 'card' ? data.byId.get(n.cardId)?.nameKo : n.target === 'type' ? `${TYPES[n.type]?.[0] ?? n.type}타입` : `${GRADES[n.target] ?? n.target} 포켓몬`;
+
+// 뉴스 내용에 맞는 포켓몬 세계관 출처를 고정적으로 선택한다.
+// 뉴스 id를 이용하므로 화면을 다시 그려도 같은 뉴스의 출처가 바뀌지 않는다.
+const NEWS_SOURCES = {
+  media: ['호연 TV · 기자 개비', '홀로캐스터 · 파키라', '도나존 · 모야모'],
+  research: ['오박사 연구소', '공박사 연구소', '털보박사 연구소', '마박사 연구소', '주박사 연구소', '플라타느박사 연구소', '쿠쿠이박사 연구소', '소니아 연구팀', '팔데아 연구팀'],
+  official: ['신오리그 · 챔피언 난천', '호연리그 · 챔피언 성호', '가라르리그 · 챔피언 단델', '팔데아리그 · 테사', '에테르재단 공식 발표'],
+};
+const stableSource = (sources, key) => {
+  let hash = 0;
+  for (let i = 0; i < key.length; i++) hash = (hash * 31 + key.charCodeAt(i)) >>> 0;
+  return sources[hash % sources.length];
+};
+const newsSource = n => {
+  if (n.transition === 'rarity') return stableSource(NEWS_SOURCES.official, n.id);
+  if (n.target === 'card') return stableSource(NEWS_SOURCES.media, n.id);
+  if (n.transition === 'counter') return stableSource([...NEWS_SOURCES.media, ...NEWS_SOURCES.official], n.id);
+  return stableSource(NEWS_SOURCES.research, n.id);
+};
+
 const dateLabel = t => new Date(t).toLocaleString('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' });
 const node = (tag, text, className = '') => {
   const el = document.createElement(tag); el.textContent = text; el.className = className; return el;
@@ -23,7 +43,7 @@ export class MarketView {
   constructor(data, save, onSell) {
     this.data = data; this.save = save; this.selected = data.records[0].id;
     this.page = 0; this.pageSize = 20; this.listLimit = 100; this.period = '1H'; this.ownedSort = 'price'; this.ownedPage = 0; this.ownedPageSize = 10;
-    this.ui = Object.fromEntries(['market', 'market-assets', 'market-detail-modal', 'market-detail', 'market-detail-close', 'market-news', 'market-rows', 'market-grade', 'market-type', 'market-search', 'market-sort', 'market-page', 'market-prev', 'market-next', 'market-time', 'market-owned-sort', 'market-owned-rows', 'market-owned-empty', 'market-owned-pagination', 'market-owned-page', 'market-owned-prev', 'market-owned-next'].map(id => [id, document.getElementById(id)]));
+    this.ui = Object.fromEntries(['market', 'market-assets', 'market-detail-modal', 'market-detail', 'market-detail-close', 'market-news', 'market-sales', 'market-rows', 'market-grade', 'market-type', 'market-search', 'market-sort', 'market-page', 'market-prev', 'market-next', 'market-time', 'market-owned-sort', 'market-owned-rows', 'market-owned-empty', 'market-owned-pagination', 'market-owned-page', 'market-owned-prev', 'market-owned-next'].map(id => [id, document.getElementById(id)]));
     for (const [type, [label]] of Object.entries(TYPES)) { const option = node('option', label); option.value = type; this.ui['market-type'].append(option); }
     for (const id of ['market-grade', 'market-type', 'market-search', 'market-sort']) this.ui[id].addEventListener(id === 'market-search' ? 'input' : 'change', () => { this.page = 0; this.renderList(); });
     this.ui['market-prev'].addEventListener('click', () => { this.page--; this.renderList(); });
@@ -84,7 +104,7 @@ export class MarketView {
     this.ui['market-time'].textContent = `최근 갱신 ${dateLabel(market.lastMarketUpdate)} · 다음 ${dateLabel(market.lastMarketUpdate + MARKET_CONFIG.tickMs)} · 10분마다 갱신`;
 
     if (this.ui['market-detail-modal'].open) this.renderDetail();
-    this.renderList(); this.renderNews(); this.renderOwned();
+    this.renderList(); this.renderNews(); this.renderSales(); this.renderOwned();
   }
   // 선택한 포켓몬의 가격/차트/매도 정보 갱신
   renderDetail() {
@@ -106,15 +126,64 @@ export class MarketView {
       const button = node('button', period); button.dataset.period = period; button.setAttribute('aria-pressed', String(period === this.period)); periods.append(button);
     }
     const { values: history, start, end } = priceHistory(card, this.save.market.lastMarketUpdate, this.period);
+    const average = this.save.averageAcquisitionPrice?.[p.id];
+    const hasAverage = Number.isFinite(average) && average > 0;
+    const low = Math.min(...history), high = Math.max(...history);
+    const scaleLow = hasAverage ? Math.min(low, average) : low, scaleHigh = hasAverage ? Math.max(high, average) : high;
+    const spread = scaleHigh - scaleLow || Math.max(scaleHigh * .05, 1);
+    const xAt = index => 20 + index / Math.max(1, history.length - 1) * 560;
+    const yAt = value => 165 - (value - scaleLow) / spread * 140;
     const chart = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    chart.setAttribute('viewBox', '0 0 600 190'); chart.setAttribute('role', 'img'); chart.setAttribute('aria-label', `${p.nameKo} ${this.period} 가격 차트. 최저 ${Math.min(...history)} TC, 최고 ${Math.max(...history)} TC`); chart.classList.add('market-chart');
-    const low = Math.min(...history), high = Math.max(...history), spread = high - low || high * .05;
-    const points = history.map((value, index) => `${20 + index / Math.max(1, history.length - 1) * 560},${165 - (value - low) / spread * 140}`);
-    if (history.length === 1) points.push(`580,165`);
-    const line = document.createElementNS(chart.namespaceURI, 'polyline'); line.setAttribute('points', points.join(' ')); line.setAttribute('fill', 'none'); line.setAttribute('stroke', '#A782E3'); line.setAttribute('stroke-width', '3'); chart.append(line);
+    chart.setAttribute('viewBox', '0 0 600 190'); chart.setAttribute('role', 'img');
+    chart.setAttribute('aria-label', `${p.nameKo} ${this.period} 가격 차트. 최저 ${low} TC, 최고 ${high} TC${hasAverage ? `, 평균 획득가 ${Math.round(average)} TC` : ''}`); chart.classList.add('market-chart');
+    const chartText = (text, x, y, anchor = 'middle') => {
+      const label = document.createElementNS(chart.namespaceURI, 'text');
+      label.textContent = text; label.setAttribute('x', x); label.setAttribute('y', y); label.setAttribute('text-anchor', anchor);
+      label.setAttribute('fill', '#625B67'); label.setAttribute('font-size', '7'); label.setAttribute('font-weight', '700');
+      label.setAttribute('style', 'paint-order:stroke;stroke:#FCF9FF;stroke-width:2px;stroke-linejoin:round');
+      return label;
+    };
+    const pointLabel = (text, index, y) => {
+      const pointX = xAt(index);
+      const anchor = pointX < 85 ? 'start' : pointX > 515 ? 'end' : 'middle';
+      const x = anchor === 'start' ? Math.max(22, pointX + 2) : anchor === 'end' ? Math.min(578, pointX - 2) : pointX;
+      return chartText(text, x, Math.max(10, Math.min(179, y)), anchor);
+    };
+    let averageLabel = null;
+    const averageY = hasAverage ? yAt(average) : null;
+    const averageLabelY = hasAverage ? Math.max(12, Math.min(180, averageY + 10)) : null;
+    if (hasAverage) {
+      const averageLine = document.createElementNS(chart.namespaceURI, 'line');
+      averageLine.setAttribute('x1', '20'); averageLine.setAttribute('x2', '580'); averageLine.setAttribute('y1', averageY); averageLine.setAttribute('y2', averageY);
+      averageLine.setAttribute('stroke', '#8A858D'); averageLine.setAttribute('stroke-width', '0.75'); averageLine.setAttribute('stroke-dasharray', '4 4'); averageLine.setAttribute('stroke-linecap', 'round');
+      chart.append(averageLine);
+      averageLabel = chartText(`평균 획득가 ${money(Math.round(average))}`, 20, averageLabelY, 'start');
+    }
+    const points = history.map((value, index) => `${xAt(index)},${yAt(value)}`);
+    if (history.length === 1) points.push(`580,${yAt(history[0])}`);
+    const line = document.createElementNS(chart.namespaceURI, 'polyline'); line.setAttribute('points', points.join(' ')); line.setAttribute('fill', 'none'); line.setAttribute('stroke', '#A782E3'); line.setAttribute('stroke-width', '1.5'); chart.append(line);
+    const lowIndex = history.indexOf(low), highIndex = history.indexOf(high);
+    const lowX = xAt(lowIndex), lowPointY = yAt(low);
+    let lowLabelY = Math.max(12, Math.min(180, lowPointY + 11));
+
+    // 왼쪽 영역에서 최저가와 평균 획득가 라벨이 가까우면 세로 간격을 자동 확보한다.
+    if (hasAverage && lowX < 210 && Math.abs(lowLabelY - averageLabelY) < 13) {
+      const aboveAverage = Math.min(lowPointY - 8, averageLabelY - 12);
+      if (aboveAverage >= 12) lowLabelY = aboveAverage;
+      else lowLabelY = Math.min(180, averageLabelY + 13);
+    }
+
+    // 텍스트는 가격선보다 나중에 그려 보라색 선이 글자를 가리지 않게 한다.
+    if (averageLabel) chart.append(averageLabel);
+    const highLabel = pointLabel(`최고 ${money(high)}`, highIndex, yAt(high) - 6);
+    // 최고 TC도 평균 획득가/최저 TC와 동일한 흰색 테두리 두께를 명시적으로 적용한다.
+    highLabel.setAttribute('style', 'paint-order:stroke;stroke:#FCF9FF;stroke-width:2px;stroke-linejoin:round');
+    chart.append(
+      highLabel,
+      pointLabel(`최저 ${money(low)}`, lowIndex, lowLabelY)
+    );
     const range = node('p', `최저 ${money(low)} · 최고 ${money(high)} · ${history.length}개 기록`, 'muted');
     const chartNote = node('p', `ALL은 최근 7일의 시간별 기록입니다. ${dateLabel(start)} ~ ${dateLabel(end)}`, 'muted');
-    const average = this.save.averageAcquisitionPrice?.[p.id];
     const gain = Number.isFinite(average) && average > 0 ? (card.currentPrice - average) / average * 100 : null;
     const sellRow = node('div', '', 'market-sell-row');
     const stat = (label, value, className = '') => {
@@ -225,10 +294,32 @@ export class MarketView {
     const market = this.save.market;
     this.ui['market-news'].replaceChildren(...market.newsHistory.map(n => {
       const item = node('details', '', 'market-news-item'), summary = node('summary', '');
-      summary.append(node('small', '시장 뉴스', 'market-up'), node('strong', n.title));
+      summary.append(node('small', newsSource(n), 'market-up'), node('strong', n.title));
       const impact = `주요 변동폭 ±${Math.round(n.impact * 100)}%`;
-      item.append(summary, node('p', `대상: ${targetLabel(n, this.data)} · ${impact} · 10분 Tick에 즉시 반영`)); return item;
+      item.append(summary, node('p', `대상: ${targetLabel(n, this.data)} · ${impact}`)); return item;
     }));
     if (!market.newsHistory.length) this.ui['market-news'].append(node('p', '아직 시장 뉴스가 없습니다. 시장 뉴스는 10분 Tick마다 갱신됩니다.', 'muted'));
+  }
+  // 최근 매도 손익 기록 갱신
+  renderSales() {
+    const history = Array.isArray(this.save.market?.saleHistory) ? this.save.market.saleHistory.slice(0, 5) : [];
+    this.ui['market-sales'].replaceChildren(...history.flatMap(sale => {
+      const p = this.data.byId.get(sale.cardId);
+      if (!p) return [];
+      const item = node('article', '', 'market-sale-item');
+      const row = node('div', '', 'market-sale-row');
+      const info = node('strong', p.nameKo, 'market-sale-name');
+      const values = node('div', '', 'market-sale-values');
+      const profit = Number.isFinite(sale.profit) ? sale.profit : null;
+      const gain = Number.isFinite(sale.returnRate) ? sale.returnRate : null;
+      values.append(
+        node('strong', profit === null ? '기록 부족' : signedMoney(profit), profit === null || profit === 0 ? '' : directionClass(profit)),
+        node('span', gain === null ? '기록 부족' : percent(gain), gain === null || gain === 0 ? '' : directionClass(gain))
+      );
+      row.append(imageOrPlaceholder(p.slotImage, node('span', '✧'), p.nameKo, true), info, values);
+      item.append(row);
+      return [item];
+    }));
+    if (!history.length) this.ui['market-sales'].append(node('p', '아직 판매 기록이 없습니다.', 'muted'));
   }
 }
