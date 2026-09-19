@@ -26,6 +26,33 @@ const newsSource = n => {
   return stableSource(NEWS_SOURCES.research, n.id);
 };
 
+const newsDescription = (n, data) => {
+  const type = n.type ? `${TYPES[n.type]?.[0] ?? n.type}타입` : '';
+  const opposed = n.opposedType ? `${TYPES[n.opposedType]?.[0] ?? n.opposedType}타입` : '';
+  const pokemon = n.target === 'card' ? (data.byId.get(n.cardId)?.nameKo ?? '해당 포켓몬') : '';
+
+  if (n.transition === 'rarity') {
+    const grade = `${GRADES[n.target] ?? n.target} 포켓몬`;
+    return `최근 ${grade} 카드에 투자자들의 관심이 집중되고 있습니다. 관련 카드의 거래량과 매수세가 함께 증가하고 있습니다. 일부 카드에서는 높은 가격에도 거래가 이어지고 있으며, 당분간 가격 변동성이 커질 가능성이 있습니다.`;
+  }
+  if (n.target === 'card') {
+    if (n.transition === 'counter') {
+      return `${opposed}의 강세에 대응하려는 움직임이 나타나면서 ${pokemon}에 대한 수요가 증가하고 있습니다. 관련 카드를 찾는 투자자가 늘어나며 거래량도 함께 증가하고 있습니다. 시장에서는 새로운 대응 종목으로 주목받는 모습입니다.`;
+    }
+    if (n.transition === 'continue') {
+      return `${pokemon}에 대한 높은 관심이 계속되고 있습니다. 매수세가 유지되며 거래 활동도 활발하게 이어지고 있습니다. 가격 상승 이후에도 거래량이 크게 감소하지 않아 강세 흐름이 유지되고 있습니다.`;
+    }
+    return `${pokemon}에 새로운 매수세가 유입되고 있습니다. 거래량 증가와 함께 시장의 관심도 빠르게 높아지고 있습니다. 최근 거래가 연이어 체결되면서 단기간에 가격 변동폭이 확대되는 모습입니다.`;
+  }
+  if (n.transition === 'counter') {
+    return `${opposed} 중심이던 시장에서 변화가 나타나고 있습니다. 이를 견제하는 ${type} 카드에 새로운 수요가 유입되고 있습니다. 일부 투자자들이 기존 강세 종목에서 자금을 이동시키면서 시장의 중심도 점차 변하고 있습니다.`;
+  }
+  if (n.transition === 'continue') {
+    return `${type} 카드의 강세 흐름이 계속되고 있습니다. 기존 매수세가 유지되면서 관련 카드의 거래대금도 높은 수준을 보이고 있습니다. 단기 상승 이후에도 수요가 줄지 않아 시장의 관심이 지속되는 모습입니다.`;
+  }
+  return `새롭게 ${type} 카드에 매수세가 유입되고 있습니다. 시장에서 관련 카드의 거래 활동도 빠르게 증가하고 있습니다. 여러 종목에서 동시에 가격 상승 움직임이 나타나면서 ${type} 카드 전반으로 관심이 확산되고 있습니다.`;
+};
+
 const dateLabel = t => new Date(t).toLocaleString('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' });
 const node = (tag, text, className = '') => {
   const el = document.createElement(tag); el.textContent = text; el.className = className; return el;
@@ -296,7 +323,12 @@ export class MarketView {
       const item = node('details', '', 'market-news-item'), summary = node('summary', '');
       summary.append(node('small', newsSource(n), 'market-up'), node('strong', n.title));
       const impact = `주요 변동폭 ±${Math.round(n.impact * 100)}%`;
-      item.append(summary, node('p', `대상: ${targetLabel(n, this.data)} · ${impact}`)); return item;
+      item.append(
+        summary,
+        node('p', newsDescription(n, this.data)),
+        node('p', `대상: ${targetLabel(n, this.data)} · ${impact}`)
+      );
+      return item;
     }));
     if (!market.newsHistory.length) this.ui['market-news'].append(node('p', '아직 시장 뉴스가 없습니다. 시장 뉴스는 10분 Tick마다 갱신됩니다.', 'muted'));
   }
