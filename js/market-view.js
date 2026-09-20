@@ -5,10 +5,12 @@ export const money = n => n.toLocaleString('ko-KR') + ' TC';
 const percent = n => n === null ? '기록 부족' : `${n > 0 ? '+' : ''}${n.toFixed(2)}%`;
 const signedMoney = n => `${n > 0 ? '+' : ''}${Math.round(n).toLocaleString('ko-KR')} TC`;
 const directionClass = n => n > 0 ? 'market-up' : n < 0 ? 'market-down' : 'muted';
-const targetLabel = (n, data) => n.target === 'card' ? data.byId.get(n.cardId)?.nameKo : n.target === 'type' ? `${TYPES[n.type]?.[0] ?? n.type}타입` : `${GRADES[n.target] ?? n.target} 포켓몬`;
+const targetLabel = (n, data) => {
+  if (n.target === 'card') return data.byId.get(n.cardId)?.nameKo ?? '해당 포켓몬';
+  const type = n.focus === 'opposed' && n.opposedType ? n.opposedType : n.type;
+  return `${TYPES[type]?.[0] ?? type}타입`;
+};
 
-// 뉴스 내용에 맞는 포켓몬 세계관 출처를 고정적으로 선택한다.
-// 뉴스 id를 이용하므로 화면을 다시 그려도 같은 뉴스의 출처가 바뀌지 않는다.
 const NEWS_SOURCES = {
   media: ['호연 TV · 기자 개비', '홀로캐스터 · 파키라', '도나존 · 모야모'],
   research: ['오박사 연구소', '공박사 연구소', '털보박사 연구소', '마박사 연구소', '주박사 연구소', '플라타느박사 연구소', '쿠쿠이박사 연구소', '소니아 연구팀', '팔데아 연구팀'],
@@ -20,37 +22,46 @@ const stableSource = (sources, key) => {
   return sources[hash % sources.length];
 };
 const newsSource = n => {
-  if (n.transition === 'rarity') return stableSource(NEWS_SOURCES.official, n.id);
   if (n.target === 'card') return stableSource(NEWS_SOURCES.media, n.id);
-  if (n.transition === 'counter') return stableSource([...NEWS_SOURCES.media, ...NEWS_SOURCES.official], n.id);
+  if (n.nature === 'negative') return stableSource([...NEWS_SOURCES.media, ...NEWS_SOURCES.official], n.id);
   return stableSource(NEWS_SOURCES.research, n.id);
 };
+const NEWS_NATURE_META = Object.freeze({
+  positive: { label: '호재', className: 'market-up' },
+  neutral: { label: '중립', className: 'muted' },
+  negative: { label: '악재', className: 'market-down' },
+});
 
 const newsDescription = (n, data) => {
-  const type = n.type ? `${TYPES[n.type]?.[0] ?? n.type}타입` : '';
-  const opposed = n.opposedType ? `${TYPES[n.opposedType]?.[0] ?? n.opposedType}타입` : '';
+  const type = `${TYPES[n.type]?.[0] ?? n.type}타입`;
+  const opposed = n.opposedType ? `${TYPES[n.opposedType]?.[0] ?? n.opposedType}타입` : '관련 타입';
   const pokemon = n.target === 'card' ? (data.byId.get(n.cardId)?.nameKo ?? '해당 포켓몬') : '';
 
-  if (n.transition === 'rarity') {
-    const grade = `${GRADES[n.target] ?? n.target} 포켓몬`;
-    return `최근 ${grade} 카드에 투자자들의 관심이 집중되고 있습니다. 관련 카드의 거래량과 매수세가 함께 증가하고 있습니다. 일부 카드에서는 높은 가격에도 거래가 이어지고 있으며, 당분간 가격 변동성이 커질 가능성이 있습니다.`;
+  if (n.nature === 'positive') {
+    if (n.target === 'card') return `${type} 강세 스토리와 함께 ${pokemon}에 시장의 관심이 집중되고 있습니다. ${pokemon}은 약점 포켓몬 후보에서 제외된 뒤 선택되며, 해당 종목에는 상승 쪽으로 기운 비대칭 변동이 적용됩니다. 다만 기존 추세·모멘텀·쇼크에 따라 실제 결과는 달라질 수 있습니다.`;
+    if (n.focus === 'opposed') return `${type} 호재가 이어지는 가운데 ${opposed}에는 강한 하락 편향이 적용됩니다. 강세 섹터로 수요가 이동하는 흐름을 표현하며, 실제 가격은 기존 시장 상태와 개별 추세를 함께 반영합니다.`;
+    return `${type}에 호재가 발생해 강한 상승 편향이 적용됩니다. 동시에 ${type}에 실제 상성상 약한 포켓몬 쪽에는 강한 하락 편향이 적용됩니다. 상승은 보장되지 않지만 플러스 쪽 확률과 폭이 더 크게 설계되어 있습니다.`;
   }
-  if (n.target === 'card') {
-    if (n.transition === 'counter') {
-      return `${opposed}의 강세에 대응하려는 움직임이 나타나면서 ${pokemon}에 대한 수요가 증가하고 있습니다. 관련 카드를 찾는 투자자가 늘어나며 거래량도 함께 증가하고 있습니다. 시장에서는 새로운 대응 종목으로 주목받는 모습입니다.`;
-    }
-    if (n.transition === 'continue') {
-      return `${pokemon}에 대한 높은 관심이 계속되고 있습니다. 매수세가 유지되며 거래 활동도 활발하게 이어지고 있습니다. 가격 상승 이후에도 거래량이 크게 감소하지 않아 강세 흐름이 유지되고 있습니다.`;
-    }
-    return `${pokemon}에 새로운 매수세가 유입되고 있습니다. 거래량 증가와 함께 시장의 관심도 빠르게 높아지고 있습니다. 최근 거래가 연이어 체결되면서 단기간에 가격 변동폭이 확대되는 모습입니다.`;
+
+  if (n.nature === 'negative') {
+    if (n.target === 'card') return `${type} 악재 스토리 속에서 ${pokemon}이 주요 종목으로 언급되고 있습니다. 해당 종목에는 하락 쪽으로 기운 비대칭 변동이 적용되며, 기존 추세·모멘텀·쇼크가 함께 가격을 결정합니다.`;
+    if (n.focus === 'opposed') return `${type} 악재로 해당 섹터에는 강한 하락 편향이 적용됩니다. 반대되는 ${opposed}에는 자금 이동을 반영해 횡보에서 소폭 상승 정도의 편향만 적용됩니다.`;
+    return `${type}에 악재가 발생해 강한 하락 편향이 적용됩니다. 반대되는 타입에는 같은 크기의 반대 효과를 주지 않고, 횡보에서 소폭 상승 정도만 허용합니다.`;
   }
-  if (n.transition === 'counter') {
-    return `${opposed} 중심이던 시장에서 변화가 나타나고 있습니다. 이를 견제하는 ${type} 카드에 새로운 수요가 유입되고 있습니다. 일부 투자자들이 기존 강세 종목에서 자금을 이동시키면서 시장의 중심도 점차 변하고 있습니다.`;
-  }
-  if (n.transition === 'continue') {
-    return `${type} 카드의 강세 흐름이 계속되고 있습니다. 기존 매수세가 유지되면서 관련 카드의 거래대금도 높은 수준을 보이고 있습니다. 단기 상승 이후에도 수요가 줄지 않아 시장의 관심이 지속되는 모습입니다.`;
-  }
-  return `새롭게 ${type} 카드에 매수세가 유입되고 있습니다. 시장에서 관련 카드의 거래 활동도 빠르게 증가하고 있습니다. 여러 종목에서 동시에 가격 상승 움직임이 나타나면서 ${type} 카드 전반으로 관심이 확산되고 있습니다.`;
+
+  if (n.target === 'card') return `${pokemon}의 거래량과 시장 관심이 늘어난 중립 뉴스입니다. 가격 방향 자체는 강제하지 않으며 기존 시장 상태·추세·모멘텀·변동성·쇼크 계산을 그대로 사용합니다.`;
+  if (n.focus === 'opposed') return `${type}와 ${opposed} 사이의 거래 공방을 다루는 중립 뉴스입니다. 뉴스 자체는 상승·하락 방향을 만들지 않고 거래 활동만 높이며 가격은 기존 계산을 유지합니다.`;
+  return `${type}의 거래량과 시장 관심이 높아진 중립 뉴스입니다. 별도의 상승·하락 편향 없이 기존 가격 계산을 그대로 유지합니다.`;
+};
+
+const newsImpactLabel = n => {
+  if (n.nature === 'positive') return n.focus === 'opposed'
+    ? '호재 반대 섹터: 강한 하락 편향'
+    : '호재: 강한 상승 편향 · 약점 섹터 강한 하락';
+  if (n.nature === 'negative') return n.focus === 'opposed'
+    ? '악재 반대 섹터: 횡보~소폭 상승'
+    : '악재: 강한 하락 편향 · 반대 섹터 소폭 상승';
+  return '중립: 기존 가격 계산 유지';
 };
 
 const dateLabel = t => new Date(t).toLocaleString('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' });
@@ -193,17 +204,14 @@ export class MarketView {
     const lowX = xAt(lowIndex), lowPointY = yAt(low);
     let lowLabelY = Math.max(12, Math.min(180, lowPointY + 11));
 
-    // 왼쪽 영역에서 최저가와 평균 획득가 라벨이 가까우면 세로 간격을 자동 확보한다.
     if (hasAverage && lowX < 210 && Math.abs(lowLabelY - averageLabelY) < 13) {
       const aboveAverage = Math.min(lowPointY - 8, averageLabelY - 12);
       if (aboveAverage >= 12) lowLabelY = aboveAverage;
       else lowLabelY = Math.min(180, averageLabelY + 13);
     }
 
-    // 텍스트는 가격선보다 나중에 그려 보라색 선이 글자를 가리지 않게 한다.
     if (averageLabel) chart.append(averageLabel);
     const highLabel = pointLabel(`최고 ${money(high)}`, highIndex, yAt(high) - 6);
-    // 최고 TC도 평균 획득가/최저 TC와 동일한 흰색 테두리 두께를 명시적으로 적용한다.
     highLabel.setAttribute('style', 'paint-order:stroke;stroke:#FCF9FF;stroke-width:2px;stroke-linejoin:round');
     chart.append(
       highLabel,
@@ -321,12 +329,12 @@ export class MarketView {
     const market = this.save.market;
     this.ui['market-news'].replaceChildren(...market.newsHistory.map(n => {
       const item = node('details', '', 'market-news-item'), summary = node('summary', '');
-      summary.append(node('small', newsSource(n), 'market-up'), node('strong', n.title));
-      const impact = `주요 변동폭 ±${Math.round(n.impact * 100)}%`;
+      const meta = NEWS_NATURE_META[n.nature] ?? NEWS_NATURE_META.neutral;
+      summary.append(node('small', `${newsSource(n)} · ${meta.label}`, meta.className), node('strong', n.title));
       item.append(
         summary,
         node('p', newsDescription(n, this.data)),
-        node('p', `대상: ${targetLabel(n, this.data)} · ${impact}`)
+        node('p', `대상: ${targetLabel(n, this.data)} · ${newsImpactLabel(n)}`)
       );
       return item;
     }));
