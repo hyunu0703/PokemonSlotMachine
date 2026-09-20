@@ -1,4 +1,5 @@
 import { TYPES, TYPE_COUNTERS, typeEffectiveness, typeMultiplier } from './data.js';
+import { createWorldNewsState, generateWorldStoryNews, migrateWorldNewsState } from './world-news.js';
 
 // Pure simulation/economy functions. All time and randomness can be supplied by tests.
 export const MARKET_CONFIG = Object.freeze({
@@ -148,7 +149,7 @@ export function createMarket(records, now = Date.now(), random = Math.random) {
     }
   }
   return { cards, trade24h: { head: 0, count: 0 }, overall: regime(random), sectors, lastMarketUpdate: now, activeNews: [], newsHistory: [],
-    newsStory: emptyNewsStory() };
+    newsStory: emptyNewsStory(), worldNewsState: createWorldNewsState() };
 }
 
 export function validMarket(market, records) {
@@ -226,6 +227,7 @@ const relatedTypes = (type, nature) => nature === 'positive'
 
 export function migrateNewsSystem(market) {
   if (!market?.cards) return market;
+  migrateWorldNewsState(market);
 
   // 기존 v4 저장에는 recoveryBasePrice가 없으므로 시장 가격을 초기화하지 않고 보완한다.
   // 과거 시장이 이미 성장한 경우 fairPrice를 참고하되 startingPrice보다 낮아지지는 않는다.
@@ -362,6 +364,44 @@ function storyTitle(news, card) {
 export function generateNews(market, records, time, random = Math.random) {
   if (market.newsHistory[0]?.time === time) return market.newsHistory[0];
   market.activeNews = [];
+
+  // 세계관 DB가 로드되어 있으면 StoryArc 진행 상황을 우선 사용한다.
+  // 진행 상태는 market.worldNewsState에 저장되므로 새로고침/오프라인 진행 후에도 후속 뉴스가 이어진다.
+  const worldStory = generateWorldStoryNews(market, records, time, random, MARKET_CONFIG.tickMs);
+  if (worldStory) {
+    const nature = worldStory.nature;
+    const type = Object.hasOwn(TYPES, worldStory.type) ? worldStory.type : choose(TYPE_KEYS, random);
+    const card = worldStory.directCardId ? records.find(p => p.id === worldStory.directCardId) ?? null : null;
+    const focus = card ? 'card' : 'story';
+    const target = card ? 'card' : 'type';
+    const opposedPool = relatedTypes(type, nature);
+    const opposedType = choose(opposedPool, random);
+    const mainRange = nature === 'neutral' ? [0, 0] : NEWS_CONFIG.price[nature].story;
+    const opposedRange = nature === 'neutral' ? [0, 0] : NEWS_CONFIG.price[nature].opposed;
+    const impact = Math.max(Math.abs(mainRange[0]), Math.abs(mainRange[1]), NEWS_CONFIG.activity[nature]);
+    const secondaryImpact = Math.max(Math.abs(opposedRange[0]), Math.abs(opposedRange[1]));
+    const previousType = market.newsStory?.type ?? null;
+    const news = {
+      id: `world-${worldStory.storyId}-${worldStory.storyStage}-${worldStory.worldSequence}-${time}`,
+      nature, focus, target, cardId: card?.id ?? null, type, opposedType,
+      transition: worldStory.isFollowUp ? 'continue' : 'fresh', impact, secondaryImpact, time,
+      generation: worldStory.generation, regionId: worldStory.regionId, regionName: worldStory.regionName,
+      storyId: worldStory.storyId, storyName: worldStory.storyName, storyStage: worldStory.storyStage,
+      storyStageCount: worldStory.storyStageCount, storyEventId: worldStory.storyEventId,
+      worldStory: true, isFollowUp: worldStory.isFollowUp, description: worldStory.description,
+      sixW: worldStory.sixW,
+    };
+    news.title = worldStory.title;
+
+    market.newsStory = {
+      type, previousType, nature, opposedType, pokemonId: card?.id ?? null,
+      streak: worldStory.isFollowUp ? (market.newsStory?.streak ?? 0) + 1 : 1,
+    };
+    market.activeNews.push(news);
+    market.newsHistory.unshift({ ...news });
+    market.newsHistory = market.newsHistory.slice(0, MARKET_CONFIG.newsLimit);
+    return news;
+  }
 
   const nature = rollNature(random);
   const proposedStory = nextStory(market.newsStory, random);

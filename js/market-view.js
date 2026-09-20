@@ -33,6 +33,7 @@ const NEWS_NATURE_META = Object.freeze({
 });
 
 const newsDescription = (n, data) => {
+  if (n.worldStory && typeof n.description === 'string' && n.description) return n.description;
   const type = `${TYPES[n.type]?.[0] ?? n.type}타입`;
   const opposed = n.opposedType ? `${TYPES[n.opposedType]?.[0] ?? n.opposedType}타입` : '관련 타입';
   const pokemon = n.target === 'card' ? (data.byId.get(n.cardId)?.nameKo ?? '해당 포켓몬') : '';
@@ -330,10 +331,18 @@ export class MarketView {
     this.ui['market-news'].replaceChildren(...market.newsHistory.map(n => {
       const item = node('details', '', 'market-news-item'), summary = node('summary', '');
       const meta = NEWS_NATURE_META[n.nature] ?? NEWS_NATURE_META.neutral;
-      summary.append(node('small', `${newsSource(n)} · ${meta.label}`, meta.className), node('strong', n.title));
+      const worldLabel = n.worldStory
+        ? `${n.generation}세대 · ${n.regionName ?? '지역 미상'} · ${n.isFollowUp ? '후속 ' : ''}${n.storyStage}/${n.storyStageCount}`
+        : '';
+      const sourceLine = [newsSource(n), worldLabel, meta.label].filter(Boolean).join(' · ');
+      summary.append(node('small', sourceLine, meta.className), node('strong', n.title));
+      const storyLine = n.worldStory
+        ? node('p', `스토리: ${n.storyName} · ${n.storyStage}/${n.storyStageCount} 단계`, 'muted')
+        : null;
       item.append(
         summary,
         node('p', newsDescription(n, this.data)),
+        ...(storyLine ? [storyLine] : []),
         node('p', `대상: ${targetLabel(n, this.data)} · ${newsImpactLabel(n)}`)
       );
       return item;
