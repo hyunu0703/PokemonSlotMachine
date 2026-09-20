@@ -72,6 +72,36 @@ const dateLabel = t => new Date(t).toLocaleString('ko-KR', { month: 'numeric', d
 const node = (tag, text, className = '') => {
   const el = document.createElement(tag); el.textContent = text; el.className = className; return el;
 };
+
+const ensureMarketGenerationFilter = () => {
+  let select = document.getElementById('market-generation');
+  if (select) return select;
+  const typeSelect = document.getElementById('market-type');
+  const typeLabel = typeSelect?.closest('label');
+  if (!typeLabel) return null;
+
+  const label = node('label', '세대');
+  select = document.createElement('select');
+  select.id = 'market-generation';
+  select.append(node('option', '전체'));
+  select.firstElementChild.value = 'all';
+  for (let generation = 1; generation <= 9; generation++) {
+    const option = node('option', `${generation}세대`);
+    option.value = String(generation);
+    select.append(option);
+  }
+  label.append(select);
+  typeLabel.after(label);
+  return select;
+};
+
+export const marketRecordMatchesFilters = (pokemon, grade, type, generation, query = '') => {
+  const normalizedQuery = String(query).trim().toLowerCase();
+  return (grade === 'all' || grade === pokemon.grade)
+    && (type === 'all' || pokemon.types.includes(type))
+    && (generation === 'all' || pokemon.generation === Number(generation))
+    && (!normalizedQuery || pokemon.nameKo.includes(normalizedQuery) || pokemon.nameEn.toLowerCase().includes(normalizedQuery) || String(pokemon.id) === normalizedQuery);
+};
 const keywordValues = (entry, data, text = '') => {
   const sixW = entry?.sixW ?? {};
   const cardId = entry?.cardId ?? entry?.directCardId ?? null;
@@ -230,10 +260,11 @@ export class MarketView {
     this.data = data; this.save = save; this.selected = data.records[0].id;
     this.storyHistoryModal = createStoryHistoryModal();
     this.storyHistoryContent = this.storyHistoryModal.querySelector('#market-story-history-content');
+    ensureMarketGenerationFilter();
     this.page = 0; this.pageSize = 20; this.listLimit = 100; this.period = '1H'; this.ownedSort = 'price'; this.ownedPage = 0; this.ownedPageSize = 10;
-    this.ui = Object.fromEntries(['market', 'market-assets', 'market-detail-modal', 'market-detail', 'market-detail-close', 'market-news', 'market-sales', 'market-rows', 'market-grade', 'market-type', 'market-search', 'market-sort', 'market-page', 'market-prev', 'market-next', 'market-time', 'market-owned-sort', 'market-owned-rows', 'market-owned-empty', 'market-owned-pagination', 'market-owned-page', 'market-owned-prev', 'market-owned-next'].map(id => [id, document.getElementById(id)]));
+    this.ui = Object.fromEntries(['market', 'market-assets', 'market-detail-modal', 'market-detail', 'market-detail-close', 'market-news', 'market-sales', 'market-rows', 'market-grade', 'market-type', 'market-generation', 'market-search', 'market-sort', 'market-page', 'market-prev', 'market-next', 'market-time', 'market-owned-sort', 'market-owned-rows', 'market-owned-empty', 'market-owned-pagination', 'market-owned-page', 'market-owned-prev', 'market-owned-next'].map(id => [id, document.getElementById(id)]));
     for (const [type, [label]] of Object.entries(TYPES)) { const option = node('option', label); option.value = type; this.ui['market-type'].append(option); }
-    for (const id of ['market-grade', 'market-type', 'market-search', 'market-sort']) this.ui[id].addEventListener(id === 'market-search' ? 'input' : 'change', () => { this.page = 0; this.renderList(); });
+    for (const id of ['market-grade', 'market-type', 'market-generation', 'market-search', 'market-sort']) this.ui[id].addEventListener(id === 'market-search' ? 'input' : 'change', () => { this.page = 0; this.renderList(); });
     this.ui['market-prev'].addEventListener('click', () => { this.page--; this.renderList(); });
     this.ui['market-next'].addEventListener('click', () => { this.page++; this.renderList(); });
     this.ui['market-owned-sort'].addEventListener('click', event => {
@@ -522,9 +553,9 @@ export class MarketView {
   }
   // Market 전체 목록 갱신
   renderList() {
-    const grade = this.ui['market-grade'].value, type = this.ui['market-type'].value, query = this.ui['market-search'].value.trim().toLowerCase(), sort = this.ui['market-sort'].value;
+    const grade = this.ui['market-grade'].value, type = this.ui['market-type'].value, generation = this.ui['market-generation'].value, query = this.ui['market-search'].value.trim().toLowerCase(), sort = this.ui['market-sort'].value;
     const market = this.save.market;
-    const records = this.data.records.filter(p => (grade === 'all' || grade === p.grade) && (type === 'all' || p.types.includes(type)) && (!query || p.nameKo.includes(query) || p.nameEn.toLowerCase().includes(query) || String(p.id) === query));
+    const records = this.data.records.filter(p => marketRecordMatchesFilters(p, grade, type, generation, query));
     const value = p => sort === 'amount' ? currentTradeAmount(market, market.cards[p.id])
       : sort === 'volume' ? currentTradeVolume(market, market.cards[p.id]) : changePercent(market.cards[p.id], 1) ?? 0;
     const namedId = ['amount', 'volume'].includes(sort) && market.activeNews[0]?.target === 'card' ? market.activeNews[0].cardId : null;
