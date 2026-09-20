@@ -112,6 +112,64 @@ const appendHighlightedText = (element, text, keywords) => {
   }
   return element;
 };
+const newsCardId = entry => entry?.cardId ?? entry?.directCardId ?? null;
+const newsGrade = (entry, data) => {
+  const cardId = newsCardId(entry);
+  if (cardId) return data.byId.get(cardId)?.grade ?? null;
+  const text = `${entry?.storyName ?? ''} ${entry?.title ?? ''} ${entry?.description ?? ''}`;
+  if (text.includes('환상')) return 'mythical';
+  if (text.includes('전설')) return 'legendary';
+  return null;
+};
+
+export const isNewsRelatedToPokemon = (entry, pokemon, data) => {
+  if (!entry || !pokemon || !data) return false;
+  const cardId = newsCardId(entry);
+  if (cardId === pokemon.id) return true;
+
+  // 일반 뉴스는 같은 세대 + 관련 타입을 기본 조건으로 삼는다.
+  // 뉴스가 특정 등급(일반/전설/환상)을 명시적으로 가리키면 등급까지 같아야 한다.
+  const generationMatch = Number.isInteger(entry.generation) && entry.generation === pokemon.generation;
+  const typeMatch = [entry.type, entry.opposedType].filter(Boolean).some(type => pokemon.types.includes(type));
+  if (!generationMatch || !typeMatch) return false;
+
+  const grade = newsGrade(entry, data);
+  return grade === null || grade === pokemon.grade;
+};
+
+const normalizeStoryEpisodeNews = episode => ({
+  ...episode,
+  id: `story-history-${episode.storyRunId ?? episode.storyId}-${episode.storyStage}-${episode.time ?? 0}`,
+  worldStory: true,
+  cardId: episode.directCardId ?? null,
+  target: episode.directCardId ? 'card' : 'type',
+  focus: episode.directCardId ? 'card' : 'story',
+  opposedType: null,
+  isFollowUp: Number(episode.storyStage) > 1,
+});
+
+const relatedNewsForPokemon = (market, pokemon, data, limit = 5) => {
+  const current = Array.isArray(market?.newsHistory) ? market.newsHistory : [];
+  const episodes = Array.isArray(market?.worldNewsState?.storyHistory)
+    ? market.worldNewsState.storyHistory.map(normalizeStoryEpisodeNews)
+    : [];
+  const seen = new Set();
+  const candidates = [];
+
+  for (const entry of [...current, ...episodes]) {
+    const stageKey = entry.worldStory && !entry.isInterlude
+      ? `${entry.storyRunId ?? entry.storyId}:${entry.storyStage}`
+      : entry.id;
+    if (!stageKey || seen.has(stageKey)) continue;
+    seen.add(stageKey);
+    if (isNewsRelatedToPokemon(entry, pokemon, data)) candidates.push(entry);
+  }
+
+  return candidates
+    .sort((a, b) => (b.time ?? 0) - (a.time ?? 0))
+    .slice(0, limit);
+};
+
 const typeIcons = (types, containerClass = 'market-type-icons', iconClass = 'market-type-icon') => {
   const icons = node('span', '', containerClass);
   for (const type of types) {
@@ -140,6 +198,10 @@ const ensureStoryModalStyles = () => {
     .market-story-episode h3{margin:0;font-size:16px;line-height:1.6;color:#3A3042}.market-story-episode p{margin:10px 0 0;color:var(--muted);font-size:14px;line-height:1.95}.market-story-reconstructed{font-size:10px;color:#A399A8;margin-top:9px}
     .market-news-keyword{font-size:inherit;font-weight:900;color:inherit;letter-spacing:inherit}
     .market-news-copy{font-size:12px!important;line-height:1.85!important}
+    .market-card-identity{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px}.market-card-generation{color:#948C98;font-size:10px;font-weight:800;letter-spacing:1.2px;white-space:nowrap}
+    .market-detail-modal-inner{scrollbar-gutter:stable;overscroll-behavior:contain}
+    .market-related-news{border-top:1px solid #EFE5ED;margin-top:26px;padding-top:24px}.market-related-news-head{margin-bottom:10px}.market-related-news-head h2{margin:0;color:#AF7896;font-size:14px;letter-spacing:1.5px}.market-related-news-head p{margin:6px 0 0;color:var(--muted);font-size:11px;line-height:1.7}.market-related-news-list{display:grid;gap:0}.market-related-news .market-news-item{padding:14px 0}.market-related-news-empty{margin:10px 0 0;color:var(--muted);font-size:12px;line-height:1.7}
+    .market-news-target-link{display:inline;border:0;background:transparent;padding:0;margin:0;color:#87659D;font:inherit;font-weight:800;line-height:inherit;cursor:pointer;text-align:left}.market-news-target-link:hover{color:#A782E3;text-decoration:underline}.market-news-target-link:focus-visible{outline:2px solid #A782E3;outline-offset:2px;border-radius:3px}
     .market-story-link{display:inline-block;width:auto;border:0;background:transparent;padding:0;margin:12px 0 0;color:#87659D;font:inherit;font-size:11px;line-height:1.7;font-weight:800;text-align:left;cursor:pointer}.market-story-link:hover{text-decoration:underline;color:#A782E3}.market-story-link:focus-visible{outline:3px solid #A782E3;outline-offset:3px;border-radius:4px}
     @media(max-width:767px){#market-story-history-modal{width:calc(100vw - 20px)}.market-story-history-inner{padding:26px 18px 20px;max-height:calc(100dvh - 20px)}.market-story-history-close{right:10px;top:10px}.market-story-history-head{padding-right:40px}.market-story-history-head h2{font-size:20px}.market-story-episode{padding:16px}.market-story-episode h3{font-size:14px}.market-story-episode p{font-size:13px;line-height:1.9}.market-news-copy{font-size:12px!important}}
   `;
@@ -185,6 +247,8 @@ export class MarketView {
       if (button) this.openDetail(Number(button.dataset.card));
     });
     this.ui['market-news'].addEventListener('click', event => {
+      const cardButton = event.target.closest('[data-news-card]');
+      if (cardButton) { this.openDetail(Number(cardButton.dataset.newsCard)); return; }
       const button = event.target.closest('[data-story-history]');
       if (!button) return;
       const news = this.save.market.newsHistory.find(item => item.id === button.dataset.storyHistory);
@@ -193,6 +257,7 @@ export class MarketView {
     this.ui['market-detail-close'].addEventListener('click', () => this.ui['market-detail-modal'].close());
     this.ui['market-detail'].addEventListener('click', event => {
       const button = event.target.closest('button');
+      if (button?.dataset.newsCard) { this.openDetail(Number(button.dataset.newsCard)); return; }
       if (button?.dataset.period) { this.period = button.dataset.period; this.renderDetail(); }
       if (button?.dataset.sell) {
         const input = this.ui['market-detail'].querySelector('[data-sell-quantity]');
@@ -201,6 +266,62 @@ export class MarketView {
       }
     });
   }
+  buildNewsItem(n, { includeStoryLink = true } = {}) {
+    const item = node('details', '', 'market-news-item'), summary = node('summary', '');
+    const meta = NEWS_NATURE_META[n.nature] ?? NEWS_NATURE_META.neutral;
+    const worldLabel = n.worldStory
+      ? `${n.generation}세대 · ${n.regionName ?? '지역 미상'} · ${n.isFollowUp ? '후속 ' : ''}${n.storyStage}/${n.storyStageCount}`
+      : '';
+    const sourceLine = [newsSource(n), worldLabel, meta.label].filter(Boolean).join(' · ');
+    const descriptionText = newsDescription(n, this.data);
+    const newsKeywords = keywordValues(n, this.data, descriptionText);
+    summary.append(node('small', sourceLine, meta.className), node('strong', n.title));
+
+    const newsCopy = node('p', '', 'market-news-copy');
+    appendHighlightedText(newsCopy, descriptionText, newsKeywords);
+    item.append(summary, newsCopy);
+
+    if (includeStoryLink && n.worldStory) {
+      const storyLine = node('button', `스토리: ${n.storyName}`, 'market-story-link');
+      storyLine.type = 'button';
+      storyLine.dataset.storyHistory = n.id;
+      storyLine.setAttribute('aria-label', `${n.storyName} 과거 에피소드 보기`);
+      item.append(storyLine);
+    }
+
+    const targetLine = node('p', '');
+    targetLine.append(document.createTextNode('대상: '));
+    const targetCardId = newsCardId(n);
+    const targetPokemon = targetCardId ? this.data.byId.get(targetCardId) : null;
+    if (targetPokemon) {
+      const targetButton = node('button', targetPokemon.nameKo, 'market-news-target-link');
+      targetButton.type = 'button';
+      targetButton.dataset.newsCard = String(targetPokemon.id);
+      targetButton.setAttribute('aria-label', `${targetPokemon.nameKo} 차트 보기`);
+      targetLine.append(targetButton);
+    } else {
+      targetLine.append(document.createTextNode(targetLabel(n, this.data)));
+    }
+    targetLine.append(document.createTextNode(` · ${newsImpactLabel(n)}`));
+    item.append(targetLine);
+    return item;
+  }
+
+  buildRelatedNewsSection(pokemon) {
+    const section = node('section', '', 'market-related-news');
+    const head = node('header', '', 'market-related-news-head');
+    head.append(
+      node('h2', 'RELATED NEWS'),
+      node('p', `${pokemon.nameKo}의 세대 · 타입 · 등급과 연결된 최근 뉴스`)
+    );
+    const list = node('div', '', 'market-related-news-list');
+    const related = relatedNewsForPokemon(this.save.market, pokemon, this.data, 5);
+    if (related.length) list.append(...related.map(news => this.buildNewsItem(news, { includeStoryLink: false })));
+    else list.append(node('p', '현재 저장된 뉴스 중 이 포켓몬과 관련된 뉴스가 없습니다.', 'market-related-news-empty'));
+    section.append(head, list);
+    return section;
+  }
+
   openStoryHistory(news) {
     const episodes = getWorldStoryEpisodes(this.save.market, news);
     const meta = NEWS_NATURE_META[news.nature] ?? NEWS_NATURE_META.neutral;
@@ -240,6 +361,8 @@ export class MarketView {
     this.selected = id;
     this.period = '1H';
     this.renderDetail();
+    const scrollArea = this.ui['market-detail-modal'].querySelector('.market-detail-modal-inner');
+    if (scrollArea) scrollArea.scrollTop = 0;
     if (!this.ui['market-detail-modal'].open) this.ui['market-detail-modal'].showModal();
   }
   render() {
@@ -281,7 +404,12 @@ export class MarketView {
     const info = node('div', '');
     const title = node('div', '', 'market-title-line');
     title.append(node('h2', p.nameKo), typeIcons(p.types));
-    info.append(node('span', `${GRADES[p.grade]} · No.${p.id}`, 'eyebrow'), title, node('strong', money(card.currentPrice), 'market-price'));
+    const identity = node('div', '', 'market-card-identity');
+    identity.append(
+      node('span', `${GRADES[p.grade]} · No.${p.id}`, 'eyebrow'),
+      node('span', `· ${p.generation}세대`, 'market-card-generation')
+    );
+    info.append(identity, title, node('strong', money(card.currentPrice), 'market-price'));
     heading.append(info);
     const changes = node('div', '', 'market-changes');
     for (const [label, ticks] of [['10분', 1], ['1시간', 6], ['24시간', 144]]) {
@@ -389,7 +517,8 @@ export class MarketView {
     const sellButton = node('button', '매도', 'primary market-sell-button');
     sellButton.dataset.sell = 'quantity'; sellButton.disabled = !count; sellRow.append(sellButton);
     updateProfit();
-    this.ui['market-detail'].replaceChildren(heading, changes, periods, chart, range, chartNote, sellRow);
+    const relatedNews = this.buildRelatedNewsSection(p);
+    this.ui['market-detail'].replaceChildren(heading, changes, periods, chart, range, chartNote, sellRow, relatedNews);
   }
   // Market 전체 목록 갱신
   renderList() {
@@ -455,36 +584,9 @@ export class MarketView {
   // 최근 시장 뉴스 갱신
   renderNews() {
     const market = this.save.market;
-    this.ui['market-news'].replaceChildren(...market.newsHistory.map(n => {
-      const item = node('details', '', 'market-news-item'), summary = node('summary', '');
-      const meta = NEWS_NATURE_META[n.nature] ?? NEWS_NATURE_META.neutral;
-      const worldLabel = n.worldStory
-        ? `${n.generation}세대 · ${n.regionName ?? '지역 미상'} · ${n.isFollowUp ? '후속 ' : ''}${n.storyStage}/${n.storyStageCount}`
-        : '';
-      const sourceLine = [newsSource(n), worldLabel, meta.label].filter(Boolean).join(' · ');
-      const newsTitle = node('strong', n.title);
-      const descriptionText = newsDescription(n, this.data);
-      const newsKeywords = keywordValues(n, this.data, descriptionText);
-      summary.append(node('small', sourceLine, meta.className), newsTitle);
-      const storyLine = n.worldStory
-        ? node('button', `스토리: ${n.storyName}`, 'market-story-link')
-        : null;
-      if (storyLine) {
-        storyLine.type = 'button';
-        storyLine.dataset.storyHistory = n.id;
-        storyLine.setAttribute('aria-label', `${n.storyName} 과거 에피소드 보기`);
-      }
-      const newsCopy = node('p', '', 'market-news-copy');
-      appendHighlightedText(newsCopy, descriptionText, newsKeywords);
-      item.append(
-        summary,
-        newsCopy,
-        ...(storyLine ? [storyLine] : []),
-        node('p', `대상: ${targetLabel(n, this.data)} · ${newsImpactLabel(n)}`)
-      );
-      return item;
-    }));
-    if (!market.newsHistory.length) this.ui['market-news'].append(node('p', '아직 시장 뉴스가 없습니다. 시장 뉴스는 10분 Tick마다 갱신됩니다.', 'muted'));
+    const latest = Array.isArray(market.newsHistory) ? market.newsHistory.slice(0, MARKET_CONFIG.newsLimit) : [];
+    this.ui['market-news'].replaceChildren(...latest.map(n => this.buildNewsItem(n)));
+    if (!latest.length) this.ui['market-news'].append(node('p', '아직 시장 뉴스가 없습니다. 시장 뉴스는 10분 Tick마다 갱신됩니다.', 'muted'));
   }
   // 최근 매도 손익 기록 갱신
   renderSales() {
