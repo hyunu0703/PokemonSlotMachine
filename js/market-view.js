@@ -1,5 +1,5 @@
 import { GRADES, TYPES, imageOrPlaceholder, typeImage } from './data.js';
-import { assets, changePercent, currentTradeAmount, currentTradeVolume, priceHistory, MARKET_CONFIG } from './market.js';
+import { assets, changePercent, currentTradeAmount, currentTradeVolume, priceHistory, technicalLevels, MARKET_CONFIG } from './market.js';
 import { getWorldStoryEpisodes } from './world-news.js';
 
 export const money = n => n.toLocaleString('ko-KR') + ' TC';
@@ -454,7 +454,10 @@ export class MarketView {
     const average = this.save.averageAcquisitionPrice?.[p.id];
     const hasAverage = Number.isFinite(average) && average > 0;
     const low = Math.min(...history), high = Math.max(...history);
-    const scaleLow = hasAverage ? Math.min(low, average) : low, scaleHigh = hasAverage ? Math.max(high, average) : high;
+    const levels = technicalLevels(card);
+    const scaleCandidates = [low, high];
+    if (hasAverage) scaleCandidates.push(average);
+    const scaleLow = Math.min(...scaleCandidates), scaleHigh = Math.max(...scaleCandidates);
     const spread = scaleHigh - scaleLow || Math.max(scaleHigh * .05, 1);
     const xAt = index => 20 + index / Math.max(1, history.length - 1) * 560;
     const yAt = value => 165 - (value - scaleLow) / spread * 140;
@@ -505,6 +508,9 @@ export class MarketView {
       pointLabel(`최저 ${money(low)}`, lowIndex, lowLabelY)
     );
     const range = node('p', `최저 ${money(low)} · 최고 ${money(high)} · ${history.length}개 기록`, 'muted');
+    const patternNote = levels
+      ? node('p', `현재 패턴: ${levels.pattern} · 진행 ${Math.round(levels.progress * 100)}%`, 'muted')
+      : null;
     const chartNote = node('p', `ALL은 최근 7일의 시간별 기록입니다. ${dateLabel(start)} ~ ${dateLabel(end)}`, 'muted');
     const gain = Number.isFinite(average) && average > 0 ? (card.currentPrice - average) / average * 100 : null;
     const sellRow = node('div', '', 'market-sell-row');
@@ -549,7 +555,7 @@ export class MarketView {
     sellButton.dataset.sell = 'quantity'; sellButton.disabled = !count; sellRow.append(sellButton);
     updateProfit();
     const relatedNews = this.buildRelatedNewsSection(p);
-    this.ui['market-detail'].replaceChildren(heading, changes, periods, chart, range, chartNote, sellRow, relatedNews);
+    this.ui['market-detail'].replaceChildren(heading, changes, periods, chart, range, ...(patternNote ? [patternNote] : []), chartNote, sellRow, relatedNews);
   }
   // Market 전체 목록 갱신
   renderList() {

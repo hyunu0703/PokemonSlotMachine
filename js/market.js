@@ -5,8 +5,8 @@ import { createWorldNewsState, generateWorldStoryNews, migrateWorldNewsState } f
 export const MARKET_CONFIG = Object.freeze({
   tickMs: 600000, historyLimit: 144, hourlyHistoryLimit: 168, initialTC: 500000,
   stateMin: 6, stateMax: 30, newsLimit: 5,
-  // 회복 기준가는 상승 가격만 천천히 따라가고, 하락 가격에는 내려가지 않는다.
-  // 급등/급락 복원 조건과 확률은 등급별로 다르게 적용한다.
+  // v34 이전 저장 데이터와 외부 호환을 위한 legacy recovery 설정.
+  // v35의 실제 가격 방향은 technical 패턴 엔진이 결정하며, recovery는 recoveryBasePrice 보존에만 남겨둔다.
   recovery: Object.freeze({
     normal: Object.freeze({
       crashGap: .30, crashChance: .30, baseFollow: .001,
@@ -34,8 +34,19 @@ export const MARKET_CONFIG = Object.freeze({
     baseFollow: .005, strength: .06, maxPressure: .08,
     normalShockRecoveryTicks: 10,
   }),
-  // 10분 Tick당 +0.0003%. 뉴스와 무관한 아주 작은 장기 성장값이다.
+  // 장기 가격의 기준선(fairPrice)은 완만하게 우상향하고, 실제 가격은 아래 technical 패턴을 따라 움직인다.
+  // 기존 globalGrowth는 외부 호환을 위해 유지하되, 새 기술적 패턴 엔진은 등급별 growth를 사용한다.
   globalGrowth: .000003,
+  technical: Object.freeze({
+    // 일반: 저가·투기주 느낌. 평소에는 박스권, 뉴스가 붙으면 돌파/플래그가 비교적 크게 나온다.
+    normal: Object.freeze({ growth: .000035, noise: .0045, pull: .42, duration: [22, 44], amplitude: [.07, .15], maxAmplitude: .28, maxStepUp: .085, maxStepDown: .075, regimeInfluence: .035, newsInfluence: .0025 }),
+    // 전설: 중소·중견 성장주 느낌. 일반보다 부드럽고 패턴이 조금 더 길다.
+    legendary: Object.freeze({ growth: .000025, noise: .0028, pull: .38, duration: [28, 56], amplitude: [.05, .11], maxAmplitude: .20, maxStepUp: .060, maxStepDown: .055, regimeInfluence: .030, newsInfluence: .0020 }),
+    // 환상: 대형주 느낌. 변동은 작고 지지/저항 구간을 오래 유지한다.
+    mythical: Object.freeze({ growth: .000018, noise: .0016, pull: .34, duration: [36, 72], amplitude: [.032, .072], maxAmplitude: .12, maxStepUp: .038, maxStepDown: .035, regimeInfluence: .025, newsInfluence: .0015 }),
+  }),
+  // average는 초기 가격, shockChance는 뉴스가 없는 상황의 드문 자발적 돌파 패턴 확률에 사용한다.
+  // volatility/crash/surge는 기존 export 호환용이며 v35 marketTick의 일상 변동에는 직접 사용하지 않는다.
   grades: {
     normal: { average: 2000, volatility: .035, shockChance: .0004, crash: [.1, .8], surge: [[1, 1, 2.5]] },
     legendary: { average: 150000, volatility: .015, shockChance: .0002, crash: [.1, .3], surge: [[1, .1, .5]] },
@@ -75,6 +86,202 @@ const integer = (a, b, random) => Math.floor(between(a, b + 1, random));
 const price = x => Math.round(clamp(x, 1, 1e12));
 const weight = id => .65 + ((id * 137) % 701) / 1000;
 const regime = random => ({ state: Object.keys(STATE_BIAS)[integer(0, 3, random)], remaining: integer(MARKET_CONFIG.stateMin, MARKET_CONFIG.stateMax, random) });
+
+// 실제 주식 차트에서 자주 보이는 가격 구조를 단순화한 패턴 코드.
+// 저장 용량을 줄이기 위해 card.tech에는 짧은 키를 사용한다.
+// 배열 인덱스: [pattern, age, duration, basePrice, amplitude, newsLock]
+const TECH_PATTERN = Object.freeze({
+  RANGE: 0, ASCENDING_TRIANGLE: 1, DESCENDING_TRIANGLE: 2, BULL_FLAG: 3, BEAR_FLAG: 4,
+  DOUBLE_BOTTOM: 5, DOUBLE_TOP: 6, BREAKOUT_RETEST: 7, BREAKDOWN_RETEST: 8,
+});
+const TECH_PATTERN_LABELS = Object.freeze([
+  '박스권 횡보', '상승 삼각형', '하락 삼각형', '불 플래그', '베어 플래그',
+  '더블 바텀', '더블 탑', '상방 돌파·리테스트', '하방 이탈·리테스트',
+]);
+
+// 각 패턴의 시간 진행률(0~1)에 따른 상대 위치. v=1이면 basePrice에서 amplitude만큼 위, -1이면 아래다.
+const TECH_PATTERN_POINTS = Object.freeze({
+  [TECH_PATTERN.RANGE]: Object.freeze([[0, 0], [.12, .46], [.25, -.46], [.39, .38], [.53, -.38], [.68, .43], [.83, -.31], [1, .10]]),
+  [TECH_PATTERN.ASCENDING_TRIANGLE]: Object.freeze([[0, -.34], [.14, .56], [.28, -.18], [.42, .56], [.56, .02], [.70, .56], [.82, .20], [1, 1.08]]),
+  [TECH_PATTERN.DESCENDING_TRIANGLE]: Object.freeze([[0, .34], [.14, -.56], [.28, .18], [.42, -.56], [.56, -.02], [.70, -.56], [.82, -.20], [1, -1.08]]),
+  [TECH_PATTERN.BULL_FLAG]: Object.freeze([[0, 0], [.16, 1.00], [.32, .78], [.48, .86], [.64, .70], [.79, .80], [1, 1.24]]),
+  [TECH_PATTERN.BEAR_FLAG]: Object.freeze([[0, 0], [.16, -1.00], [.32, -.78], [.48, -.86], [.64, -.70], [.79, -.80], [1, -1.24]]),
+  [TECH_PATTERN.DOUBLE_BOTTOM]: Object.freeze([[0, .04], [.18, -.76], [.38, .30], [.58, -.68], [.76, .34], [1, 1.05]]),
+  [TECH_PATTERN.DOUBLE_TOP]: Object.freeze([[0, -.04], [.18, .76], [.38, -.30], [.58, .68], [.76, -.34], [1, -1.05]]),
+  [TECH_PATTERN.BREAKOUT_RETEST]: Object.freeze([[0, 0], [.18, .36], [.34, .70], [.48, 1.00], [.64, .57], [.80, .77], [1, 1.20]]),
+  [TECH_PATTERN.BREAKDOWN_RETEST]: Object.freeze([[0, 0], [.18, -.36], [.34, -.70], [.48, -1.00], [.64, -.57], [.80, -.77], [1, -1.20]]),
+});
+
+const seededCardRandom = id => {
+  let x = (Math.imul(Number(id) || 1, 0x9e3779b1) ^ 0x85ebca6b) >>> 0;
+  return () => {
+    x ^= x << 13; x ^= x >>> 17; x ^= x << 5;
+    return (x >>> 0) / 4294967296;
+  };
+};
+
+const technicalConfig = rarity => MARKET_CONFIG.technical[rarity] ?? MARKET_CONFIG.technical.normal;
+const technicalProgress = card => card.tech?.[2] > 0 ? clamp(card.tech[1] / card.tech[2], 0, 1) : 1;
+const patternBreakoutAt = pattern => {
+  if ([TECH_PATTERN.BULL_FLAG, TECH_PATTERN.BEAR_FLAG].includes(pattern)) return .12;
+  if ([TECH_PATTERN.BREAKOUT_RETEST, TECH_PATTERN.BREAKDOWN_RETEST].includes(pattern)) return .38;
+  if ([TECH_PATTERN.DOUBLE_BOTTOM, TECH_PATTERN.DOUBLE_TOP].includes(pattern)) return .78;
+  if ([TECH_PATTERN.ASCENDING_TRIANGLE, TECH_PATTERN.DESCENDING_TRIANGLE].includes(pattern)) return .82;
+  return 1;
+};
+
+function patternValue(pattern, progress) {
+  const points = TECH_PATTERN_POINTS[pattern] ?? TECH_PATTERN_POINTS[TECH_PATTERN.RANGE];
+  for (let i = 1; i < points.length; i++) {
+    const [rightT, rightV] = points[i];
+    if (progress <= rightT) {
+      const [leftT, leftV] = points[i - 1];
+      const span = rightT - leftT || 1;
+      const t = clamp((progress - leftT) / span, 0, 1);
+      return leftV + (rightV - leftV) * t;
+    }
+  }
+  return points.at(-1)[1];
+}
+
+function pickPatternForNature(nature, random) {
+  const roll = random();
+  if (nature === 'positive') {
+    if (roll < .30) return TECH_PATTERN.BREAKOUT_RETEST;
+    if (roll < .55) return TECH_PATTERN.BULL_FLAG;
+    if (roll < .80) return TECH_PATTERN.ASCENDING_TRIANGLE;
+    return TECH_PATTERN.DOUBLE_BOTTOM;
+  }
+  if (nature === 'negative') {
+    if (roll < .30) return TECH_PATTERN.BREAKDOWN_RETEST;
+    if (roll < .55) return TECH_PATTERN.BEAR_FLAG;
+    if (roll < .80) return TECH_PATTERN.DESCENDING_TRIANGLE;
+    return TECH_PATTERN.DOUBLE_TOP;
+  }
+  return TECH_PATTERN.RANGE;
+}
+
+function defaultPatternForMarket(market, rarity, random) {
+  const overall = market?.overall?.state ?? 'NORMAL';
+  const sector = market?.sectors?.[rarity]?.state ?? 'NORMAL';
+  const roll = random();
+  if ((overall === 'BULL' || sector === 'BULL') && roll < .38) return TECH_PATTERN.ASCENDING_TRIANGLE;
+  if ((overall === 'BEAR' || sector === 'BEAR') && roll < .38) return TECH_PATTERN.DESCENDING_TRIANGLE;
+  if (roll < .12) return random() < .5 ? TECH_PATTERN.DOUBLE_BOTTOM : TECH_PATTERN.DOUBLE_TOP;
+  return TECH_PATTERN.RANGE;
+}
+
+function startTechnicalPattern(card, pattern, random, strength = 0, newsDriven = false) {
+  const config = technicalConfig(card.rarity);
+  let duration = integer(config.duration[0], config.duration[1], random);
+  if (newsDriven) duration = Math.max(12, Math.round(duration * between(.72, .94, random)));
+  const neutral = pattern === TECH_PATTERN.RANGE;
+  const baseAmplitude = between(config.amplitude[0], config.amplitude[1], random);
+  let amplitude = baseAmplitude * (neutral ? .68 : 1 + clamp(strength, 0, 1.8) * .28);
+  amplitude = clamp(amplitude, .01, config.maxAmplitude);
+  const baseBlend = newsDriven ? 0 : .18;
+  const basePrice = price(card.currentPrice * (1 - baseBlend) + card.fairPrice * baseBlend);
+  card.tech = [pattern, 0, duration, basePrice, amplitude, newsDriven ? Math.max(8, Math.round(duration * .62)) : 0];
+  return card.tech;
+}
+
+function ensureTechnicalState(card, random = null) {
+  const valid = Array.isArray(card?.tech) && card.tech.length === 6
+    && Number.isInteger(card.tech[0]) && card.tech[0] >= 0 && card.tech[0] < TECH_PATTERN_LABELS.length
+    && Number.isInteger(card.tech[1]) && card.tech[1] >= 0
+    && Number.isInteger(card.tech[2]) && card.tech[2] >= 8 && card.tech[2] <= 120
+    && Number.isFinite(card.tech[3]) && card.tech[3] >= 1
+    && Number.isFinite(card.tech[4]) && card.tech[4] > 0 && card.tech[4] <= .5
+    && Number.isInteger(card.tech[5]) && card.tech[5] >= 0 && card.tech[5] <= 120;
+  if (valid) return card.tech;
+  const seeded = random ?? seededCardRandom(card?.cardId ?? 1);
+  return startTechnicalPattern(card, TECH_PATTERN.RANGE, seeded, 0, false);
+}
+
+function technicalNewsSignal(news, pokemon, effect) {
+  const entry = news?.[0] ?? null;
+  if (!entry || !effect) return { relevant: false, direct: false, nature: 'neutral', strength: 0 };
+  const direct = entry.target === 'card' && entry.cardId === pokemon.id;
+  const center = (effect.min + effect.max) * .5;
+  const relevant = direct || effect.activity > 0 || Math.abs(center) > .00001;
+  if (!relevant) return { relevant: false, direct: false, nature: 'neutral', strength: 0 };
+  const nature = center > .004 ? 'positive' : center < -.004 ? 'negative' : entry.nature ?? 'neutral';
+  const strength = clamp(Math.abs(center) * 7 + effect.activity * .9 + (direct ? .38 : 0), .15, 1.8);
+  return { relevant: true, direct, nature, strength };
+}
+
+export function technicalLevels(card) {
+  if (!card?.tech) return null;
+  const t = card.tech, progress = technicalProgress(card);
+  const pattern = t[0], base = Math.max(1, t[3]), amp = clamp(t[4], .001, .5);
+  let support = base * (1 - amp * .48);
+  let resistance = base * (1 + amp * .48);
+  const bullish = [TECH_PATTERN.ASCENDING_TRIANGLE, TECH_PATTERN.BULL_FLAG, TECH_PATTERN.DOUBLE_BOTTOM, TECH_PATTERN.BREAKOUT_RETEST].includes(pattern);
+  const bearish = [TECH_PATTERN.DESCENDING_TRIANGLE, TECH_PATTERN.BEAR_FLAG, TECH_PATTERN.DOUBLE_TOP, TECH_PATTERN.BREAKDOWN_RETEST].includes(pattern);
+  if (pattern === TECH_PATTERN.ASCENDING_TRIANGLE) support = base * (1 - amp * Math.max(.06, .38 * (1 - progress)));
+  if (pattern === TECH_PATTERN.DESCENDING_TRIANGLE) resistance = base * (1 + amp * Math.max(.06, .38 * (1 - progress)));
+  if (pattern === TECH_PATTERN.DOUBLE_BOTTOM) { support = base * (1 - amp * .76); resistance = base * (1 + amp * .30); }
+  if (pattern === TECH_PATTERN.DOUBLE_TOP) { support = base * (1 - amp * .30); resistance = base * (1 + amp * .76); }
+  const breakoutAt = patternBreakoutAt(pattern);
+  if (bullish && progress >= breakoutAt) { support = Math.max(support, base * (1 + amp * .48)); resistance = base * (1 + amp * 1.28); }
+  if (bearish && progress >= breakoutAt) { resistance = Math.min(resistance, base * (1 - amp * .48)); support = base * (1 - amp * 1.28); }
+  return {
+    pattern: TECH_PATTERN_LABELS[pattern] ?? TECH_PATTERN_LABELS[0], patternCode: pattern, progress,
+    support: price(Math.max(1, support)), resistance: price(Math.max(1, resistance)),
+  };
+}
+
+function technicalTarget(card) {
+  const t = ensureTechnicalState(card);
+  const progress = technicalProgress(card);
+  const shape = patternValue(t[0], progress);
+  // 패턴의 상대 움직임 + 장기 공정가치의 완만한 이동을 함께 반영한다.
+  const patternPrice = t[3] * (1 + t[4] * shape);
+  const fairBlend = (card.fairPrice - t[3]) * progress * .30;
+  return price(Math.max(1, patternPrice + fairBlend));
+}
+
+function applySupportResistance(card, target) {
+  const levels = technicalLevels(card);
+  if (!levels) return target;
+  const p = card.tech[0], progress = levels.progress;
+  const breakoutAt = patternBreakoutAt(p);
+  const bullishBreakout = [TECH_PATTERN.ASCENDING_TRIANGLE, TECH_PATTERN.BULL_FLAG, TECH_PATTERN.DOUBLE_BOTTOM, TECH_PATTERN.BREAKOUT_RETEST].includes(p) && progress >= breakoutAt;
+  const bearishBreakout = [TECH_PATTERN.DESCENDING_TRIANGLE, TECH_PATTERN.BEAR_FLAG, TECH_PATTERN.DOUBLE_TOP, TECH_PATTERN.BREAKDOWN_RETEST].includes(p) && progress >= breakoutAt;
+  let adjusted = target;
+  if (!bullishBreakout && adjusted > levels.resistance) adjusted = levels.resistance;
+  if (!bearishBreakout && adjusted < levels.support) adjusted = levels.support;
+  return adjusted;
+}
+
+function maybeStartTechnicalPattern(card, pokemon, market, effect, random) {
+  ensureTechnicalState(card, random);
+  if (card.tech[5] > 0) card.tech[5]--;
+  const signal = technicalNewsSignal(market.activeNews, pokemon, effect);
+  const completed = card.tech[1] >= card.tech[2];
+  if (signal.relevant && (signal.direct || card.tech[5] <= 0)) {
+    startTechnicalPattern(card, pickPatternForNature(signal.nature, random), random, signal.strength, true);
+    return signal;
+  }
+  const config = MARKET_CONFIG.grades[card.rarity];
+  if (!signal.relevant && card.tech[5] <= 0 && card.tech[1] >= Math.floor(card.tech[2] * .35) && random() < config.shockChance) {
+    const marketBias = STATE_BIAS[market.overall.state] + STATE_BIAS[market.sectors[card.rarity].state] * .7;
+    const up = random() < clamp(.52 + marketBias * 20, .20, .80);
+    startTechnicalPattern(card, up ? TECH_PATTERN.BREAKOUT_RETEST : TECH_PATTERN.BREAKDOWN_RETEST, random, 1.2, true);
+    return { relevant: true, direct: false, nature: up ? 'positive' : 'negative', strength: 1.2 };
+  }
+  if (completed) startTechnicalPattern(card, defaultPatternForMarket(market, card.rarity, random), random, 0, false);
+  return signal;
+}
+
+function updateTechnicalFairPrice(card, marketBias, newsCenter) {
+  const config = technicalConfig(card.rarity);
+  const regimeDrift = marketBias * config.regimeInfluence;
+  const newsDrift = clamp(newsCenter, -.12, .12) * config.newsInfluence;
+  const growth = config.growth + regimeDrift + newsDrift;
+  const floor = Math.max(1, card.startingPrice * .25);
+  card.fairPrice = price(clamp(card.fairPrice * (1 + growth), floor, 1e12));
+}
 
 const hourMs = MARKET_CONFIG.tickMs * 6;
 const buffer = () => ({ values: [], head: 0, count: 0 });
@@ -142,10 +349,12 @@ export function createMarket(records, now = Date.now(), random = Math.random) {
     sectors[grade] = regime(random);
     for (const p of pool) {
       const startingPrice = price(config.average * weight(p.id) / mean);
-      cards[p.id] = { cardId: p.id, rarity: grade, startingPrice, fairPrice: startingPrice,
-        recoveryBasePrice: startingPrice, shockRecovery: null, currentPrice: startingPrice, volatility: config.volatility, trend: 0,
+      const card = { cardId: p.id, rarity: grade, startingPrice, fairPrice: startingPrice,
+        recoveryBasePrice: startingPrice, currentPrice: startingPrice, volatility: config.volatility, trend: 0,
         trendStrength: 0, trendRemaining: 0, momentum: 0, trade24h: tradeBuffer(), priceHistory: buffer(), hourlyHistory: buffer(),
         highestPrice: startingPrice, lowestPrice: startingPrice, averagePrice: startingPrice, sampleCount: 1 };
+      startTechnicalPattern(card, TECH_PATTERN.RANGE, random, 0, false);
+      cards[p.id] = card;
     }
   }
   return { cards, trade24h: { head: 0, count: 0 }, overall: regime(random), sectors, lastMarketUpdate: now, activeNews: [], newsHistory: [],
@@ -167,6 +376,13 @@ export function validMarket(market, records) {
     && Number.isInteger(recovery.ticksRemaining) && recovery.ticksRemaining >= 1
     && recovery.ticksRemaining <= MARKET_CONFIG.recovery.normalShockRecoveryTicks
   );
+  const technicalOK = tech => Array.isArray(tech) && tech.length === 6
+    && Number.isInteger(tech[0]) && tech[0] >= 0 && tech[0] < TECH_PATTERN_LABELS.length
+    && Number.isInteger(tech[1]) && tech[1] >= 0 && tech[1] <= 120
+    && Number.isInteger(tech[2]) && tech[2] >= 8 && tech[2] <= 120
+    && Number.isFinite(tech[3]) && tech[3] >= 1 && tech[3] <= 1e12
+    && Number.isFinite(tech[4]) && tech[4] > 0 && tech[4] <= .5
+    && Number.isInteger(tech[5]) && tech[5] >= 0 && tech[5] <= 120;
   const newsOK = n => n && typeof n.id === 'string' && typeof n.title === 'string'
     && ['type', 'card'].includes(n.target)
     && NEWS_NATURES.includes(n.nature) && NEWS_FOCUSES.includes(n.focus)
@@ -195,6 +411,7 @@ export function validMarket(market, records) {
         && [c.startingPrice, c.fairPrice, c.recoveryBasePrice, c.currentPrice].every(positive)
         && c.recoveryBasePrice >= c.startingPrice
         && shockRecoveryOK(c.shockRecovery ?? null, c.rarity)
+        && technicalOK(c.tech)
         && Number.isFinite(c.volatility) && c.volatility > 0 && c.volatility <= .1
         && [-1, 0, 1].includes(c.trend) && Number.isFinite(c.trendStrength) && c.trendStrength >= 0 && c.trendStrength <= .004
         && Number.isInteger(c.trendRemaining) && c.trendRemaining >= 0 && c.trendRemaining <= 18
@@ -238,10 +455,9 @@ export function migrateNewsSystem(market) {
       const fair = Number.isFinite(c.fairPrice) && c.fairPrice > 0 ? c.fairPrice : starting;
       c.recoveryBasePrice = price(Math.max(starting, fair));
     }
-    // v17 이전 저장에는 일반 포켓몬 급등 프리미엄 복원 상태가 없다.
-    // 진행 중인 급등을 억지로 추정하지 않고 다음 Shock부터 새 규칙을 적용한다.
-    if (!Object.hasOwn(c, 'shockRecovery')) c.shockRecovery = null;
-    if (c.rarity !== 'normal') c.shockRecovery = null;
+    // v35부터 단일 Tick Shock 대신 기술적 패턴 엔진을 사용하므로 이전 Shock 복원 상태는 제거한다.
+    delete c.shockRecovery;
+    ensureTechnicalState(c);
   }
 
   const story = market.newsStory;
@@ -614,77 +830,49 @@ export function marketTick(market, records, random = Math.random, recordTrades =
   for (const state of [market.overall, ...Object.values(market.sectors)]) {
     if (--state.remaining <= 0) Object.assign(state, regime(random));
   }
+
   const trades = [];
   for (const p of records) {
-    const c = market.cards[p.id], config = MARKET_CONFIG.grades[p.grade];
+    const c = market.cards[p.id];
+    const gradeConfig = technicalConfig(p.grade);
     const effect = newsEffect(market.activeNews, p);
-    const newsMove = effect.min === effect.max ? effect.min : between(effect.min, effect.max, random);
     const newsCenter = (effect.min + effect.max) * .5;
     const activity = effect.activity;
-
-    if (--c.trendRemaining <= 0) {
-      c.trend = integer(-1, 1, random); c.trendStrength = between(.0005, .004, random); c.trendRemaining = integer(4, 18, random);
-    }
     const marketBias = STATE_BIAS[market.overall.state] + STATE_BIAS[market.sectors[p.grade].state] * .7;
-    const inNormalShockRecovery = p.grade === 'normal' && !!c.shockRecovery?.ticksRemaining;
-    // 일반 포켓몬 급등 복원 중에는 Shock으로 만들어진 모멘텀을 다시 가격에 더하지 않는다.
-    const momentum = inNormalShockRecovery ? 0 : c.momentum * (.18 + Math.min(activity, .5));
-    const sideways = market.overall.state === 'SIDEWAYS' ? .65 : 1;
-    const randomDirection = -1 + 2 * random();
-    let change = MARKET_CONFIG.globalGrowth + marketBias + c.trend * c.trendStrength + momentum + newsMove
-      + randomDirection * c.volatility * (1 + activity) * sideways;
 
-    let startedNormalShockRecovery = false;
-    let legendaryUpShock = false;
-    let normalRecoveryResult = null;
-    if (inNormalShockRecovery) {
-      // 복원 중에는 새 Shock을 겹치지 않는다. 10 Tick 동안 기존 Shock 프리미엄만 단계적으로 제거한다.
-      normalRecoveryResult = advanceNormalShockRecovery(c, change);
-    } else if (random() < config.shockChance * (1 + activity)) {
-      // Shock은 해당 Tick 변동률을 교체한다. 일반 상승 Shock은 +100~250% 급등 후 10 Tick 복원을 시작한다.
-      const upChance = clamp(.5 + (marketBias + MARKET_CONFIG.globalGrowth + newsCenter) * 12 + momentum * 4, .08, .92);
-      const up = random() < upChance;
-      change = shockChange(p.grade, up, random);
-      if (p.grade === 'normal' && up) startedNormalShockRecovery = true;
-      if (p.grade === 'legendary' && up) legendaryUpShock = true;
-    } else {
-      // 별도 회복 기준가를 기준으로 등급별 급등/급락 복원 규칙을 적용한다.
-      change += recoveryPressure(c, random);
-    }
+    // 1) 장기 공정가치는 천천히 성장한다. 뉴스/시장 상태는 공정가치에는 약하게만 반영한다.
+    updateTechnicalFairPrice(c, marketBias, newsCenter);
 
-    const fairBias = marketBias + MARKET_CONFIG.globalGrowth + newsCenter;
-    // 일반 Shock 프리미엄은 fairPrice에 흡수하지 않고, Shock을 제외한 기준 가격을 따라가게 한다.
-    const fairReference = normalRecoveryResult?.baseNext ?? c.shockRecovery?.basePrice ?? c.currentPrice;
-    c.fairPrice = clamp(c.fairPrice * (1 + fairBias * .03) + (fairReference - c.fairPrice) * .002, 1, 1e12);
+    // 2) 관련 뉴스가 오면 상승/하락/중립 성격에 맞는 실제 차트 패턴을 시작한다.
+    //    패턴 진행 중에는 newsLock으로 매 Tick 새 뉴스가 패턴을 덮어쓰는 것을 막는다.
+    const signal = maybeStartTechnicalPattern(c, p, market, effect, random);
 
-    let next;
-    let recoveryBaseReference;
-    if (normalRecoveryResult) {
-      next = normalRecoveryResult.next;
-      recoveryBaseReference = normalRecoveryResult.baseNext;
-    } else {
-      const rawNext = price(c.currentPrice * (1 + change));
-      // 전설은 평상시 한 Tick 최대 +15%로 제한하지만, 드문 상승 Shock(+10~50%)은 기술주 급등 연출로 예외 허용한다.
-      // 환상은 기존대로 뉴스/쇼크/모멘텀이 겹쳐도 한 Tick 최대 +10% 상승 제한을 유지한다.
-      // 하락에는 이 제한을 적용하지 않아 기존 하락 변동성은 그대로 유지한다.
-      next = legendaryUpShock ? rawNext : limitRisePerTick(c, rawNext);
-      recoveryBaseReference = next;
-      if (startedNormalShockRecovery) {
-        beginNormalShockRecovery(c, next);
-        // 일반 Shock 프리미엄은 장기 회복 기준가에 반영하지 않는다.
-        recoveryBaseReference = c.shockRecovery?.basePrice ?? c.currentPrice;
-      }
-    }
+    // 3) 패턴의 목표 가격을 따라가되, 지지/저항을 돌파하기 전에는 해당 구간에서 반등/반락시킨다.
+    let target = technicalTarget(c);
+    target = applySupportResistance(c, target);
+    const targetMove = target / Math.max(1, c.currentPrice) - 1;
 
-    c.momentum = c.shockRecovery
-      ? 0
-      : clamp(c.momentum * .65 + (next / c.currentPrice - 1) * .35, -.08, .08);
+    // 기존 ±3.5%식 독립 랜덤 변동 대신, 작은 미세 노이즈만 남겨 차트가 부드러운 구조를 갖게 한다.
+    const newsNoise = 1 + Math.min(activity, .5) * .45 + (signal.direct ? .25 : 0);
+    const noise = (-1 + 2 * random()) * gradeConfig.noise * newsNoise;
+    let change = targetMove * gradeConfig.pull + noise;
+    change = clamp(change, -gradeConfig.maxStepDown, gradeConfig.maxStepUp);
+
+    const next = price(c.currentPrice * (1 + change));
+
+    // legacy 필드는 저장 호환/기존 UI·검증을 위해 유지하되 새 가격 결정에는 사용하지 않는다.
+    c.trend = change > .0001 ? 1 : change < -.0001 ? -1 : 0;
+    c.trendStrength = clamp(Math.abs(change) * .04, 0, .004);
+    c.trendRemaining = Math.max(0, Math.min(18, c.tech[2] - c.tech[1]));
+    c.momentum = clamp(c.momentum * .70 + change * .30, -.08, .08);
+
     const oldQuote = recordTrades && market.trade24h.count === MARKET_CONFIG.historyLimit
       ? previous(c.priceHistory, MARKET_CONFIG.historyLimit - 1) : 0;
     append(c.priceHistory, c.currentPrice, MARKET_CONFIG.historyLimit);
     c.currentPrice = next;
-    // Shock 프리미엄은 제외하고 회복 기준가를 갱신한다. 환상은 차이의 0.05% 속도로만 추종한다.
-    updateRecoveryBase(c, recoveryBaseReference);
+    updateRecoveryBase(c, next);
+    c.tech[1] = Math.min(120, c.tech[1] + 1);
+
     if (Math.floor(time / hourMs) > Math.floor(market.lastMarketUpdate / hourMs)) append(c.hourlyHistory, next, MARKET_CONFIG.hourlyHistoryLimit);
     updateStats(c, next);
 
