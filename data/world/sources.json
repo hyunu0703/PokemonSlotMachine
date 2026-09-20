@@ -1,0 +1,273 @@
+{
+  "sources": [
+    {
+      "id": "src-kanto-retro",
+      "title": "Celebrate 25 Years of Pokémon with Memorable Moments from the Kanto Region",
+      "publisher": "Pokemon.com",
+      "url": "https://www.pokemon.com/uk/pokemon-news/celebrate-25-years-of-pokemon-with-memorable-moments-from-the-kanto-region",
+      "scope": [
+        1
+      ]
+    },
+    {
+      "id": "src-kanto-letsgo",
+      "title": "Welcome to the Kanto Region",
+      "publisher": "Pokémon: Let's Go official site",
+      "url": "https://pokemonletsgo.pokemon.com/en-ca/kanto-region/",
+      "scope": [
+        1
+      ]
+    },
+    {
+      "id": "src-region-maps",
+      "title": "Adventure from Kanto to Paldea with the Pokémon Center’s Region Map Posters",
+      "publisher": "Pokemon.com",
+      "url": "https://www.pokemon.com/us/news/adventure-from-kanto-to-paldea-with-the-pokemon-center-s-region-map-posters",
+      "scope": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    {
+      "id": "src-johto-retro",
+      "title": "Remember the Region: Johto Spotlight",
+      "publisher": "Pokemon.com",
+      "url": "https://www.pokemon.com/uk/pokemon-news/remember-the-region-johto-spotlight",
+      "scope": [
+        2
+      ]
+    },
+    {
+      "id": "src-hgss",
+      "title": "포켓몬스터 하트골드·소울실버",
+      "publisher": "Pokémon Korea",
+      "url": "https://pokemonkorea.co.kr/game/view/5235?cate2=7&sword=",
+      "scope": [
+        2
+      ]
+    },
+    {
+      "id": "src-hoenn-retro",
+      "title": "Celebrate 25 Years of Pokémon with Memorable Moments from the Hoenn Region",
+      "publisher": "Pokemon.com",
+      "url": "https://www.pokemon.com/us/news/celebrate-25-years-of-pokemon-with-memorable-moments-from-the-hoenn-region",
+      "scope": [
+        3
+      ]
+    },
+    {
+      "id": "src-oras",
+      "title": "포켓몬스터 오메가루비·알파사파이어",
+      "publisher": "Pokémon Korea",
+      "url": "https://pokemonkorea.co.kr/game/view/5245",
+      "scope": [
+        3
+      ]
+    },
+    {
+      "id": "src-oras-delta",
+      "title": "ORAS 공식 사이트 - 에피소드 델타/호연 전설",
+      "publisher": "Pokémon Korea",
+      "url": "https://new.pokemonkorea.co.kr/?inc=special_site-oras-sub07_02",
+      "scope": [
+        3
+      ]
+    },
+    {
+      "id": "src-sinnoh-quiz",
+      "title": "Celebrate 25 Years of Pokémon with the Sinnoh Region Quiz",
+      "publisher": "Pokemon.com",
+      "url": "https://www.pokemon.com/us/news/celebrate-25-years-of-pokemon-with-the-sinnoh-region-quiz",
+      "scope": [
+        4
+      ]
+    },
+    {
+      "id": "src-bdsp",
+      "title": "포켓몬스터 브릴리언트 다이아몬드・샤이닝 펄 공식 사이트",
+      "publisher": "Pokémon Korea",
+      "url": "https://www.pokemonkorea.co.kr/bdsp/menu134",
+      "scope": [
+        4
+      ]
+    },
+    {
+      "id": "src-bdsp-story",
+      "title": "Pokémon Brilliant Diamond and Shining Pearl - Story",
+      "publisher": "Pokemon.com",
+      "url": "https://diamondpearl.pokemon.com/en-au/story/",
+      "scope": [
+        4
+      ]
+    },
+    {
+      "id": "src-hisui-story",
+      "title": "Pokémon Legends: Arceus - Story",
+      "publisher": "Pokemon.com",
+      "url": "https://legends.arceus.pokemon.com/en-us/story/",
+      "scope": [
+        4
+      ]
+    },
+    {
+      "id": "src-hisui-ko",
+      "title": "Pokémon LEGENDS 아르세우스 공식 사이트 - 축복마을/은하단",
+      "publisher": "Pokémon Korea",
+      "url": "https://pokemonkorea.co.kr/legends_arceus/menu137",
+      "scope": [
+        4
+      ]
+    },
+    {
+      "id": "src-hisui-clans",
+      "title": "Pokémon LEGENDS 아르세우스 - 금강단/진주단",
+      "publisher": "Pokémon Korea",
+      "url": "https://pokemonkorea.co.kr/legends_arceus/menu140?mode=view&number=2450",
+      "scope": [
+        4
+      ]
+    },
+    {
+      "id": "src-unova-retro",
+      "title": "Remember the Region: Unova Spotlight",
+      "publisher": "Pokemon.com",
+      "url": "https://www.pokemon.com/us/features/remember-the-region-unova-spotlight",
+      "scope": [
+        5
+      ]
+    },
+    {
+      "id": "src-b2w2",
+      "title": "포켓몬스터 블랙 2・화이트 2",
+      "publisher": "Pokémon Korea",
+      "url": "https://pokemonkorea.co.kr/game/view/5237?cate2=7&sword=",
+      "scope": [
+        5
+      ]
+    },
+    {
+      "id": "src-kalos-xy",
+      "title": "Pokémon X and Pokémon Y",
+      "publisher": "Pokemon.com",
+      "url": "https://www.pokemon.com/us/pokemon-video-games/pokemon-x-and-pokemon-y",
+      "scope": [
+        6
+      ]
+    },
+    {
+      "id": "src-mega",
+      "title": "Pokémon Mega Evolution Infographic",
+      "publisher": "Pokemon.com",
+      "url": "https://www.pokemon.com/us/features/mega-awesome-mega-informational-pokemon-mega-evolution-infographic",
+      "scope": [
+        6
+      ]
+    },
+    {
+      "id": "src-alola-retro",
+      "title": "Celebrate 25 Years of Pokémon With Memorable Moments from the Alola Region",
+      "publisher": "Pokemon.com",
+      "url": "https://www.pokemon.com/us/pokemon-news/celebrate-25-years-of-pokemon-with-memorable-moments-from-the-alola-region",
+      "scope": [
+        7
+      ]
+    },
+    {
+      "id": "src-usum",
+      "title": "Pokémon Ultra Sun and Pokémon Ultra Moon",
+      "publisher": "Pokemon.com",
+      "url": "https://www.pokemon.com/uk/pokemon-video-games/pokemon-ultra-sun-and-pokemon-ultra-moon",
+      "scope": [
+        7
+      ]
+    },
+    {
+      "id": "src-galar-league",
+      "title": "The Galar Pokémon League provides entertainment that ignites the whole region!",
+      "publisher": "Pokémon Sword/Shield official site",
+      "url": "https://swordshield.pokemon.com/en-us/story/pokemon-league/",
+      "scope": [
+        8
+      ]
+    },
+    {
+      "id": "src-galar-retro",
+      "title": "Celebrate 25 Years of Pokémon with Memorable Moments from the Galar Region",
+      "publisher": "Pokemon.com",
+      "url": "https://www.pokemon.com/uk/news/celebrate-25-years-of-pokemon-with-memorable-moments-from-the-galar-region",
+      "scope": [
+        8
+      ]
+    },
+    {
+      "id": "src-swsh",
+      "title": "Pokémon Sword and Pokémon Shield",
+      "publisher": "Pokemon.com",
+      "url": "https://www.pokemon.com/us/pokemon-video-games/pokemon-sword-and-pokemon-shield",
+      "scope": [
+        8
+      ]
+    },
+    {
+      "id": "src-paldea-school",
+      "title": "팔데아지방에서 가장 오래된 학교 / 보물찾기",
+      "publisher": "Pokémon Korea",
+      "url": "https://pokemonkorea.co.kr/sv/menu190?mode=view&number=2632",
+      "scope": [
+        9
+      ]
+    },
+    {
+      "id": "src-area-zero",
+      "title": "팔데아의 대공에서 발견된 수수께끼의 포켓몬들",
+      "publisher": "Pokémon Korea",
+      "url": "https://pokemonkorea.co.kr/sv/menu190?mode=view&number=2804",
+      "scope": [
+        9
+      ]
+    },
+    {
+      "id": "src-sv",
+      "title": "Pokémon Scarlet and Pokémon Violet",
+      "publisher": "Pokemon.com",
+      "url": "https://www.pokemon.com/uk/pokemon-video-games/pokemon-scarlet-and-pokemon-violet",
+      "scope": [
+        9
+      ]
+    },
+    {
+      "id": "src-dlc",
+      "title": "The Hidden Treasure of Area Zero - official announcement",
+      "publisher": "Pokemon.com",
+      "url": "https://www.pokemon.com/us/pokemon-news/updates-from-the-august-2023-pokemon-presents",
+      "scope": [
+        9
+      ]
+    },
+    {
+      "id": "src-indigo",
+      "title": "Catch Legendary Pokémon and Paradox Pokémon in The Indigo Disk",
+      "publisher": "Pokemon.com",
+      "url": "https://www.pokemon.com/us/features/catch-legendary-pokemon-and-paradox-pokemon-in-the-indigo-disk",
+      "scope": [
+        9
+      ]
+    },
+    {
+      "id": "src-terapagos",
+      "title": "테라파고스 도감",
+      "publisher": "Pokémon Korea",
+      "url": "https://pokemonkorea.co.kr/pokedex/view/1296",
+      "scope": [
+        9
+      ]
+    }
+  ]
+}

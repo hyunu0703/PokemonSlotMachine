@@ -1,0 +1,2156 @@
+{
+  "generation": 1,
+  "titleKo": "관동지방 세계관",
+  "defaultSourceIds": [
+    "src-kanto-retro",
+    "src-kanto-letsgo",
+    "src-region-maps"
+  ],
+  "regions": [
+    {
+      "id": "kanto",
+      "generation": 1,
+      "nameKo": "관동지방",
+      "nameEn": "Kanto",
+      "summary": "포켓몬 연구, 대도시, 기업, 체육관 문화와 로켓단 범죄가 교차하는 최초의 핵심 지방.",
+      "era": "modern",
+      "tags": [
+        "research",
+        "urban",
+        "league",
+        "team-rocket"
+      ],
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "characters": [
+    {
+      "id": "g1-char-001",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "레드",
+      "nameEn": "Red",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-char-002",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "그린",
+      "nameEn": "Blue/Green",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-char-003",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "오박사",
+      "nameEn": "Professor Oak",
+      "summary": "관동의 대표 포켓몬 연구자이자 포켓몬도감 연구의 중심 인물.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-char-004",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "웅",
+      "nameEn": "Brock",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-char-005",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "이슬",
+      "nameEn": "Misty",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-char-006",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "마티스",
+      "nameEn": "Lt. Surge",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-char-007",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "민화",
+      "nameEn": "Erika",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-char-008",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "독수",
+      "nameEn": "Koga",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-char-009",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "초련",
+      "nameEn": "Sabrina",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-char-010",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "강연",
+      "nameEn": "Blaine",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-char-011",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "비주기",
+      "nameEn": "Giovanni",
+      "summary": "로켓단 보스이자 상록체육관 관장으로 활동한 인물.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-char-012",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "칸나",
+      "nameEn": "Lorelei",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-char-013",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "시바",
+      "nameEn": "Bruno",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-char-014",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "국화",
+      "nameEn": "Agatha",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-char-015",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "목호",
+      "nameEn": "Lance",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-char-016",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "이수재",
+      "nameEn": "Bill",
+      "summary": "포켓몬 저장·전송 기술과 관련된 연구자.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-char-017",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "등나무노인",
+      "nameEn": "Mr. Fuji",
+      "summary": "보라타운 포켓몬타워와 포켓몬 보호 활동에 관계된 인물.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "places": [
+    {
+      "id": "g1-place-001",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "태초마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-place-002",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "상록시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-place-003",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "회색시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-place-004",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "블루시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-place-005",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "갈색시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-place-006",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "보라타운",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-place-007",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "무지개시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-place-008",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "연분홍시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-place-009",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "노랑시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-place-010",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "홍련섬",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-place-011",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "석영고원",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-place-012",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "상록숲",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-place-013",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "달맞이산",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-place-014",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "갈색항구",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-place-015",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "포켓몬타워",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-place-016",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "로켓단 아지트",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-place-017",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "실프주식회사",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-place-018",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "사파리존",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-place-019",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "무인발전소",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-place-020",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "쌍둥이섬",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-place-021",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "포켓몬저택",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-place-022",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "챔피언로드",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-place-023",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "블루시티동굴",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "organizations": [
+    {
+      "id": "g1-org-001",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "로켓단",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-org-002",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "관동 포켓몬리그",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-org-003",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "오박사 연구소",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-org-004",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "실프주식회사",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "g1-event-moon",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "달맞이산 화석·월석 사건",
+      "sixW": {
+        "who": [
+          "로켓단"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "달맞이산"
+        ],
+        "what": "로켓단이 희귀 자원과 포켓몬을 노리고 활동한다.",
+        "why": "포켓몬과 희귀 자원을 이용해 이익을 얻기 위해서.",
+        "how": "조직원을 현장에 배치하고 트레이너의 진로를 방해한다."
+      },
+      "outcome": "주인공의 개입으로 현장 계획이 좌절된다.",
+      "tags": [
+        "security",
+        "artifact"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-event-tower",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "포켓몬타워 사건",
+      "sixW": {
+        "who": [
+          "로켓단",
+          "등나무노인"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "보라타운",
+          "포켓몬타워"
+        ],
+        "what": "로켓단의 활동과 죽은 포켓몬의 영혼 문제가 겹치며 탑이 혼란에 빠진다.",
+        "why": "로켓단이 포켓몬을 이용하고 이익을 추구하기 위해서.",
+        "how": "실프스코프로 유령의 정체를 확인하며 탑을 올라간다."
+      },
+      "outcome": "등나무노인을 구하고 로켓단을 몰아낸다.",
+      "tags": [
+        "security",
+        "ghost",
+        "culture"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-event-silph",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "실프주식회사 점거",
+      "sixW": {
+        "who": [
+          "로켓단",
+          "비주기",
+          "실프주식회사"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "노랑시티",
+          "실프주식회사"
+        ],
+        "what": "로켓단이 실프 본사를 점거하고 기술을 노린다.",
+        "why": "실프의 첨단 포켓몬 기술과 마스터볼을 확보하기 위해서.",
+        "how": "기업 건물을 장악하고 직원들의 이동을 제한한다."
+      },
+      "outcome": "주인공이 비주기를 격퇴하고 점거가 끝난다.",
+      "tags": [
+        "company",
+        "technology",
+        "security"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-event-mewtwo",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "뮤츠 연구와 블루시티동굴",
+      "sixW": {
+        "who": [
+          "홍련섬 연구진"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "포켓몬저택",
+          "블루시티동굴"
+        ],
+        "what": "뮤의 유전자를 토대로 매우 강력한 포켓몬 뮤츠가 만들어진 흔적이 남는다.",
+        "why": "포켓몬 생명과 유전의 한계를 연구하기 위해서.",
+        "how": "연구 기록과 실험을 통해 인공적으로 강력한 포켓몬을 탄생시킨다."
+      },
+      "outcome": "연구시설은 폐허가 되고 뮤츠는 블루시티동굴에서 발견된다.",
+      "tags": [
+        "research",
+        "legendary",
+        "technology"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "competitions": [
+    {
+      "id": "g1-comp-001",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "관동 체육관 챌린지",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-comp-002",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "석영고원 포켓몬리그",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "festivals": [],
+  "history": [
+    {
+      "id": "g1-history-mewtwo",
+      "nameKo": "뮤와 뮤츠 연구 기록",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "summary": "홍련섬 포켓몬저택에 남은 기록을 통해 뮤의 발견과 뮤츠 탄생으로 이어지는 연구 흔적이 제시된다.",
+      "tags": [
+        "research",
+        "legendary"
+      ],
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "myths": [
+    {
+      "id": "g1-myth-birds",
+      "nameKo": "관동의 전설의 새 포켓몬",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "summary": "프리져·썬더·파이어가 각각 극지형 동굴, 발전시설, 화산성 장소와 연결되어 전설적 존재로 여겨진다.",
+      "tags": [
+        "legendary",
+        "nature"
+      ],
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "legendaryPokemon": [
+    {
+      "id": "pokemon-144",
+      "dex": 144,
+      "nameKo": "프리져",
+      "nameEn": "Articuno",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Ice",
+        "Flying"
+      ],
+      "worldRole": "얼음과 설산·빙하 이미지에 연결되는 전설의 새.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-145",
+      "dex": 145,
+      "nameKo": "썬더",
+      "nameEn": "Zapdos",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Electric",
+        "Flying"
+      ],
+      "worldRole": "전기와 발전시설 이미지에 연결되는 전설의 새.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-146",
+      "dex": 146,
+      "nameKo": "파이어",
+      "nameEn": "Moltres",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Fire",
+        "Flying"
+      ],
+      "worldRole": "불꽃과 화산·고열 이미지에 연결되는 전설의 새.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-150",
+      "dex": 150,
+      "nameKo": "뮤츠",
+      "nameEn": "Mewtwo",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Psychic"
+      ],
+      "worldRole": "인공적으로 만들어진 강력한 포켓몬이라는 연구 서사의 중심.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-151",
+      "dex": 151,
+      "nameKo": "뮤",
+      "nameEn": "Mew",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "marketGrade": "mythical",
+      "types": [
+        "Psychic"
+      ],
+      "worldRole": "희귀한 환상의 포켓몬으로 뮤츠 연구의 기원과 연결된다.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "specialSpecies": [],
+  "phenomena": [
+    {
+      "id": "g1-phen-001",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "화석 복원",
+      "nameEn": "",
+      "summary": "고대 포켓몬의 화석을 과학기술로 복원하는 관동의 연구 요소.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "g1-art-001",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "실프스코프",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-art-002",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "마스터볼",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-art-003",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "비밀의열쇠",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-art-004",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "화석",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "technology": [
+    {
+      "id": "g1-tech-001",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "포켓몬도감",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-tech-002",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "포켓몬 PC 전송 시스템",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-tech-003",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "실프의 몬스터볼 기술",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-tech-004",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "화석 복원 기술",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "research": [
+    {
+      "id": "g1-res-001",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "오박사의 포켓몬 분류·도감 연구",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-res-002",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "홍련섬 생명·유전 연구",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-res-003",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "화석포켓몬 복원 연구",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "institutions": [
+    {
+      "id": "g1-inst-001",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "관동 포켓몬리그",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-inst-002",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "포켓몬센터",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-inst-003",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "사파리존",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "companies": [
+    {
+      "id": "g1-company-001",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "실프주식회사",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-company-002",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "무지개백화점",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "economy": [
+    {
+      "id": "g1-econ-001",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "노랑시티 기업 경제",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-econ-002",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "무지개시티 상업",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-econ-003",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "연분홍시티 사파리 관광",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-econ-004",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "갈색항구 해상교통",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "ecology": [
+    {
+      "id": "g1-eco-001",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "상록숲 생태계",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-eco-002",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "사파리존 보호·포획구역",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-eco-003",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "쌍둥이섬 빙하 생태",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-eco-004",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "무인발전소 전기포켓몬 서식",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "biomes": [
+    {
+      "id": "g1-biome-001",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "숲",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-biome-002",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "동굴",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-biome-003",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "도시",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-biome-004",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "해안",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-biome-005",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "섬",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-biome-006",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "빙하동굴",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-biome-007",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "화산섬",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "transport": [
+    {
+      "id": "g1-trans-001",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "상트앙느호",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-trans-002",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "자전거도로",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-trans-003",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "갈색항구",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "culture": [
+    {
+      "id": "g1-cult-001",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "체육관 배지 문화",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-cult-002",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "트레이너 여행",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-cult-003",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "포켓몬 묘지·추모 문화",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-cult-004",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "사파리 체험",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "media": [],
+  "security": [
+    {
+      "id": "g1-sec-001",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "로켓단 포켓몬 절도·밀매",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-sec-002",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "기업 점거",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-sec-003",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "불법 포켓몬 이용",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "disasters": [
+    {
+      "id": "g1-dis-001",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "포켓몬저택 붕괴·폐허화",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "g1-rel-rocket-giovanni",
+      "generation": 1,
+      "from": "비주기",
+      "relation": "leader_of",
+      "to": "로켓단",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g1-rel-silph",
+      "generation": 1,
+      "from": "로켓단",
+      "relation": "targets",
+      "to": "실프주식회사",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g1-rel-mewtwo",
+      "generation": 1,
+      "from": "뮤",
+      "relation": "genetic_research_origin_of",
+      "to": "뮤츠",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "storyArcs": [
+    {
+      "id": "g1-arc-rocket",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "로켓단 범죄 확장과 붕괴",
+      "summary": "관동 곳곳에서 포켓몬·자원·기업 기술을 노리던 로켓단이 연속적으로 저지되는 흐름.",
+      "stages": [
+        {
+          "stage": 1,
+          "eventId": "g1-event-moon",
+          "headlineSeed": "달맞이산에서 로켓단 활동 포착"
+        },
+        {
+          "stage": 2,
+          "eventId": "g1-event-tower",
+          "headlineSeed": "보라타운 포켓몬타워까지 로켓단 영향 확대"
+        },
+        {
+          "stage": 3,
+          "eventId": "g1-event-silph",
+          "headlineSeed": "노랑시티 실프 본사 점거 사태"
+        },
+        {
+          "stage": 4,
+          "headlineSeed": "비주기 패배 후 관동 내 조직 활동 급감"
+        }
+      ],
+      "tags": [
+        "security",
+        "company"
+      ],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-arc-mewtwo",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "뮤츠 연구 미스터리",
+      "summary": "홍련섬의 연구 기록에서 시작해 블루시티동굴의 뮤츠 발견으로 이어지는 과학·전설 서사.",
+      "stages": [
+        {
+          "stage": 1,
+          "headlineSeed": "홍련섬 포켓몬저택에서 희귀 포켓몬 연구 기록 발견"
+        },
+        {
+          "stage": 2,
+          "eventId": "g1-event-mewtwo",
+          "headlineSeed": "뮤 유전자 연구와 인공 포켓몬 기록 확인"
+        },
+        {
+          "stage": 3,
+          "headlineSeed": "블루시티동굴에서 강력한 미확인 포켓몬 목격"
+        }
+      ],
+      "tags": [
+        "research",
+        "legendary"
+      ],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "quests": [
+    {
+      "id": "g1-quest-001",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "포켓몬도감 조사",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-quest-002",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "체육관 배지 수집",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-quest-003",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "로켓단 저지",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-quest-004",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "전설의 포켓몬 탐사",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "regionalRules": [
+    {
+      "id": "g1-rule-001",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "8개 체육관 배지 후 포켓몬리그 도전",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g1-rule-002",
+      "generation": 1,
+      "regionIds": [
+        "kanto"
+      ],
+      "nameKo": "사파리존 별도 포획 규칙",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "timeline": [
+    {
+      "id": "g1-time-01",
+      "order": 1,
+      "labelKo": "관동 모험 시작",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g1-time-02",
+      "order": 2,
+      "labelKo": "로켓단 사건 연속 발생",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g1-time-03",
+      "order": 3,
+      "labelKo": "실프 점거 해결",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g1-time-04",
+      "order": 4,
+      "labelKo": "포켓몬리그 도전 및 블루시티동굴 탐사",
+      "sourceIds": [
+        "src-kanto-retro",
+        "src-kanto-letsgo",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "newsDomains": [
+    "research",
+    "technology",
+    "corporate",
+    "crime",
+    "league",
+    "legendary",
+    "ecology",
+    "tourism"
+  ]
+}

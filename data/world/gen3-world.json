@@ -1,0 +1,2860 @@
+{
+  "generation": 3,
+  "titleKo": "호연지방 세계관",
+  "defaultSourceIds": [
+    "src-hoenn-retro",
+    "src-oras",
+    "src-oras-delta",
+    "src-region-maps"
+  ],
+  "regions": [
+    {
+      "id": "hoenn",
+      "generation": 3,
+      "nameKo": "호연지방",
+      "nameEn": "Hoenn",
+      "summary": "바다 비중이 크고 화산·열대·해양 생태가 공존하며, 육지와 바다를 둘러싼 두 조직의 충돌이 핵심인 지방.",
+      "era": "modern",
+      "tags": [
+        "nature",
+        "ocean",
+        "weather",
+        "magma-aqua"
+      ],
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "characters": [
+    {
+      "id": "g3-char-001",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "휘웅",
+      "nameEn": "Brendan",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-char-002",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "봄이",
+      "nameEn": "May",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-char-003",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "털보박사",
+      "nameEn": "Professor Birch",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-char-004",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "민진",
+      "nameEn": "Wally",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-char-005",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "종길",
+      "nameEn": "Norman",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-char-006",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "원규",
+      "nameEn": "Roxanne",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-char-007",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "철구",
+      "nameEn": "Brawly",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-char-008",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "암페어",
+      "nameEn": "Wattson",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-char-009",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "민지",
+      "nameEn": "Flannery",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-char-010",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "은송",
+      "nameEn": "Winona",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-char-011",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "풍",
+      "nameEn": "Tate",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-char-012",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "란",
+      "nameEn": "Liza",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-char-013",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "윤진",
+      "nameEn": "Wallace",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-char-014",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "성호",
+      "nameEn": "Steven Stone",
+      "summary": "데봉주식회사와 연결되며 돌과 희귀 광물, 포켓몬에 관심이 깊은 챔피언급 트레이너.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-char-015",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "마적",
+      "nameEn": "Maxie",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-char-016",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "아강",
+      "nameEn": "Archie",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-char-017",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "피아나",
+      "nameEn": "Zinnia",
+      "summary": "호연의 고대 전승과 운석 위기, 레쿠쟈를 잇는 에피소드 델타의 핵심 인물.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "places": [
+    {
+      "id": "g3-place-001",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "미로마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-place-002",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "고도마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-place-003",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "금탄도시",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-place-004",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "등화도시",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-place-005",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "무로마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-place-006",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "잿빛도시",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-place-007",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "보라시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-place-008",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "잔디마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-place-009",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "단풍마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-place-010",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "용암마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-place-011",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "검방울시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-place-012",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "해안시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-place-013",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "이끼시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-place-014",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "루네시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-place-015",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "그랜드시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-place-016",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "굴뚝산",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-place-017",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "유성폭포",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-place-018",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "송화산",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-place-019",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "날씨연구소",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-place-020",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "해저동굴",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-place-021",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "각성의사당",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-place-022",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "하늘기둥",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-place-023",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "뉴보라",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-place-024",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "이끼우주센터",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-place-025",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "배틀프런티어",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "organizations": [
+    {
+      "id": "g3-org-001",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "마그마단",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-org-002",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "아쿠아단",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-org-003",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "데봉주식회사",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-org-004",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "호연 포켓몬리그",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-org-005",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "날씨연구소",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-org-006",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "이끼우주센터",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "g3-event-devon",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "데봉 기술·화물 탈취 사건",
+      "sixW": {
+        "who": [
+          "마그마단 또는 아쿠아단",
+          "데봉주식회사"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "금탄도시",
+          "잿빛도시"
+        ],
+        "what": "악의 조직이 데봉의 화물과 기술 관련 자원을 노린다.",
+        "why": "각 조직의 대규모 계획에 필요한 장비와 자원을 확보하기 위해서.",
+        "how": "운송 경로를 습격하고 관계자를 위협한다."
+      },
+      "outcome": "주인공이 물품을 회수하고 조직을 추적한다.",
+      "tags": [
+        "company",
+        "security"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-event-chimney",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "굴뚝산 작전",
+      "sixW": {
+        "who": [
+          "마그마단",
+          "아쿠아단"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "굴뚝산"
+        ],
+        "what": "두 조직이 운석과 화산 에너지를 둘러싸고 충돌한다.",
+        "why": "육지 또는 바다를 확대한다는 각자의 목적을 추진하기 위해서.",
+        "how": "운석·화산 시설을 활용하려 한다."
+      },
+      "outcome": "작전은 저지되지만 갈등은 전설의 포켓몬으로 확대된다.",
+      "tags": [
+        "volcano",
+        "security",
+        "artifact"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-event-seafloor",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "해저동굴 전설 포켓몬 각성",
+      "sixW": {
+        "who": [
+          "마적 또는 아강",
+          "마그마단 또는 아쿠아단"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "해저동굴"
+        ],
+        "what": "조직 수장이 그란돈 또는 가이오가를 깨운다.",
+        "why": "육지 또는 바다를 극단적으로 확대하려는 이상을 실현하기 위해서.",
+        "how": "고대의 구슬과 전설의 포켓몬의 힘을 이용한다."
+      },
+      "outcome": "통제할 수 없는 이상기후가 호연 전역에 발생한다.",
+      "tags": [
+        "legendary",
+        "weather",
+        "disaster"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-event-sootopolis",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "루네시티 이상기후 위기",
+      "sixW": {
+        "who": [
+          "그란돈",
+          "가이오가",
+          "성호",
+          "윤진"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "루네시티",
+          "각성의사당"
+        ],
+        "what": "강한 햇빛 또는 폭우가 호연 전역을 위협한다.",
+        "why": "깨어난 전설의 포켓몬 힘이 인간의 계획을 넘어섰기 때문.",
+        "how": "전설 포켓몬의 힘이 기후 자체를 변화시킨다."
+      },
+      "outcome": "주인공의 개입으로 사태가 진정되고 조직들은 자신들의 오류를 깨닫는다.",
+      "tags": [
+        "disaster",
+        "weather",
+        "legendary"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-event-delta",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "에피소드 델타 운석 위기",
+      "sixW": {
+        "who": [
+          "피아나",
+          "성호",
+          "이끼우주센터"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "호연 전역",
+          "하늘기둥",
+          "우주"
+        ],
+        "what": "거대한 운석이 행성에 접근하고 고대 호연 전승과 메가진화의 역사가 다시 주목된다.",
+        "why": "행성 충돌 위기를 막기 위해서.",
+        "how": "레쿠쟈와 메가진화, 고대 전승을 활용하는 해결책이 모색된다."
+      },
+      "outcome": "레쿠쟈와 테오키스가 관련된 우주 규모의 사건으로 이어진다.",
+      "tags": [
+        "space",
+        "mega",
+        "legendary",
+        "disaster"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "competitions": [
+    {
+      "id": "g3-comp-001",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "호연 체육관 챌린지",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-comp-002",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "호연 포켓몬리그",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-comp-003",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "포켓몬 콘테스트 라이브!",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-comp-004",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "배틀프런티어",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "festivals": [
+    {
+      "id": "g3-fest-001",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "포켓몬 콘테스트 지역 순회",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "history": [
+    {
+      "id": "g3-hist-clash",
+      "nameKo": "그란돈과 가이오가의 고대 충돌",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "summary": "육지와 바다를 상징하는 두 전설의 포켓몬이 먼 과거 충돌했고 레쿠쟈가 이를 제지했다는 호연 전승.",
+      "tags": [
+        "weather-trio",
+        "myth"
+      ],
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g3-hist-delta",
+      "nameKo": "호연의 운석·메가진화 전승",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "summary": "에피소드 델타는 수천 년 전 호연의 역사, 운석, 메가진화의 기원과 연결된 전승을 다룬다.",
+      "tags": [
+        "mega",
+        "meteor"
+      ],
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "myths": [
+    {
+      "id": "g3-myth-weather",
+      "nameKo": "날씨 삼룡 전승",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "summary": "그란돈은 대륙, 가이오가는 바다, 레쿠쟈는 두 존재의 충돌을 중재하는 하늘의 존재로 연결된다.",
+      "tags": [
+        "legendary",
+        "weather"
+      ],
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "legendaryPokemon": [
+    {
+      "id": "pokemon-377",
+      "dex": 377,
+      "nameKo": "레지락",
+      "nameEn": "Regirock",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Rock"
+      ],
+      "worldRole": "봉인 유적과 고대 퍼즐에 연결되는 전설의 거인.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-378",
+      "dex": 378,
+      "nameKo": "레지아이스",
+      "nameEn": "Regice",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Ice"
+      ],
+      "worldRole": "봉인 유적과 고대 퍼즐에 연결되는 전설의 거인.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-379",
+      "dex": 379,
+      "nameKo": "레지스틸",
+      "nameEn": "Registeel",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Steel"
+      ],
+      "worldRole": "봉인 유적과 고대 퍼즐에 연결되는 전설의 거인.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-380",
+      "dex": 380,
+      "nameKo": "라티아스",
+      "nameEn": "Latias",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Dragon",
+        "Psychic"
+      ],
+      "worldRole": "호연을 떠돌며 인간과 교감하는 전설의 포켓몬.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-381",
+      "dex": 381,
+      "nameKo": "라티오스",
+      "nameEn": "Latios",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Dragon",
+        "Psychic"
+      ],
+      "worldRole": "호연을 떠돌며 인간과 교감하는 전설의 포켓몬.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-382",
+      "dex": 382,
+      "nameKo": "가이오가",
+      "nameEn": "Kyogre",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Water"
+      ],
+      "worldRole": "바다의 확장과 폭우를 상징하는 전설의 포켓몬.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-383",
+      "dex": 383,
+      "nameKo": "그란돈",
+      "nameEn": "Groudon",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Ground"
+      ],
+      "worldRole": "대륙의 확장과 강한 햇빛을 상징하는 전설의 포켓몬.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-384",
+      "dex": 384,
+      "nameKo": "레쿠쟈",
+      "nameEn": "Rayquaza",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Dragon",
+        "Flying"
+      ],
+      "worldRole": "그란돈·가이오가의 충돌을 중재하고 하늘기둥·운석 위기와 연결되는 존재.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-385",
+      "dex": 385,
+      "nameKo": "지라치",
+      "nameEn": "Jirachi",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "marketGrade": "mythical",
+      "types": [
+        "Steel",
+        "Psychic"
+      ],
+      "worldRole": "소원과 긴 잠의 신비를 상징하는 환상의 포켓몬.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-386",
+      "dex": 386,
+      "nameKo": "테오키스",
+      "nameEn": "Deoxys",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "marketGrade": "mythical",
+      "types": [
+        "Psychic"
+      ],
+      "worldRole": "우주에서 온 생명과 운석 사건에 연결되는 환상의 포켓몬.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "specialSpecies": [],
+  "phenomena": [
+    {
+      "id": "g3-phen-001",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "원시회귀",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-phen-002",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "메가진화",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-phen-003",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "끝의대지",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-phen-004",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "시작의바다",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-phen-005",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "델타스트림",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "g3-art-001",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "주홍구슬",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-art-002",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "쪽빛구슬",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-art-003",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "운석",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-art-004",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "데봉스코프",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-art-005",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "고대석판",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "technology": [
+    {
+      "id": "g3-tech-001",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "포켓몬 멀티 내비",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-tech-002",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "데봉의 화석 복원·산업기술",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-tech-003",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "날씨 관측기술",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-tech-004",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "이끼우주센터 우주기술",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "research": [
+    {
+      "id": "g3-res-001",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "털보박사의 포켓몬 서식·생태 연구",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-res-002",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "날씨연구소 기상 연구",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-res-003",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "데봉의 화석·에너지 연구",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-res-004",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "우주센터 운석 관측",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "institutions": [
+    {
+      "id": "g3-inst-001",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "호연 포켓몬리그",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-inst-002",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "날씨연구소",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-inst-003",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "이끼우주센터",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-inst-004",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "콘테스트홀",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "companies": [
+    {
+      "id": "g3-company-001",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "데봉주식회사",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "economy": [
+    {
+      "id": "g3-econ-001",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "금탄도시 제조업",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-econ-002",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "잿빛도시 항만·시장",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-econ-003",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "보라시티 도시개발·에너지",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-econ-004",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "해안시티 관광·상업",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-econ-005",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "콘테스트 산업",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "ecology": [
+    {
+      "id": "g3-eco-001",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "Route 119 수계",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-eco-002",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "검방울시티 수목 생태",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-eco-003",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "해저 수역",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-eco-004",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "굴뚝산 화산 생태",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-eco-005",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "환상의 장소",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "biomes": [
+    {
+      "id": "g3-biome-001",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "열대숲",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-biome-002",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "화산",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-biome-003",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "해양",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-biome-004",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "수중동굴",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-biome-005",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "사막",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-biome-006",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "우림",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-biome-007",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "섬",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "transport": [
+    {
+      "id": "g3-trans-001",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "잿빛항·해안항 선박",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-trans-002",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "다이빙 이동",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-trans-003",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "창공날기",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "culture": [
+    {
+      "id": "g3-cult-001",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "포켓몬 콘테스트",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-cult-002",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "비밀기지 문화",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-cult-003",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "고대 점자 유적 탐사",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-cult-004",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "해양 도시문화",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "media": [
+    {
+      "id": "g3-media-001",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "포켓몬 콘테스트 방송·관람",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "security": [
+    {
+      "id": "g3-sec-001",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "마그마단 활동",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-sec-002",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "아쿠아단 활동",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-sec-003",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "산업시설 습격",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "disasters": [
+    {
+      "id": "g3-dis-001",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "극심한 폭우",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-dis-002",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "극심한 햇빛",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-dis-003",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "전설 포켓몬 충돌",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-dis-004",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "대형 운석 접근",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "g3-rel-magma",
+      "generation": 3,
+      "from": "마그마단",
+      "relation": "seeks_power_of",
+      "to": "그란돈",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g3-rel-aqua",
+      "generation": 3,
+      "from": "아쿠아단",
+      "relation": "seeks_power_of",
+      "to": "가이오가",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g3-rel-ray",
+      "generation": 3,
+      "from": "레쿠쟈",
+      "relation": "mediates",
+      "to": "그란돈·가이오가",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "storyArcs": [
+    {
+      "id": "g3-arc-weather",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "육지와 바다의 충돌",
+      "summary": "마그마단과 아쿠아단의 경쟁이 전설 포켓몬 각성으로 번져 호연 전체의 기후 위기가 되는 흐름.",
+      "stages": [
+        {
+          "stage": 1,
+          "eventId": "g3-event-devon",
+          "headlineSeed": "데봉 관련 물자 노린 조직 활동 증가"
+        },
+        {
+          "stage": 2,
+          "eventId": "g3-event-chimney",
+          "headlineSeed": "굴뚝산에서 두 조직 충돌"
+        },
+        {
+          "stage": 3,
+          "eventId": "g3-event-seafloor",
+          "headlineSeed": "해저동굴에서 전설 포켓몬 각성"
+        },
+        {
+          "stage": 4,
+          "eventId": "g3-event-sootopolis",
+          "headlineSeed": "호연 전역 이상기후 확대"
+        },
+        {
+          "stage": 5,
+          "headlineSeed": "기후 안정화, 조직 지도부 계획 철회"
+        }
+      ],
+      "tags": [
+        "weather",
+        "disaster",
+        "legendary"
+      ],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-arc-delta",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "에피소드 델타",
+      "summary": "운석 접근과 호연 고대사, 레쿠쟈·메가진화의 비밀이 연결되는 후일담.",
+      "stages": [
+        {
+          "stage": 1,
+          "headlineSeed": "우주센터, 거대 운석 접근 확인"
+        },
+        {
+          "stage": 2,
+          "headlineSeed": "피아나가 고대 호연 전승 공개"
+        },
+        {
+          "stage": 3,
+          "eventId": "g3-event-delta",
+          "headlineSeed": "하늘기둥에서 레쿠쟈와 메가진화 단서 확보"
+        },
+        {
+          "stage": 4,
+          "headlineSeed": "우주에서 테오키스 출현, 운석 위기 해소"
+        }
+      ],
+      "tags": [
+        "space",
+        "mega",
+        "legendary"
+      ],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "quests": [
+    {
+      "id": "g3-quest-001",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "데봉 물자 회수",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-quest-002",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "날씨연구소 방어",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-quest-003",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "송화산 구슬 추적",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-quest-004",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "해저동굴 탐사",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-quest-005",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "하늘기둥 등반",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-quest-006",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "에피소드 델타",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "regionalRules": [
+    {
+      "id": "g3-rule-001",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "다이빙으로 수중 탐사",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-rule-002",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "포켓몬 콘테스트 등급제",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g3-rule-003",
+      "generation": 3,
+      "regionIds": [
+        "hoenn"
+      ],
+      "nameKo": "비밀기지 설치",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "timeline": [
+    {
+      "id": "g3-time-01",
+      "order": 1,
+      "labelKo": "호연 모험 및 두 조직 활동",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g3-time-02",
+      "order": 2,
+      "labelKo": "그란돈/가이오가 각성과 기후위기",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g3-time-03",
+      "order": 3,
+      "labelKo": "호연 포켓몬리그",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g3-time-04",
+      "order": 4,
+      "labelKo": "에피소드 델타",
+      "sourceIds": [
+        "src-hoenn-retro",
+        "src-oras",
+        "src-oras-delta",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "newsDomains": [
+    "weather",
+    "ocean",
+    "land",
+    "corporate",
+    "space",
+    "tourism",
+    "research",
+    "legendary",
+    "disaster"
+  ]
+}

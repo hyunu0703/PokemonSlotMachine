@@ -1,0 +1,2385 @@
+{
+  "generation": 6,
+  "titleKo": "칼로스지방 세계관",
+  "defaultSourceIds": [
+    "src-kalos-xy",
+    "src-mega",
+    "src-region-maps"
+  ],
+  "regions": [
+    {
+      "id": "kalos",
+      "generation": 6,
+      "nameKo": "칼로스지방",
+      "nameEn": "Kalos",
+      "summary": "미르시티를 중심으로 예술·패션·역사와 메가진화 연구가 발달하고, 3000년 전 전쟁과 플레어단의 최종병기 서사가 이어지는 지방.",
+      "era": "modern",
+      "tags": [
+        "mega-evolution",
+        "history",
+        "team-flare",
+        "culture"
+      ],
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "characters": [
+    {
+      "id": "g6-char-001",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "칼름",
+      "nameEn": "Calem",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-char-002",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "세레나",
+      "nameEn": "Serena",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-char-003",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "플라타느박사",
+      "nameEn": "Professor Sycamore",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-char-004",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "사나",
+      "nameEn": "Shauna",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-char-005",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "티에르노",
+      "nameEn": "Tierno",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-char-006",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "트로바",
+      "nameEn": "Trevor",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-char-007",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "플라드리",
+      "nameEn": "Lysandre",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-char-008",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "AZ",
+      "nameEn": "AZ",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-char-009",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "카르네",
+      "nameEn": "Diantha",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-char-010",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "비올라",
+      "nameEn": "Viola",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-char-011",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "자크로",
+      "nameEn": "Grant",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-char-012",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "코르니",
+      "nameEn": "Korrina",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-char-013",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "후쿠지",
+      "nameEn": "Ramos",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-char-014",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "시트론",
+      "nameEn": "Clemont",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-char-015",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "마슈",
+      "nameEn": "Valerie",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-char-016",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "고지카",
+      "nameEn": "Olympia",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-char-017",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "우르프",
+      "nameEn": "Wulfric",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-char-018",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "핸섬",
+      "nameEn": "Looker",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-char-019",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "마티에르",
+      "nameEn": "Emma",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "places": [
+    {
+      "id": "g6-place-001",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "조아마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-place-002",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "수미마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-place-003",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "백단시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-place-004",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "미르시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-place-005",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "고목내마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-place-006",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "삼채시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-place-007",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "옥유마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-place-008",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "사라시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-place-009",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "비익시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-place-010",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "후늬시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-place-011",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "버들비마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-place-012",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "향전시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-place-013",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "이설시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-place-014",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "기남시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-place-015",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "파르팽궁전",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-place-016",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "연결동굴",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-place-017",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "마스터타워",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-place-018",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "몬스터볼공장",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-place-019",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "칼로스발전소",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-place-020",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "플레어단 비밀기지",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-place-021",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "플라드리카페",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-place-022",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "포켓몬마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-place-023",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "챔피언로드",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "organizations": [
+    {
+      "id": "g6-org-001",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "플레어단",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-org-002",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "칼로스 포켓몬리그",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-org-003",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "플라타느 연구소",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-org-004",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "핸섬 하우스",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "g6-event-power",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "칼로스발전소 사건",
+      "sixW": {
+        "who": [
+          "플레어단"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "칼로스발전소",
+          "미르시티"
+        ],
+        "what": "플레어단이 발전시설에서 에너지를 빼돌리고 미르시티 전력에 영향을 준다.",
+        "why": "최종병기와 조직 계획에 필요한 에너지를 확보하기 위해서.",
+        "how": "발전시설을 점거하고 에너지를 수집한다."
+      },
+      "outcome": "주인공이 조직을 몰아내며 전력 문제가 해소된다.",
+      "tags": [
+        "energy",
+        "security"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-event-factory",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "몬스터볼공장 점거",
+      "sixW": {
+        "who": [
+          "플레어단"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "몬스터볼공장"
+        ],
+        "what": "플레어단이 칼로스의 핵심 생산시설을 장악하려 한다.",
+        "why": "조직의 자원과 포켓몬 확보 능력을 강화하기 위해서.",
+        "how": "공장을 점거하고 생산·유통을 통제하려 한다."
+      },
+      "outcome": "주인공과 동료들이 간부를 격퇴한다.",
+      "tags": [
+        "company",
+        "security",
+        "supply"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-event-weapon",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "최종병기 재가동",
+      "sixW": {
+        "who": [
+          "플라드리",
+          "플레어단",
+          "제르네아스 또는 이벨타르"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "플레어단 비밀기지",
+          "고목내마을"
+        ],
+        "what": "3000년 전 만들어진 최종병기가 다시 가동된다.",
+        "why": "플라드리가 자신이 선택한 존재만 남긴 세계를 만들려 하기 때문에.",
+        "how": "전설 포켓몬의 생명 에너지를 병기에 이용한다."
+      },
+      "outcome": "주인공이 전설 포켓몬과 함께 계획을 저지하고 병기가 다시 파괴된다.",
+      "tags": [
+        "history",
+        "legendary",
+        "disaster"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-event-az",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "AZ와 영원의 꽃 전승의 결말",
+      "sixW": {
+        "who": [
+          "AZ"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "칼로스 포켓몬리그 주변"
+        ],
+        "what": "3000년 전 전쟁과 최종병기를 만든 AZ의 오랜 후회가 현재의 사건과 연결된다.",
+        "why": "과거 자신의 행동으로 잃은 관계와 죄책감을 마주하기 위해서.",
+        "how": "주인공과의 배틀과 사건 해결을 통해 감정적 결말에 도달한다."
+      },
+      "outcome": "오래 헤어졌던 특별한 플라엣테와 재회한다.",
+      "tags": [
+        "history",
+        "culture"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "competitions": [
+    {
+      "id": "g6-comp-001",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "칼로스 체육관 챌린지",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-comp-002",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "칼로스 포켓몬리그",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-comp-003",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "배틀샤토",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-comp-004",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "배틀하우스",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "festivals": [
+    {
+      "id": "g6-fest-001",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "미르시티 문화·패션 행사",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "history": [
+    {
+      "id": "g6-hist-war",
+      "nameKo": "칼로스 3000년 전 전쟁과 최종병기",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "summary": "약 3000년 전 전쟁에서 AZ가 소중한 포켓몬을 되살리려 만든 장치를 최종병기로 전환했고, 그 결과가 현대 칼로스 사건의 핵심 역사로 남는다.",
+      "tags": [
+        "war",
+        "ultimate-weapon"
+      ],
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "myths": [
+    {
+      "id": "g6-myth-life",
+      "nameKo": "제르네아스 생명의 전승",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "summary": "제르네아스는 생명의 힘과 연결되는 전설의 포켓몬으로 칼로스의 생명 테마를 상징한다.",
+      "tags": [
+        "life"
+      ],
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g6-myth-destruction",
+      "nameKo": "이벨타르 파괴의 전승",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "summary": "이벨타르는 생명 에너지의 소멸과 파괴 이미지에 연결되는 전설의 포켓몬.",
+      "tags": [
+        "destruction"
+      ],
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g6-myth-zygarde",
+      "nameKo": "지가르데 생태계 감시 전승",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "summary": "지가르데는 칼로스 생태계의 균형과 이상을 감시하는 존재로 묘사된다.",
+      "tags": [
+        "ecosystem"
+      ],
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "legendaryPokemon": [
+    {
+      "id": "pokemon-716",
+      "dex": 716,
+      "nameKo": "제르네아스",
+      "nameEn": "Xerneas",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Fairy"
+      ],
+      "worldRole": "생명과 영원한 생명 에너지의 이미지에 연결된다.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-717",
+      "dex": 717,
+      "nameKo": "이벨타르",
+      "nameEn": "Yveltal",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Dark",
+        "Flying"
+      ],
+      "worldRole": "파괴와 생명 에너지의 소멸 이미지에 연결된다.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-718",
+      "dex": 718,
+      "nameKo": "지가르데",
+      "nameEn": "Zygarde",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Dragon",
+        "Ground"
+      ],
+      "worldRole": "생태계 균형과 감시 역할을 가진 전설의 포켓몬.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-719",
+      "dex": 719,
+      "nameKo": "디안시",
+      "nameEn": "Diancie",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "marketGrade": "mythical",
+      "types": [
+        "Rock",
+        "Fairy"
+      ],
+      "worldRole": "보석과 광물의 신비에 연결되는 환상의 포켓몬.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-720",
+      "dex": 720,
+      "nameKo": "후파",
+      "nameEn": "Hoopa",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "marketGrade": "mythical",
+      "types": [
+        "Psychic",
+        "Ghost"
+      ],
+      "worldRole": "공간을 연결하는 링과 이동의 신비에 연결된다.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-721",
+      "dex": 721,
+      "nameKo": "볼케니온",
+      "nameEn": "Volcanion",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "marketGrade": "mythical",
+      "types": [
+        "Fire",
+        "Water"
+      ],
+      "worldRole": "증기와 고열·수압의 힘을 가진 환상의 포켓몬.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "specialSpecies": [],
+  "phenomena": [
+    {
+      "id": "g6-phen-001",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "메가진화",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-phen-002",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "페어리타입의 발견·정착",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "g6-art-001",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "키스톤",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-art-002",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "메가스톤",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-art-003",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "메가링",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-art-004",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "최종병기",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "technology": [
+    {
+      "id": "g6-tech-001",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "홀로캐스터",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-tech-002",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "몬스터볼 대량생산",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-tech-003",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "칼로스 발전망",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-tech-004",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "최종병기",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "research": [
+    {
+      "id": "g6-res-001",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "플라타느박사의 메가진화 연구",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-res-002",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "칼로스 고대전쟁·최종병기 연구",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-res-003",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "향전시티 천문·시간 관측",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "institutions": [
+    {
+      "id": "g6-inst-001",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "칼로스 포켓몬리그",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-inst-002",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "플라타느 연구소",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-inst-003",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "마스터타워",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-inst-004",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "몬스터볼공장",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "companies": [
+    {
+      "id": "g6-company-001",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "몬스터볼공장",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "economy": [
+    {
+      "id": "g6-econ-001",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "미르시티 상업·패션·관광",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-econ-002",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "몬스터볼 제조업",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-econ-003",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "칼로스 발전산업",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-econ-004",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "배틀샤토 관광",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "ecology": [
+    {
+      "id": "g6-eco-001",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "포켓몬마을 보호 생태",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-eco-002",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "칼로스 해안·산악 생태",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-eco-003",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "지가르데와 생태 균형",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "biomes": [
+    {
+      "id": "g6-biome-001",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "대도시",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-biome-002",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "해안",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-biome-003",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "초원",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-biome-004",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "산악",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-biome-005",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "설원",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-biome-006",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "동굴",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "transport": [
+    {
+      "id": "g6-trans-001",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "미르시티 택시",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-trans-002",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "비익시티 모노레일",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-trans-003",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "칼로스 철도·게이트망",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "culture": [
+    {
+      "id": "g6-cult-001",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "패션",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-cult-002",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "카페 문화",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-cult-003",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "궁전·왕실 역사",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-cult-004",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "메가진화 수행",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-cult-005",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "트리미앙 미용 문화",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "media": [
+    {
+      "id": "g6-media-001",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "홀로캐스터",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-media-002",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "미르시티 미디어·광고",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "security": [
+    {
+      "id": "g6-sec-001",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "플레어단 시설 점거",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-sec-002",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "에너지 절취",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-sec-003",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "최종병기 재가동",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "disasters": [
+    {
+      "id": "g6-dis-001",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "미르시티 정전",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-dis-002",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "최종병기 발사 위기",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "g6-rel-lysandre",
+      "generation": 6,
+      "from": "플라드리",
+      "relation": "leader_of",
+      "to": "플레어단",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g6-rel-az",
+      "generation": 6,
+      "from": "AZ",
+      "relation": "created",
+      "to": "최종병기",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g6-rel-sycamore",
+      "generation": 6,
+      "from": "플라타느박사",
+      "relation": "researches",
+      "to": "메가진화",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "storyArcs": [
+    {
+      "id": "g6-arc-flare",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "플레어단과 최종병기",
+      "summary": "지역 인프라와 생산시설을 노리던 플레어단의 활동이 3000년 전 최종병기 재가동으로 이어진다.",
+      "stages": [
+        {
+          "stage": 1,
+          "eventId": "g6-event-power",
+          "headlineSeed": "칼로스발전소 에너지 이상"
+        },
+        {
+          "stage": 2,
+          "eventId": "g6-event-factory",
+          "headlineSeed": "몬스터볼공장 점거"
+        },
+        {
+          "stage": 3,
+          "headlineSeed": "플라드리, 칼로스의 미래에 대한 극단적 계획 공개"
+        },
+        {
+          "stage": 4,
+          "eventId": "g6-event-weapon",
+          "headlineSeed": "고목내마을에서 고대 최종병기 재가동"
+        },
+        {
+          "stage": 5,
+          "eventId": "g6-event-az",
+          "headlineSeed": "3000년 전 전쟁의 진실과 AZ의 과거 재조명"
+        }
+      ],
+      "tags": [
+        "history",
+        "energy",
+        "security",
+        "legendary"
+      ],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-arc-mega",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "메가진화 연구",
+      "summary": "플라타느박사의 연구에서 마스터타워의 계승, 키스톤·메가스톤의 이해로 이어지는 칼로스의 핵심 연구 서사.",
+      "stages": [
+        {
+          "stage": 1,
+          "headlineSeed": "플라타느 연구소, 메가진화 공동조사 시작"
+        },
+        {
+          "stage": 2,
+          "headlineSeed": "사라시티 마스터타워에서 계승식 진행"
+        },
+        {
+          "stage": 3,
+          "headlineSeed": "메가스톤·키스톤 반응 데이터 축적"
+        }
+      ],
+      "tags": [
+        "research",
+        "mega-evolution"
+      ],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "quests": [
+    {
+      "id": "g6-quest-001",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "메가진화 조사",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-quest-002",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "플레어단 추적",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-quest-003",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "몬스터볼공장 구출",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-quest-004",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "최종병기 저지",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-quest-005",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "핸섬 사건 조사",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "regionalRules": [
+    {
+      "id": "g6-rule-001",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "메가진화는 트레이너의 키스톤과 포켓몬의 메가스톤 필요",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g6-rule-002",
+      "generation": 6,
+      "regionIds": [
+        "kalos"
+      ],
+      "nameKo": "칼로스 체육관·리그 제도",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "timeline": [
+    {
+      "id": "g6-time-00",
+      "order": 0,
+      "labelKo": "약 3000년 전 칼로스 전쟁과 최종병기",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g6-time-01",
+      "order": 1,
+      "labelKo": "현대 칼로스 메가진화 연구",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g6-time-02",
+      "order": 2,
+      "labelKo": "플레어단 자원 확보",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g6-time-03",
+      "order": 3,
+      "labelKo": "최종병기 위기",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g6-time-04",
+      "order": 4,
+      "labelKo": "사건 이후 칼로스 안정화",
+      "sourceIds": [
+        "src-kalos-xy",
+        "src-mega",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "newsDomains": [
+    "energy",
+    "fashion",
+    "tourism",
+    "manufacturing",
+    "history",
+    "mega-evolution",
+    "security",
+    "legendary",
+    "ecology"
+  ]
+}

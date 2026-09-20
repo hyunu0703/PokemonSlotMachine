@@ -1,0 +1,67 @@
+{
+  "version": "1.0.0",
+  "baselineCommit": "bc1d34cfdacea93e85403aa0fed8891c43a955a4",
+  "canonPolicy": {
+    "primary": "mainline_game_canon",
+    "includes": [
+      "Generation 1-9 core RPG setting",
+      "remakes where they restate/clarify the same game-world lore",
+      "Pokémon Legends: Arceus as historical Hisui/Sinnoh",
+      "Sword/Shield Expansion Pass",
+      "Scarlet/Violet: The Hidden Treasure of Area Zero"
+    ],
+    "excludesByDefault": [
+      "anime-only continuity",
+      "manga-only continuity",
+      "TCG-only stories",
+      "Pokémon GO-only stories",
+      "fan theories"
+    ],
+    "noteKo": "같은 사건이 버전별로 조금 다르면 공통 핵심을 우선 기록하고 versionNotes로 분기합니다."
+  },
+  "recordCommonFields": [
+    "id",
+    "generation",
+    "regionIds",
+    "nameKo",
+    "nameEn",
+    "summary",
+    "tags",
+    "sourceIds",
+    "canon"
+  ],
+  "dbTypes": {
+    "regions": "세대/지방/시대와 하위 지역",
+    "characters": "인물, 직업, 소속, 역할, 관계",
+    "places": "도시, 마을, 시설, 자연지역, 유적",
+    "organizations": "조직, 학교, 리그, 범죄집단, 연구집단",
+    "events": "정사에서 실제 발생한 사건. 육하원칙 필드 포함",
+    "competitions": "리그, 체육관, 배틀/콘테스트 대회",
+    "festivals": "축제, 지역 행사, 의례",
+    "history": "과거 사건/연대기",
+    "myths": "신화, 전설, 민간전승",
+    "legendaryPokemon": "전설/환상 포켓몬의 세계관 역할과 기존 1025 DB 연결용 도감번호",
+    "specialSpecies": "울트라비스트/패러독스 등 세계관상 특수 집단",
+    "phenomena": "메가진화, 울트라홀, 다이맥스, 테라스탈 등",
+    "artifacts": "유물, 핵심 도구, 장치",
+    "technology": "과학기술, 에너지, 통신/산업 기술",
+    "research": "박사/기관의 연구 분야와 조사 활동",
+    "institutions": "학교, 리그, 공공기관",
+    "companies": "기업/산업체",
+    "economy": "지역 경제와 산업",
+    "ecology": "서식지/생태 특징",
+    "biomes": "지형/기후권",
+    "transport": "교통수단/이동망",
+    "culture": "생활양식/전통/지역문화",
+    "media": "방송, 영화, 미디어, 정보망",
+    "security": "치안/범죄/위험집단",
+    "disasters": "자연재해/인공재난/공간이상",
+    "relationships": "인물·조직·장소·포켓몬 관계",
+    "storyArcs": "여러 사건을 시간순으로 묶은 뉴스 스토리 원형",
+    "quests": "정사상의 조사/탐험/임무",
+    "regionalRules": "지방별 제도/게임세계 규칙",
+    "timeline": "시대 및 사건 순서",
+    "newsDomains": "뉴스 생성 시 수혜/피해를 연결하기 위한 의미 태그"
+  },
+  "sourceCoverageNoteKo": "공식 Pokémon 웹자료로 세대·지방·핵심 사건·주요 인물/장소/현상을 우선 검증했습니다. 다만 공식 홈페이지는 모든 NPC·도로·소규모 시설을 일괄 문서화하지 않으므로, 세부 고유명사 목록과 일부 관계 정규화는 메인라인 게임 정사 지식을 구조화한 항목입니다. 실제 공개 전에는 sourceIds 기준으로 항목별 추가 감사를 권장합니다."
+}

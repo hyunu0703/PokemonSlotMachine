@@ -1,0 +1,4040 @@
+{
+  "generation": 4,
+  "titleKo": "신오·히스이지방 세계관",
+  "defaultSourceIds": [
+    "src-sinnoh-quiz",
+    "src-bdsp",
+    "src-bdsp-story",
+    "src-hisui-story",
+    "src-hisui-ko",
+    "src-hisui-clans",
+    "src-region-maps"
+  ],
+  "regions": [
+    {
+      "id": "sinnoh",
+      "generation": 4,
+      "nameKo": "신오지방",
+      "nameEn": "Sinnoh",
+      "summary": "천관산을 중심으로 시간·공간·창조 신화가 깊게 남아 있고 갤럭시단의 신세계 계획이 전개되는 지방.",
+      "era": "modern",
+      "tags": [
+        "myth",
+        "cosmology",
+        "team-galactic"
+      ],
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "hisui",
+      "generation": 4,
+      "nameKo": "히스이지방",
+      "nameEn": "Hisui",
+      "summary": "훗날 신오라 불리게 되는 과거의 지방. 인간과 포켓몬의 공존이 아직 자리잡는 과정이며 은하단이 생태를 조사한다.",
+      "era": "historical",
+      "tags": [
+        "history",
+        "survey",
+        "clans",
+        "space-time"
+      ],
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "characters": [
+    {
+      "id": "g4-char-001",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "광휘",
+      "nameEn": "Lucas",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-char-002",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "빛나",
+      "nameEn": "Dawn",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-char-003",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "마박사",
+      "nameEn": "Professor Rowan",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-char-004",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "용식",
+      "nameEn": "Barry",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-char-005",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "난천",
+      "nameEn": "Cynthia",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-char-006",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "태홍",
+      "nameEn": "Cyrus",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-char-007",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "마스",
+      "nameEn": "Mars",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-char-008",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "주피터",
+      "nameEn": "Jupiter",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-char-009",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "새턴",
+      "nameEn": "Saturn",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-char-010",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "핸섬",
+      "nameEn": "Looker",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-char-011",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "강석",
+      "nameEn": "Roark",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-char-012",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "유채",
+      "nameEn": "Gardenia",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-char-013",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "자두",
+      "nameEn": "Maylene",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-char-014",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "맥실러",
+      "nameEn": "Crasher Wake",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-char-015",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "멜리사",
+      "nameEn": "Fantina",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-char-016",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "동관",
+      "nameEn": "Byron",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-char-017",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "무청",
+      "nameEn": "Candice",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-char-018",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "전진",
+      "nameEn": "Volkner",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4h-char-001",
+      "generation": 4,
+      "regionIds": [
+        "hisui"
+      ],
+      "nameKo": "라벤박사",
+      "nameEn": "Professor Laventon",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4h-char-002",
+      "generation": 4,
+      "regionIds": [
+        "hisui"
+      ],
+      "nameKo": "전목",
+      "nameEn": "Kamado",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4h-char-003",
+      "generation": 4,
+      "regionIds": [
+        "hisui"
+      ],
+      "nameKo": "금경",
+      "nameEn": "Cyllene",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4h-char-004",
+      "generation": 4,
+      "regionIds": [
+        "hisui"
+      ],
+      "nameKo": "찬석",
+      "nameEn": "Adaman",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4h-char-005",
+      "generation": 4,
+      "regionIds": [
+        "hisui"
+      ],
+      "nameKo": "주혜",
+      "nameEn": "Irida",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4h-char-006",
+      "generation": 4,
+      "regionIds": [
+        "hisui"
+      ],
+      "nameKo": "월로",
+      "nameEn": "Volo",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4h-char-007",
+      "generation": 4,
+      "regionIds": [
+        "hisui"
+      ],
+      "nameKo": "코기토",
+      "nameEn": "Cogita",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "places": [
+    {
+      "id": "g4-place-001",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "떡잎마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-place-002",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "잔모래마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-place-003",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "축복시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-place-004",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "무쇠시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-place-005",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "꽃향기마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-place-006",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "영원시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-place-007",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "연고시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-place-008",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "신수마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-place-009",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "장막시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-place-010",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "들판시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-place-011",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "봉신마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-place-012",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "운하시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-place-013",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "선단시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-place-014",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "물가시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-place-015",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "천관산",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-place-016",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "창기둥",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-place-017",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "진실호수",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-place-018",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "입지호수",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-place-019",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "예지호수",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-place-020",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "영원의숲",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-place-021",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "숲의양옥집",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-place-022",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "대습초원",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-place-023",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "갤럭시단 본부",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-place-024",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "강철섬",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-place-025",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "챔피언로드",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-place-026",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "배틀존",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-place-027",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "깨어진세계",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-place-028",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "지하대동굴",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4h-place-001",
+      "generation": 4,
+      "regionIds": [
+        "hisui"
+      ],
+      "nameKo": "축복마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4h-place-002",
+      "generation": 4,
+      "regionIds": [
+        "hisui"
+      ],
+      "nameKo": "흑요들판",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4h-place-003",
+      "generation": 4,
+      "regionIds": [
+        "hisui"
+      ],
+      "nameKo": "홍련습지",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4h-place-004",
+      "generation": 4,
+      "regionIds": [
+        "hisui"
+      ],
+      "nameKo": "군청해안",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4h-place-005",
+      "generation": 4,
+      "regionIds": [
+        "hisui"
+      ],
+      "nameKo": "천관산기슭",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4h-place-006",
+      "generation": 4,
+      "regionIds": [
+        "hisui"
+      ],
+      "nameKo": "순백동토",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4h-place-007",
+      "generation": 4,
+      "regionIds": [
+        "hisui"
+      ],
+      "nameKo": "신오신전",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4h-place-008",
+      "generation": 4,
+      "regionIds": [
+        "hisui"
+      ],
+      "nameKo": "시공의 균열",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "organizations": [
+    {
+      "id": "g4-org-001",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "갤럭시단",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-org-002",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "신오 포켓몬리그",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-org-003",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "포켓치주식회사",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4h-org-001",
+      "generation": 4,
+      "regionIds": [
+        "hisui"
+      ],
+      "nameKo": "은하단",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4h-org-002",
+      "generation": 4,
+      "regionIds": [
+        "hisui"
+      ],
+      "nameKo": "은하단 조사대",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4h-org-003",
+      "generation": 4,
+      "regionIds": [
+        "hisui"
+      ],
+      "nameKo": "금강단",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4h-org-004",
+      "generation": 4,
+      "regionIds": [
+        "hisui"
+      ],
+      "nameKo": "진주단",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4h-org-005",
+      "generation": 4,
+      "regionIds": [
+        "hisui"
+      ],
+      "nameKo": "은행상회",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "g4-event-windworks",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "골짜기발전소 점거",
+      "sixW": {
+        "who": [
+          "갤럭시단",
+          "마스"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "골짜기발전소"
+        ],
+        "what": "갤럭시단이 발전시설을 장악하고 에너지를 모은다.",
+        "why": "태홍의 대규모 계획에 필요한 에너지를 확보하기 위해서.",
+        "how": "조직원이 시설을 점거하고 에너지를 강제로 수집한다."
+      },
+      "outcome": "주인공에게 격퇴되지만 계획은 다른 지역에서 계속된다.",
+      "tags": [
+        "energy",
+        "security"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-event-lake",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "세 호수와 호수의 포켓몬 포획",
+      "sixW": {
+        "who": [
+          "갤럭시단",
+          "태홍"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "진실호수",
+          "입지호수",
+          "예지호수"
+        ],
+        "what": "갤럭시단이 유크시·엠라이트·아그놈을 노린다.",
+        "why": "전설의 포켓몬을 이용해 빨간 사슬을 만들기 위해서.",
+        "how": "호수 지역을 공격하고 포켓몬을 본부로 옮긴다."
+      },
+      "outcome": "세 포켓몬은 구출되지만 빨간 사슬 계획은 진행된다.",
+      "tags": [
+        "legendary",
+        "artifact",
+        "security"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-event-spear",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "창기둥 시공간 소환",
+      "sixW": {
+        "who": [
+          "태홍",
+          "갤럭시단",
+          "디아루가",
+          "펄기아"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "천관산",
+          "창기둥"
+        ],
+        "what": "태홍이 시간과 공간의 전설 포켓몬을 불러 새로운 세계를 만들려 한다.",
+        "why": "감정과 불완전함이 없는 새로운 세계를 만들기 위해서.",
+        "how": "빨간 사슬로 전설 포켓몬의 힘을 구속·이용한다."
+      },
+      "outcome": "계획이 무너지고 버전에 따라 기라티나와 깨어진세계 사건으로 이어진다.",
+      "tags": [
+        "space-time",
+        "legendary",
+        "disaster"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4h-event-frenzy",
+      "generation": 4,
+      "regionIds": [
+        "hisui"
+      ],
+      "nameKo": "왕·여왕 포켓몬의 폭주",
+      "sixW": {
+        "who": [
+          "은하단 조사대",
+          "금강단",
+          "진주단"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "히스이지방 각 지역"
+        ],
+        "what": "사람들이 받드는 특별한 포켓몬들이 알 수 없는 힘으로 폭주한다.",
+        "why": "시공의 균열과 연결된 이상현상 때문에.",
+        "how": "주인공이 진정환과 포켓몬 배틀을 함께 활용한다."
+      },
+      "outcome": "각 지역의 왕·여왕이 차례로 진정된다.",
+      "tags": [
+        "ecology",
+        "phenomenon",
+        "public-safety"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4h-event-rift",
+      "generation": 4,
+      "regionIds": [
+        "hisui"
+      ],
+      "nameKo": "히스이 시공의 균열 위기",
+      "sixW": {
+        "who": [
+          "은하단",
+          "금강단",
+          "진주단",
+          "디아루가",
+          "펄기아"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "천관산",
+          "신오신전"
+        ],
+        "what": "하늘의 균열이 커지고 시간·공간을 다루는 전설 포켓몬이 나타난다.",
+        "why": "시간과 공간의 균형이 흔들렸기 때문.",
+        "how": "두 집단과 조사대가 협력해 원인을 추적하고 전설 포켓몬과 맞선다."
+      },
+      "outcome": "위기가 해소되고 히스이의 신앙과 신오님의 정체에 대한 이해가 깊어진다.",
+      "tags": [
+        "space-time",
+        "history",
+        "legendary"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "competitions": [
+    {
+      "id": "g4-comp-001",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "신오 체육관 챌린지",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-comp-002",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "신오 포켓몬리그",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-comp-003",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "포켓몬 슈퍼 콘테스트",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-comp-004",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "배틀타워",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "festivals": [
+    {
+      "id": "g4-fest-001",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "연고시티 슈퍼 콘테스트 행사",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "history": [
+    {
+      "id": "g4-hist-hisui",
+      "nameKo": "히스이 시대",
+      "generation": 4,
+      "regionIds": [
+        "hisui",
+        "sinnoh"
+      ],
+      "summary": "신오가 현재 이름으로 정착하기 전, 축복마을과 은하단을 중심으로 사람들의 정착과 포켓몬 조사가 진행되던 시대.",
+      "tags": [
+        "historical-era"
+      ],
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g4-hist-firstdex",
+      "nameKo": "히스이 최초 포켓몬도감 조사",
+      "generation": 4,
+      "regionIds": [
+        "hisui"
+      ],
+      "summary": "라벤박사와 은하단 조사대가 히스이의 포켓몬 생태를 조사해 지역 최초의 포켓몬도감 완성을 추진한다.",
+      "tags": [
+        "research"
+      ],
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "myths": [
+    {
+      "id": "g4-myth-creation",
+      "nameKo": "신오 창조신화",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh",
+        "hisui"
+      ],
+      "summary": "아르세우스와 시간의 디아루가, 공간의 펄기아, 반대편 세계의 기라티나, 정신을 상징하는 세 호수 포켓몬이 세계의 기원과 연결된다.",
+      "tags": [
+        "creation",
+        "cosmology"
+      ],
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g4-myth-clans",
+      "nameKo": "금강단·진주단의 신오님 신앙",
+      "generation": 4,
+      "regionIds": [
+        "hisui"
+      ],
+      "summary": "두 집단은 모두 신오님을 믿지만 시간과 공간에 대한 해석 차이 때문에 대립한다.",
+      "tags": [
+        "religion",
+        "clans"
+      ],
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "legendaryPokemon": [
+    {
+      "id": "pokemon-480",
+      "dex": 480,
+      "nameKo": "유크시",
+      "nameEn": "Uxie",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Psychic"
+      ],
+      "worldRole": "지식과 호수 신화에 연결되는 포켓몬.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-481",
+      "dex": 481,
+      "nameKo": "엠라이트",
+      "nameEn": "Mesprit",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Psychic"
+      ],
+      "worldRole": "감정과 호수 신화에 연결되는 포켓몬.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-482",
+      "dex": 482,
+      "nameKo": "아그놈",
+      "nameEn": "Azelf",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Psychic"
+      ],
+      "worldRole": "의지와 호수 신화에 연결되는 포켓몬.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-483",
+      "dex": 483,
+      "nameKo": "디아루가",
+      "nameEn": "Dialga",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh",
+        "hisui"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Steel",
+        "Dragon"
+      ],
+      "worldRole": "시간을 관장하는 신오 신화의 중심.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-484",
+      "dex": 484,
+      "nameKo": "펄기아",
+      "nameEn": "Palkia",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh",
+        "hisui"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Water",
+        "Dragon"
+      ],
+      "worldRole": "공간을 관장하는 신오 신화의 중심.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-485",
+      "dex": 485,
+      "nameKo": "히드런",
+      "nameEn": "Heatran",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Fire",
+        "Steel"
+      ],
+      "worldRole": "화산과 지하 열에 연결되는 전설의 포켓몬.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-486",
+      "dex": 486,
+      "nameKo": "레지기가스",
+      "nameEn": "Regigigas",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Normal"
+      ],
+      "worldRole": "대륙을 움직였다는 전승과 거인 전설에 연결된다.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-487",
+      "dex": 487,
+      "nameKo": "기라티나",
+      "nameEn": "Giratina",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh",
+        "hisui"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Ghost",
+        "Dragon"
+      ],
+      "worldRole": "깨어진세계와 반대편 차원에 연결되는 전설의 포켓몬.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-488",
+      "dex": 488,
+      "nameKo": "크레세리아",
+      "nameEn": "Cresselia",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Psychic"
+      ],
+      "worldRole": "초승달과 좋은 꿈의 이미지에 연결된다.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-489",
+      "dex": 489,
+      "nameKo": "피오네",
+      "nameEn": "Phione",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "marketGrade": "mythical",
+      "types": [
+        "Water"
+      ],
+      "worldRole": "마나피와 연관된 희귀한 포켓몬.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-490",
+      "dex": 490,
+      "nameKo": "마나피",
+      "nameEn": "Manaphy",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "marketGrade": "mythical",
+      "types": [
+        "Water"
+      ],
+      "worldRole": "바다와 신비한 알의 전승에 연결되는 환상의 포켓몬.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-491",
+      "dex": 491,
+      "nameKo": "다크라이",
+      "nameEn": "Darkrai",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "marketGrade": "mythical",
+      "types": [
+        "Dark"
+      ],
+      "worldRole": "악몽과 초승달섬 주변 전승에 연결된다.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-492",
+      "dex": 492,
+      "nameKo": "쉐이미",
+      "nameEn": "Shaymin",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "marketGrade": "mythical",
+      "types": [
+        "Grass"
+      ],
+      "worldRole": "감사와 꽃의 회복을 상징하는 환상의 포켓몬.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-493",
+      "dex": 493,
+      "nameKo": "아르세우스",
+      "nameEn": "Arceus",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh",
+        "hisui"
+      ],
+      "marketGrade": "mythical",
+      "types": [
+        "Normal"
+      ],
+      "worldRole": "모든 세계를 창조했다고 전해지는 창조포켓몬으로 신오·히스이 신화의 최상위 축.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "specialSpecies": [],
+  "phenomena": [
+    {
+      "id": "g4-phen-001",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "깨어진세계",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-phen-002",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "시공의 균열",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-phen-003",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "시공의 뒤틀림",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-phen-004",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "왕·여왕의 폭주",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-phen-005",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "초대량발생",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "g4-art-001",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "빨간 사슬",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-art-002",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "금강옥",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-art-003",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "백옥",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-art-004",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "백금옥",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-art-005",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "플레이트",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-art-006",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "천계의피리",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "technology": [
+    {
+      "id": "g4-tech-001",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "포켓치",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-tech-002",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "갤럭시단 에너지 설비",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-tech-003",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "지하대동굴 탐사장비",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-tech-004",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "히스이 초기 포켓몬 포획·조사 도구",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "research": [
+    {
+      "id": "g4-res-001",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "마박사의 포켓몬 진화 연구",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-res-002",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "신오 전설·역사 연구",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-res-003",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "라벤박사의 포켓몬 생태 연구",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-res-004",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "은하단 조사대의 히스이 전역 조사",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "institutions": [
+    {
+      "id": "g4-inst-001",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "신오 포켓몬리그",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-inst-002",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "축복시티 TV 방송국",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-inst-003",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "대습초원",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-inst-004",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "은하단 본부",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4h-inst-001",
+      "generation": 4,
+      "regionIds": [
+        "hisui"
+      ],
+      "nameKo": "은하단 본부",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4h-inst-002",
+      "generation": 4,
+      "regionIds": [
+        "hisui"
+      ],
+      "nameKo": "조사대",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4h-inst-003",
+      "generation": 4,
+      "regionIds": [
+        "hisui"
+      ],
+      "nameKo": "의료대",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4h-inst-004",
+      "generation": 4,
+      "regionIds": [
+        "hisui"
+      ],
+      "nameKo": "경비대",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "companies": [
+    {
+      "id": "g4-company-001",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "포켓치주식회사",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "economy": [
+    {
+      "id": "g4-econ-001",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "무쇠시티 광업",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-econ-002",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "운하시티 항만",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-econ-003",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "축복시티 미디어·상업",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-econ-004",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "들판시티 습지 관광",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-econ-005",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "히스이 개척·상업",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "ecology": [
+    {
+      "id": "g4-eco-001",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "천관산 고산 생태",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-eco-002",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "세 호수 생태",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-eco-003",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "대습초원 습지",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-eco-004",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "순백동토 한랭 생태",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-eco-005",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "흑요들판 초원 생태",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "biomes": [
+    {
+      "id": "g4-biome-001",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "산악",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-biome-002",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "호수",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-biome-003",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "습지",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-biome-004",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "설원",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-biome-005",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "해안",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-biome-006",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "초원",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-biome-007",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "동굴",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "transport": [
+    {
+      "id": "g4-trans-001",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "운하시티 선박",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-trans-002",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "자전거도로",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-trans-003",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "히스이 포켓몬 라이드",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "culture": [
+    {
+      "id": "g4-cult-001",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "신오 신화 연구",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-cult-002",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "포핀·콘테스트 문화",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-cult-003",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "금강단의 시간관",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-cult-004",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "진주단의 공간관",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-cult-005",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "히스이 왕·여왕 숭배",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "media": [
+    {
+      "id": "g4-media-001",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "축복시티 TV",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "security": [
+    {
+      "id": "g4-sec-001",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "갤럭시단 에너지 절취·포켓몬 포획",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-sec-002",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "히스이 야생 포켓몬 위험",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-sec-003",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "왕·여왕 폭주",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "disasters": [
+    {
+      "id": "g4-dis-001",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "입지호수 폭발",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-dis-002",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "창기둥 시공간 붕괴 위기",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-dis-003",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "히스이 시공의 균열",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-dis-004",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "왕·여왕 폭주",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "g4-rel-era",
+      "generation": 4,
+      "from": "히스이지방",
+      "relation": "later_known_as",
+      "to": "신오지방",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g4-rel-cyrus",
+      "generation": 4,
+      "from": "태홍",
+      "relation": "leader_of",
+      "to": "갤럭시단",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g4-rel-clans",
+      "generation": 4,
+      "from": "금강단·진주단",
+      "relation": "different_interpretations_of",
+      "to": "신오님",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "storyArcs": [
+    {
+      "id": "g4-arc-galactic",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "갤럭시단의 신세계 계획",
+      "summary": "에너지 확보와 호수 포켓몬 포획에서 시작해 창기둥에서 시간·공간의 힘을 이용하려는 계획으로 확대된다.",
+      "stages": [
+        {
+          "stage": 1,
+          "eventId": "g4-event-windworks",
+          "headlineSeed": "갤럭시단, 발전시설 에너지 확보"
+        },
+        {
+          "stage": 2,
+          "eventId": "g4-event-lake",
+          "headlineSeed": "세 호수에서 전설 포켓몬 실종"
+        },
+        {
+          "stage": 3,
+          "headlineSeed": "갤럭시단 본부에서 빨간 사슬 제작 정황"
+        },
+        {
+          "stage": 4,
+          "eventId": "g4-event-spear",
+          "headlineSeed": "창기둥에서 대규모 시공간 이상"
+        },
+        {
+          "stage": 5,
+          "headlineSeed": "갤럭시단 계획 붕괴, 신오 지역 안정화"
+        }
+      ],
+      "tags": [
+        "space-time",
+        "security",
+        "legendary"
+      ],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-arc-hisui",
+      "generation": 4,
+      "regionIds": [
+        "hisui"
+      ],
+      "nameKo": "히스이 시공의 균열 조사",
+      "summary": "포켓몬과 인간의 공존이 자리잡기 전 시대에 조사대와 두 집단이 지역 이상현상을 해결해 가는 역사 서사.",
+      "stages": [
+        {
+          "stage": 1,
+          "headlineSeed": "히스이 하늘에 거대한 균열 관측"
+        },
+        {
+          "stage": 2,
+          "eventId": "g4h-event-frenzy",
+          "headlineSeed": "각 지역 왕·여왕 포켓몬 잇따라 폭주"
+        },
+        {
+          "stage": 3,
+          "headlineSeed": "금강단과 진주단, 신오님 해석 놓고 갈등"
+        },
+        {
+          "stage": 4,
+          "eventId": "g4h-event-rift",
+          "headlineSeed": "천관산에서 시간·공간 전설 포켓몬 출현"
+        },
+        {
+          "stage": 5,
+          "headlineSeed": "균열 안정, 히스이 조사 재개"
+        }
+      ],
+      "tags": [
+        "history",
+        "research",
+        "space-time"
+      ],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "quests": [
+    {
+      "id": "g4-quest-001",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "세 호수 조사",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-quest-002",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "갤럭시단 본부 잠입",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-quest-003",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "창기둥 등반",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-quest-004",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "깨어진세계 탐사",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-quest-005",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "히스이 포켓몬도감 완성",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-quest-006",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "왕·여왕 진정 임무",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "regionalRules": [
+    {
+      "id": "g4-rule-001",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "신오 체육관·리그 제도",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-rule-002",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "히스이 조사대 랭크와 조사 포인트",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g4-rule-003",
+      "generation": 4,
+      "regionIds": [
+        "sinnoh"
+      ],
+      "nameKo": "히스이 왕·여왕 돌봄 제도",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "timeline": [
+    {
+      "id": "g4-time-00",
+      "order": 0,
+      "labelKo": "먼 과거: 히스이 시대와 최초 포켓몬도감 조사",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g4-time-01",
+      "order": 1,
+      "labelKo": "현대 신오 모험",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g4-time-02",
+      "order": 2,
+      "labelKo": "갤럭시단의 호수 포켓몬 포획",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g4-time-03",
+      "order": 3,
+      "labelKo": "창기둥·깨어진세계 위기",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g4-time-04",
+      "order": 4,
+      "labelKo": "신오리그 이후 탐사",
+      "sourceIds": [
+        "src-sinnoh-quiz",
+        "src-bdsp",
+        "src-bdsp-story",
+        "src-hisui-story",
+        "src-hisui-ko",
+        "src-hisui-clans",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "newsDomains": [
+    "cosmology",
+    "history",
+    "research",
+    "mining",
+    "energy",
+    "disaster",
+    "legendary",
+    "religion",
+    "ecology"
+  ]
+}

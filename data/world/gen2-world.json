@@ -1,0 +1,2356 @@
+{
+  "generation": 2,
+  "titleKo": "성도지방 세계관",
+  "defaultSourceIds": [
+    "src-johto-retro",
+    "src-hgss",
+    "src-region-maps"
+  ],
+  "regions": [
+    {
+      "id": "johto",
+      "generation": 2,
+      "nameKo": "성도지방",
+      "nameEn": "Johto",
+      "summary": "전통·신앙·역사·자연과 현대 도시가 공존하며 관동과 직접 이어지는 지방.",
+      "era": "modern",
+      "tags": [
+        "tradition",
+        "history",
+        "team-rocket",
+        "kanto-link"
+      ],
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "characters": [
+    {
+      "id": "g2-char-001",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "심향",
+      "nameEn": "Ethan",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-char-002",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "금선",
+      "nameEn": "Lyra",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-char-003",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "실버",
+      "nameEn": "Silver",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-char-004",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "공박사",
+      "nameEn": "Professor Elm",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-char-005",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "비상",
+      "nameEn": "Falkner",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-char-006",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "호일",
+      "nameEn": "Bugsy",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-char-007",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "꼭두",
+      "nameEn": "Whitney",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-char-008",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "유빈",
+      "nameEn": "Morty",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-char-009",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "사도",
+      "nameEn": "Chuck",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-char-010",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "규리",
+      "nameEn": "Jasmine",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-char-011",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "류옹",
+      "nameEn": "Pryce",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-char-012",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "이향",
+      "nameEn": "Clair",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-char-013",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "일목",
+      "nameEn": "Will",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-char-014",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "독수",
+      "nameEn": "Koga",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-char-015",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "시바",
+      "nameEn": "Bruno",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-char-016",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "카렌",
+      "nameEn": "Karen",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-char-017",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "목호",
+      "nameEn": "Lance",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-char-018",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "비주기",
+      "nameEn": "Giovanni",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "places": [
+    {
+      "id": "g2-place-001",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "연두마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-place-002",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "무궁시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-place-003",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "도라지시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-place-004",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "고동마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-place-005",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "금빛시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-place-006",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "인주시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-place-007",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "담청시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-place-008",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "진청시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-place-009",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "황토마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-place-010",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "검은먹시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-place-011",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "너도밤나무숲",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-place-012",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "알프의유적",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-place-013",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "자연공원",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-place-014",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "금빛라디오타워",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-place-015",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "불탄탑",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-place-016",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "방울탑",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-place-017",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "소용돌이섬",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-place-018",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "담청등대",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-place-019",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "분노의호수",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-place-020",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "로켓단 아지트",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-place-021",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "얼음샛길",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-place-022",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "용의굴",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-place-023",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "은빛산",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-place-024",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "석영고원",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "organizations": [
+    {
+      "id": "g2-org-001",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "로켓단 잔당",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-org-002",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "성도 포켓몬리그",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-org-003",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "금빛라디오타워",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-org-004",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "인주시티 무희들",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "g2-event-slowpoke",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "야돈의우물 사건",
+      "sixW": {
+        "who": [
+          "로켓단 잔당"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "고동마을",
+          "야돈의우물"
+        ],
+        "what": "로켓단 잔당이 야돈을 불법적으로 이용한다.",
+        "why": "조직 재건 자금과 이익을 얻기 위해서.",
+        "how": "야돈의 꼬리를 노리고 현장을 점거한다."
+      },
+      "outcome": "주인공의 개입으로 활동이 중단된다.",
+      "tags": [
+        "security",
+        "ecology"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-event-rage",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "분노의호수 붉은 갸라도스 사건",
+      "sixW": {
+        "who": [
+          "로켓단 잔당",
+          "목호"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "분노의호수",
+          "황토마을"
+        ],
+        "what": "강제 진화를 유도하는 전파 때문에 갸라도스가 비정상적으로 출현한다.",
+        "why": "로켓단이 포켓몬 진화를 인위적으로 조작하기 위해서.",
+        "how": "비밀기지에서 특수 전파를 송출한다."
+      },
+      "outcome": "목호와 주인공이 시설을 무력화한다.",
+      "tags": [
+        "security",
+        "technology",
+        "ecology"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-event-radio",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "금빛라디오타워 점거",
+      "sixW": {
+        "who": [
+          "로켓단 잔당"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "금빛시티",
+          "금빛라디오타워"
+        ],
+        "what": "로켓단 잔당이 방송망을 장악하고 비주기의 귀환을 요청한다.",
+        "why": "조직을 재건하고 옛 보스를 다시 불러들이기 위해서.",
+        "how": "라디오 방송국을 점거해 광역 메시지를 송출한다."
+      },
+      "outcome": "주인공이 간부들을 격퇴하고 점거가 끝난다.",
+      "tags": [
+        "media",
+        "security"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-event-lighthouse",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "담청등대 암피 치료",
+      "sixW": {
+        "who": [
+          "규리"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "담청등대",
+          "진청시티"
+        ],
+        "what": "등대의 빛을 맡는 전룡 암피가 병에 걸린다.",
+        "why": "등대 운영과 포켓몬 건강을 회복하기 위해서.",
+        "how": "진청시티에서 약을 구해 전달한다."
+      },
+      "outcome": "암피가 회복하고 등대가 정상화된다.",
+      "tags": [
+        "public-service",
+        "health"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "competitions": [
+    {
+      "id": "g2-comp-001",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "성도 체육관 챌린지",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-comp-002",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "포켓몬리그",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-comp-003",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "자연공원 벌레잡기대회",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-comp-004",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "포켓슬론",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "festivals": [
+    {
+      "id": "g2-fest-001",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "인주시티 무희 공연",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-fest-002",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "자연공원 벌레잡기대회",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "history": [
+    {
+      "id": "g2-hist-tower",
+      "nameKo": "인주시티 탑 화재",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "summary": "과거 두 탑 중 하나가 화재로 소실되었고 그 장소가 불탄탑으로 남았다. 이 사건은 세 전설의 포켓몬 전승과 연결된다.",
+      "tags": [
+        "history",
+        "myth"
+      ],
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "myths": [
+    {
+      "id": "g2-myth-beasts",
+      "nameKo": "불탄탑과 세 전설의 포켓몬",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "summary": "탑 화재로 목숨을 잃은 세 포켓몬이 칠색조의 힘으로 되살아나 라이코·앤테이·스이쿤이 되었다는 지역 전승.",
+      "tags": [
+        "ho-oh",
+        "legendary"
+      ],
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g2-myth-lugia",
+      "nameKo": "소용돌이섬과 루기아",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "summary": "루기아가 깊은 바다와 소용돌이섬의 전승에 연결되는 존재로 다뤄진다.",
+      "tags": [
+        "lugia",
+        "sea"
+      ],
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g2-myth-celebi",
+      "nameKo": "너도밤나무숲의 세레비 전승",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "summary": "숲의 사당과 세레비가 시간과 숲의 신비를 상징한다.",
+      "tags": [
+        "celebi",
+        "time",
+        "forest"
+      ],
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "legendaryPokemon": [
+    {
+      "id": "pokemon-243",
+      "dex": 243,
+      "nameKo": "라이코",
+      "nameEn": "Raikou",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Electric"
+      ],
+      "worldRole": "불탄탑 전승과 연결되는 번개를 상징하는 전설의 포켓몬.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-244",
+      "dex": 244,
+      "nameKo": "앤테이",
+      "nameEn": "Entei",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Fire"
+      ],
+      "worldRole": "불탄탑 전승과 연결되는 화산·불꽃 이미지의 전설의 포켓몬.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-245",
+      "dex": 245,
+      "nameKo": "스이쿤",
+      "nameEn": "Suicune",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Water"
+      ],
+      "worldRole": "불탄탑 전승과 연결되며 맑은 물과 바람의 이미지가 강한 전설의 포켓몬.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-249",
+      "dex": 249,
+      "nameKo": "루기아",
+      "nameEn": "Lugia",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Psychic",
+        "Flying"
+      ],
+      "worldRole": "소용돌이섬과 바다 전승의 중심.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-250",
+      "dex": 250,
+      "nameKo": "칠색조",
+      "nameEn": "Ho-Oh",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Fire",
+        "Flying"
+      ],
+      "worldRole": "인주시티 탑 전승과 세 전설의 포켓몬 부활 신화의 중심.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-251",
+      "dex": 251,
+      "nameKo": "세레비",
+      "nameEn": "Celebi",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "marketGrade": "mythical",
+      "types": [
+        "Psychic",
+        "Grass"
+      ],
+      "worldRole": "시간과 숲의 신비에 연결되는 환상의 포켓몬.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "specialSpecies": [],
+  "phenomena": [
+    {
+      "id": "g2-phen-001",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "강제 진화 전파",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-phen-002",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "세레비의 시간 이동",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "g2-art-001",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "GS볼",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-art-002",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "투명방울",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-art-003",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "은빛날개",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-art-004",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "무지개빛날개",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "technology": [
+    {
+      "id": "g2-tech-001",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "금빛라디오 방송망",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-tech-002",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "강제 진화 전파 장치",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-tech-003",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "자석열차",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "research": [
+    {
+      "id": "g2-res-001",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "공박사의 포켓몬 알·번식 연구",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-res-002",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "알프의유적 안농 조사",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "institutions": [
+    {
+      "id": "g2-inst-001",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "금빛라디오타워",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-inst-002",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "성도 포켓몬리그",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-inst-003",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "자연공원",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-inst-004",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "담청등대",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "companies": [
+    {
+      "id": "g2-company-001",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "금빛백화점",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "economy": [
+    {
+      "id": "g2-econ-001",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "금빛시티 상업·방송",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-econ-002",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "담청항 해상교통",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-econ-003",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "목장 산업",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-econ-004",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "자연공원 관광",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "ecology": [
+    {
+      "id": "g2-eco-001",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "너도밤나무숲",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-eco-002",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "분노의호수",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-eco-003",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "소용돌이섬",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-eco-004",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "얼음샛길",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-eco-005",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "은빛산",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "biomes": [
+    {
+      "id": "g2-biome-001",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "숲",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-biome-002",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "호수",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-biome-003",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "산악",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-biome-004",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "빙하동굴",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-biome-005",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "해안",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-biome-006",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "전통도시",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "transport": [
+    {
+      "id": "g2-trans-001",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "자석열차",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-trans-002",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "아쿠아호",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-trans-003",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "담청항",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "culture": [
+    {
+      "id": "g2-cult-001",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "인주시티 전통무용",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-cult-002",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "탑 신앙",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-cult-003",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "벌레잡기대회",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-cult-004",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "용의 일족 전통",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "media": [
+    {
+      "id": "g2-media-001",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "금빛라디오타워",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "security": [
+    {
+      "id": "g2-sec-001",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "로켓단 잔당 재건",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-sec-002",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "방송국 점거",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-sec-003",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "불법 포켓몬 이용",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "disasters": [
+    {
+      "id": "g2-dis-001",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "인주시티 과거 탑 화재",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-dis-002",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "분노의호수 생태 교란",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "g2-rel-kanto",
+      "generation": 2,
+      "from": "성도지방",
+      "relation": "connected_by_magnet_train_and_sea",
+      "to": "관동지방",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g2-rel-hooh-beasts",
+      "generation": 2,
+      "from": "칠색조",
+      "relation": "legendary_resurrection_link",
+      "to": "라이코·앤테이·스이쿤",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "storyArcs": [
+    {
+      "id": "g2-arc-rocket",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "로켓단 잔당의 재건 시도",
+      "summary": "야돈의우물에서 시작된 조직 활동이 강제 진화 실험과 방송국 점거로 확대된다.",
+      "stages": [
+        {
+          "stage": 1,
+          "eventId": "g2-event-slowpoke",
+          "headlineSeed": "고동마을 야돈 불법 포획 정황"
+        },
+        {
+          "stage": 2,
+          "eventId": "g2-event-rage",
+          "headlineSeed": "분노의호수에서 비정상 진화 현상"
+        },
+        {
+          "stage": 3,
+          "eventId": "g2-event-radio",
+          "headlineSeed": "금빛라디오타워 점거, 비주기 호출 방송"
+        },
+        {
+          "stage": 4,
+          "headlineSeed": "로켓단 잔당 지휘부 붕괴"
+        }
+      ],
+      "tags": [
+        "security",
+        "media"
+      ],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-arc-ecruteak",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "인주시티 전설의 재확인",
+      "summary": "불탄탑·방울탑·무희들과 전설의 포켓몬이 연결되는 성도의 역사 서사.",
+      "stages": [
+        {
+          "stage": 1,
+          "headlineSeed": "불탄탑 지하에서 전설의 포켓몬 목격"
+        },
+        {
+          "stage": 2,
+          "headlineSeed": "인주시티 무희들이 오래된 전승 재현"
+        },
+        {
+          "stage": 3,
+          "headlineSeed": "방울탑 또는 소용돌이섬에서 전설의 포켓몬 출현"
+        }
+      ],
+      "tags": [
+        "myth",
+        "culture",
+        "legendary"
+      ],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "quests": [
+    {
+      "id": "g2-quest-001",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "포켓몬 알 조사",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-quest-002",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "로켓단 잔당 추적",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-quest-003",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "담청등대 치료제 전달",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-quest-004",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "인주시티 전설 조사",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-quest-005",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "관동 재방문",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "regionalRules": [
+    {
+      "id": "g2-rule-001",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "성도 8개 체육관 이후 관동 추가 도전 가능",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-rule-002",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "벌레잡기대회 요일 개최",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g2-rule-003",
+      "generation": 2,
+      "regionIds": [
+        "johto"
+      ],
+      "nameKo": "포켓몬 동행",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "timeline": [
+    {
+      "id": "g2-time-01",
+      "order": 1,
+      "labelKo": "관동 사건 이후 성도 모험",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g2-time-02",
+      "order": 2,
+      "labelKo": "로켓단 잔당 활동 확대",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g2-time-03",
+      "order": 3,
+      "labelKo": "라디오타워 점거 실패",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g2-time-04",
+      "order": 4,
+      "labelKo": "성도리그 및 관동 재방문",
+      "sourceIds": [
+        "src-johto-retro",
+        "src-hgss",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "newsDomains": [
+    "tradition",
+    "broadcast",
+    "crime",
+    "ecology",
+    "legendary",
+    "tourism",
+    "transport",
+    "agriculture"
+  ]
+}

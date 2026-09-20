@@ -1,0 +1,2900 @@
+{
+  "generation": 7,
+  "titleKo": "알로라지방 세계관",
+  "defaultSourceIds": [
+    "src-alola-retro",
+    "src-usum",
+    "src-region-maps"
+  ],
+  "regions": [
+    {
+      "id": "alola",
+      "generation": 7,
+      "nameKo": "알로라지방",
+      "nameEn": "Alola",
+      "summary": "네 개의 자연섬과 에테르파라다이스로 이루어진 열대 지방. 섬 순례와 수호신 신앙, 울트라스페이스 연구가 핵심.",
+      "era": "modern",
+      "tags": [
+        "islands",
+        "tradition",
+        "ultra-space",
+        "aether"
+      ],
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "characters": [
+    {
+      "id": "g7-char-001",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "쿠쿠이박사",
+      "nameEn": "Professor Kukui",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-char-002",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "버넷박사",
+      "nameEn": "Professor Burnet",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-char-003",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "릴리에",
+      "nameEn": "Lillie",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-char-004",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "하우",
+      "nameEn": "Hau",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-char-005",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "글라디오",
+      "nameEn": "Gladion",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-char-006",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "루자미네",
+      "nameEn": "Lusamine",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-char-007",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "구즈마",
+      "nameEn": "Guzma",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-char-008",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "플루메리",
+      "nameEn": "Plumeria",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-char-009",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "자우보",
+      "nameEn": "Faba",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-char-010",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "비케",
+      "nameEn": "Wicke",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-char-011",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "할라",
+      "nameEn": "Hala",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-char-012",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "라이치",
+      "nameEn": "Olivia",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-char-013",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "나누",
+      "nameEn": "Nanu",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-char-014",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "하푸우",
+      "nameEn": "Hapu",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-char-015",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "일리마",
+      "nameEn": "Ilima",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-char-016",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "수련",
+      "nameEn": "Lana",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-char-017",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "키아웨",
+      "nameEn": "Kiawe",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-char-018",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "마오",
+      "nameEn": "Mallow",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-char-019",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "마마네",
+      "nameEn": "Sophocles",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-char-020",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "아세로라",
+      "nameEn": "Acerola",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-char-021",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "말리화",
+      "nameEn": "Mina",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "places": [
+    {
+      "id": "g7-place-001",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "멜레멜레섬",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-place-002",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "아칼라섬",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-place-003",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "울라울라섬",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-place-004",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "포니섬",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-place-005",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "에테르파라다이스",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-place-006",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "하우올리시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-place-007",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "환대시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-place-008",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "코니코니시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-place-009",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "말리에시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-place-010",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "포마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-place-011",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "릴리마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-place-012",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "텐캐럿힐",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-place-013",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "벨라화산공원",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-place-014",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "셰이드정글",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-place-015",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "호쿠라니천문대",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-place-016",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "라나키라마운틴",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-place-017",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "슈퍼메가싸네 철거지",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-place-018",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "일륜의제단",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-place-019",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "월륜의제단",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-place-020",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "울트라스페이스",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-place-021",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "울트라메가로폴리스",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-place-022",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "배틀트리",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-place-023",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "페스서클",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "organizations": [
+    {
+      "id": "g7-org-001",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "에테르재단",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-org-002",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "스컬단",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-org-003",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "울트라조사대",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-org-004",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "레인보우로켓단",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-org-005",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "알로라 포켓몬리그",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "g7-event-lillie",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "릴리에와 코스모그 탈출",
+      "sixW": {
+        "who": [
+          "릴리에",
+          "코스모그",
+          "에테르재단"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "에테르파라다이스"
+        ],
+        "what": "릴리에가 코스모그를 보호하기 위해 연구시설에서 빠져나온다.",
+        "why": "코스모그가 위험한 실험과 이용 대상이 되는 것을 막기 위해서.",
+        "how": "코스모그를 가방에 숨기고 알로라를 이동한다."
+      },
+      "outcome": "주인공과 만나며 가족·울트라홀 사건의 시작점이 된다.",
+      "tags": [
+        "family",
+        "legendary",
+        "research"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-event-aether",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "에테르파라다이스 울트라홀 사건",
+      "sixW": {
+        "who": [
+          "루자미네",
+          "자우보",
+          "릴리에",
+          "글라디오",
+          "코스모그"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "에테르파라다이스"
+        ],
+        "what": "에테르재단의 울트라홀 연구가 코스모그와 울트라비스트를 둘러싼 위기로 번진다.",
+        "why": "울트라스페이스에 접근하고 특정 존재를 추구하기 위해서.",
+        "how": "코스모그의 힘과 연구시설을 이용해 울트라홀을 연다."
+      },
+      "outcome": "가족 갈등과 울트라스페이스 진입 사건으로 이어진다.",
+      "tags": [
+        "ultra-space",
+        "research",
+        "security"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-event-league",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "알로라 포켓몬리그 창설",
+      "sixW": {
+        "who": [
+          "쿠쿠이박사"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "라나키라마운틴"
+        ],
+        "what": "기존 섬 순례 문화와 별개로 정식 포켓몬리그가 세워진다.",
+        "why": "알로라의 트레이너들이 공식 챔피언을 겨룰 수 있는 무대를 만들기 위해서.",
+        "how": "라나키라마운틴에 리그 시설을 세우고 사천왕전을 구성한다."
+      },
+      "outcome": "알로라 최초의 챔피언이 탄생한다.",
+      "tags": [
+        "league",
+        "institution"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-event-necrozma",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "네크로즈마 빛의 위기",
+      "sixW": {
+        "who": [
+          "네크로즈마",
+          "울트라조사대",
+          "솔가레오 또는 루나아라"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "알로라",
+          "울트라메가로폴리스"
+        ],
+        "what": "네크로즈마가 빛을 둘러싼 사건의 중심이 되어 알로라와 다른 세계에 위기를 일으킨다.",
+        "why": "잃어버린 빛과 에너지를 되찾으려는 본능적 행동과 연결된다.",
+        "how": "울트라홀을 통해 이동하고 솔가레오·루나아라와 합체한다."
+      },
+      "outcome": "주인공이 울트라스페이스를 넘나들며 사건을 해결한다.",
+      "tags": [
+        "ultra-space",
+        "legendary",
+        "disaster"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-event-rainbow",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "레인보우로켓단 에테르파라다이스 점거",
+      "sixW": {
+        "who": [
+          "비주기",
+          "레인보우로켓단"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "에테르파라다이스"
+        ],
+        "what": "평행세계의 악의 조직 보스들이 비주기 아래 모여 시설을 장악한다.",
+        "why": "다른 세계로 영향력을 넓히기 위해서.",
+        "how": "울트라홀과 첨단시설을 이용해 침입한다."
+      },
+      "outcome": "주인공이 역대 조직 보스들을 연속으로 격퇴한다.",
+      "tags": [
+        "security",
+        "multiverse",
+        "technology"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "competitions": [
+    {
+      "id": "g7-comp-001",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "섬 순례",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-comp-002",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "큰 시련",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-comp-003",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "알로라 포켓몬리그",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-comp-004",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "로열돔 배틀로열",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-comp-005",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "배틀트리",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "festivals": [
+    {
+      "id": "g7-fest-001",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "릴리마을 축제",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-fest-002",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "페스서클",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "history": [
+    {
+      "id": "g7-hist-guardians",
+      "nameKo": "알로라 섬 수호신 전승",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "summary": "각 섬에는 카푸 계열 수호신이 있으며 섬의 신앙과 큰 시련 제도에 깊게 연결된다.",
+      "tags": [
+        "guardians",
+        "culture"
+      ],
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "myths": [
+    {
+      "id": "g7-myth-cosmog",
+      "nameKo": "코스모그와 일륜·월륜 전승",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "summary": "코스모그 계열은 솔가레오·루나아라로 성장하며 울트라홀과 알로라의 태양·달 전승에 연결된다.",
+      "tags": [
+        "sun",
+        "moon",
+        "ultra-space"
+      ],
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g7-myth-necrozma",
+      "nameKo": "네크로즈마와 빛의 전승",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "summary": "네크로즈마는 다른 세계의 빛과 에너지 상실에 연결되며 울트라메가로폴리스의 역사와 관련된다.",
+      "tags": [
+        "light",
+        "ultra-space"
+      ],
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "legendaryPokemon": [
+    {
+      "id": "pokemon-772",
+      "dex": 772,
+      "nameKo": "타입:널",
+      "nameEn": "Type: Null",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Normal"
+      ],
+      "worldRole": "에테르재단 계열의 인공 포켓몬 연구와 연결되는 존재.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-773",
+      "dex": 773,
+      "nameKo": "실버디",
+      "nameEn": "Silvally",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Normal"
+      ],
+      "worldRole": "타입:널이 신뢰를 통해 진화한 모습으로 인공 연구와 유대의 서사를 가진다.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-785",
+      "dex": 785,
+      "nameKo": "카푸꼬꼬꼭",
+      "nameEn": "Tapu Koko",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Electric",
+        "Fairy"
+      ],
+      "worldRole": "멜레멜레섬 수호신.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-786",
+      "dex": 786,
+      "nameKo": "카푸나비나",
+      "nameEn": "Tapu Lele",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Psychic",
+        "Fairy"
+      ],
+      "worldRole": "아칼라섬 수호신.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-787",
+      "dex": 787,
+      "nameKo": "카푸브루루",
+      "nameEn": "Tapu Bulu",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Grass",
+        "Fairy"
+      ],
+      "worldRole": "울라울라섬 수호신.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-788",
+      "dex": 788,
+      "nameKo": "카푸느지느",
+      "nameEn": "Tapu Fini",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Water",
+        "Fairy"
+      ],
+      "worldRole": "포니섬 수호신.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-789",
+      "dex": 789,
+      "nameKo": "코스모그",
+      "nameEn": "Cosmog",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Psychic"
+      ],
+      "worldRole": "울트라홀과 솔가레오·루나아라 진화계의 시작.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-790",
+      "dex": 790,
+      "nameKo": "코스모움",
+      "nameEn": "Cosmoem",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Psychic"
+      ],
+      "worldRole": "코스모그의 진화 단계이자 전설 포켓몬 성장 서사의 핵심.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-791",
+      "dex": 791,
+      "nameKo": "솔가레오",
+      "nameEn": "Solgaleo",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Psychic",
+        "Steel"
+      ],
+      "worldRole": "태양·일륜 전승과 울트라홀 이동에 연결된다.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-792",
+      "dex": 792,
+      "nameKo": "루나아라",
+      "nameEn": "Lunala",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Psychic",
+        "Ghost"
+      ],
+      "worldRole": "달·월륜 전승과 울트라홀 이동에 연결된다.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-800",
+      "dex": 800,
+      "nameKo": "네크로즈마",
+      "nameEn": "Necrozma",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Psychic"
+      ],
+      "worldRole": "빛과 울트라스페이스 위기의 중심.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-801",
+      "dex": 801,
+      "nameKo": "마기아나",
+      "nameEn": "Magearna",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "marketGrade": "mythical",
+      "types": [
+        "Steel",
+        "Fairy"
+      ],
+      "worldRole": "인공 생명과 고대 기술을 상징하는 환상의 포켓몬.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-802",
+      "dex": 802,
+      "nameKo": "마샤도",
+      "nameEn": "Marshadow",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "marketGrade": "mythical",
+      "types": [
+        "Fighting",
+        "Ghost"
+      ],
+      "worldRole": "그림자 속에 숨어 관찰하는 신비한 환상의 포켓몬.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-807",
+      "dex": 807,
+      "nameKo": "제라오라",
+      "nameEn": "Zeraora",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "marketGrade": "mythical",
+      "types": [
+        "Electric"
+      ],
+      "worldRole": "고속 전기 에너지 이미지의 환상의 포켓몬.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-808",
+      "dex": 808,
+      "nameKo": "멜탄",
+      "nameEn": "Meltan",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "marketGrade": "mythical",
+      "types": [
+        "Steel"
+      ],
+      "worldRole": "금속을 흡수하는 수수께끼의 환상의 포켓몬.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-809",
+      "dex": 809,
+      "nameKo": "멜메탈",
+      "nameEn": "Melmetal",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "marketGrade": "mythical",
+      "types": [
+        "Steel"
+      ],
+      "worldRole": "멜탄이 모여 진화한 강력한 금속 환상의 포켓몬.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "specialSpecies": [
+    {
+      "id": "g7-special-ub",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "울트라비스트",
+      "summary": "울트라홀 너머 다른 세계에서 오는 특수 생명체 집단. 텅비드, 매시붕, 페로코체, 전수목, 철화구야, 종이신도, 악식킹, 베베놈, 아고용, 차곡차곡, 두파팡 등이 포함된다.",
+      "tags": [
+        "ultra-space",
+        "invasive-risk"
+      ],
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "phenomena": [
+    {
+      "id": "g7-phen-001",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "Z기술",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-phen-002",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "울트라홀",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-phen-003",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "울트라스페이스",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-phen-004",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "알로라 리전폼",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "g7-art-001",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "Z링",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-art-002",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "Z크리스탈",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-art-003",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "태양의피리",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-art-004",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "달의피리",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-art-005",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "울트라볼",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "technology": [
+    {
+      "id": "g7-tech-001",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "로토무도감",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-tech-002",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "에테르재단 연구시설",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-tech-003",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "울트라볼",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-tech-004",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "울트라워프라이드 기술",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "research": [
+    {
+      "id": "g7-res-001",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "쿠쿠이박사의 포켓몬 기술 연구",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-res-002",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "버넷박사의 차원·울트라홀 연구",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-res-003",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "에테르재단의 포켓몬 보호·울트라비스트 연구",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "institutions": [
+    {
+      "id": "g7-inst-001",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "에테르파라다이스",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-inst-002",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "알로라 포켓몬리그",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-inst-003",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "호쿠라니천문대",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-inst-004",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "포켓몬센터·관광시설",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "companies": [
+    {
+      "id": "g7-company-001",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "에테르재단",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "economy": [
+    {
+      "id": "g7-econ-001",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "섬 관광",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-econ-002",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "리조트·호텔",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-econ-003",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "농장·열매 생산",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-econ-004",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "만타인서핑 관광",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-econ-005",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "말라사다 등 지역 음식산업",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "ecology": [
+    {
+      "id": "g7-eco-001",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "섬별 고유 생태",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-eco-002",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "알로라 리전폼 적응",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-eco-003",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "울트라비스트 유입 위험",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-eco-004",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "에테르재단 보호구역",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "biomes": [
+    {
+      "id": "g7-biome-001",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "열대해변",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-biome-002",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "화산",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-biome-003",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "정글",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-biome-004",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "설산",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-biome-005",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "섬",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-biome-006",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "해양",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-biome-007",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "사막",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "transport": [
+    {
+      "id": "g7-trans-001",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "만타인서핑",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-trans-002",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "포켓몬 라이드",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-trans-003",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "섬 간 선박",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "culture": [
+    {
+      "id": "g7-cult-001",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "섬 순례",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-cult-002",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "큰 시련",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-cult-003",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "캡틴 제도",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-cult-004",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "수호신 신앙",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-cult-005",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "Z기술 의식",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-cult-006",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "알로라 인사·음식문화",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "media": [
+    {
+      "id": "g7-media-001",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "페스서클 통신·교류",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "security": [
+    {
+      "id": "g7-sec-001",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "스컬단 소동",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-sec-002",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "에테르재단 비밀 연구",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-sec-003",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "레인보우로켓단 침입",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-sec-004",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "울트라비스트 위험",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "disasters": [
+    {
+      "id": "g7-dis-001",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "울트라홀 대량 개방",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-dis-002",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "네크로즈마 빛 위기",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-dis-003",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "울트라비스트 출현",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "g7-rel-family",
+      "generation": 7,
+      "from": "루자미네",
+      "relation": "mother_of",
+      "to": "릴리에·글라디오",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g7-rel-nebby",
+      "generation": 7,
+      "from": "릴리에",
+      "relation": "protects",
+      "to": "코스모그",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g7-rel-skull",
+      "generation": 7,
+      "from": "구즈마",
+      "relation": "leader_of",
+      "to": "스컬단",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "storyArcs": [
+    {
+      "id": "g7-arc-aether",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "릴리에·코스모그와 에테르재단",
+      "summary": "가족 갈등과 울트라홀 연구가 알로라 전역의 위기로 커지는 이야기.",
+      "stages": [
+        {
+          "stage": 1,
+          "eventId": "g7-event-lillie",
+          "headlineSeed": "에테르 연구시설에서 소녀와 희귀 포켓몬 이탈"
+        },
+        {
+          "stage": 2,
+          "headlineSeed": "스컬단·에테르재단 사이 수상한 연계 정황"
+        },
+        {
+          "stage": 3,
+          "eventId": "g7-event-aether",
+          "headlineSeed": "에테르파라다이스에서 울트라홀 강제 개방"
+        },
+        {
+          "stage": 4,
+          "headlineSeed": "울트라스페이스 구조·추적 작전"
+        },
+        {
+          "stage": 5,
+          "eventId": "g7-event-league",
+          "headlineSeed": "위기 이후 알로라 정식 포켓몬리그 출범"
+        }
+      ],
+      "tags": [
+        "family",
+        "research",
+        "ultra-space"
+      ],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-arc-necrozma",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "네크로즈마와 빛",
+      "summary": "울트라조사대의 등장과 네크로즈마의 빛 문제가 알로라와 다른 세계를 잇는 사건으로 확장된다.",
+      "stages": [
+        {
+          "stage": 1,
+          "headlineSeed": "울트라조사대, 알로라에서 네크로즈마 조사"
+        },
+        {
+          "stage": 2,
+          "eventId": "g7-event-necrozma",
+          "headlineSeed": "네크로즈마가 솔가레오/루나아라와 융합"
+        },
+        {
+          "stage": 3,
+          "headlineSeed": "울트라메가로폴리스 광원 위기"
+        },
+        {
+          "stage": 4,
+          "headlineSeed": "네크로즈마 사건 해결 및 빛 회복"
+        },
+        {
+          "stage": 5,
+          "eventId": "g7-event-rainbow",
+          "headlineSeed": "후속: 레인보우로켓단 에테르파라다이스 침입"
+        }
+      ],
+      "tags": [
+        "light",
+        "ultra-space",
+        "multiverse"
+      ],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "quests": [
+    {
+      "id": "g7-quest-001",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "섬 순례",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-quest-002",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "울트라비스트 조사",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-quest-003",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "에테르파라다이스 구출",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-quest-004",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "울트라스페이스 탐사",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-quest-005",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "레인보우로켓단 격퇴",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "regionalRules": [
+    {
+      "id": "g7-rule-001",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "체육관 대신 섬 순례와 시련이 전통 제도",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-rule-002",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "각 섬에 섬의 왕·여왕과 수호신 존재",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g7-rule-003",
+      "generation": 7,
+      "regionIds": [
+        "alola"
+      ],
+      "nameKo": "Z기술은 Z링·Z크리스탈과 트레이너 동작 필요",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "timeline": [
+    {
+      "id": "g7-time-01",
+      "order": 1,
+      "labelKo": "알로라 도착과 섬 순례",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g7-time-02",
+      "order": 2,
+      "labelKo": "에테르재단·울트라홀 위기",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g7-time-03",
+      "order": 3,
+      "labelKo": "알로라 포켓몬리그 창설",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g7-time-04",
+      "order": 4,
+      "labelKo": "울트라썬·울트라문 분기: 네크로즈마 위기",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g7-time-05",
+      "order": 5,
+      "labelKo": "레인보우로켓단 사건",
+      "sourceIds": [
+        "src-alola-retro",
+        "src-usum",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "newsDomains": [
+    "tourism",
+    "culture",
+    "conservation",
+    "research",
+    "ultra-space",
+    "league",
+    "family",
+    "disaster",
+    "legendary"
+  ]
+}

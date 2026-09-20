@@ -1,0 +1,2950 @@
+{
+  "generation": 8,
+  "titleKo": "가라르지방 세계관",
+  "defaultSourceIds": [
+    "src-galar-league",
+    "src-galar-retro",
+    "src-swsh",
+    "src-region-maps"
+  ],
+  "regions": [
+    {
+      "id": "galar",
+      "generation": 8,
+      "nameKo": "가라르지방",
+      "nameEn": "Galar",
+      "summary": "포켓몬 배틀이 대형 스포츠 산업으로 발전했고 기업·에너지·산업이 강하게 연결된 지방.",
+      "era": "modern",
+      "tags": [
+        "sports",
+        "industry",
+        "dynamax",
+        "energy"
+      ],
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "isle-of-armor",
+      "generation": 8,
+      "nameKo": "갑옷섬",
+      "nameEn": "Isle of Armor",
+      "summary": "가라르 근해의 섬으로 마스터도장과 수련 문화가 중심.",
+      "era": "modern",
+      "tags": [
+        "training",
+        "dojo"
+      ],
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "crown-tundra",
+      "generation": 8,
+      "nameKo": "왕관설원",
+      "nameEn": "Crown Tundra",
+      "summary": "설원·유적·맥스다이맥스굴과 고대 왕 전승이 남은 가라르 남부의 탐험 지역.",
+      "era": "modern",
+      "tags": [
+        "expedition",
+        "legendary",
+        "snow"
+      ],
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "characters": [
+    {
+      "id": "g8-char-001",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "단델",
+      "nameEn": "Leon",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-char-002",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "호브",
+      "nameEn": "Hop",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-char-003",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "소니아",
+      "nameEn": "Sonia",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-char-004",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "매그놀리아박사",
+      "nameEn": "Professor Magnolia",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-char-005",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "로즈",
+      "nameEn": "Rose",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-char-006",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "올리브",
+      "nameEn": "Oleana",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-char-007",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "마리",
+      "nameEn": "Marnie",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-char-008",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "비트",
+      "nameEn": "Bede",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-char-009",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "아킬",
+      "nameEn": "Milo",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-char-010",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "야청",
+      "nameEn": "Nessa",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-char-011",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "순무",
+      "nameEn": "Kabu",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-char-012",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "채두",
+      "nameEn": "Bea",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-char-013",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "어니언",
+      "nameEn": "Allister",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-char-014",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "포플러",
+      "nameEn": "Opal",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-char-015",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "마쿠와",
+      "nameEn": "Gordie",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-char-016",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "멜론",
+      "nameEn": "Melony",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-char-017",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "두송",
+      "nameEn": "Piers",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-char-018",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "금랑",
+      "nameEn": "Raihan",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-char-019",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "마스터드",
+      "nameEn": "Mustard",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-char-020",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "피오니",
+      "nameEn": "Peony",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "places": [
+    {
+      "id": "g8-place-001",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "펄롱마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-place-002",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "브래시마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-place-003",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "엔진시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-place-004",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "터프마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-place-005",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "바우마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-place-006",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "너클시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-place-007",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "래터럴마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-place-008",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "아라베스크마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-place-009",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "키르쿠스마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-place-010",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "스파이크마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-place-011",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "슛시티",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-place-012",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "와일드에리어",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-place-013",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "꾸벅졸음숲",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-place-014",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "로즈타워",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-place-015",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "에너지플랜트",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-place-016",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "갑옷섬",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-place-017",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "마스터도장",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-place-018",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "왕관설원",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-place-019",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "맥스다이맥스굴",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-place-020",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "프리즈마을",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-place-021",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "왕관신전",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-place-022",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "거목의언덕",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "organizations": [
+    {
+      "id": "g8-org-001",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "가라르 포켓몬리그",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-org-002",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "매크로코스모스",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-org-003",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "옐단",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-org-004",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "마스터도장",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "g8-event-gym",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "가라르 체육관 챌린지",
+      "sixW": {
+        "who": [
+          "가라르 포켓몬리그",
+          "단델",
+          "로즈"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "가라르 각 스타디움"
+        ],
+        "what": "체육관 챌린저들이 대형 스타디움에서 배틀하고 챔피언컵 진출을 겨룬다.",
+        "why": "가라르의 대표 스포츠이자 리그 인재 선발 제도이기 때문.",
+        "how": "스폰서 추천, 체육관 미션, 다이맥스 배틀로 진행된다."
+      },
+      "outcome": "상위 도전자가 슛시티 챔피언컵에 진출한다.",
+      "tags": [
+        "sports",
+        "media",
+        "economy"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-event-darkest",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "다크나이트 재현 위기",
+      "sixW": {
+        "who": [
+          "로즈",
+          "올리브",
+          "무한다이노",
+          "단델",
+          "자시안",
+          "자마젠타"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "너클시티 에너지플랜트",
+          "슛시티"
+        ],
+        "what": "로즈가 미래 에너지 문제를 해결하려 무한다이노를 깨우면서 다이맥스 현상이 폭주한다.",
+        "why": "가라르의 장기적인 에너지 부족을 선제적으로 해결하려는 집착 때문.",
+        "how": "소원의별·가라르입자와 무한다이노의 힘을 이용한다."
+      },
+      "outcome": "자시안·자마젠타와 주인공들이 무한다이노를 막고 위기가 종결된다.",
+      "tags": [
+        "energy",
+        "disaster",
+        "legendary",
+        "corporate"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-event-armor",
+      "generation": 8,
+      "regionIds": [
+        "isle-of-armor"
+      ],
+      "nameKo": "갑옷섬 마스터도장 수련",
+      "sixW": {
+        "who": [
+          "마스터드",
+          "우라오스 계열"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "갑옷섬",
+          "마스터도장"
+        ],
+        "what": "주인공이 도장에 입문해 치고마를 성장시키는 수련을 한다.",
+        "why": "트레이너와 포켓몬의 유대·수련을 강화하기 위해서.",
+        "how": "섬의 시련과 탑 도전을 거친다."
+      },
+      "outcome": "치고마가 우라오스로 성장하고 도장과의 관계가 깊어진다.",
+      "tags": [
+        "training",
+        "culture"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-event-calyrex",
+      "generation": 8,
+      "regionIds": [
+        "crown-tundra"
+      ],
+      "nameKo": "왕관설원 풍요의 왕 전승 조사",
+      "sixW": {
+        "who": [
+          "피오니",
+          "버드렉스"
+        ],
+        "when": "해당 작품 메인 스토리 진행 중",
+        "where": [
+          "왕관설원",
+          "프리즈마을",
+          "왕관신전"
+        ],
+        "what": "잊혀진 왕 버드렉스와 애마에 대한 전승을 조사한다.",
+        "why": "왕관설원의 전설을 확인하고 탐험 계획을 완성하기 위해서.",
+        "how": "현지 전승, 왕관신전, 당근 재배와 고삐 복원을 통해 진실에 접근한다."
+      },
+      "outcome": "버드렉스와 애마의 관계가 복원되고 고대 전승이 확인된다.",
+      "tags": [
+        "history",
+        "legendary",
+        "agriculture"
+      ],
+      "versionNotes": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "competitions": [
+    {
+      "id": "g8-comp-001",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "가라르 체육관 챌린지",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-comp-002",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "챔피언컵",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-comp-003",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "맥스레이드배틀",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-comp-004",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "가라르 스타 토너먼트",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "festivals": [
+    {
+      "id": "g8-fest-001",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "체육관 챌린지 개막식",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-fest-002",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "챔피언컵 대형 스포츠 이벤트",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "history": [
+    {
+      "id": "g8-hist-darkest",
+      "nameKo": "3000년 전 다크나이트",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "summary": "과거 가라르 전역을 위협한 거대한 다이맥스 재난이 있었고 자시안·자마젠타가 이를 막았다는 전승이 남아 있다.",
+      "tags": [
+        "energy",
+        "legendary"
+      ],
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g8-hist-calyrex",
+      "nameKo": "왕관설원의 풍요의 왕 전승",
+      "generation": 8,
+      "regionIds": [
+        "crown-tundra"
+      ],
+      "summary": "버드렉스가 왕관설원의 왕으로 존경받고 농작물의 풍요와 연결되었다는 지역 전승.",
+      "tags": [
+        "agriculture",
+        "legendary"
+      ],
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "myths": [
+    {
+      "id": "g8-myth-heroes",
+      "nameKo": "검과 방패의 영웅 전승",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "summary": "가라르의 과거 재난을 막은 영웅 전승의 실체가 자시안과 자마젠타로 이어진다.",
+      "tags": [
+        "zacian",
+        "zamazenta"
+      ],
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g8-myth-king",
+      "nameKo": "풍요의 왕 버드렉스",
+      "generation": 8,
+      "regionIds": [
+        "crown-tundra"
+      ],
+      "summary": "버드렉스가 왕관설원 사람들에게 풍요를 가져다준 왕으로 전해진다.",
+      "tags": [
+        "calyrex"
+      ],
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "legendaryPokemon": [
+    {
+      "id": "pokemon-888",
+      "dex": 888,
+      "nameKo": "자시안",
+      "nameEn": "Zacian",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Fairy"
+      ],
+      "worldRole": "가라르 다크나이트를 막은 검의 영웅 전승과 연결된다.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-889",
+      "dex": 889,
+      "nameKo": "자마젠타",
+      "nameEn": "Zamazenta",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Fighting"
+      ],
+      "worldRole": "가라르 다크나이트를 막은 방패의 영웅 전승과 연결된다.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-890",
+      "dex": 890,
+      "nameKo": "무한다이노",
+      "nameEn": "Eternatus",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Poison",
+        "Dragon"
+      ],
+      "worldRole": "가라르 다이맥스 에너지와 다크나이트 재현 위기의 핵심.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-891",
+      "dex": 891,
+      "nameKo": "치고마",
+      "nameEn": "Kubfu",
+      "generation": 8,
+      "regionIds": [
+        "isle-of-armor"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Fighting"
+      ],
+      "worldRole": "갑옷섬 수련을 통해 성장하는 전설의 포켓몬.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-892",
+      "dex": 892,
+      "nameKo": "우라오스",
+      "nameEn": "Urshifu",
+      "generation": 8,
+      "regionIds": [
+        "isle-of-armor"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Fighting",
+        "Dark"
+      ],
+      "worldRole": "마스터도장 수련의 완성을 상징하는 전설의 포켓몬.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-893",
+      "dex": 893,
+      "nameKo": "자루도",
+      "nameEn": "Zarude",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "marketGrade": "mythical",
+      "types": [
+        "Dark",
+        "Grass"
+      ],
+      "worldRole": "밀림과 무리 생활의 신비에 연결되는 환상의 포켓몬.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-894",
+      "dex": 894,
+      "nameKo": "레지에레키",
+      "nameEn": "Regieleki",
+      "generation": 8,
+      "regionIds": [
+        "crown-tundra"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Electric"
+      ],
+      "worldRole": "왕관설원 유적과 전설의 거인 계열에 연결된다.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-895",
+      "dex": 895,
+      "nameKo": "레지드래고",
+      "nameEn": "Regidrago",
+      "generation": 8,
+      "regionIds": [
+        "crown-tundra"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Dragon"
+      ],
+      "worldRole": "왕관설원 유적과 전설의 거인 계열에 연결된다.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-896",
+      "dex": 896,
+      "nameKo": "블리자포스",
+      "nameEn": "Glastrier",
+      "generation": 8,
+      "regionIds": [
+        "crown-tundra"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Ice"
+      ],
+      "worldRole": "버드렉스의 한 애마 후보로 설원 전승에 연결된다.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-897",
+      "dex": 897,
+      "nameKo": "레이스포스",
+      "nameEn": "Spectrier",
+      "generation": 8,
+      "regionIds": [
+        "crown-tundra"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Ghost"
+      ],
+      "worldRole": "버드렉스의 한 애마 후보로 설원 전승에 연결된다.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-898",
+      "dex": 898,
+      "nameKo": "버드렉스",
+      "nameEn": "Calyrex",
+      "generation": 8,
+      "regionIds": [
+        "crown-tundra"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Psychic",
+        "Grass"
+      ],
+      "worldRole": "왕관설원의 풍요의 왕 전승 중심.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "pokemon-905",
+      "dex": 905,
+      "nameKo": "러브로스",
+      "nameEn": "Enamorus",
+      "generation": 8,
+      "regionIds": [
+        "hisui"
+      ],
+      "marketGrade": "legendary",
+      "types": [
+        "Fairy",
+        "Flying"
+      ],
+      "worldRole": "히스이의 계절·자연 전승에 연결되는 자연계 전설.",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "specialSpecies": [
+    {
+      "id": "g8-special-galar-birds",
+      "generation": 8,
+      "regionIds": [
+        "crown-tundra"
+      ],
+      "nameKo": "가라르의 프리져·썬더·파이어",
+      "summary": "왕관설원에서 만나는 관동 전설의 새와 이름을 공유하는 가라르의 모습들.",
+      "tags": [
+        "regional-form",
+        "legendary"
+      ],
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "phenomena": [
+    {
+      "id": "g8-phen-001",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "다이맥스",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-phen-002",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "거다이맥스",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-phen-003",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "맥스레이드배틀",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-phen-004",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "가라르입자",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "g8-art-001",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "다이맥스밴드",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-art-002",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "소원의별",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-art-003",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "녹슨검",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-art-004",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "녹슨방패",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-art-005",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "맥스꿀",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-art-006",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "유대의고삐",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "technology": [
+    {
+      "id": "g8-tech-001",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "다이맥스밴드",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-tech-002",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "로토무폰",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-tech-003",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "가라르 에너지망",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-tech-004",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "매크로코스모스 산업시설",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-tech-005",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "포켓잡 시스템",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "research": [
+    {
+      "id": "g8-res-001",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "매그놀리아박사의 다이맥스 연구",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-res-002",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "소니아의 가라르 전설 연구",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-res-003",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "왕관설원 전설 탐사",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "institutions": [
+    {
+      "id": "g8-inst-001",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "가라르 포켓몬리그",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-inst-002",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "마스터도장",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-inst-003",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "챔피언컵 운영위원회",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "companies": [
+    {
+      "id": "g8-company-001",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "매크로코스모스",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "economy": [
+    {
+      "id": "g8-econ-001",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "포켓몬리그 스포츠산업",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-econ-002",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "스폰서십",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-econ-003",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "에너지산업",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-econ-004",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "광산·제조업",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-econ-005",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "포켓잡 노동시장",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-econ-006",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "왕관설원 농업",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "ecology": [
+    {
+      "id": "g8-eco-001",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "와일드에리어",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-eco-002",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "갑옷섬 해양·습지",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-eco-003",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "왕관설원 한랭 생태",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-eco-004",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "포켓몬굴",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "biomes": [
+    {
+      "id": "g8-biome-001",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "초원",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-biome-002",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "산업도시",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-biome-003",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "숲",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-biome-004",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "사막",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-biome-005",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "해안",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-biome-006",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "설원",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-biome-007",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "습지",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "transport": [
+    {
+      "id": "g8-trans-001",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "가라르 철도",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-trans-002",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "아머역·왕관설원역",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-trans-003",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "아머까오 택시",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-trans-004",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "로토무자전거",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "culture": [
+    {
+      "id": "g8-cult-001",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "스타디움 중심 스포츠 문화",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-cult-002",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "체육관 스폰서십",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-cult-003",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "카레 요리",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-cult-004",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "도장 수련",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-cult-005",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "왕관설원 탐험 문화",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "media": [
+    {
+      "id": "g8-media-001",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "가라르리그 중계",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-media-002",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "체육관·챔피언 스타 시스템",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "security": [
+    {
+      "id": "g8-sec-001",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "옐단 경기 방해",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-sec-002",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "매크로코스모스 시설 통제",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-sec-003",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "무한다이노 에너지 위기",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "disasters": [
+    {
+      "id": "g8-dis-001",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "다크나이트",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-dis-002",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "무한다이노 폭주",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-dis-003",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "야생 다이맥스 폭주",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "g8-rel-rose",
+      "generation": 8,
+      "from": "로즈",
+      "relation": "chairman_and_business_leader_of",
+      "to": "가라르 포켓몬리그·매크로코스모스",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g8-rel-sonia",
+      "generation": 8,
+      "from": "소니아",
+      "relation": "researches",
+      "to": "가라르 영웅 전승",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g8-rel-heroes",
+      "generation": 8,
+      "from": "자시안·자마젠타",
+      "relation": "stopped",
+      "to": "다크나이트",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "storyArcs": [
+    {
+      "id": "g8-arc-darkest",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "체육관 챌린지와 다크나이트",
+      "summary": "스포츠 축제처럼 시작한 체육관 챌린지가 로즈의 에너지 계획과 무한다이노 사건으로 전환된다.",
+      "stages": [
+        {
+          "stage": 1,
+          "eventId": "g8-event-gym",
+          "headlineSeed": "가라르 체육관 챌린지 개막"
+        },
+        {
+          "stage": 2,
+          "headlineSeed": "일부 지역에서 비정상 다이맥스 관측"
+        },
+        {
+          "stage": 3,
+          "headlineSeed": "소니아, 과거 영웅 전승 재해석"
+        },
+        {
+          "stage": 4,
+          "eventId": "g8-event-darkest",
+          "headlineSeed": "너클시티 에너지플랜트에서 다크나이트 재현"
+        },
+        {
+          "stage": 5,
+          "headlineSeed": "자시안·자마젠타 등장, 무한다이노 봉쇄"
+        },
+        {
+          "stage": 6,
+          "headlineSeed": "챔피언컵 재개 및 가라르 에너지 정책 재검토"
+        }
+      ],
+      "tags": [
+        "sports",
+        "energy",
+        "corporate",
+        "legendary"
+      ],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-arc-crown",
+      "generation": 8,
+      "regionIds": [
+        "crown-tundra"
+      ],
+      "nameKo": "왕관설원 전설 탐험",
+      "summary": "피오니의 탐험을 따라 고대 유적·전설의 거인·가라르 새·버드렉스를 조사하는 후일담.",
+      "stages": [
+        {
+          "stage": 1,
+          "headlineSeed": "왕관설원 전설 탐험대 출발"
+        },
+        {
+          "stage": 2,
+          "headlineSeed": "고대 유적에서 레지 계열 반응"
+        },
+        {
+          "stage": 3,
+          "headlineSeed": "거목 인근에서 전설의 새 3종 목격"
+        },
+        {
+          "stage": 4,
+          "eventId": "g8-event-calyrex",
+          "headlineSeed": "프리즈마을 풍요의 왕 전승 조사"
+        }
+      ],
+      "tags": [
+        "expedition",
+        "legendary",
+        "tourism"
+      ],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "quests": [
+    {
+      "id": "g8-quest-001",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "체육관 챌린지",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-quest-002",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "가라르 전설 조사",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-quest-003",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "무한다이노 저지",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-quest-004",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "마스터도장 수련",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-quest-005",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "왕관설원 전설 탐험",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "regionalRules": [
+    {
+      "id": "g8-rule-001",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "체육관 챌린지는 추천장·스폰서·스타디움 경기 중심",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-rule-002",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "다이맥스는 특정 장소의 에너지와 다이맥스밴드로 활용",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    },
+    {
+      "id": "g8-rule-003",
+      "generation": 8,
+      "regionIds": [
+        "galar"
+      ],
+      "nameKo": "챔피언컵으로 챔피언 도전자 선발",
+      "nameEn": "",
+      "summary": "",
+      "tags": [],
+      "canon": "mainline_game",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ]
+    }
+  ],
+  "timeline": [
+    {
+      "id": "g8-time-00",
+      "order": 0,
+      "labelKo": "약 3000년 전 다크나이트와 검·방패 영웅 전승",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g8-time-01",
+      "order": 1,
+      "labelKo": "현대 가라르 체육관 챌린지",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g8-time-02",
+      "order": 2,
+      "labelKo": "무한다이노·다크나이트 재현",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g8-time-03",
+      "order": 3,
+      "labelKo": "갑옷섬 수련",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    },
+    {
+      "id": "g8-time-04",
+      "order": 4,
+      "labelKo": "왕관설원 전설 탐험",
+      "sourceIds": [
+        "src-galar-league",
+        "src-galar-retro",
+        "src-swsh",
+        "src-region-maps"
+      ],
+      "canon": "mainline_game"
+    }
+  ],
+  "newsDomains": [
+    "sports",
+    "energy",
+    "corporate",
+    "media",
+    "tourism",
+    "training",
+    "agriculture",
+    "legendary",
+    "disaster"
+  ]
+}
