@@ -1,5 +1,6 @@
 import { TYPES, TYPE_COUNTERS, typeEffectiveness, typeMultiplier } from './data.js';
 import { createWorldNewsState, generateWorldStoryNews, migrateWorldNewsState } from './world-news.js';
+import storyAreaDatabase from '../data/world/story-area-residents.json' with { type: 'json' };
 
 // Pure simulation/economy functions. All time and randomness can be supplied by tests.
 export const MARKET_CONFIG = Object.freeze({
@@ -92,6 +93,9 @@ export const NEWS_CONFIG = Object.freeze({
 
 const NEWS_NATURES = Object.freeze(['neutral', 'positive', 'negative']);
 const NEWS_FOCUSES = Object.freeze(['story', 'opposed', 'card']);
+const LOCAL_NON_RESIDENT_IMPACT = Number(storyAreaDatabase?.policy?.localNonResidentImpactMultiplier) || .15;
+const LOCAL_RESIDENT_SPILLOVER = Number(storyAreaDatabase?.policy?.localResidentSpilloverMultiplier) || .55;
+const TYPE_STREAK_HARD_LIMIT = 9; // 10번째 연속 Tick에 들어가기 전에 다른 타입으로 강제 전환한다.
 const clamp = (x, low, high) => Math.max(low, Math.min(high, x));
 const between = (a, b, random) => a + (b - a) * random();
 const integer = (a, b, random) => Math.floor(between(a, b + 1, random));
@@ -208,8 +212,9 @@ export function marketReactionSignal(news, pokemon, effect = null) {
   if (!entry) return { relevant:false, direct:false, nature:'neutral', strength:0, style:REACTION_STYLE.MUTED, explosive:false, volatilityBoost:1, volumeBoost:1, fairCenter:0, severity:newsSeverity(null) };
   // worldStory 뉴스의 세대 범위를 reaction 단계에서도 한 번 더 막아
   // 직접 지목 뉴스라도 다른 세대 포켓몬이 패턴을 시작하지 않게 한다.
-  if (!newsScopeMatchesPokemon(entry, pokemon)) {
-    return { relevant:false, direct:false, nature:'neutral', strength:0, style:REACTION_STYLE.MUTED, explosive:false, volatilityBoost:1, volumeBoost:1, fairCenter:0, severity:newsSeverity(entry) };
+  const scopeWeight = newsScopeMultiplier(entry, pokemon);
+  if (scopeWeight <= 0) {
+    return { relevant:false, direct:false, nature:'neutral', strength:0, style:REACTION_STYLE.MUTED, explosive:false, volatilityBoost:1, volumeBoost:1, fairCenter:0, severity:newsSeverity(entry), scopeWeight:0 };
   }
   const resolved = effect ?? newsEffect(news, pokemon);
   const direct = entry.target === 'card' && entry.cardId === pokemon.id;
@@ -241,7 +246,7 @@ export function marketReactionSignal(news, pokemon, effect = null) {
         : style === REACTION_STYLE.WHIPSAW ? lerp(.90, 1.55, hashUnit('whipsaw', entry.id, pokemon.id))
           : style === REACTION_STYLE.CONTRARIAN ? lerp(.55, 1.05, hashUnit('contrarian', entry.id, pokemon.id))
             : lerp(.72, 1.22, hashUnit('follow', entry.id, pokemon.id));
-  strength = clamp(strength * styleMultiplier, .06, 4.5);
+  strength = clamp(strength * styleMultiplier * scopeWeight, .02, 4.5);
 
   // 실제 시장처럼 호재인데 재료소멸로 하락하거나, 악재인데 선반영 후 반등하는 희귀 반응도 허용한다.
   if (style === REACTION_STYLE.CONTRARIAN && nature !== 'neutral') nature = nature === 'positive' ? 'negative' : 'positive';
@@ -249,13 +254,15 @@ export function marketReactionSignal(news, pokemon, effect = null) {
   const tailRoll = hashUnit('tail', entry.id, pokemon.id);
   const tailChanceBase = entry.nature === 'negative' ? reaction.extremeNegativeChance : reaction.extremePositiveChance;
   const tailChance = clamp(tailChanceBase * profile.jumpBeta * Math.max(.45, severity.score) * (direct ? 1.35 : 1), 0, .32);
-  const explosive = nature !== 'neutral' && style !== REACTION_STYLE.MUTED && (tailRoll < tailChance || (style === REACTION_STYLE.OVERREACT && strength >= 2.25));
-  const volatilityBoost = clamp(profile.volatilityBeta * (1 + strength * .18) * (style === REACTION_STYLE.WHIPSAW ? 1.65 : 1), .55, 3.0);
-  const volumeBoost = clamp(profile.volumeBeta * (1 + severity.score * .55) * (direct ? 1.4 : 1) * (explosive ? 1.45 : 1), .35, 4.0);
+  const explosive = scopeWeight >= .5 && nature !== 'neutral' && style !== REACTION_STYLE.MUTED && (tailRoll < tailChance || (style === REACTION_STYLE.OVERREACT && strength >= 2.25));
+  const rawVolatilityBoost = clamp(profile.volatilityBeta * (1 + strength * .18) * (style === REACTION_STYLE.WHIPSAW ? 1.65 : 1), .55, 3.0);
+  const rawVolumeBoost = clamp(profile.volumeBeta * (1 + severity.score * .55) * (direct ? 1.4 : 1) * (explosive ? 1.45 : 1), .35, 4.0);
+  const volatilityBoost = 1 + (rawVolatilityBoost - 1) * scopeWeight;
+  const volumeBoost = 1 + (rawVolumeBoost - 1) * scopeWeight;
   const sign = nature === 'positive' ? 1 : nature === 'negative' ? -1 : 0;
   const fairStyle = [REACTION_STYLE.FADE, REACTION_STYLE.WHIPSAW].includes(style) ? .28 : style === REACTION_STYLE.MUTED ? .35 : 1;
-  const fairCenter = sign * Math.min(.18, Math.max(Math.abs(center), .004) * Math.min(2.8, strength) * fairStyle);
-  return { relevant:true, direct, nature, strength, style, explosive, volatilityBoost, volumeBoost, fairCenter, severity, profile };
+  const fairCenter = sign * Math.min(.18, Math.max(Math.abs(center), .004) * Math.min(2.8, strength) * fairStyle) * scopeWeight;
+  return { relevant:true, direct, nature, strength, style, explosive, volatilityBoost, volumeBoost, fairCenter, severity, profile, scopeWeight };
 }
 
 const technicalConfig = rarity => MARKET_CONFIG.technical[rarity] ?? MARKET_CONFIG.technical.normal;
@@ -536,7 +543,7 @@ export function createMarket(records, now = Date.now(), random = Math.random) {
     }
   }
   return { cards, trade24h: { head: 0, count: 0 }, overall: regime(random), sectors, lastMarketUpdate: now, activeNews: [], newsHistory: [],
-    newsStory: emptyNewsStory(), worldNewsState: createWorldNewsState() };
+    newsStory: emptyNewsStory(), newsTypeCycle: createNewsTypeCycle(), worldNewsState: createWorldNewsState() };
 }
 
 export function validMarket(market, records) {
@@ -570,6 +577,13 @@ export function validMarket(market, records) {
     && Number.isFinite(n.impact) && n.impact >= 0 && n.impact <= .5
     && Number.isFinite(n.secondaryImpact) && n.secondaryImpact >= 0 && n.secondaryImpact <= .5
     && Number.isFinite(n.time);
+  const typeCycle = market?.newsTypeCycle;
+  const typeCycleOK = typeCycle && Array.isArray(typeCycle.remaining)
+    && typeCycle.remaining.every(type => Object.hasOwn(TYPES, type))
+    && new Set(typeCycle.remaining).size === typeCycle.remaining.length
+    && (typeCycle.lastType === null || Object.hasOwn(TYPES, typeCycle.lastType))
+    && Number.isInteger(typeCycle.streak) && typeCycle.streak >= 0 && typeCycle.streak <= TYPE_STREAK_HARD_LIMIT
+    && Number.isSafeInteger(typeCycle.cycle) && typeCycle.cycle >= 0;
   const story = market?.newsStory;
   const storyOK = story && typeOK(story.type) && typeOK(story.previousType)
     && (story.nature === null || NEWS_NATURES.includes(story.nature)) && typeOK(story.opposedType)
@@ -580,7 +594,7 @@ export function validMarket(market, records) {
     && Number.isInteger(market.trade24h.count) && market.trade24h.count >= 0 && market.trade24h.count <= MARKET_CONFIG.historyLimit
     && (market.trade24h.count === MARKET_CONFIG.historyLimit || market.trade24h.head === market.trade24h.count)
     && stateOK(market.overall) && Object.keys(MARKET_CONFIG.grades).every(g => stateOK(market.sectors?.[g]))
-    && storyOK
+    && typeCycleOK && storyOK
     && Array.isArray(market.activeNews) && market.activeNews.length <= 1 && market.activeNews.every(newsOK)
     && Array.isArray(market.newsHistory) && market.newsHistory.length <= MARKET_CONFIG.newsLimit && market.newsHistory.every(newsOK)
     && records.every(p => {
@@ -607,6 +621,68 @@ export function validMarket(market, records) {
 }
 
 const TYPE_KEYS = Object.keys(TYPES);
+
+function createNewsTypeCycle() {
+  return { remaining: [...TYPE_KEYS], lastType: null, streak: 0, cycle: 0 };
+}
+
+function ensureNewsTypeCycle(market) {
+  const state = market?.newsTypeCycle;
+  const valid = state && Array.isArray(state.remaining)
+    && state.remaining.every(type => TYPE_KEYS.includes(type))
+    && new Set(state.remaining).size === state.remaining.length
+    && (state.lastType === null || TYPE_KEYS.includes(state.lastType))
+    && Number.isInteger(state.streak) && state.streak >= 0 && state.streak <= TYPE_STREAK_HARD_LIMIT
+    && Number.isSafeInteger(state.cycle) && state.cycle >= 0;
+  if (!valid) {
+    const lastType = TYPE_KEYS.includes(market?.newsHistory?.[0]?.type) ? market.newsHistory[0].type : null;
+    market.newsTypeCycle = createNewsTypeCycle();
+    market.newsTypeCycle.lastType = lastType;
+    if (lastType) {
+      market.newsTypeCycle.remaining = TYPE_KEYS.filter(type => type !== lastType);
+      market.newsTypeCycle.streak = 1;
+    }
+  }
+  return market.newsTypeCycle;
+}
+
+export function chooseRotatingNewsType(market, preferredType, candidateTypes = TYPE_KEYS, random = Math.random) {
+  const state = ensureNewsTypeCycle(market);
+  if (!state.remaining.length) {
+    state.remaining = [...TYPE_KEYS];
+    state.cycle++;
+  }
+  let eligible = [...new Set((Array.isArray(candidateTypes) ? candidateTypes : TYPE_KEYS).filter(type => TYPE_KEYS.includes(type)))];
+  if (!eligible.length) eligible = [...TYPE_KEYS];
+
+  // 장소 뉴스는 해당 장소에 어울리는 후보 타입을 우선 유지한다. 그 안에서 아직 이번 순환에
+  // 나오지 않은 타입을 먼저 고르고, 큰 지역/일반 뉴스가 남은 타입을 채우며 18개 순환을 완성한다.
+  let pool = eligible.filter(type => state.remaining.includes(type));
+  if (!pool.length) pool = [...eligible];
+
+  // 같은 타입이 10 Tick 연속으로 진입하지 못하도록 10번째 전에 강제로 다른 타입을 고른다.
+  if (state.lastType && state.streak >= TYPE_STREAK_HARD_LIMIT) {
+    const alternatives = pool.filter(type => type !== state.lastType);
+    if (alternatives.length) pool = alternatives;
+    else {
+      const globalAlternatives = TYPE_KEYS.filter(type => type !== state.lastType && state.remaining.includes(type));
+      if (globalAlternatives.length) pool = globalAlternatives;
+    }
+  } else if (state.lastType && pool.length > 1) {
+    // 순환 중에는 가능한 경우 바로 같은 타입을 반복하지 않는다.
+    const alternatives = pool.filter(type => type !== state.lastType);
+    if (alternatives.length) pool = alternatives;
+  }
+
+  let chosen = pool.includes(preferredType) ? preferredType : choose(pool, random);
+  if (!chosen) chosen = TYPE_KEYS.includes(preferredType) ? preferredType : choose(TYPE_KEYS, random);
+
+  const index = state.remaining.indexOf(chosen);
+  if (index >= 0) state.remaining.splice(index, 1);
+  if (chosen === state.lastType) state.streak++;
+  else { state.lastType = chosen; state.streak = 1; }
+  return chosen;
+}
 const choose = (items, random) => items.length ? items[integer(0, items.length - 1, random)] : null;
 const typeLabel = type => `${TYPES[type][0]}타입`;
 const isDirectReversal = (a, b) => (a === 'positive' && b === 'negative') || (a === 'negative' && b === 'positive');
@@ -637,6 +713,8 @@ export function migrateNewsSystem(market) {
     delete c.shockRecovery;
     ensureTechnicalState(c);
   }
+
+  ensureNewsTypeCycle(market);
 
   const story = market.newsStory;
   const currentSchema = story
@@ -761,7 +839,8 @@ export function generateNews(market, records, time, random = Math.random) {
 
   // 세계관 DB가 로드되어 있으면 StoryArc 진행 상황을 우선 사용한다.
   // 진행 상태는 market.worldNewsState에 저장되므로 새로고침/오프라인 진행 후에도 후속 뉴스가 이어진다.
-  const worldStory = generateWorldStoryNews(market, records, time, random, MARKET_CONFIG.tickMs);
+  const typeSelector = (preferredType, candidateTypes) => chooseRotatingNewsType(market, preferredType, candidateTypes, random);
+  const worldStory = generateWorldStoryNews(market, records, time, random, MARKET_CONFIG.tickMs, typeSelector);
   if (worldStory) {
     const nature = worldStory.nature;
     const type = Object.hasOwn(TYPES, worldStory.type) ? worldStory.type : choose(TYPE_KEYS, random);
@@ -783,6 +862,8 @@ export function generateNews(market, records, time, random = Math.random) {
       storyId: worldStory.storyId, storyRunId: worldStory.storyRunId, storyName: worldStory.storyName, storyStage: worldStory.storyStage,
       storyStageCount: worldStory.storyStageCount, storyEventId: worldStory.storyEventId,
       worldStory: true, isFollowUp: worldStory.isFollowUp, isInterlude: worldStory.isInterlude === true, description: worldStory.description,
+      scopeKind: worldStory.scopeKind ?? 'broad', scopePlaces: worldStory.scopePlaces ?? [],
+      residentPokemonDexIds: worldStory.residentPokemonDexIds ?? [], cooldownTicks: worldStory.cooldownTicks ?? null, cooldownClass: worldStory.cooldownClass ?? null,
       sixW: worldStory.sixW,
     };
     news.title = worldStory.title;
@@ -800,6 +881,7 @@ export function generateNews(market, records, time, random = Math.random) {
   const nature = rollNature(random);
   const proposedStory = nextStory(market.newsStory, random);
   const next = guardDirectReversal(nature, market.newsStory, proposedStory, random);
+  next.type = chooseRotatingNewsType(market, next.type, TYPE_KEYS, random);
   let focus = targetChoice(random);
   const opposedPool = relatedTypes(next.type, nature);
   const opposedType = choose(opposedPool, random);
@@ -846,35 +928,58 @@ function addEffect(effect, range, activity) {
 // 세계관 DB에서 만들어진 장소/스토리 뉴스는 그 사건의 세대에만 가격 영향을 준다.
 // 일반 시장 뉴스(worldStory !== true)는 세대 제한 없이 기존처럼 전 세대에 적용한다.
 // 과거 저장 호환을 위해 generation이 없는 오래된 세계관 뉴스는 기존 전역 동작을 유지한다.
+export function newsScopeMultiplier(entry, pokemon) {
+  if (!entry?.worldStory) return 1;
+  if (entry.target === 'card' && entry.cardId === pokemon?.id) return 1;
+  if (!Number.isInteger(entry.generation)) return 1;
+  if (pokemon?.generation !== entry.generation) return 0;
+  if (entry.scopeKind !== 'local') return 1;
+  const residents = Array.isArray(entry.residentPokemonDexIds) ? entry.residentPokemonDexIds : [];
+  return residents.includes(pokemon.id) ? 1 : LOCAL_NON_RESIDENT_IMPACT;
+}
+
 export function newsScopeMatchesPokemon(entry, pokemon) {
-  if (!entry?.worldStory) return true;
-  if (!Number.isInteger(entry.generation)) return true;
-  return pokemon?.generation === entry.generation;
+  return newsScopeMultiplier(entry, pokemon) > 0;
 }
 
 // 실제 포켓몬의 최종 상성 배율을 사용해 듀얼 타입까지 반영한다.
 export function newsEffect(news, pokemon) {
   const effect = { min: 0, max: 0, activity: 0 };
   for (const n of news) {
-    if (!newsScopeMatchesPokemon(n, pokemon)) continue;
+    const scopeWeight = newsScopeMultiplier(n, pokemon);
+    if (scopeWeight <= 0) continue;
 
     const named = n.target === 'card' && n.cardId === pokemon.id;
+    const residents = Array.isArray(n.residentPokemonDexIds) ? n.residentPokemonDexIds : [];
+    const localResident = n.worldStory === true && n.scopeKind === 'local' && residents.includes(pokemon.id);
     const storySector = pokemon.types.includes(n.type);
     const focusedOpposed = n.opposedType && pokemon.types.includes(n.opposedType);
+    const scaleRange = (range, factor) => [range[0] * factor, range[1] * factor];
 
     if (n.nature === 'neutral') {
       const active = n.focus === 'story' ? storySector : n.focus === 'opposed' ? focusedOpposed : named;
-      if (active) effect.activity += NEWS_CONFIG.activity.neutral + (named ? NEWS_CONFIG.activity.card : 0);
+      if (active) effect.activity += (NEWS_CONFIG.activity.neutral + (named ? NEWS_CONFIG.activity.card : 0)) * scopeWeight;
+      else if (localResident) effect.activity += NEWS_CONFIG.activity.neutral * LOCAL_RESIDENT_SPILLOVER;
       continue;
     }
 
     const config = NEWS_CONFIG.price[n.nature];
+    let related = false;
     if (storySector) {
-      addEffect(effect, config.story, NEWS_CONFIG.activity[n.nature]);
+      addEffect(effect, scaleRange(config.story, scopeWeight), NEWS_CONFIG.activity[n.nature] * scopeWeight);
+      related = true;
     } else if (n.nature === 'positive' && typeMultiplier(n.type, pokemon.types) > 1) {
-      addEffect(effect, config.opposed, NEWS_CONFIG.activity[n.nature]);
+      addEffect(effect, scaleRange(config.opposed, scopeWeight), NEWS_CONFIG.activity[n.nature] * scopeWeight);
+      related = true;
     } else if (n.nature === 'negative' && pokemon.types.some(type => TYPE_COUNTERS[n.type].includes(type))) {
-      addEffect(effect, config.opposed, NEWS_CONFIG.activity[n.nature]);
+      addEffect(effect, scaleRange(config.opposed, scopeWeight), NEWS_CONFIG.activity[n.nature] * scopeWeight);
+      related = true;
+    }
+
+    // 세부 장소 뉴스에서는 명시적 서식 포켓몬이 핵심 대상이다.
+    // 타입 상성이 직접 맞지 않아도 지역 전체 사건의 파급을 받아 중간 강도의 움직임이 생긴다.
+    if (localResident && !related && !named) {
+      addEffect(effect, scaleRange(config.story, LOCAL_RESIDENT_SPILLOVER), NEWS_CONFIG.activity[n.nature] * LOCAL_RESIDENT_SPILLOVER);
     }
 
     if (named) addEffect(effect, config.card, NEWS_CONFIG.activity.card);

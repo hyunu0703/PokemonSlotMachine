@@ -1,4 +1,5 @@
 import worldDatabaseSource from '../data/world/pokemon-world-db.json' with { type: 'json' };
+import storyAreaDatabase from '../data/world/story-area-residents.json' with { type: 'json' };
 
 // Pokémon 세계관 DB를 시장 뉴스용 장기 스토리로 변환한다.
 // DB 자체는 data/world/pokemon-world-db.json에서 읽고, 시장 가격 계산은 market.js가 담당한다.
@@ -8,6 +9,7 @@ const RECENT_ARC_LIMIT = 8;
 const MIN_FOLLOWUP_TICKS = 2;
 const MAX_FOLLOWUP_TICKS = 5;
 const STORY_HISTORY_LIMIT = 160;
+const DEFAULT_STORY_COOLDOWN_TICKS = Number(storyAreaDatabase?.policy?.ordinaryCooldownTicks) || 60;
 
 let worldDatabase = worldDatabaseSource;
 
@@ -83,6 +85,7 @@ export function createWorldNewsState() {
     sequence: 0,
     activeStories: [],
     recentArcIds: [],
+    storyCooldowns: {},
     storyHistory: [],
   };
 }
@@ -99,8 +102,12 @@ export function migrateWorldNewsState(market) {
       && Number.isFinite(item.nextDueTime));
     for (const story of state.activeStories) {
       if (typeof story.runId !== 'string' || !story.runId) story.runId = `${story.arcId}-${Number.isFinite(story.startedAt) ? story.startedAt : 0}`;
+      if (typeof story.lastType !== 'string' || !TYPE_KEYS.includes(story.lastType)) story.lastType = null;
     }
     state.recentArcIds = state.recentArcIds.filter(id => typeof id === 'string').slice(0, RECENT_ARC_LIMIT);
+    if (!state.storyCooldowns || typeof state.storyCooldowns !== 'object' || Array.isArray(state.storyCooldowns)) state.storyCooldowns = {};
+    state.storyCooldowns = Object.fromEntries(Object.entries(state.storyCooldowns)
+      .filter(([id, until]) => typeof id === 'string' && Number.isFinite(until) && until >= 0));
     if (!Array.isArray(state.storyHistory)) state.storyHistory = [];
     state.storyHistory = state.storyHistory.filter(item => item && typeof item.storyId === 'string'
       && Number.isInteger(item.storyStage) && item.storyStage >= 1
@@ -132,13 +139,51 @@ function eventForStage(generation, stage) {
   return stage?.eventId ? safeArray(generation.events).find(event => event.id === stage.eventId) ?? null : null;
 }
 
+export function storyCooldownTicks(arcOrId) {
+  const id = typeof arcOrId === 'string' ? arcOrId : arcOrId?.id;
+  const configured = Number(storyAreaDatabase?.storyCooldownTicks?.[id]);
+  if (Number.isFinite(configured) && configured >= 1) return Math.round(configured);
+  const tags = new Set(safeArray(arcOrId?.tags));
+  const legendaryScale = ['legendary', 'mythical', 'disaster', 'weather', 'space', 'space-time', 'ultra-space', 'multiverse', 'area-zero', 'terastal', 'paradox', 'mega', 'mega-evolution'];
+  const important = ['security', 'research', 'history', 'technology', 'energy', 'corporate', 'company', 'myth', 'culture', 'education', 'sports', 'battle', 'academy', 'folklore', 'expedition', 'tourism', 'festival'];
+  if (legendaryScale.some(tag => tags.has(tag))) return Number(storyAreaDatabase?.policy?.legendaryCooldownTicks) || 150;
+  if (important.some(tag => tags.has(tag))) return Number(storyAreaDatabase?.policy?.importantCooldownTicks) || 100;
+  return DEFAULT_STORY_COOLDOWN_TICKS;
+}
+
+const storyCooldownClass = ticks => ticks >= 150 ? 'legendary' : ticks >= 100 ? 'important' : 'ordinary';
+
+function scopeForStage(arc, stage, stageIndex) {
+  const stageNumber = Number.isInteger(stage?.stage) ? stage.stage : stageIndex + 1;
+  const configured = storyAreaDatabase?.stageScopes?.[`${arc.id}:${stageNumber}`];
+  const scopeKind = configured?.scopeKind === 'local' ? 'local' : 'broad';
+  const residentPokemonDexIds = [...new Set(safeArray(configured?.residentPokemonDexIds)
+    .filter(id => Number.isInteger(id) && id >= 1 && id <= 1025))];
+  return {
+    scopeKind,
+    scopePlaces: safeArray(configured?.places).filter(value => typeof value === 'string' && value),
+    residentPokemonDexIds,
+  };
+}
+
+function scopeCandidateTypes(records, generation, scope, card = null) {
+  const ids = new Set(scope.scopeKind === 'local' ? scope.residentPokemonDexIds : []);
+  const pool = scope.scopeKind === 'local'
+    ? records.filter(p => ids.has(p.id))
+    : records.filter(p => p.generation === generation.generation);
+  const values = [...new Set(pool.flatMap(p => safeArray(p.types)).filter(type => TYPE_KEYS.includes(type)))];
+  if (card) for (const type of safeArray(card.types)) if (TYPE_KEYS.includes(type) && !values.includes(type)) values.push(type);
+  return values.length ? values : [...TYPE_KEYS];
+}
+
 function startStory(state, time, random) {
   const all = arcEntries();
   if (!all.length) return null;
   const activeIds = new Set(state.activeStories.map(item => item.arcId));
-  const recentIds = new Set(state.recentArcIds);
-  let candidates = all.filter(({ arc }) => !activeIds.has(arc.id) && !recentIds.has(arc.id));
-  if (!candidates.length) candidates = all.filter(({ arc }) => !activeIds.has(arc.id));
+  for (const [id, until] of Object.entries(state.storyCooldowns ?? {})) {
+    if (!Number.isFinite(until) || until <= time) delete state.storyCooldowns[id];
+  }
+  const candidates = all.filter(({ arc }) => !activeIds.has(arc.id) && (state.storyCooldowns?.[arc.id] ?? 0) <= time);
   if (!candidates.length) return null;
   const selected = choose(candidates, random);
   const region = regionForArc(selected.generation, selected.arc);
@@ -152,6 +197,7 @@ function startStory(state, time, random) {
     lastTime: null,
     nextDueTime: time,
     lastTitle: '',
+    lastType: null,
   };
   state.activeStories.push(story);
   return story;
@@ -213,14 +259,19 @@ function namedPokemon(records, generation, text) {
   return null;
 }
 
-function inferType(records, generation, text, card, random) {
-  if (card?.types?.length) return card.types[0];
-  for (const type of TYPE_KEYS) {
+function inferType(records, generation, text, card, random, candidateTypes = TYPE_KEYS) {
+  const candidates = safeArray(candidateTypes).filter(type => TYPE_KEYS.includes(type));
+  const allowed = candidates.length ? candidates : TYPE_KEYS;
+  if (card?.types?.length) {
+    const cardType = card.types.find(type => allowed.includes(type));
+    if (cardType) return cardType;
+  }
+  for (const type of allowed) {
     if (safeArray(TYPE_HINTS[type]).some(hint => text.includes(hint))) return type;
   }
-  const sameGeneration = records.filter(p => p.generation === generation.generation);
+  const sameGeneration = records.filter(p => p.generation === generation.generation && p.types.some(type => allowed.includes(type)));
   const record = choose(sameGeneration, random);
-  return record?.types?.[0] ?? choose(TYPE_KEYS, random) ?? 'normal';
+  return record?.types?.find(type => allowed.includes(type)) ?? choose(allowed, random) ?? 'normal';
 }
 
 function findMention(generation, text, groups) {
@@ -273,12 +324,17 @@ function makeDescription(generation, arc, stage, event, region, previousTitle, s
   return pieces.filter(Boolean).join(' ').replace(/\.\s*\./g, '.');
 }
 
-function makeInterlude(definition, story, records, random) {
+function makeInterlude(definition, story, records, random, typeSelector = null) {
   const { generation, arc, region } = definition;
   const text = `${arc.nameKo} ${arc.summary} ${story.lastTitle}`;
   const card = namedPokemon(records, generation, text);
-  const type = inferType(records, generation, text, card, random);
   const completedStage = Math.max(1, Math.min(story.stageIndex, safeArray(arc.stages).length));
+  const stage = safeArray(arc.stages)[completedStage - 1] ?? null;
+  const scope = scopeForStage(arc, stage, completedStage - 1);
+  const candidateTypes = scopeCandidateTypes(records, generation, scope, card);
+  const preferredType = story.lastType && candidateTypes.includes(story.lastType)
+    ? story.lastType : inferType(records, generation, text, card, random, candidateTypes);
+  const type = typeof typeSelector === 'function' ? typeSelector(preferredType, candidateTypes) : preferredType;
   const endings = ['현지 확인 계속', '후속 조사 진행 중', '추가 발표 대기', '관련 기관 상황 점검'];
   return {
     worldStory: true,
@@ -296,6 +352,11 @@ function makeInterlude(definition, story, records, random) {
     nature: 'neutral',
     type,
     directCardId: card?.id ?? null,
+    scopeKind: scope.scopeKind,
+    scopePlaces: scope.scopePlaces,
+    residentPokemonDexIds: scope.residentPokemonDexIds,
+    cooldownTicks: storyCooldownTicks(arc),
+    cooldownClass: storyCooldownClass(storyCooldownTicks(arc)),
     title: `${arc.nameKo} 후속 브리핑…${choose(endings, random)}`,
     description: `앞서 전해진 '${story.lastTitle}' 이후 ${region.nameKo}에서는 ${particle(arc.nameKo, '과', '와')} 관련된 확인 작업이 이어지고 있다. 아직 다음 단계로 이어질 새로운 핵심 변화는 확인되지 않았으며, 관계자들은 기존 상황을 계속 점검하고 있다.`,
     sixW: null,
@@ -317,6 +378,11 @@ function recordStoryEpisode(state, story, result, time) {
     nature: result.nature,
     type: result.type,
     directCardId: result.directCardId,
+    scopeKind: result.scopeKind ?? 'broad',
+    scopePlaces: safeArray(result.scopePlaces),
+    residentPokemonDexIds: safeArray(result.residentPokemonDexIds),
+    cooldownTicks: result.cooldownTicks ?? storyCooldownTicks(result.storyId),
+    cooldownClass: result.cooldownClass ?? storyCooldownClass(result.cooldownTicks ?? DEFAULT_STORY_COOLDOWN_TICKS),
     title: result.title,
     description: result.description,
     sixW: result.sixW ? {
@@ -343,13 +409,14 @@ function finalizeStoryState(state, story, arc, title, time, tickMs, random) {
   if (nextIndex >= safeArray(arc.stages).length) {
     state.activeStories = state.activeStories.filter(item => item !== story);
     state.recentArcIds = [arc.id, ...state.recentArcIds.filter(id => id !== arc.id)].slice(0, RECENT_ARC_LIMIT);
+    state.storyCooldowns[arc.id] = time + storyCooldownTicks(arc) * tickMs;
     return;
   }
   story.stageIndex = nextIndex;
   story.nextDueTime = time + integer(MIN_FOLLOWUP_TICKS, MAX_FOLLOWUP_TICKS, random) * tickMs;
 }
 
-export function generateWorldStoryNews(market, records, time, random = Math.random, tickMs = 600000) {
+export function generateWorldStoryNews(market, records, time, random = Math.random, tickMs = 600000, typeSelector = null) {
   if (!worldDatabase || !Array.isArray(records) || !records.length) return null;
   const state = migrateWorldNewsState(market);
   const story = chooseStory(state, time, random);
@@ -360,7 +427,8 @@ export function generateWorldStoryNews(market, records, time, random = Math.rand
   const { generation, arc, region } = definition;
   const stages = safeArray(arc.stages);
   if (story.lastTime && time < story.nextDueTime) {
-    const interim = makeInterlude(definition, story, records, random);
+    const interim = makeInterlude(definition, story, records, random, typeSelector);
+    story.lastType = interim.type;
     interim.worldSequence = ++state.sequence;
     return interim;
   }
@@ -370,7 +438,10 @@ export function generateWorldStoryNews(market, records, time, random = Math.rand
   const event = eventForStage(generation, stage);
   const text = fullStoryText(arc, stage, event);
   const card = namedPokemon(records, generation, text);
-  const type = inferType(records, generation, text, card, random);
+  const scope = scopeForStage(arc, stage, stageIndex);
+  const candidateTypes = scopeCandidateTypes(records, generation, scope, card);
+  const preferredType = inferType(records, generation, text, card, random, candidateTypes);
+  const type = typeof typeSelector === 'function' ? typeSelector(preferredType, candidateTypes) : preferredType;
   const nature = classifyNature(arc, stage, event, stageIndex);
   const isFollowUp = !!story.lastTime;
   const title = makeTitle(generation, arc, stage, event, nature, isFollowUp, random);
@@ -393,6 +464,11 @@ export function generateWorldStoryNews(market, records, time, random = Math.rand
     nature,
     type,
     directCardId: card?.id ?? null,
+    scopeKind: scope.scopeKind,
+    scopePlaces: scope.scopePlaces,
+    residentPokemonDexIds: scope.residentPokemonDexIds,
+    cooldownTicks: storyCooldownTicks(arc),
+    cooldownClass: storyCooldownClass(storyCooldownTicks(arc)),
     title,
     description,
     sixW: event?.sixW ? {
@@ -405,6 +481,7 @@ export function generateWorldStoryNews(market, records, time, random = Math.rand
     } : null,
   };
 
+  story.lastType = type;
   recordStoryEpisode(state, story, result, time);
   finalizeStoryState(state, story, arc, title, time, tickMs, random);
   return result;
@@ -461,6 +538,9 @@ export function getWorldStoryEpisodes(market, news) {
       nature: classifyNature(arc, stage, event, stageNumber - 1),
       type: news.type,
       directCardId: null,
+      ...scopeForStage(arc, stage, stageNumber - 1),
+      cooldownTicks: storyCooldownTicks(arc),
+      cooldownClass: storyCooldownClass(storyCooldownTicks(arc)),
       title,
       description,
       sixW: event?.sixW ? {

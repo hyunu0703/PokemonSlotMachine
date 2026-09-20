@@ -1,0 +1,988 @@
+{
+  "version": 1,
+  "policy": {
+    "scope": "story-relevant locations",
+    "noteKo": "세계관 뉴스의 세부 장소에 대해 자동 추정하지 않고 명시적 포켓몬 도감번호 목록을 사용합니다. 목록은 프로젝트용으로 큐레이션되며, 큰 지방 단위 뉴스는 별도 broad 범위로 처리합니다.",
+    "localNonResidentImpactMultiplier": 0.15,
+    "directMentionImpactMultiplier": 1.0,
+    "ordinaryCooldownTicks": 60,
+    "importantCooldownTicks": 100,
+    "legendaryCooldownTicks": 150,
+    "localResidentSpilloverMultiplier": 0.55
+  },
+  "storyCooldownTicks": {
+    "g1-arc-rocket": 100,
+    "g1-arc-mewtwo": 150,
+    "g2-arc-rocket": 100,
+    "g2-arc-ecruteak": 150,
+    "g3-arc-weather": 150,
+    "g3-arc-delta": 150,
+    "g4-arc-galactic": 150,
+    "g4-arc-hisui": 150,
+    "g5-arc-plasma": 150,
+    "g5-arc-neoplasma": 150,
+    "g6-arc-flare": 150,
+    "g6-arc-mega": 100,
+    "g7-arc-aether": 150,
+    "g7-arc-necrozma": 150,
+    "g8-arc-darkest": 150,
+    "g8-arc-crown": 150,
+    "g9-arc-treasure": 100,
+    "g9-arc-tealmask": 150,
+    "g9-arc-indigo": 150
+  },
+  "stageScopes": {
+    "g1-arc-rocket:1": {
+      "scopeKind": "local",
+      "places": [
+        "달맞이산"
+      ],
+      "residentPokemonDexIds": [
+        35,
+        36,
+        46,
+        47,
+        74,
+        75,
+        95
+      ]
+    },
+    "g1-arc-rocket:2": {
+      "scopeKind": "local",
+      "places": [
+        "보라타운",
+        "포켓몬타워"
+      ],
+      "residentPokemonDexIds": [
+        92,
+        93,
+        104
+      ]
+    },
+    "g1-arc-rocket:3": {
+      "scopeKind": "local",
+      "places": [
+        "노랑시티",
+        "실프주식회사"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g1-arc-rocket:4": {
+      "scopeKind": "broad",
+      "places": [
+        "관동지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g1-arc-mewtwo:1": {
+      "scopeKind": "local",
+      "places": [
+        "홍련섬",
+        "포켓몬저택"
+      ],
+      "residentPokemonDexIds": [
+        19,
+        20,
+        37,
+        58,
+        88,
+        89,
+        109,
+        110,
+        132
+      ]
+    },
+    "g1-arc-mewtwo:2": {
+      "scopeKind": "local",
+      "places": [
+        "포켓몬저택",
+        "블루시티동굴"
+      ],
+      "residentPokemonDexIds": [
+        24,
+        28,
+        42,
+        47,
+        49,
+        64,
+        82,
+        85,
+        92,
+        93,
+        97,
+        104,
+        112,
+        113,
+        132,
+        150
+      ]
+    },
+    "g1-arc-mewtwo:3": {
+      "scopeKind": "local",
+      "places": [
+        "블루시티동굴"
+      ],
+      "residentPokemonDexIds": [
+        24,
+        28,
+        42,
+        47,
+        49,
+        64,
+        82,
+        85,
+        97,
+        112,
+        113,
+        132,
+        150
+      ]
+    },
+    "g2-arc-rocket:1": {
+      "scopeKind": "local",
+      "places": [
+        "고동마을",
+        "야돈의우물"
+      ],
+      "residentPokemonDexIds": [
+        167,
+        168,
+        199
+      ]
+    },
+    "g2-arc-rocket:2": {
+      "scopeKind": "local",
+      "places": [
+        "분노의호수",
+        "황토마을"
+      ],
+      "residentPokemonDexIds": [
+        223,
+        224
+      ]
+    },
+    "g2-arc-rocket:3": {
+      "scopeKind": "local",
+      "places": [
+        "금빛시티",
+        "금빛라디오타워"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g2-arc-rocket:4": {
+      "scopeKind": "broad",
+      "places": [
+        "성도지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g2-arc-ecruteak:1": {
+      "scopeKind": "local",
+      "places": [
+        "불탄탑"
+      ],
+      "residentPokemonDexIds": [
+        200,
+        228,
+        229,
+        244
+      ]
+    },
+    "g2-arc-ecruteak:2": {
+      "scopeKind": "local",
+      "places": [
+        "인주시티"
+      ],
+      "residentPokemonDexIds": [
+        200,
+        243,
+        244,
+        245,
+        250
+      ]
+    },
+    "g2-arc-ecruteak:3": {
+      "scopeKind": "local",
+      "places": [
+        "방울탑",
+        "소용돌이섬"
+      ],
+      "residentPokemonDexIds": [
+        170,
+        171,
+        222,
+        243,
+        244,
+        245,
+        249,
+        250
+      ]
+    },
+    "g3-arc-weather:1": {
+      "scopeKind": "local",
+      "places": [
+        "금탄도시",
+        "잿빛도시"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g3-arc-weather:2": {
+      "scopeKind": "local",
+      "places": [
+        "굴뚝산"
+      ],
+      "residentPokemonDexIds": [
+        322,
+        323,
+        324,
+        325,
+        326
+      ]
+    },
+    "g3-arc-weather:3": {
+      "scopeKind": "local",
+      "places": [
+        "해저동굴"
+      ],
+      "residentPokemonDexIds": [
+        320,
+        321,
+        382
+      ]
+    },
+    "g3-arc-weather:4": {
+      "scopeKind": "broad",
+      "places": [
+        "호연지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g3-arc-weather:5": {
+      "scopeKind": "broad",
+      "places": [
+        "호연지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g3-arc-delta:1": {
+      "scopeKind": "local",
+      "places": [
+        "이끼우주센터"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g3-arc-delta:2": {
+      "scopeKind": "broad",
+      "places": [
+        "호연지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g3-arc-delta:3": {
+      "scopeKind": "local",
+      "places": [
+        "하늘기둥"
+      ],
+      "residentPokemonDexIds": [
+        334,
+        344,
+        354,
+        384
+      ]
+    },
+    "g3-arc-delta:4": {
+      "scopeKind": "broad",
+      "places": [
+        "호연지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g4-arc-galactic:1": {
+      "scopeKind": "local",
+      "places": [
+        "골짜기발전소"
+      ],
+      "residentPokemonDexIds": [
+        417,
+        418,
+        419,
+        422,
+        423
+      ]
+    },
+    "g4-arc-galactic:2": {
+      "scopeKind": "local",
+      "places": [
+        "진실호수",
+        "입지호수",
+        "예지호수"
+      ],
+      "residentPokemonDexIds": [
+        396,
+        397,
+        399,
+        400,
+        459,
+        460,
+        480,
+        481,
+        482
+      ]
+    },
+    "g4-arc-galactic:3": {
+      "scopeKind": "local",
+      "places": [
+        "갤럭시단 본부"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g4-arc-galactic:4": {
+      "scopeKind": "local",
+      "places": [
+        "천관산",
+        "창기둥"
+      ],
+      "residentPokemonDexIds": [
+        433,
+        436,
+        437,
+        459,
+        460,
+        480,
+        481,
+        482,
+        483,
+        484,
+        487
+      ]
+    },
+    "g4-arc-galactic:5": {
+      "scopeKind": "broad",
+      "places": [
+        "신오지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g4-arc-hisui:1": {
+      "scopeKind": "broad",
+      "places": [
+        "히스이지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g4-arc-hisui:2": {
+      "scopeKind": "broad",
+      "places": [
+        "히스이지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g4-arc-hisui:3": {
+      "scopeKind": "broad",
+      "places": [
+        "히스이지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g4-arc-hisui:4": {
+      "scopeKind": "local",
+      "places": [
+        "천관산",
+        "신오신전"
+      ],
+      "residentPokemonDexIds": [
+        433,
+        436,
+        437,
+        459,
+        460,
+        483,
+        484,
+        487
+      ]
+    },
+    "g4-arc-hisui:5": {
+      "scopeKind": "broad",
+      "places": [
+        "히스이지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g5-arc-plasma:1": {
+      "scopeKind": "broad",
+      "places": [
+        "하나지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g5-arc-plasma:2": {
+      "scopeKind": "broad",
+      "places": [
+        "하나지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g5-arc-plasma:3": {
+      "scopeKind": "local",
+      "places": [
+        "용나선탑"
+      ],
+      "residentPokemonDexIds": [
+        585,
+        586,
+        619,
+        620,
+        621,
+        622,
+        623,
+        643,
+        644
+      ]
+    },
+    "g5-arc-plasma:4": {
+      "scopeKind": "local",
+      "places": [
+        "포켓몬리그",
+        "N의성"
+      ],
+      "residentPokemonDexIds": [
+        643,
+        644
+      ]
+    },
+    "g5-arc-plasma:5": {
+      "scopeKind": "broad",
+      "places": [
+        "하나지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g5-arc-neoplasma:1": {
+      "scopeKind": "broad",
+      "places": [
+        "하나지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g5-arc-neoplasma:2": {
+      "scopeKind": "local",
+      "places": [
+        "쌍용시티",
+        "플라스마프리깃"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g5-arc-neoplasma:3": {
+      "scopeKind": "local",
+      "places": [
+        "플라스마프리깃"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g5-arc-neoplasma:4": {
+      "scopeKind": "local",
+      "places": [
+        "자이언트홀"
+      ],
+      "residentPokemonDexIds": [
+        583,
+        615,
+        646
+      ]
+    },
+    "g5-arc-neoplasma:5": {
+      "scopeKind": "broad",
+      "places": [
+        "하나지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g6-arc-flare:1": {
+      "scopeKind": "local",
+      "places": [
+        "칼로스발전소",
+        "미르시티"
+      ],
+      "residentPokemonDexIds": [
+        694,
+        695
+      ]
+    },
+    "g6-arc-flare:2": {
+      "scopeKind": "local",
+      "places": [
+        "몬스터볼공장"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g6-arc-flare:3": {
+      "scopeKind": "broad",
+      "places": [
+        "칼로스지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g6-arc-flare:4": {
+      "scopeKind": "local",
+      "places": [
+        "고목내마을",
+        "플레어단 비밀기지"
+      ],
+      "residentPokemonDexIds": [
+        701,
+        716,
+        717
+      ]
+    },
+    "g6-arc-flare:5": {
+      "scopeKind": "local",
+      "places": [
+        "칼로스 포켓몬리그 주변"
+      ],
+      "residentPokemonDexIds": [
+        708,
+        709,
+        714,
+        715
+      ]
+    },
+    "g6-arc-mega:1": {
+      "scopeKind": "broad",
+      "places": [
+        "칼로스지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g6-arc-mega:2": {
+      "scopeKind": "local",
+      "places": [
+        "사라시티",
+        "마스터타워"
+      ],
+      "residentPokemonDexIds": [
+        701
+      ]
+    },
+    "g6-arc-mega:3": {
+      "scopeKind": "broad",
+      "places": [
+        "칼로스지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g7-arc-aether:1": {
+      "scopeKind": "local",
+      "places": [
+        "에테르파라다이스"
+      ],
+      "residentPokemonDexIds": [
+        789,
+        790
+      ]
+    },
+    "g7-arc-aether:2": {
+      "scopeKind": "broad",
+      "places": [
+        "알로라지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g7-arc-aether:3": {
+      "scopeKind": "local",
+      "places": [
+        "에테르파라다이스"
+      ],
+      "residentPokemonDexIds": [
+        789,
+        790
+      ]
+    },
+    "g7-arc-aether:4": {
+      "scopeKind": "local",
+      "places": [
+        "울트라스페이스"
+      ],
+      "residentPokemonDexIds": [
+        793,
+        794,
+        795,
+        796,
+        797,
+        798,
+        799
+      ]
+    },
+    "g7-arc-aether:5": {
+      "scopeKind": "local",
+      "places": [
+        "라나키라마운틴"
+      ],
+      "residentPokemonDexIds": [
+        780,
+        782,
+        783,
+        784
+      ]
+    },
+    "g7-arc-necrozma:1": {
+      "scopeKind": "broad",
+      "places": [
+        "알로라지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g7-arc-necrozma:2": {
+      "scopeKind": "broad",
+      "places": [
+        "알로라지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g7-arc-necrozma:3": {
+      "scopeKind": "local",
+      "places": [
+        "울트라메가로폴리스"
+      ],
+      "residentPokemonDexIds": [
+        800
+      ]
+    },
+    "g7-arc-necrozma:4": {
+      "scopeKind": "broad",
+      "places": [
+        "알로라지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g7-arc-necrozma:5": {
+      "scopeKind": "local",
+      "places": [
+        "에테르파라다이스"
+      ],
+      "residentPokemonDexIds": [
+        789,
+        790
+      ]
+    },
+    "g8-arc-darkest:1": {
+      "scopeKind": "broad",
+      "places": [
+        "가라르지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g8-arc-darkest:2": {
+      "scopeKind": "broad",
+      "places": [
+        "가라르지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g8-arc-darkest:3": {
+      "scopeKind": "broad",
+      "places": [
+        "가라르지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g8-arc-darkest:4": {
+      "scopeKind": "local",
+      "places": [
+        "너클시티 에너지플랜트",
+        "슛시티"
+      ],
+      "residentPokemonDexIds": [
+        890
+      ]
+    },
+    "g8-arc-darkest:5": {
+      "scopeKind": "broad",
+      "places": [
+        "가라르지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g8-arc-darkest:6": {
+      "scopeKind": "broad",
+      "places": [
+        "가라르지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g8-arc-crown:1": {
+      "scopeKind": "local",
+      "places": [
+        "왕관설원"
+      ],
+      "residentPokemonDexIds": [
+        894,
+        895,
+        896,
+        897,
+        898
+      ]
+    },
+    "g8-arc-crown:2": {
+      "scopeKind": "local",
+      "places": [
+        "왕관설원",
+        "고대 유적"
+      ],
+      "residentPokemonDexIds": [
+        894,
+        895,
+        896,
+        897,
+        898
+      ]
+    },
+    "g8-arc-crown:3": {
+      "scopeKind": "local",
+      "places": [
+        "왕관설원",
+        "거목 인근"
+      ],
+      "residentPokemonDexIds": [
+        894,
+        895,
+        896,
+        897,
+        898
+      ]
+    },
+    "g8-arc-crown:4": {
+      "scopeKind": "local",
+      "places": [
+        "왕관설원",
+        "프리즈마을",
+        "왕관신전"
+      ],
+      "residentPokemonDexIds": [
+        894,
+        895,
+        896,
+        897,
+        898
+      ]
+    },
+    "g9-arc-treasure:1": {
+      "scopeKind": "broad",
+      "places": [
+        "팔데아지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g9-arc-treasure:2": {
+      "scopeKind": "broad",
+      "places": [
+        "팔데아지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g9-arc-treasure:3": {
+      "scopeKind": "broad",
+      "places": [
+        "팔데아지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g9-arc-treasure:4": {
+      "scopeKind": "broad",
+      "places": [
+        "팔데아지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g9-arc-treasure:5": {
+      "scopeKind": "local",
+      "places": [
+        "에리어 제로",
+        "제로랩"
+      ],
+      "residentPokemonDexIds": [
+        984,
+        985,
+        986,
+        987,
+        988,
+        989,
+        990,
+        991,
+        992,
+        993,
+        994,
+        995,
+        1005,
+        1006,
+        1007,
+        1008,
+        1024
+      ]
+    },
+    "g9-arc-treasure:6": {
+      "scopeKind": "broad",
+      "places": [
+        "팔데아지방"
+      ],
+      "residentPokemonDexIds": []
+    },
+    "g9-arc-tealmask:1": {
+      "scopeKind": "local",
+      "places": [
+        "북신의 고장"
+      ],
+      "residentPokemonDexIds": [
+        1011,
+        1012,
+        1013,
+        1014,
+        1015,
+        1016,
+        1017,
+        1025
+      ]
+    },
+    "g9-arc-tealmask:2": {
+      "scopeKind": "local",
+      "places": [
+        "북신의 고장"
+      ],
+      "residentPokemonDexIds": [
+        1011,
+        1012,
+        1013,
+        1014,
+        1015,
+        1016,
+        1017,
+        1025
+      ]
+    },
+    "g9-arc-tealmask:3": {
+      "scopeKind": "local",
+      "places": [
+        "북신의 고장",
+        "세벗플라자",
+        "오니산"
+      ],
+      "residentPokemonDexIds": [
+        1011,
+        1012,
+        1013,
+        1014,
+        1015,
+        1016,
+        1017
+      ]
+    },
+    "g9-arc-tealmask:4": {
+      "scopeKind": "local",
+      "places": [
+        "북신의 고장"
+      ],
+      "residentPokemonDexIds": [
+        1011,
+        1012,
+        1013,
+        1014,
+        1015,
+        1016,
+        1017,
+        1025
+      ]
+    },
+    "g9-arc-indigo:1": {
+      "scopeKind": "local",
+      "places": [
+        "블루베리 아카데미"
+      ],
+      "residentPokemonDexIds": [
+        1018,
+        1019,
+        1020,
+        1021,
+        1022,
+        1023,
+        1024
+      ]
+    },
+    "g9-arc-indigo:2": {
+      "scopeKind": "local",
+      "places": [
+        "블루베리 아카데미"
+      ],
+      "residentPokemonDexIds": [
+        1018,
+        1019,
+        1020,
+        1021,
+        1022,
+        1023,
+        1024
+      ]
+    },
+    "g9-arc-indigo:3": {
+      "scopeKind": "local",
+      "places": [
+        "블루베리 아카데미",
+        "에리어 제로"
+      ],
+      "residentPokemonDexIds": [
+        1018,
+        1019,
+        1020,
+        1021,
+        1022,
+        1023,
+        1024,
+        984,
+        985,
+        986,
+        987,
+        988,
+        989,
+        990,
+        991,
+        992,
+        993,
+        994,
+        995,
+        1005,
+        1006,
+        1007,
+        1008
+      ]
+    },
+    "g9-arc-indigo:4": {
+      "scopeKind": "local",
+      "places": [
+        "블루베리 아카데미"
+      ],
+      "residentPokemonDexIds": [
+        1018,
+        1019,
+        1020,
+        1021,
+        1022,
+        1023,
+        1024
+      ]
+    },
+    "g9-arc-indigo:5": {
+      "scopeKind": "local",
+      "places": [
+        "북신의 고장"
+      ],
+      "residentPokemonDexIds": [
+        1011,
+        1012,
+        1013,
+        1014,
+        1015,
+        1016,
+        1017,
+        1025
+      ]
+    }
+  }
+}

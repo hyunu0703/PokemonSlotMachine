@@ -9,7 +9,12 @@ const directionClass = n => n > 0 ? 'market-up' : n < 0 ? 'market-down' : 'muted
 const targetLabel = (n, data) => {
   if (n.target === 'card') return data.byId.get(n.cardId)?.nameKo ?? '해당 포켓몬';
   const type = n.focus === 'opposed' && n.opposedType ? n.opposedType : n.type;
-  return `${TYPES[type]?.[0] ?? type}타입`;
+  const typeText = `${TYPES[type]?.[0] ?? type}타입`;
+  // 세부 장소 뉴스만 세대를 함께 표시한다. 관동/호연/팔데아처럼 큰 지방 단위 뉴스는 타입만 표시한다.
+  if (n.worldStory === true && n.scopeKind === 'local' && Number.isInteger(n.generation)) {
+    return `${n.generation}세대 ${typeText}`;
+  }
+  return typeText;
 };
 
 const NEWS_SOURCES = {
@@ -146,6 +151,10 @@ export const isNewsRelatedToPokemon = (entry, pokemon, data) => {
   if (!entry || !pokemon || !data) return false;
   const cardId = newsCardId(entry);
   if (cardId === pokemon.id) return true;
+
+  // 세부 장소 세계관 뉴스는 명시적 서식 포켓몬을 우선 관련 뉴스로 취급한다.
+  if (entry.worldStory === true && entry.scopeKind === 'local' && Array.isArray(entry.residentPokemonDexIds)
+    && !entry.residentPokemonDexIds.includes(pokemon.id)) return false;
 
   // 일반 뉴스는 같은 세대 + 관련 타입을 기본 조건으로 삼는다.
   // 뉴스가 특정 등급(일반/전설/환상)을 명시적으로 가리키면 등급까지 같아야 한다.
