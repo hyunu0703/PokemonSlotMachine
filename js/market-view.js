@@ -42,30 +42,20 @@ const newsDescription = (n, data) => {
   const pokemon = n.target === 'card' ? (data.byId.get(n.cardId)?.nameKo ?? '해당 포켓몬') : '';
 
   if (n.nature === 'positive') {
-    if (n.target === 'card') return `${type} 강세 스토리와 함께 ${pokemon}에 시장의 관심이 집중되고 있습니다. ${pokemon}은 약점 포켓몬 후보에서 제외된 뒤 선택되며, 해당 종목에는 상승 쪽으로 기운 비대칭 변동이 적용됩니다. 다만 기존 추세·모멘텀·쇼크에 따라 실제 결과는 달라질 수 있습니다.`;
-    if (n.focus === 'opposed') return `${type} 호재가 이어지는 가운데 ${opposed}에는 강한 하락 편향이 적용됩니다. 강세 섹터로 수요가 이동하는 흐름을 표현하며, 실제 가격은 기존 시장 상태와 개별 추세를 함께 반영합니다.`;
-    return `${type}에 호재가 발생해 강한 상승 편향이 적용됩니다. 동시에 ${type}에 실제 상성상 약한 포켓몬 쪽에는 강한 하락 편향이 적용됩니다. 상승은 보장되지 않지만 플러스 쪽 확률과 폭이 더 크게 설계되어 있습니다.`;
+    if (n.target === 'card') return `${type} 강세 스토리와 함께 ${pokemon}에 시장의 관심이 집중되고 있습니다. ${pokemon}은 약점 포켓몬 후보에서 제외된 뒤 선택되며, 해당 종목에는 호재가 반영되지만, 종목별 뉴스 민감도와 유동성에 따라 완만한 상승부터 급등·뉴스매도까지 서로 다른 반응이 나올 수 있습니다.`;
+    if (n.focus === 'opposed') return `${type} 호재가 이어지는 가운데 ${opposed}에는 약세 압력이 생길 수 있습니다. 다만 같은 섹터라도 종목별 민감도가 달라 하락 폭·반등 여부·변동성은 서로 다르게 나타납니다.`;
+    return `${type}에 호재가 발생했습니다. 같은 ${type} 섹터 안에서도 종목별 베타·뉴스 민감도·유동성에 따라 무반응, 완만한 상승, 급등, 재료소멸 조정까지 비대칭적으로 발생합니다.`;
   }
 
   if (n.nature === 'negative') {
-    if (n.target === 'card') return `${type} 악재 스토리 속에서 ${pokemon}이 주요 종목으로 언급되고 있습니다. 해당 종목에는 하락 쪽으로 기운 비대칭 변동이 적용되며, 기존 추세·모멘텀·쇼크가 함께 가격을 결정합니다.`;
-    if (n.focus === 'opposed') return `${type} 악재로 해당 섹터에는 강한 하락 편향이 적용됩니다. 반대되는 ${opposed}에는 자금 이동을 반영해 횡보에서 소폭 상승 정도의 편향만 적용됩니다.`;
-    return `${type}에 악재가 발생해 강한 하락 편향이 적용됩니다. 반대되는 타입에는 같은 크기의 반대 효과를 주지 않고, 횡보에서 소폭 상승 정도만 허용합니다.`;
+    if (n.target === 'card') return `${type} 악재 스토리 속에서 ${pokemon}이 주요 종목으로 언급되고 있습니다. 해당 종목에는 악재가 반영되지만, 종목별 하방 민감도에 따라 약보합부터 패닉 급락·급락 후 반등까지 서로 다른 반응이 나올 수 있습니다.`;
+    if (n.focus === 'opposed') return `${type} 악재로 해당 섹터에는 하락 압력이 생깁니다. 반대되는 ${opposed}에는 자금 이동이 나타날 수 있지만, 종목별 반응 강도와 방향은 동일하지 않습니다.`;
+    return `${type}에 악재가 발생했습니다. 같은 ${type} 섹터라도 하락 강도는 종목마다 다르며, 일부는 선반영·V자 반등·데드캣 바운스처럼 서로 다른 차트가 만들어집니다.`;
   }
 
-  if (n.target === 'card') return `${pokemon}의 거래량과 시장 관심이 늘어난 중립 뉴스입니다. 가격 방향 자체는 강제하지 않으며 기존 시장 상태·추세·모멘텀·변동성·쇼크 계산을 그대로 사용합니다.`;
-  if (n.focus === 'opposed') return `${type}와 ${opposed} 사이의 거래 공방을 다루는 중립 뉴스입니다. 뉴스 자체는 상승·하락 방향을 만들지 않고 거래 활동만 높이며 가격은 기존 계산을 유지합니다.`;
-  return `${type}의 거래량과 시장 관심이 높아진 중립 뉴스입니다. 별도의 상승·하락 편향 없이 기존 가격 계산을 그대로 유지합니다.`;
-};
-
-const newsImpactLabel = n => {
-  if (n.nature === 'positive') return n.focus === 'opposed'
-    ? '호재 반대 섹터: 강한 하락 편향'
-    : '호재: 강한 상승 편향 · 약점 섹터 강한 하락';
-  if (n.nature === 'negative') return n.focus === 'opposed'
-    ? '악재 반대 섹터: 횡보~소폭 상승'
-    : '악재: 강한 하락 편향 · 반대 섹터 소폭 상승';
-  return '중립: 기존 가격 계산 유지';
+  if (n.target === 'card') return `${pokemon}의 거래량과 시장 관심이 늘어난 중립 뉴스입니다. 가격 방향 자체는 강제하지 않으며 기존 기술적 패턴·시장 상태·종목별 변동성에 따라 움직입니다.`;
+  if (n.focus === 'opposed') return `${type}와 ${opposed} 사이의 거래 공방을 다루는 중립 뉴스입니다. 뉴스 자체는 상승·하락 방향을 강제하지 않고 거래 활동만 높이며, 가격은 기존 기술적 패턴과 종목별 성향을 유지합니다.`;
+  return `${type}의 거래량과 시장 관심이 높아진 중립 뉴스입니다. 별도의 상승·하락 편향 없이 기존 기술적 패턴과 종목별 시장 성향을 유지합니다.`;
 };
 
 const dateLabel = t => new Date(t).toLocaleString('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' });
@@ -228,11 +218,12 @@ const ensureStoryModalStyles = () => {
     .market-story-episode h3{margin:0;font-size:16px;line-height:1.6;color:#3A3042}.market-story-episode p{margin:10px 0 0;color:var(--muted);font-size:14px;line-height:1.95}.market-story-reconstructed{font-size:10px;color:#A399A8;margin-top:9px}
     .market-news-keyword{font-size:inherit;font-weight:900;color:inherit;letter-spacing:inherit}
     .market-news-copy{font-size:12px!important;line-height:1.85!important}
+    .market-news-target-line{margin:6px 0 0;word-break:keep-all;overflow-wrap:break-word;line-break:strict}
     .market-card-identity{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px}.market-card-generation{color:#948C98;font-size:10px;font-weight:800;letter-spacing:1.2px;white-space:nowrap}
     .market-detail-modal-inner{scrollbar-gutter:stable;overscroll-behavior:contain}
     .market-related-news{border-top:1px solid #EFE5ED;margin-top:26px;padding-top:24px}.market-related-news-head{margin-bottom:10px}.market-related-news-head h2{margin:0;color:#AF7896;font-size:14px;letter-spacing:1.5px}.market-related-news-head p{margin:6px 0 0;color:var(--muted);font-size:11px;line-height:1.7}.market-related-news-list{display:grid;gap:0}.market-related-news .market-news-item{padding:14px 0}.market-related-news-empty{margin:10px 0 0;color:var(--muted);font-size:12px;line-height:1.7}
     .market-news-target-link{display:inline;border:0;background:transparent;padding:0;margin:0;color:#87659D;font:inherit;font-weight:800;line-height:inherit;cursor:pointer;text-align:left}.market-news-target-link:hover{color:#A782E3;text-decoration:underline}.market-news-target-link:focus-visible{outline:2px solid #A782E3;outline-offset:2px;border-radius:3px}
-    .market-story-link{display:inline-block;width:auto;border:0;background:transparent;padding:0;margin:12px 0 0;color:#87659D;font:inherit;font-size:11px;line-height:1.7;font-weight:800;text-align:left;cursor:pointer}.market-story-link:hover{text-decoration:underline;color:#A782E3}.market-story-link:focus-visible{outline:3px solid #A782E3;outline-offset:3px;border-radius:4px}
+    .market-story-link{display:inline-block;width:auto;border:0;background:transparent;padding:0;margin:8px 0 0;color:#87659D;font:inherit;font-size:11px;line-height:1.7;font-weight:800;text-align:left;cursor:pointer}.market-story-link:hover{text-decoration:underline;color:#A782E3}.market-story-link:focus-visible{outline:3px solid #A782E3;outline-offset:3px;border-radius:4px}
     @media(max-width:767px){#market-story-history-modal{width:calc(100vw - 20px)}.market-story-history-inner{padding:26px 18px 20px;max-height:calc(100dvh - 20px)}.market-story-history-close{right:10px;top:10px}.market-story-history-head{padding-right:40px}.market-story-history-head h2{font-size:20px}.market-story-episode{padding:16px}.market-story-episode h3{font-size:14px}.market-story-episode p{font-size:13px;line-height:1.9}.market-news-copy{font-size:12px!important}}
   `;
   document.head.append(style);
@@ -320,7 +311,7 @@ export class MarketView {
       item.append(storyLine);
     }
 
-    const targetLine = node('p', '');
+    const targetLine = node('p', '', 'market-news-target-line');
     targetLine.append(document.createTextNode('대상: '));
     const targetCardId = newsCardId(n);
     const targetPokemon = targetCardId ? this.data.byId.get(targetCardId) : null;
@@ -333,7 +324,6 @@ export class MarketView {
     } else {
       targetLine.append(document.createTextNode(targetLabel(n, this.data)));
     }
-    targetLine.append(document.createTextNode(` · ${newsImpactLabel(n)}`));
     item.append(targetLine);
     return item;
   }

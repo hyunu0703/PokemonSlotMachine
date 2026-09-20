@@ -38,12 +38,12 @@ export const MARKET_CONFIG = Object.freeze({
   // 기존 globalGrowth는 외부 호환을 위해 유지하되, 새 기술적 패턴 엔진은 등급별 growth를 사용한다.
   globalGrowth: .000003,
   technical: Object.freeze({
-    // 일반: 저가·투기주 느낌. 평소에는 박스권, 뉴스가 붙으면 돌파/플래그가 비교적 크게 나온다.
-    normal: Object.freeze({ growth: .000035, noise: .0045, pull: .42, duration: [22, 44], amplitude: [.07, .15], maxAmplitude: .28, maxStepUp: .085, maxStepDown: .075, regimeInfluence: .035, newsInfluence: .0025 }),
-    // 전설: 중소·중견 성장주 느낌. 일반보다 부드럽고 패턴이 조금 더 길다.
-    legendary: Object.freeze({ growth: .000025, noise: .0028, pull: .38, duration: [28, 56], amplitude: [.05, .11], maxAmplitude: .20, maxStepUp: .060, maxStepDown: .055, regimeInfluence: .030, newsInfluence: .0020 }),
-    // 환상: 대형주 느낌. 변동은 작고 지지/저항 구간을 오래 유지한다.
-    mythical: Object.freeze({ growth: .000018, noise: .0016, pull: .34, duration: [36, 72], amplitude: [.032, .072], maxAmplitude: .12, maxStepUp: .038, maxStepDown: .035, regimeInfluence: .025, newsInfluence: .0015 }),
+    // 일반: 저가·투기주. 같은 뉴스에도 반응 편차가 크고 드문 급등/급락 꼬리가 존재한다.
+    normal: Object.freeze({ growth: .000035, noise: .0045, pull: .42, duration: [22, 44], amplitude: [.07, .15], maxAmplitude: .28, eventMaxAmplitude: 1.25, eventMaxDownAmplitude: .52, maxStepUp: .085, maxStepDown: .075, eventStepUp: 3.8, eventStepDown: 3.5, regimeInfluence: .035, newsInfluence: .0025 }),
+    // 전설: 중소·중견 성장주. 종목별 민감도는 다르지만 일반보다 극단 꼬리는 작다.
+    legendary: Object.freeze({ growth: .000025, noise: .0028, pull: .38, duration: [28, 56], amplitude: [.05, .11], maxAmplitude: .20, eventMaxAmplitude: .58, eventMaxDownAmplitude: .42, maxStepUp: .060, maxStepDown: .055, eventStepUp: 3.1, eventStepDown: 2.9, regimeInfluence: .030, newsInfluence: .0020 }),
+    // 환상: 대형주. 반응 분산과 극단 꼬리가 가장 작지만 강한 사건에서는 갭·급락이 가능하다.
+    mythical: Object.freeze({ growth: .000018, noise: .0016, pull: .34, duration: [36, 72], amplitude: [.032, .072], maxAmplitude: .12, eventMaxAmplitude: .26, eventMaxDownAmplitude: .26, maxStepUp: .038, maxStepDown: .035, eventStepUp: 2.4, eventStepDown: 2.3, regimeInfluence: .025, newsInfluence: .0015 }),
   }),
   // average는 초기 가격, shockChance는 뉴스가 없는 상황의 드문 자발적 돌파 패턴 확률에 사용한다.
   // volatility/crash/surge는 기존 export 호환용이며 v35 marketTick의 일상 변동에는 직접 사용하지 않는다.
@@ -74,6 +74,18 @@ export const NEWS_CONFIG = Object.freeze({
     }),
   }),
   activity: Object.freeze({ neutral: .04, positive: .14, negative: .12, card: .20 }),
+  // 같은 섹터라도 종목별 베타·뉴스 민감도·유동성·점프 위험이 달라지도록 반응을 분산한다.
+  reaction: Object.freeze({
+    sectorDispersion: Object.freeze([.55, 1.55]),
+    directBoost: 1.30,
+    mutedChance: .14,
+    overreactChance: .12,
+    fadeChance: .08,
+    whipsawChance: .05,
+    contrarianChance: .035,
+    extremePositiveChance: .035,
+    extremeNegativeChance: .055,
+  }),
   tradeScale: 120,
   maxTradeVolume: 1e9,
 });
@@ -93,13 +105,18 @@ const regime = random => ({ state: Object.keys(STATE_BIAS)[integer(0, 3, random)
 const TECH_PATTERN = Object.freeze({
   RANGE: 0, ASCENDING_TRIANGLE: 1, DESCENDING_TRIANGLE: 2, BULL_FLAG: 3, BEAR_FLAG: 4,
   DOUBLE_BOTTOM: 5, DOUBLE_TOP: 6, BREAKOUT_RETEST: 7, BREAKDOWN_RETEST: 8,
+  PARABOLIC_SURGE: 9, GAP_UP_RUN: 10, SPIKE_FADE: 11, PANIC_SELL: 12,
+  GAP_DOWN_RECOVERY: 13, V_REVERSAL: 14, FALSE_BREAKOUT: 15, FALSE_BREAKDOWN: 16,
+  DEAD_CAT_BOUNCE: 17, WHIPSAW: 18,
 });
 const TECH_PATTERN_LABELS = Object.freeze([
   '박스권 횡보', '상승 삼각형', '하락 삼각형', '불 플래그', '베어 플래그',
   '더블 바텀', '더블 탑', '상방 돌파·리테스트', '하방 이탈·리테스트',
+  '포물선 급등', '갭상승·추세 지속', '급등 후 뉴스매도', '패닉 급락',
+  '갭하락 후 회복', 'V자 반전', '페이크 돌파', '페이크 이탈', '데드캣 바운스', '휩쏘 변동',
 ]);
 
-// 각 패턴의 시간 진행률(0~1)에 따른 상대 위치. v=1이면 basePrice에서 amplitude만큼 위, -1이면 아래다.
+// 각 패턴의 시간 진행률(0~1)에 따른 상대 위치. 이벤트 패턴은 급등·급락·선반영·뉴스매도까지 포함한다.
 const TECH_PATTERN_POINTS = Object.freeze({
   [TECH_PATTERN.RANGE]: Object.freeze([[0, 0], [.12, .46], [.25, -.46], [.39, .38], [.53, -.38], [.68, .43], [.83, -.31], [1, .10]]),
   [TECH_PATTERN.ASCENDING_TRIANGLE]: Object.freeze([[0, -.34], [.14, .56], [.28, -.18], [.42, .56], [.56, .02], [.70, .56], [.82, .20], [1, 1.08]]),
@@ -110,6 +127,16 @@ const TECH_PATTERN_POINTS = Object.freeze({
   [TECH_PATTERN.DOUBLE_TOP]: Object.freeze([[0, -.04], [.18, .76], [.38, -.30], [.58, .68], [.76, -.34], [1, -1.05]]),
   [TECH_PATTERN.BREAKOUT_RETEST]: Object.freeze([[0, 0], [.18, .36], [.34, .70], [.48, 1.00], [.64, .57], [.80, .77], [1, 1.20]]),
   [TECH_PATTERN.BREAKDOWN_RETEST]: Object.freeze([[0, 0], [.18, -.36], [.34, -.70], [.48, -1.00], [.64, -.57], [.80, -.77], [1, -1.20]]),
+  [TECH_PATTERN.PARABOLIC_SURGE]: Object.freeze([[0, 0], [.10, .12], [.22, .32], [.36, .62], [.52, 1.02], [.68, 1.38], [.84, 1.78], [1, 2.20]]),
+  [TECH_PATTERN.GAP_UP_RUN]: Object.freeze([[0, 0], [.06, .82], [.18, .70], [.34, .96], [.55, .88], [.76, 1.12], [1, 1.38]]),
+  [TECH_PATTERN.SPIKE_FADE]: Object.freeze([[0, 0], [.08, 1.22], [.22, 1.02], [.42, .62], [.62, .30], [.82, .04], [1, -.18]]),
+  [TECH_PATTERN.PANIC_SELL]: Object.freeze([[0, 0], [.06, -.72], [.18, -1.08], [.34, -1.34], [.52, -1.10], [.72, -1.48], [1, -1.22]]),
+  [TECH_PATTERN.GAP_DOWN_RECOVERY]: Object.freeze([[0, 0], [.06, -1.00], [.20, -.88], [.40, -.58], [.62, -.28], [.82, -.06], [1, .12]]),
+  [TECH_PATTERN.V_REVERSAL]: Object.freeze([[0, 0], [.18, -.68], [.36, -1.00], [.54, -.52], [.72, .06], [.86, .46], [1, .76]]),
+  [TECH_PATTERN.FALSE_BREAKOUT]: Object.freeze([[0, 0], [.20, .42], [.38, .92], [.50, 1.18], [.66, .58], [.82, .08], [1, -.34]]),
+  [TECH_PATTERN.FALSE_BREAKDOWN]: Object.freeze([[0, 0], [.20, -.42], [.38, -.92], [.50, -1.18], [.66, -.58], [.82, -.08], [1, .34]]),
+  [TECH_PATTERN.DEAD_CAT_BOUNCE]: Object.freeze([[0, 0], [.14, -.86], [.30, -1.20], [.48, -.68], [.66, -.48], [.80, -.82], [1, -1.10]]),
+  [TECH_PATTERN.WHIPSAW]: Object.freeze([[0, 0], [.14, .72], [.28, -.62], [.44, .86], [.60, -.76], [.78, .52], [1, .04]]),
 });
 
 const seededCardRandom = id => {
@@ -119,6 +146,117 @@ const seededCardRandom = id => {
     return (x >>> 0) / 4294967296;
   };
 };
+
+const hashUnit = (...parts) => {
+  const text = parts.join('|');
+  let h = 2166136261;
+  for (let i = 0; i < text.length; i++) h = Math.imul(h ^ text.charCodeAt(i), 16777619);
+  h ^= h >>> 16; h = Math.imul(h, 0x7feb352d); h ^= h >>> 15; h = Math.imul(h, 0x846ca68b); h ^= h >>> 16;
+  return (h >>> 0) / 4294967296;
+};
+const lerp = (a, b, t) => a + (b - a) * t;
+
+// 각 포켓몬이 동일 섹터 안에서도 서로 다른 주식처럼 움직이도록 고정된 시장 성향을 만든다.
+// 저장 공간을 늘리지 않기 위해 id+등급에서 결정적으로 계산한다.
+export function marketReactionProfile(pokemon) {
+  const grade = pokemon?.grade ?? 'normal';
+  const ranges = grade === 'normal'
+    ? { market:[.55,1.55], news:[.45,1.85], jump:[.55,1.90], up:[.65,1.65], down:[.65,1.75], vol:[.75,1.55], volume:[.55,1.90] }
+    : grade === 'legendary'
+      ? { market:[.70,1.35], news:[.65,1.55], jump:[.60,1.45], up:[.75,1.45], down:[.75,1.50], vol:[.80,1.35], volume:[.70,1.55] }
+      : { market:[.82,1.20], news:[.78,1.30], jump:[.70,1.25], up:[.82,1.28], down:[.82,1.30], vol:[.86,1.22], volume:[.80,1.35] };
+  const id = pokemon?.id ?? pokemon?.cardId ?? 1;
+  const sample = (key, [low, high]) => lerp(low, high, hashUnit('profile', id, grade, key));
+  return {
+    marketBeta: sample('market', ranges.market), newsBeta: sample('news', ranges.news), jumpBeta: sample('jump', ranges.jump),
+    upsideBeta: sample('up', ranges.up), downsideBeta: sample('down', ranges.down), volatilityBeta: sample('vol', ranges.vol),
+    volumeBeta: sample('volume', ranges.volume),
+  };
+}
+
+export function newsSeverity(entry) {
+  if (!entry) return { score: 0, tier: 'none' };
+  const u = hashUnit('severity', entry.id ?? entry.time ?? 0, entry.nature ?? 'neutral');
+  const direct = entry.target === 'card';
+  let score;
+  if (entry.nature === 'positive') {
+    if (u < .50) score = lerp(.45, .78, u / .50);
+    else if (u < .82) score = lerp(.78, 1.08, (u - .50) / .32);
+    else if (u < .965) score = lerp(1.08, 1.52, (u - .82) / .145);
+    else score = lerp(1.52, 2.25, (u - .965) / .035);
+  } else if (entry.nature === 'negative') {
+    if (u < .42) score = lerp(.50, .82, u / .42);
+    else if (u < .78) score = lerp(.82, 1.15, (u - .42) / .36);
+    else if (u < .945) score = lerp(1.15, 1.62, (u - .78) / .165);
+    else score = lerp(1.62, 2.40, (u - .945) / .055);
+  } else {
+    score = lerp(.20, .72, u);
+  }
+  if (direct) score += .18;
+  if (entry.isFollowUp) score += .05;
+  const stage = Number(entry.storyStage);
+  if (Number.isFinite(stage) && stage > 1) score += Math.min(.12, (stage - 1) * .025);
+  score = clamp(score, .15, 2.6);
+  const tier = score >= 1.60 ? 'extreme' : score >= 1.12 ? 'strong' : score >= .72 ? 'normal' : 'mild';
+  return { score, tier };
+}
+
+const REACTION_STYLE = Object.freeze({ FOLLOW:'follow', MUTED:'muted', OVERREACT:'overreact', FADE:'fade', WHIPSAW:'whipsaw', CONTRARIAN:'contrarian' });
+
+export function marketReactionSignal(news, pokemon, effect = null) {
+  const entry = news?.[0] ?? null;
+  if (!entry) return { relevant:false, direct:false, nature:'neutral', strength:0, style:REACTION_STYLE.MUTED, explosive:false, volatilityBoost:1, volumeBoost:1, fairCenter:0, severity:newsSeverity(null) };
+  // worldStory 뉴스의 세대 범위를 reaction 단계에서도 한 번 더 막아
+  // 직접 지목 뉴스라도 다른 세대 포켓몬이 패턴을 시작하지 않게 한다.
+  if (!newsScopeMatchesPokemon(entry, pokemon)) {
+    return { relevant:false, direct:false, nature:'neutral', strength:0, style:REACTION_STYLE.MUTED, explosive:false, volatilityBoost:1, volumeBoost:1, fairCenter:0, severity:newsSeverity(entry) };
+  }
+  const resolved = effect ?? newsEffect(news, pokemon);
+  const direct = entry.target === 'card' && entry.cardId === pokemon.id;
+  const center = (resolved.min + resolved.max) * .5;
+  const relevant = direct || resolved.activity > 0 || Math.abs(center) > .00001;
+  if (!relevant) return { relevant:false, direct:false, nature:'neutral', strength:0, style:REACTION_STYLE.MUTED, explosive:false, volatilityBoost:1, volumeBoost:1, fairCenter:0, severity:newsSeverity(entry) };
+
+  const profile = marketReactionProfile(pokemon);
+  const severity = newsSeverity(entry);
+  let nature = center > .004 ? 'positive' : center < -.004 ? 'negative' : entry.nature ?? 'neutral';
+  const reaction = NEWS_CONFIG.reaction;
+  const styleRoll = hashUnit('style', entry.id, pokemon.id);
+  let style = REACTION_STYLE.FOLLOW;
+  let edge = reaction.mutedChance;
+  if (styleRoll < edge) style = REACTION_STYLE.MUTED;
+  else if (styleRoll < (edge += reaction.overreactChance)) style = REACTION_STYLE.OVERREACT;
+  else if (styleRoll < (edge += reaction.fadeChance)) style = REACTION_STYLE.FADE;
+  else if (styleRoll < (edge += reaction.whipsawChance)) style = REACTION_STYLE.WHIPSAW;
+  else if (styleRoll < (edge += reaction.contrarianChance)) style = REACTION_STYLE.CONTRARIAN;
+
+  const [dispLow, dispHigh] = reaction.sectorDispersion;
+  const dispersion = lerp(dispLow, dispHigh, hashUnit('dispersion', entry.id, pokemon.id));
+  const sideBeta = nature === 'negative' ? profile.downsideBeta : profile.upsideBeta;
+  const relationBoost = direct ? reaction.directBoost : 1;
+  let strength = (.20 + Math.abs(center) * 7 + resolved.activity * .85) * severity.score * profile.newsBeta * sideBeta * dispersion * relationBoost;
+  const styleMultiplier = style === REACTION_STYLE.MUTED ? lerp(.16, .42, hashUnit('muted', entry.id, pokemon.id))
+    : style === REACTION_STYLE.OVERREACT ? lerp(1.45, 2.35, hashUnit('overreact', entry.id, pokemon.id))
+      : style === REACTION_STYLE.FADE ? lerp(.95, 1.45, hashUnit('fade', entry.id, pokemon.id))
+        : style === REACTION_STYLE.WHIPSAW ? lerp(.90, 1.55, hashUnit('whipsaw', entry.id, pokemon.id))
+          : style === REACTION_STYLE.CONTRARIAN ? lerp(.55, 1.05, hashUnit('contrarian', entry.id, pokemon.id))
+            : lerp(.72, 1.22, hashUnit('follow', entry.id, pokemon.id));
+  strength = clamp(strength * styleMultiplier, .06, 4.5);
+
+  // 실제 시장처럼 호재인데 재료소멸로 하락하거나, 악재인데 선반영 후 반등하는 희귀 반응도 허용한다.
+  if (style === REACTION_STYLE.CONTRARIAN && nature !== 'neutral') nature = nature === 'positive' ? 'negative' : 'positive';
+
+  const tailRoll = hashUnit('tail', entry.id, pokemon.id);
+  const tailChanceBase = entry.nature === 'negative' ? reaction.extremeNegativeChance : reaction.extremePositiveChance;
+  const tailChance = clamp(tailChanceBase * profile.jumpBeta * Math.max(.45, severity.score) * (direct ? 1.35 : 1), 0, .32);
+  const explosive = nature !== 'neutral' && style !== REACTION_STYLE.MUTED && (tailRoll < tailChance || (style === REACTION_STYLE.OVERREACT && strength >= 2.25));
+  const volatilityBoost = clamp(profile.volatilityBeta * (1 + strength * .18) * (style === REACTION_STYLE.WHIPSAW ? 1.65 : 1), .55, 3.0);
+  const volumeBoost = clamp(profile.volumeBeta * (1 + severity.score * .55) * (direct ? 1.4 : 1) * (explosive ? 1.45 : 1), .35, 4.0);
+  const sign = nature === 'positive' ? 1 : nature === 'negative' ? -1 : 0;
+  const fairStyle = [REACTION_STYLE.FADE, REACTION_STYLE.WHIPSAW].includes(style) ? .28 : style === REACTION_STYLE.MUTED ? .35 : 1;
+  const fairCenter = sign * Math.min(.18, Math.max(Math.abs(center), .004) * Math.min(2.8, strength) * fairStyle);
+  return { relevant:true, direct, nature, strength, style, explosive, volatilityBoost, volumeBoost, fairCenter, severity, profile };
+}
 
 const technicalConfig = rarity => MARKET_CONFIG.technical[rarity] ?? MARKET_CONFIG.technical.normal;
 const technicalProgress = card => card.tech?.[2] > 0 ? clamp(card.tech[1] / card.tech[2], 0, 1) : 1;
@@ -161,6 +299,40 @@ function pickPatternForNature(nature, random) {
   return TECH_PATTERN.RANGE;
 }
 
+function pickPatternForReaction(signal, random) {
+  if (!signal?.relevant || signal.nature === 'neutral') return signal?.style === REACTION_STYLE.WHIPSAW ? TECH_PATTERN.WHIPSAW : TECH_PATTERN.RANGE;
+  if (signal.nature === 'positive') {
+    if (signal.explosive) return random() < .62 ? TECH_PATTERN.PARABOLIC_SURGE : TECH_PATTERN.GAP_UP_RUN;
+    if (signal.style === REACTION_STYLE.FADE) return random() < .58 ? TECH_PATTERN.SPIKE_FADE : TECH_PATTERN.FALSE_BREAKOUT;
+    if (signal.style === REACTION_STYLE.WHIPSAW) return TECH_PATTERN.WHIPSAW;
+    if (signal.style === REACTION_STYLE.MUTED) return random() < .65 ? TECH_PATTERN.RANGE : TECH_PATTERN.ASCENDING_TRIANGLE;
+    if (signal.style === REACTION_STYLE.OVERREACT && signal.strength > 1.45) return random() < .55 ? TECH_PATTERN.GAP_UP_RUN : TECH_PATTERN.BULL_FLAG;
+    return pickPatternForNature('positive', random);
+  }
+  if (signal.explosive) return TECH_PATTERN.PANIC_SELL;
+  if (signal.style === REACTION_STYLE.FADE) return random() < .58 ? TECH_PATTERN.GAP_DOWN_RECOVERY : TECH_PATTERN.V_REVERSAL;
+  if (signal.style === REACTION_STYLE.WHIPSAW) return TECH_PATTERN.WHIPSAW;
+  if (signal.style === REACTION_STYLE.MUTED) return random() < .65 ? TECH_PATTERN.RANGE : TECH_PATTERN.DESCENDING_TRIANGLE;
+  if (signal.style === REACTION_STYLE.OVERREACT && signal.strength > 1.45) return random() < .58 ? TECH_PATTERN.PANIC_SELL : TECH_PATTERN.DEAD_CAT_BOUNCE;
+  const roll = random();
+  if (roll < .18) return TECH_PATTERN.DEAD_CAT_BOUNCE;
+  if (roll < .34) return TECH_PATTERN.FALSE_BREAKDOWN;
+  return pickPatternForNature('negative', random);
+}
+
+const EVENT_FREE_PATTERNS = new Set([
+  TECH_PATTERN.PARABOLIC_SURGE, TECH_PATTERN.GAP_UP_RUN, TECH_PATTERN.SPIKE_FADE, TECH_PATTERN.PANIC_SELL,
+  TECH_PATTERN.GAP_DOWN_RECOVERY, TECH_PATTERN.V_REVERSAL, TECH_PATTERN.FALSE_BREAKOUT, TECH_PATTERN.FALSE_BREAKDOWN,
+  TECH_PATTERN.DEAD_CAT_BOUNCE, TECH_PATTERN.WHIPSAW,
+]);
+const bullishEventPattern = pattern => [TECH_PATTERN.PARABOLIC_SURGE, TECH_PATTERN.GAP_UP_RUN, TECH_PATTERN.SPIKE_FADE, TECH_PATTERN.FALSE_BREAKOUT].includes(pattern);
+const bearishEventPattern = pattern => [TECH_PATTERN.PANIC_SELL, TECH_PATTERN.GAP_DOWN_RECOVERY, TECH_PATTERN.V_REVERSAL, TECH_PATTERN.FALSE_BREAKDOWN, TECH_PATTERN.DEAD_CAT_BOUNCE].includes(pattern);
+const eventPatternBoost = pattern => pattern === TECH_PATTERN.PARABOLIC_SURGE ? 2.20
+  : pattern === TECH_PATTERN.GAP_UP_RUN ? 1.72
+    : pattern === TECH_PATTERN.PANIC_SELL ? 1.85
+      : [TECH_PATTERN.SPIKE_FADE, TECH_PATTERN.GAP_DOWN_RECOVERY, TECH_PATTERN.V_REVERSAL, TECH_PATTERN.DEAD_CAT_BOUNCE].includes(pattern) ? 1.55
+        : [TECH_PATTERN.FALSE_BREAKOUT, TECH_PATTERN.FALSE_BREAKDOWN, TECH_PATTERN.WHIPSAW].includes(pattern) ? 1.38 : 1;
+
 function defaultPatternForMarket(market, rarity, random) {
   const overall = market?.overall?.state ?? 'NORMAL';
   const sector = market?.sectors?.[rarity]?.state ?? 'NORMAL';
@@ -174,14 +346,18 @@ function defaultPatternForMarket(market, rarity, random) {
 function startTechnicalPattern(card, pattern, random, strength = 0, newsDriven = false) {
   const config = technicalConfig(card.rarity);
   let duration = integer(config.duration[0], config.duration[1], random);
-  if (newsDriven) duration = Math.max(12, Math.round(duration * between(.72, .94, random)));
+  if (newsDriven) duration = Math.max(10, Math.round(duration * between(.62, .92, random)));
   const neutral = pattern === TECH_PATTERN.RANGE;
   const baseAmplitude = between(config.amplitude[0], config.amplitude[1], random);
-  let amplitude = baseAmplitude * (neutral ? .68 : 1 + clamp(strength, 0, 1.8) * .28);
-  amplitude = clamp(amplitude, .01, config.maxAmplitude);
+  let amplitude = baseAmplitude * (neutral ? .68 : 1 + clamp(strength, 0, 4.5) * .34) * eventPatternBoost(pattern);
+  const eventCap = bullishEventPattern(pattern) ? config.eventMaxAmplitude
+    : bearishEventPattern(pattern) ? config.eventMaxDownAmplitude
+      : pattern === TECH_PATTERN.WHIPSAW ? Math.max(config.maxAmplitude, config.eventMaxDownAmplitude * .72)
+        : config.maxAmplitude;
+  amplitude = clamp(amplitude, .01, eventCap ?? config.maxAmplitude);
   const baseBlend = newsDriven ? 0 : .18;
   const basePrice = price(card.currentPrice * (1 - baseBlend) + card.fairPrice * baseBlend);
-  card.tech = [pattern, 0, duration, basePrice, amplitude, newsDriven ? Math.max(8, Math.round(duration * .62)) : 0];
+  card.tech = [pattern, 0, duration, basePrice, amplitude, newsDriven ? Math.max(7, Math.round(duration * .58)) : 0];
   return card.tech;
 }
 
@@ -191,7 +367,7 @@ function ensureTechnicalState(card, random = null) {
     && Number.isInteger(card.tech[1]) && card.tech[1] >= 0
     && Number.isInteger(card.tech[2]) && card.tech[2] >= 8 && card.tech[2] <= 120
     && Number.isFinite(card.tech[3]) && card.tech[3] >= 1
-    && Number.isFinite(card.tech[4]) && card.tech[4] > 0 && card.tech[4] <= .5
+    && Number.isFinite(card.tech[4]) && card.tech[4] > 0 && card.tech[4] <= 1.5
     && Number.isInteger(card.tech[5]) && card.tech[5] >= 0 && card.tech[5] <= 120;
   if (valid) return card.tech;
   const seeded = random ?? seededCardRandom(card?.cardId ?? 1);
@@ -199,21 +375,13 @@ function ensureTechnicalState(card, random = null) {
 }
 
 function technicalNewsSignal(news, pokemon, effect) {
-  const entry = news?.[0] ?? null;
-  if (!entry || !effect) return { relevant: false, direct: false, nature: 'neutral', strength: 0 };
-  const direct = entry.target === 'card' && entry.cardId === pokemon.id;
-  const center = (effect.min + effect.max) * .5;
-  const relevant = direct || effect.activity > 0 || Math.abs(center) > .00001;
-  if (!relevant) return { relevant: false, direct: false, nature: 'neutral', strength: 0 };
-  const nature = center > .004 ? 'positive' : center < -.004 ? 'negative' : entry.nature ?? 'neutral';
-  const strength = clamp(Math.abs(center) * 7 + effect.activity * .9 + (direct ? .38 : 0), .15, 1.8);
-  return { relevant: true, direct, nature, strength };
+  return marketReactionSignal(news, pokemon, effect);
 }
 
 export function technicalLevels(card) {
   if (!card?.tech) return null;
   const t = card.tech, progress = technicalProgress(card);
-  const pattern = t[0], base = Math.max(1, t[3]), amp = clamp(t[4], .001, .5);
+  const pattern = t[0], base = Math.max(1, t[3]), amp = clamp(t[4], .001, 1.5);
   let support = base * (1 - amp * .48);
   let resistance = base * (1 + amp * .48);
   const bullish = [TECH_PATTERN.ASCENDING_TRIANGLE, TECH_PATTERN.BULL_FLAG, TECH_PATTERN.DOUBLE_BOTTOM, TECH_PATTERN.BREAKOUT_RETEST].includes(pattern);
@@ -245,6 +413,8 @@ function applySupportResistance(card, target) {
   const levels = technicalLevels(card);
   if (!levels) return target;
   const p = card.tech[0], progress = levels.progress;
+  // 갭·패닉·뉴스매도 같은 이벤트 패턴은 지지/저항을 순간적으로 무시할 수 있어야 실제 급등락이 나온다.
+  if (EVENT_FREE_PATTERNS.has(p)) return target;
   const breakoutAt = patternBreakoutAt(p);
   const bullishBreakout = [TECH_PATTERN.ASCENDING_TRIANGLE, TECH_PATTERN.BULL_FLAG, TECH_PATTERN.DOUBLE_BOTTOM, TECH_PATTERN.BREAKOUT_RETEST].includes(p) && progress >= breakoutAt;
   const bearishBreakout = [TECH_PATTERN.DESCENDING_TRIANGLE, TECH_PATTERN.BEAR_FLAG, TECH_PATTERN.DOUBLE_TOP, TECH_PATTERN.BREAKDOWN_RETEST].includes(p) && progress >= breakoutAt;
@@ -260,15 +430,23 @@ function maybeStartTechnicalPattern(card, pokemon, market, effect, random) {
   const signal = technicalNewsSignal(market.activeNews, pokemon, effect);
   const completed = card.tech[1] >= card.tech[2];
   if (signal.relevant && (signal.direct || card.tech[5] <= 0)) {
-    startTechnicalPattern(card, pickPatternForNature(signal.nature, random), random, signal.strength, true);
+    startTechnicalPattern(card, pickPatternForReaction(signal, random), random, signal.strength, true);
     return signal;
   }
   const config = MARKET_CONFIG.grades[card.rarity];
   if (!signal.relevant && card.tech[5] <= 0 && card.tech[1] >= Math.floor(card.tech[2] * .35) && random() < config.shockChance) {
+    const profile = marketReactionProfile(pokemon);
     const marketBias = STATE_BIAS[market.overall.state] + STATE_BIAS[market.sectors[card.rarity].state] * .7;
-    const up = random() < clamp(.52 + marketBias * 20, .20, .80);
-    startTechnicalPattern(card, up ? TECH_PATTERN.BREAKOUT_RETEST : TECH_PATTERN.BREAKDOWN_RETEST, random, 1.2, true);
-    return { relevant: true, direct: false, nature: up ? 'positive' : 'negative', strength: 1.2 };
+    const up = random() < clamp(.52 + marketBias * profile.marketBeta * 20, .20, .80);
+    const tail = random() < .10 * profile.jumpBeta;
+    const pattern = tail ? (up ? TECH_PATTERN.PARABOLIC_SURGE : TECH_PATTERN.PANIC_SELL)
+      : (up ? TECH_PATTERN.BREAKOUT_RETEST : TECH_PATTERN.BREAKDOWN_RETEST);
+    const synthetic = { relevant:true, direct:false, nature:up ? 'positive' : 'negative', strength:tail ? 2.2 : 1.2,
+      style:tail ? REACTION_STYLE.OVERREACT : REACTION_STYLE.FOLLOW, explosive:tail,
+      volatilityBoost:profile.volatilityBeta * (tail ? 1.8 : 1.15), volumeBoost:profile.volumeBeta * (tail ? 1.8 : 1.15),
+      fairCenter:0, severity:{ score:tail ? 1.7 : .9, tier:tail ? 'extreme' : 'normal' }, profile };
+    startTechnicalPattern(card, pattern, random, synthetic.strength, true);
+    return synthetic;
   }
   if (completed) startTechnicalPattern(card, defaultPatternForMarket(market, card.rarity, random), random, 0, false);
   return signal;
@@ -381,7 +559,7 @@ export function validMarket(market, records) {
     && Number.isInteger(tech[1]) && tech[1] >= 0 && tech[1] <= 120
     && Number.isInteger(tech[2]) && tech[2] >= 8 && tech[2] <= 120
     && Number.isFinite(tech[3]) && tech[3] >= 1 && tech[3] <= 1e12
-    && Number.isFinite(tech[4]) && tech[4] > 0 && tech[4] <= .5
+    && Number.isFinite(tech[4]) && tech[4] > 0 && tech[4] <= 1.5
     && Number.isInteger(tech[5]) && tech[5] >= 0 && tech[5] <= 120;
   const newsOK = n => n && typeof n.id === 'string' && typeof n.title === 'string'
     && ['type', 'card'].includes(n.target)
@@ -665,10 +843,21 @@ function addEffect(effect, range, activity) {
   effect.activity += activity;
 }
 
+// 세계관 DB에서 만들어진 장소/스토리 뉴스는 그 사건의 세대에만 가격 영향을 준다.
+// 일반 시장 뉴스(worldStory !== true)는 세대 제한 없이 기존처럼 전 세대에 적용한다.
+// 과거 저장 호환을 위해 generation이 없는 오래된 세계관 뉴스는 기존 전역 동작을 유지한다.
+export function newsScopeMatchesPokemon(entry, pokemon) {
+  if (!entry?.worldStory) return true;
+  if (!Number.isInteger(entry.generation)) return true;
+  return pokemon?.generation === entry.generation;
+}
+
 // 실제 포켓몬의 최종 상성 배율을 사용해 듀얼 타입까지 반영한다.
 export function newsEffect(news, pokemon) {
   const effect = { min: 0, max: 0, activity: 0 };
   for (const n of news) {
+    if (!newsScopeMatchesPokemon(n, pokemon)) continue;
+
     const named = n.target === 'card' && n.cardId === pokemon.id;
     const storySector = pokemon.types.includes(n.type);
     const focusedOpposed = n.opposedType && pokemon.types.includes(n.opposedType);
@@ -836,27 +1025,32 @@ export function marketTick(market, records, random = Math.random, recordTrades =
     const c = market.cards[p.id];
     const gradeConfig = technicalConfig(p.grade);
     const effect = newsEffect(market.activeNews, p);
-    const newsCenter = (effect.min + effect.max) * .5;
-    const activity = effect.activity;
     const marketBias = STATE_BIAS[market.overall.state] + STATE_BIAS[market.sectors[p.grade].state] * .7;
 
-    // 1) 장기 공정가치는 천천히 성장한다. 뉴스/시장 상태는 공정가치에는 약하게만 반영한다.
-    updateTechnicalFairPrice(c, marketBias, newsCenter);
-
-    // 2) 관련 뉴스가 오면 상승/하락/중립 성격에 맞는 실제 차트 패턴을 시작한다.
-    //    패턴 진행 중에는 newsLock으로 매 Tick 새 뉴스가 패턴을 덮어쓰는 것을 막는다.
+    // 1) 뉴스는 섹터 전체에 동일한 %를 강제하지 않는다. 포켓몬별 고정 베타 + 사건별 반응 스타일로 분산한다.
     const signal = maybeStartTechnicalPattern(c, p, market, effect, random);
+    const profile = signal.profile ?? marketReactionProfile(p);
 
-    // 3) 패턴의 목표 가격을 따라가되, 지지/저항을 돌파하기 전에는 해당 구간에서 반등/반락시킨다.
+    // 2) 장기 공정가치도 종목별 market beta와 실제 반응 방향을 약하게 반영한다.
+    updateTechnicalFairPrice(c, marketBias * profile.marketBeta, signal.fairCenter ?? 0);
+
+    // 3) 패턴 목표를 따라가며, 평상시는 지지/저항을 사용하고 갭·패닉 이벤트만 순간적으로 이를 무시한다.
     let target = technicalTarget(c);
     target = applySupportResistance(c, target);
     const targetMove = target / Math.max(1, c.currentPrice) - 1;
 
-    // 기존 ±3.5%식 독립 랜덤 변동 대신, 작은 미세 노이즈만 남겨 차트가 부드러운 구조를 갖게 한다.
+    // 4) 이벤트 때 변동성 군집이 생기되, 동일 섹터 종목마다 volatility beta가 달라 같은 모양이 되지 않는다.
+    const activity = effect.activity;
     const newsNoise = 1 + Math.min(activity, .5) * .45 + (signal.direct ? .25 : 0);
-    const noise = (-1 + 2 * random()) * gradeConfig.noise * newsNoise;
+    const noise = (-1 + 2 * random()) * gradeConfig.noise * newsNoise * (signal.volatilityBoost ?? profile.volatilityBeta);
     let change = targetMove * gradeConfig.pull + noise;
-    change = clamp(change, -gradeConfig.maxStepDown, gradeConfig.maxStepUp);
+
+    const pattern = c.tech[0];
+    const eventUp = [TECH_PATTERN.PARABOLIC_SURGE, TECH_PATTERN.GAP_UP_RUN, TECH_PATTERN.SPIKE_FADE, TECH_PATTERN.FALSE_BREAKOUT, TECH_PATTERN.V_REVERSAL, TECH_PATTERN.GAP_DOWN_RECOVERY, TECH_PATTERN.WHIPSAW].includes(pattern);
+    const eventDown = [TECH_PATTERN.PANIC_SELL, TECH_PATTERN.GAP_DOWN_RECOVERY, TECH_PATTERN.FALSE_BREAKDOWN, TECH_PATTERN.DEAD_CAT_BOUNCE, TECH_PATTERN.V_REVERSAL, TECH_PATTERN.SPIKE_FADE, TECH_PATTERN.WHIPSAW].includes(pattern);
+    const upLimit = Math.min(.35, gradeConfig.maxStepUp * (eventUp ? gradeConfig.eventStepUp : 1));
+    const downLimit = Math.min(.32, gradeConfig.maxStepDown * (eventDown ? gradeConfig.eventStepDown : 1));
+    change = clamp(change, -downLimit, upLimit);
 
     const next = price(c.currentPrice * (1 + change));
 
@@ -878,7 +1072,7 @@ export function marketTick(market, records, random = Math.random, recordTrades =
 
     if (recordTrades) {
       const oldVolume = c.trade24h.volumes[market.trade24h.head] ?? 0;
-      trades.push({ c, id: p.id, quote: next, oldQuote, oldVolume, volume: newsTradeVolume(time, p.id, activity) });
+      trades.push({ c, id: p.id, quote: next, oldQuote, oldVolume, volume: newsTradeVolume(time, p.id, Math.min(1, activity * (signal.volumeBoost ?? profile.volumeBeta))) });
     }
   }
 
