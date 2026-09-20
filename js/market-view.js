@@ -1,5 +1,6 @@
 import { GRADES, TYPES, imageOrPlaceholder, typeImage } from './data.js';
 import { assets, changePercent, currentTradeAmount, currentTradeVolume, priceHistory, MARKET_CONFIG } from './market.js';
+import { getWorldStoryEpisodes } from './world-news.js';
 
 export const money = n => n.toLocaleString('ko-KR') + ' TC';
 const percent = n => n === null ? '기록 부족' : `${n > 0 ? '+' : ''}${n.toFixed(2)}%`;
@@ -32,8 +33,10 @@ const NEWS_NATURE_META = Object.freeze({
   negative: { label: '악재', className: 'market-down' },
 });
 
+const cleanStoryDescription = text => String(text ?? '').replace(/\s*이번 보도는\s+[^.]*?스토리\s+\d+\/\d+\s*단계다\.\s*/g, ' ').replace(/\s{2,}/g, ' ').trim();
+
 const newsDescription = (n, data) => {
-  if (n.worldStory && typeof n.description === 'string' && n.description) return n.description;
+  if (n.worldStory && typeof n.description === 'string' && n.description) return cleanStoryDescription(n.description);
   const type = `${TYPES[n.type]?.[0] ?? n.type}타입`;
   const opposed = n.opposedType ? `${TYPES[n.opposedType]?.[0] ?? n.opposedType}타입` : '관련 타입';
   const pokemon = n.target === 'card' ? (data.byId.get(n.cardId)?.nameKo ?? '해당 포켓몬') : '';
@@ -69,6 +72,46 @@ const dateLabel = t => new Date(t).toLocaleString('ko-KR', { month: 'numeric', d
 const node = (tag, text, className = '') => {
   const el = document.createElement(tag); el.textContent = text; el.className = className; return el;
 };
+const keywordValues = (entry, data, text = '') => {
+  const sixW = entry?.sixW ?? {};
+  const cardId = entry?.cardId ?? entry?.directCardId ?? null;
+  const values = [
+    entry?.storyName,
+    entry?.regionName,
+    ...(Array.isArray(sixW.who) ? sixW.who : []),
+    ...(Array.isArray(sixW.where) ? sixW.where : []),
+    cardId ? data.byId.get(cardId)?.nameKo : null,
+    entry?.type ? `${TYPES[entry.type]?.[0] ?? entry.type}타입` : null,
+  ];
+  if (entry?.worldStory && Number.isInteger(entry.generation) && text) {
+    for (const pokemon of data.records) {
+      if (pokemon.generation === entry.generation && pokemon.nameKo && text.includes(pokemon.nameKo)) values.push(pokemon.nameKo);
+    }
+  }
+  return [...new Set(values.map(value => String(value ?? '').trim()).filter(value => value.length >= 2))]
+    .sort((a, b) => b.length - a.length);
+};
+const appendHighlightedText = (element, text, keywords) => {
+  const value = String(text ?? '');
+  const terms = [...new Set((keywords ?? []).filter(Boolean))].sort((a, b) => b.length - a.length);
+  if (!value || !terms.length) { element.textContent = value; return element; }
+  let cursor = 0;
+  while (cursor < value.length) {
+    let bestIndex = -1, bestTerm = '';
+    for (const term of terms) {
+      const index = value.indexOf(term, cursor);
+      if (index < 0) continue;
+      if (bestIndex < 0 || index < bestIndex || (index === bestIndex && term.length > bestTerm.length)) {
+        bestIndex = index; bestTerm = term;
+      }
+    }
+    if (bestIndex < 0) { element.append(document.createTextNode(value.slice(cursor))); break; }
+    if (bestIndex > cursor) element.append(document.createTextNode(value.slice(cursor, bestIndex)));
+    element.append(node('span', bestTerm, 'market-news-keyword'));
+    cursor = bestIndex + bestTerm.length;
+  }
+  return element;
+};
 const typeIcons = (types, containerClass = 'market-type-icons', iconClass = 'market-type-icon') => {
   const icons = node('span', '', containerClass);
   for (const type of types) {
@@ -78,9 +121,53 @@ const typeIcons = (types, containerClass = 'market-type-icons', iconClass = 'mar
   return icons;
 };
 
+const STORY_MODAL_STYLE_ID = 'market-story-history-style';
+const ensureStoryModalStyles = () => {
+  if (document.getElementById(STORY_MODAL_STYLE_ID)) return;
+  const style = document.createElement('style');
+  style.id = STORY_MODAL_STYLE_ID;
+  style.textContent = `
+    #market-story-history-modal{width:min(900px,calc(100vw - 32px));max-width:none;border:0;padding:0;background:transparent;color:inherit}
+    #market-story-history-modal::backdrop{background:rgba(41,29,49,.45);backdrop-filter:blur(2px)}
+    .market-story-history-inner{position:relative;width:100%;max-height:calc(100dvh - 32px);overflow-y:auto;background:#FFFDFC;border-radius:24px;box-shadow:0 18px 50px rgba(58,48,66,.22);padding:34px 38px}
+    .market-story-history-close{position:absolute;right:16px;top:16px;width:38px;height:38px;padding:0;border:0;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#F3EAF6;color:#87659D;font-size:20px;font-weight:800;line-height:1;cursor:pointer;box-shadow:0 4px 14px #513A5622}
+    .market-story-history-close-mark{position:relative;display:block;width:16px;height:16px;flex:none}
+    .market-story-history-close-mark:before,.market-story-history-close-mark:after{content:"";position:absolute;left:50%;top:50%;width:2px;height:18px;border-radius:999px;background:currentColor;transform-origin:center}
+    .market-story-history-close-mark:before{transform:translate(-50%,-50%) rotate(45deg)}.market-story-history-close-mark:after{transform:translate(-50%,-50%) rotate(-45deg)}
+    .market-story-history-head{padding-right:48px;margin-bottom:24px}.market-story-history-head .eyebrow{display:block;color:#AF7896;margin-bottom:8px}.market-story-history-head h2{margin:0 0 8px;font-size:24px;color:#3A3042}.market-story-history-head p{margin:0;color:var(--muted);font-size:12px;line-height:1.7}
+    .market-story-timeline{display:grid;gap:14px}.market-story-episode{position:relative;padding:20px 20px 18px;border:1px solid #EDE2EE;border-radius:18px;background:#FFF9FC}.market-story-episode.current{border-color:#B69AE8;box-shadow:0 0 0 2px rgba(182,154,232,.12)}
+    .market-story-episode-meta{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;font-size:11px;font-weight:800}.market-story-stage{color:#87659D}.market-story-current{padding:3px 7px;border-radius:999px;background:#F0E7FA;color:#87659D}
+    .market-story-episode h3{margin:0;font-size:16px;line-height:1.6;color:#3A3042}.market-story-episode p{margin:10px 0 0;color:var(--muted);font-size:14px;line-height:1.95}.market-story-reconstructed{font-size:10px;color:#A399A8;margin-top:9px}
+    .market-news-keyword{font-size:inherit;font-weight:900;color:inherit;letter-spacing:inherit}
+    .market-news-copy{font-size:12px!important;line-height:1.85!important}
+    .market-story-link{display:inline-block;width:auto;border:0;background:transparent;padding:0;margin:12px 0 0;color:#87659D;font:inherit;font-size:11px;line-height:1.7;font-weight:800;text-align:left;cursor:pointer}.market-story-link:hover{text-decoration:underline;color:#A782E3}.market-story-link:focus-visible{outline:3px solid #A782E3;outline-offset:3px;border-radius:4px}
+    @media(max-width:767px){#market-story-history-modal{width:calc(100vw - 20px)}.market-story-history-inner{padding:26px 18px 20px;max-height:calc(100dvh - 20px)}.market-story-history-close{right:10px;top:10px}.market-story-history-head{padding-right:40px}.market-story-history-head h2{font-size:20px}.market-story-episode{padding:16px}.market-story-episode h3{font-size:14px}.market-story-episode p{font-size:13px;line-height:1.9}.market-news-copy{font-size:12px!important}}
+  `;
+  document.head.append(style);
+};
+
+const createStoryHistoryModal = () => {
+  ensureStoryModalStyles();
+  let dialog = document.getElementById('market-story-history-modal');
+  if (dialog) return dialog;
+  dialog = document.createElement('dialog');
+  dialog.id = 'market-story-history-modal';
+  const inner = node('div', '', 'market-story-history-inner');
+  const close = node('button', '', 'market-story-history-close');
+  const closeMark = node('span', '', 'market-story-history-close-mark'); closeMark.setAttribute('aria-hidden', 'true'); close.append(closeMark);
+  close.type = 'button'; close.setAttribute('aria-label', '스토리 기록 닫기');
+  const content = node('div', ''); content.id = 'market-story-history-content';
+  inner.append(close, content); dialog.append(inner); document.body.append(dialog);
+  close.addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
+  return dialog;
+};
+
 export class MarketView {
   constructor(data, save, onSell) {
     this.data = data; this.save = save; this.selected = data.records[0].id;
+    this.storyHistoryModal = createStoryHistoryModal();
+    this.storyHistoryContent = this.storyHistoryModal.querySelector('#market-story-history-content');
     this.page = 0; this.pageSize = 20; this.listLimit = 100; this.period = '1H'; this.ownedSort = 'price'; this.ownedPage = 0; this.ownedPageSize = 10;
     this.ui = Object.fromEntries(['market', 'market-assets', 'market-detail-modal', 'market-detail', 'market-detail-close', 'market-news', 'market-sales', 'market-rows', 'market-grade', 'market-type', 'market-search', 'market-sort', 'market-page', 'market-prev', 'market-next', 'market-time', 'market-owned-sort', 'market-owned-rows', 'market-owned-empty', 'market-owned-pagination', 'market-owned-page', 'market-owned-prev', 'market-owned-next'].map(id => [id, document.getElementById(id)]));
     for (const [type, [label]] of Object.entries(TYPES)) { const option = node('option', label); option.value = type; this.ui['market-type'].append(option); }
@@ -97,6 +184,12 @@ export class MarketView {
       const button = event.target.closest('[data-card]');
       if (button) this.openDetail(Number(button.dataset.card));
     });
+    this.ui['market-news'].addEventListener('click', event => {
+      const button = event.target.closest('[data-story-history]');
+      if (!button) return;
+      const news = this.save.market.newsHistory.find(item => item.id === button.dataset.storyHistory);
+      if (news) this.openStoryHistory(news);
+    });
     this.ui['market-detail-close'].addEventListener('click', () => this.ui['market-detail-modal'].close());
     this.ui['market-detail'].addEventListener('click', event => {
       const button = event.target.closest('button');
@@ -108,6 +201,40 @@ export class MarketView {
       }
     });
   }
+  openStoryHistory(news) {
+    const episodes = getWorldStoryEpisodes(this.save.market, news);
+    const meta = NEWS_NATURE_META[news.nature] ?? NEWS_NATURE_META.neutral;
+    const head = node('header', '', 'market-story-history-head');
+    head.append(
+      node('span', `${news.generation}세대 · ${news.regionName ?? '지역 미상'} · ${meta.label}`, `eyebrow ${meta.className}`),
+      node('h2', news.storyName ?? '스토리 기록'),
+      node('p', `현재 ${news.storyStage}/${news.storyStageCount} 단계 · 지금까지 확인된 에피소드 ${episodes.length}개`)
+    );
+    const timeline = node('div', '', 'market-story-timeline');
+    for (const episode of episodes) {
+      const article = node('article', '', `market-story-episode${episode.storyStage === news.storyStage ? ' current' : ''}`);
+      const episodeMeta = node('div', '', 'market-story-episode-meta');
+      const nature = NEWS_NATURE_META[episode.nature] ?? NEWS_NATURE_META.neutral;
+      episodeMeta.append(
+        node('span', `${episode.storyStage}/${episode.storyStageCount} 단계`, 'market-story-stage'),
+        node('span', nature.label, nature.className),
+        ...(episode.storyStage === news.storyStage ? [node('span', '현재', 'market-story-current')] : [])
+      );
+      const episodeTitle = node('h3', '');
+      const episodeDescription = node('p', '');
+      const episodeText = `${episode.title ?? ''} ${cleanStoryDescription(episode.description)}`;
+      const episodeKeywords = keywordValues(episode, this.data, episodeText);
+      appendHighlightedText(episodeTitle, episode.title, episodeKeywords);
+      appendHighlightedText(episodeDescription, cleanStoryDescription(episode.description), episodeKeywords);
+      article.append(episodeMeta, episodeTitle, episodeDescription);
+      if (episode.reconstructed) article.append(node('div', '이전 저장 기록이 없어 세계관 DB를 기준으로 복원한 에피소드입니다.', 'market-story-reconstructed'));
+      timeline.append(article);
+    }
+    if (!episodes.length) timeline.append(node('p', '표시할 스토리 기록이 없습니다.', 'muted'));
+    this.storyHistoryContent.replaceChildren(head, timeline);
+    if (!this.storyHistoryModal.open) this.storyHistoryModal.showModal();
+  }
+
   // 선택한 포켓몬의 시장 상세 모달 표시
   openDetail(id) {
     this.selected = id;
@@ -335,13 +462,23 @@ export class MarketView {
         ? `${n.generation}세대 · ${n.regionName ?? '지역 미상'} · ${n.isFollowUp ? '후속 ' : ''}${n.storyStage}/${n.storyStageCount}`
         : '';
       const sourceLine = [newsSource(n), worldLabel, meta.label].filter(Boolean).join(' · ');
-      summary.append(node('small', sourceLine, meta.className), node('strong', n.title));
+      const newsTitle = node('strong', n.title);
+      const descriptionText = newsDescription(n, this.data);
+      const newsKeywords = keywordValues(n, this.data, descriptionText);
+      summary.append(node('small', sourceLine, meta.className), newsTitle);
       const storyLine = n.worldStory
-        ? node('p', `스토리: ${n.storyName} · ${n.storyStage}/${n.storyStageCount} 단계`, 'muted')
+        ? node('button', `스토리: ${n.storyName}`, 'market-story-link')
         : null;
+      if (storyLine) {
+        storyLine.type = 'button';
+        storyLine.dataset.storyHistory = n.id;
+        storyLine.setAttribute('aria-label', `${n.storyName} 과거 에피소드 보기`);
+      }
+      const newsCopy = node('p', '', 'market-news-copy');
+      appendHighlightedText(newsCopy, descriptionText, newsKeywords);
       item.append(
         summary,
-        node('p', newsDescription(n, this.data)),
+        newsCopy,
         ...(storyLine ? [storyLine] : []),
         node('p', `대상: ${targetLabel(n, this.data)} · ${newsImpactLabel(n)}`)
       );

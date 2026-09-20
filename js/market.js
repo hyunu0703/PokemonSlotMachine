@@ -386,9 +386,9 @@ export function generateNews(market, records, time, random = Math.random) {
       nature, focus, target, cardId: card?.id ?? null, type, opposedType,
       transition: worldStory.isFollowUp ? 'continue' : 'fresh', impact, secondaryImpact, time,
       generation: worldStory.generation, regionId: worldStory.regionId, regionName: worldStory.regionName,
-      storyId: worldStory.storyId, storyName: worldStory.storyName, storyStage: worldStory.storyStage,
+      storyId: worldStory.storyId, storyRunId: worldStory.storyRunId, storyName: worldStory.storyName, storyStage: worldStory.storyStage,
       storyStageCount: worldStory.storyStageCount, storyEventId: worldStory.storyEventId,
-      worldStory: true, isFollowUp: worldStory.isFollowUp, description: worldStory.description,
+      worldStory: true, isFollowUp: worldStory.isFollowUp, isInterlude: worldStory.isInterlude === true, description: worldStory.description,
       sixW: worldStory.sixW,
     };
     news.title = worldStory.title;

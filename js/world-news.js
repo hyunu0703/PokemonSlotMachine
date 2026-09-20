@@ -7,6 +7,7 @@ const MAX_ACTIVE_STORIES = 3;
 const RECENT_ARC_LIMIT = 8;
 const MIN_FOLLOWUP_TICKS = 2;
 const MAX_FOLLOWUP_TICKS = 5;
+const STORY_HISTORY_LIMIT = 160;
 
 let worldDatabase = worldDatabaseSource;
 
@@ -82,6 +83,7 @@ export function createWorldNewsState() {
     sequence: 0,
     activeStories: [],
     recentArcIds: [],
+    storyHistory: [],
   };
 }
 
@@ -95,7 +97,15 @@ export function migrateWorldNewsState(market) {
     state.activeStories = state.activeStories.filter(item => item && typeof item.arcId === 'string'
       && Number.isInteger(item.stageIndex) && item.stageIndex >= 0
       && Number.isFinite(item.nextDueTime));
+    for (const story of state.activeStories) {
+      if (typeof story.runId !== 'string' || !story.runId) story.runId = `${story.arcId}-${Number.isFinite(story.startedAt) ? story.startedAt : 0}`;
+    }
     state.recentArcIds = state.recentArcIds.filter(id => typeof id === 'string').slice(0, RECENT_ARC_LIMIT);
+    if (!Array.isArray(state.storyHistory)) state.storyHistory = [];
+    state.storyHistory = state.storyHistory.filter(item => item && typeof item.storyId === 'string'
+      && Number.isInteger(item.storyStage) && item.storyStage >= 1
+      && typeof item.title === 'string' && typeof item.description === 'string')
+      .slice(-STORY_HISTORY_LIMIT);
   }
   return market.worldNewsState;
 }
@@ -134,6 +144,7 @@ function startStory(state, time, random) {
   const region = regionForArc(selected.generation, selected.arc);
   const story = {
     arcId: selected.arc.id,
+    runId: `${selected.arc.id}-${time}`,
     generation: selected.generation.generation,
     regionId: region.id,
     stageIndex: 0,
@@ -259,7 +270,6 @@ function makeDescription(generation, arc, stage, event, region, previousTitle, s
     pieces.push(`${sentence(stage?.headlineSeed)} ${sentence(arc.summary)}`);
   }
 
-  pieces.push(`이번 보도는 ${generation.generation}세대 ${region.nameKo}의 '${arc.nameKo}' 스토리 ${stageIndex + 1}/${safeArray(arc.stages).length} 단계다.`);
   return pieces.filter(Boolean).join(' ').replace(/\.\s*\./g, '.');
 }
 
@@ -276,6 +286,7 @@ function makeInterlude(definition, story, records, random) {
     regionId: region.id,
     regionName: region.nameKo,
     storyId: arc.id,
+    storyRunId: story.runId,
     storyName: arc.nameKo,
     storyStage: completedStage,
     storyStageCount: safeArray(arc.stages).length,
@@ -289,6 +300,40 @@ function makeInterlude(definition, story, records, random) {
     description: `앞서 전해진 '${story.lastTitle}' 이후 ${region.nameKo}에서는 ${particle(arc.nameKo, '과', '와')} 관련된 확인 작업이 이어지고 있다. 아직 다음 단계로 이어질 새로운 핵심 변화는 확인되지 않았으며, 관계자들은 기존 상황을 계속 점검하고 있다.`,
     sixW: null,
   };
+}
+
+function recordStoryEpisode(state, story, result, time) {
+  if (!result || result.isInterlude) return;
+  const entry = {
+    storyRunId: story.runId,
+    storyId: result.storyId,
+    storyName: result.storyName,
+    generation: result.generation,
+    regionId: result.regionId,
+    regionName: result.regionName,
+    storyStage: result.storyStage,
+    storyStageCount: result.storyStageCount,
+    storyEventId: result.storyEventId,
+    nature: result.nature,
+    type: result.type,
+    directCardId: result.directCardId,
+    title: result.title,
+    description: result.description,
+    sixW: result.sixW ? {
+      who: safeArray(result.sixW.who),
+      when: result.sixW.when ?? '',
+      where: safeArray(result.sixW.where),
+      what: result.sixW.what ?? '',
+      why: result.sixW.why ?? '',
+      how: result.sixW.how ?? '',
+    } : null,
+    time,
+  };
+  const key = `${entry.storyRunId}:${entry.storyStage}`;
+  const existing = state.storyHistory.findIndex(item => `${item.storyRunId}:${item.storyStage}` === key);
+  if (existing >= 0) state.storyHistory[existing] = entry;
+  else state.storyHistory.push(entry);
+  if (state.storyHistory.length > STORY_HISTORY_LIMIT) state.storyHistory.splice(0, state.storyHistory.length - STORY_HISTORY_LIMIT);
 }
 
 function finalizeStoryState(state, story, arc, title, time, tickMs, random) {
@@ -339,6 +384,7 @@ export function generateWorldStoryNews(market, records, time, random = Math.rand
     regionId: region.id,
     regionName: region.nameKo,
     storyId: arc.id,
+    storyRunId: story.runId,
     storyName: arc.nameKo,
     storyStage: stageIndex + 1,
     storyStageCount: stages.length,
@@ -359,7 +405,81 @@ export function generateWorldStoryNews(market, records, time, random = Math.rand
     } : null,
   };
 
+  recordStoryEpisode(state, story, result, time);
   finalizeStoryState(state, story, arc, title, time, tickMs, random);
   return result;
+}
+
+export function getWorldStoryEpisodes(market, news) {
+  if (!news?.worldStory || typeof news.storyId !== 'string') return [];
+  const state = migrateWorldNewsState(market);
+  const currentRunId = news.storyRunId || state.activeStories.find(item => item.arcId === news.storyId)?.runId || null;
+  const merged = new Map();
+  const put = entry => {
+    const legacyInterlude = typeof entry?.description === 'string'
+      && entry.description.includes('아직 다음 단계로 이어질 새로운 핵심 변화는 확인되지 않았으며');
+    if (!entry || entry.isInterlude || legacyInterlude || !Number.isInteger(entry.storyStage) || entry.storyStage < 1) return;
+    if (entry.storyId !== news.storyId) return;
+    if (currentRunId && entry.storyRunId && entry.storyRunId !== currentRunId) return;
+    const key = entry.storyStage;
+    const previous = merged.get(key);
+    if (!previous || (Number.isFinite(entry.time) && (!Number.isFinite(previous.time) || entry.time >= previous.time))) merged.set(key, entry);
+  };
+
+  for (const entry of state.storyHistory) put(entry);
+  for (const entry of safeArray(market?.newsHistory)) put(entry);
+  put(news);
+
+  const generation = generationEntry(news.generation);
+  const arc = safeArray(generation?.storyArcs).find(item => item.id === news.storyId) ?? null;
+  const stageCount = Number.isInteger(news.storyStageCount) ? news.storyStageCount : safeArray(arc?.stages).length;
+  const visibleStage = Math.min(Number.isInteger(news.storyStage) ? news.storyStage : stageCount, stageCount || 0);
+  let previousTitle = '';
+
+  for (let stageNumber = 1; stageNumber <= visibleStage; stageNumber++) {
+    const existing = merged.get(stageNumber);
+    if (existing) {
+      previousTitle = existing.title;
+      continue;
+    }
+    const stage = arc?.stages?.[stageNumber - 1];
+    if (!stage || !generation) continue;
+    const event = eventForStage(generation, stage);
+    const region = regionForArc(generation, arc);
+    const title = stripPeriod(stage.headlineSeed || event?.nameKo || `${arc.nameKo} ${stageNumber}단계`);
+    const description = makeDescription(generation, arc, stage, event, region, previousTitle, stageNumber - 1);
+    const reconstructed = {
+      storyRunId: currentRunId,
+      storyId: news.storyId,
+      storyName: arc.nameKo,
+      generation: generation.generation,
+      regionId: region.id,
+      regionName: region.nameKo,
+      storyStage: stageNumber,
+      storyStageCount: stageCount,
+      storyEventId: event?.id ?? null,
+      nature: classifyNature(arc, stage, event, stageNumber - 1),
+      type: news.type,
+      directCardId: null,
+      title,
+      description,
+      sixW: event?.sixW ? {
+        who: safeArray(event.sixW.who),
+        when: event.sixW.when ?? '',
+        where: safeArray(event.sixW.where),
+        what: event.sixW.what ?? '',
+        why: event.sixW.why ?? '',
+        how: event.sixW.how ?? '',
+      } : null,
+      time: null,
+      reconstructed: true,
+    };
+    merged.set(stageNumber, reconstructed);
+    previousTitle = title;
+  }
+
+  return [...merged.values()]
+    .filter(entry => entry.storyStage <= visibleStage)
+    .sort((a, b) => a.storyStage - b.storyStage);
 }
 
