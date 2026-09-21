@@ -40,11 +40,11 @@ export const MARKET_CONFIG = Object.freeze({
   globalGrowth: .000003,
   technical: Object.freeze({
     // 일반: 저가·투기주. 같은 뉴스에도 반응 편차가 크고 드문 급등/급락 꼬리가 존재한다.
-    normal: Object.freeze({ growth: .000035, noise: .0045, pull: .42, duration: [22, 44], amplitude: [.07, .15], maxAmplitude: .28, eventMaxAmplitude: 1.25, eventMaxDownAmplitude: .52, maxStepUp: .085, maxStepDown: .075, eventStepUp: 3.8, eventStepDown: 3.5, regimeInfluence: .035, newsInfluence: .0025 }),
+    normal: Object.freeze({ growth: .00035, noise: .0045, pull: .42, duration: [22, 44], amplitude: [.07, .15], maxAmplitude: .28, eventMaxAmplitude: 1.25, eventMaxDownAmplitude: .52, maxStepUp: .085, maxStepDown: .075, eventStepUp: 3.8, eventStepDown: 3.5, regimeInfluence: .035, newsInfluence: .0025 }),
     // 전설: 중소·중견 성장주. 종목별 민감도는 다르지만 일반보다 극단 꼬리는 작다.
-    legendary: Object.freeze({ growth: .000025, noise: .0028, pull: .38, duration: [28, 56], amplitude: [.05, .11], maxAmplitude: .20, eventMaxAmplitude: .58, eventMaxDownAmplitude: .42, maxStepUp: .060, maxStepDown: .055, eventStepUp: 3.1, eventStepDown: 2.9, regimeInfluence: .030, newsInfluence: .0020 }),
+    legendary: Object.freeze({ growth: .00010, noise: .0028, pull: .38, duration: [28, 56], amplitude: [.05, .11], maxAmplitude: .20, eventMaxAmplitude: .58, eventMaxDownAmplitude: .42, maxStepUp: .060, maxStepDown: .055, eventStepUp: 3.1, eventStepDown: 2.9, regimeInfluence: .030, newsInfluence: .0020 }),
     // 환상: 대형주. 반응 분산과 극단 꼬리가 가장 작지만 강한 사건에서는 갭·급락이 가능하다.
-    mythical: Object.freeze({ growth: .000018, noise: .0016, pull: .34, duration: [36, 72], amplitude: [.032, .072], maxAmplitude: .12, eventMaxAmplitude: .26, eventMaxDownAmplitude: .26, maxStepUp: .038, maxStepDown: .035, eventStepUp: 2.4, eventStepDown: 2.3, regimeInfluence: .025, newsInfluence: .0015 }),
+    mythical: Object.freeze({ growth: .00005, noise: .0016, pull: .34, duration: [36, 72], amplitude: [.032, .072], maxAmplitude: .12, eventMaxAmplitude: .26, eventMaxDownAmplitude: .26, maxStepUp: .038, maxStepDown: .035, eventStepUp: 2.4, eventStepDown: 2.3, regimeInfluence: .025, newsInfluence: .0015 }),
   }),
   // average는 초기 가격, shockChance는 뉴스가 없는 상황의 드문 자발적 돌파 패턴 확률에 사용한다.
   // volatility/crash/surge는 기존 export 호환용이며 v35 marketTick의 일상 변동에는 직접 사용하지 않는다.
@@ -64,7 +64,7 @@ export const NEWS_CONFIG = Object.freeze({
   // 호재/악재는 비대칭 범위. 중립은 가격 방향을 건드리지 않는다.
   price: Object.freeze({
     positive: Object.freeze({
-      story: Object.freeze([-.01, .10]),
+      story: Object.freeze([-.01, .20]),
       opposed: Object.freeze([-.04, .005]),
       card: Object.freeze([-.01, .09]),
     }),
