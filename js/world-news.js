@@ -282,46 +282,49 @@ function findMention(generation, text, groups) {
   return '';
 }
 
-function makeTitle(generation, arc, stage, event, nature, isFollowUp, random) {
-  const seed = stripPeriod(stage?.headlineSeed || event?.nameKo || arc?.nameKo || '포켓몬 세계 소식');
-  const stageText = [seed, event?.nameKo, ...(event?.sixW?.who ?? []), ...(event?.sixW?.where ?? [])].filter(Boolean).join(' ');
-  const where = event?.sixW?.where?.[0] || findMention(generation, stageText, ['places']) || '';
-  const who = event?.sixW?.who?.[0] || findMention(generation, stageText, ['characters', 'organizations', 'institutions', 'companies']) || '';
-  const lead = where && !seed.includes(where) ? `${where}, ` : '';
-  const subject = who && !seed.includes(who) ? `${who} 관련 ` : '';
-  const endings = isFollowUp
-    ? ['후속 상황 확인', '추가 정황 포착', '관련 조사 이어져', '현지 후속 대응 진행']
-    : nature === 'negative'
-      ? ['현장 대응 착수', '지역 경계 강화', '긴급 조사 진행', '상황 파악 나서']
-      : nature === 'positive'
-        ? ['진전 확인', '후속 조치 진행', '긍정적 변화 포착', '관련 조사 성과']
-        : ['현지 조사 착수', '추가 정보 수집', '관계기관 확인 나서', '상황 관찰 시작'];
-  return `${lead}${subject}${seed}…${choose(endings, random)}`;
+function makeTitle(generation, arc, stage, event) {
+  const seed = stripPeriod(stage?.headlineSeed || event?.nameKo || arc?.nameKo || '포켓몬 세계 소식')
+    .replace(/^후속:\s*/, '')
+    .replace(/^후일담:\s*/, '');
+  const stageText = [seed, event?.nameKo, ...(event?.sixW?.who ?? [])].filter(Boolean).join(' ');
+  const who = event?.sixW?.who?.[0]
+    || findMention(generation, stageText, ['characters', 'organizations', 'institutions', 'companies'])
+    || '';
+  return who && !seed.includes(who) ? `${who}, ${seed}` : seed;
+}
+
+function reasonSentence(text) {
+  const value = stripPeriod(text);
+  if (!value) return '';
+  if (value.endsWith('위해서')) return `이는 ${value}다.`;
+  if (value.endsWith('때문이다')) return `${value}.`;
+  if (value.endsWith('때문에')) return `${value.slice(0, -1)}이다.`;
+  if (value.endsWith('때문')) return `${value}이다.`;
+  return sentence(value);
 }
 
 function makeDescription(generation, arc, stage, event, region, previousTitle, stageIndex) {
   const sixW = event?.sixW ?? {};
   const who = safeArray(sixW.who).join('·');
   const where = safeArray(sixW.where).join('·') || region.nameKo;
+
+  if (!event) {
+    const seed = stripPeriod(stage?.headlineSeed || arc?.nameKo || '새로운 소식');
+    return `${region.nameKo}에서 ${arc.nameKo} 관련 소식이 전해졌다. 현재 확인된 핵심 내용은 '${seed}'이다.`;
+  }
+
   const pieces = [];
+  if (who) pieces.push(`${where}에서 ${particle(who, '이', '가')} 관련된 상황이 확인됐다.`);
+  else pieces.push(`${where}에서 새로운 상황이 확인됐다.`);
 
-  if (previousTitle) {
-    pieces.push(`앞서 전해진 '${previousTitle}' 소식에 이어 ${particle(arc.nameKo, '과', '와')} 관련된 후속 상황이 확인됐다.`);
-  } else {
-    pieces.push(`${region.nameKo}에서 ${particle(arc.nameKo, '과', '와')} 관련된 새로운 움직임이 포착됐다.`);
-  }
+  if (sixW.what) pieces.push(sentence(sixW.what));
 
-  if (event) {
-    const actor = who ? `${particle(who, '이', '가')} 관여한 것으로 확인됐으며, ` : '';
-    pieces.push(`${where}에서 ${actor}${sentence(sixW.what)}`.replace(/\s+\./g, '.'));
-    if (sixW.how) pieces.push(`현장에서는 ${sentence(sixW.how)}`);
-    if (sixW.why) pieces.push(`사건의 배경에 대해서는 '${stripPeriod(sixW.why)}'라는 설명이 전해졌다.`);
-    if (event.outcome && stageIndex >= safeArray(arc.stages).length - 1) pieces.push(`현재까지 확인된 결과는 ${sentence(event.outcome)}`);
-  } else {
-    pieces.push(`${sentence(stage?.headlineSeed)} ${sentence(arc.summary)}`);
-  }
+  const finalStage = stageIndex >= safeArray(arc.stages).length - 1;
+  if (finalStage && event.outcome) pieces.push(`결과적으로 ${sentence(event.outcome)}`);
+  else if (sixW.why) pieces.push(reasonSentence(sixW.why));
+  else if (sixW.how) pieces.push(`현장에서는 ${sentence(sixW.how)}`);
 
-  return pieces.filter(Boolean).join(' ').replace(/\.\s*\./g, '.');
+  return pieces.filter(Boolean).slice(0, 3).join(' ').replace(/\.\s*\./g, '.');
 }
 
 function makeInterlude(definition, story, records, random, typeSelector = null) {
@@ -335,7 +338,6 @@ function makeInterlude(definition, story, records, random, typeSelector = null) 
   const preferredType = story.lastType && candidateTypes.includes(story.lastType)
     ? story.lastType : inferType(records, generation, text, card, random, candidateTypes);
   const type = typeof typeSelector === 'function' ? typeSelector(preferredType, candidateTypes) : preferredType;
-  const endings = ['현지 확인 계속', '후속 조사 진행 중', '추가 발표 대기', '관련 기관 상황 점검'];
   return {
     worldStory: true,
     generation: generation.generation,
@@ -357,8 +359,8 @@ function makeInterlude(definition, story, records, random, typeSelector = null) 
     residentPokemonDexIds: scope.residentPokemonDexIds,
     cooldownTicks: storyCooldownTicks(arc),
     cooldownClass: storyCooldownClass(storyCooldownTicks(arc)),
-    title: `${arc.nameKo} 후속 브리핑…${choose(endings, random)}`,
-    description: `앞서 전해진 '${story.lastTitle}' 이후 ${region.nameKo}에서는 ${particle(arc.nameKo, '과', '와')} 관련된 확인 작업이 이어지고 있다. 아직 다음 단계로 이어질 새로운 핵심 변화는 확인되지 않았으며, 관계자들은 기존 상황을 계속 점검하고 있다.`,
+    title: `${arc.nameKo} 후속 브리핑`,
+    description: `${region.nameKo}에서 ${arc.nameKo} 관련 확인이 이어지고 있다. 아직 새로운 핵심 변화는 확인되지 않았다.`,
     sixW: null,
   };
 }
