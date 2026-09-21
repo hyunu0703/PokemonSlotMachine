@@ -446,10 +446,10 @@ export class MarketView {
       const change = changePercent(card, ticks); changes.append(node('span', `${label} ${percent(change)}`, directionClass(change)));
     }
     const periods = node('div', '', 'tabs market-periods');
-    for (const period of ['1H', '6H', '24H', 'ALL']) {
-      const button = node('button', period); button.dataset.period = period; button.setAttribute('aria-pressed', String(period === this.period)); periods.append(button);
+    for (const [period, label] of [['1H', '1H'], ['6H', '6H'], ['24H', '24H'], ['7D', '7D'], ['ALL', 'ALL']]) {
+      const button = node('button', label); button.dataset.period = period; button.setAttribute('aria-pressed', String(period === this.period)); periods.append(button);
     }
-    const { values: history, start, end } = priceHistory(card, this.save.market.lastMarketUpdate, this.period);
+    const { values: history, times: historyTimes, start, end } = priceHistory(card, this.save.market.lastMarketUpdate, this.period);
     const average = this.save.averageAcquisitionPrice?.[p.id];
     const hasAverage = Number.isFinite(average) && average > 0;
     const low = Math.min(...history), high = Math.max(...history);
@@ -458,7 +458,12 @@ export class MarketView {
     if (hasAverage) scaleCandidates.push(average);
     const scaleLow = Math.min(...scaleCandidates), scaleHigh = Math.max(...scaleCandidates);
     const spread = scaleHigh - scaleLow || Math.max(scaleHigh * .05, 1);
-    const xAt = index => 20 + index / Math.max(1, history.length - 1) * 560;
+    const xAt = index => {
+      const time = historyTimes?.[index];
+      return Number.isFinite(time) && end > start
+        ? 20 + (time - start) / (end - start) * 560
+        : 20 + index / Math.max(1, history.length - 1) * 560;
+    };
     const yAt = value => 165 - (value - scaleLow) / spread * 140;
     const chart = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     chart.setAttribute('viewBox', '0 0 600 190'); chart.setAttribute('role', 'img');
@@ -510,7 +515,12 @@ export class MarketView {
     const patternNote = levels
       ? node('p', `현재 패턴: ${levels.pattern} · 진행 ${Math.round(levels.progress * 100)}%`, 'muted')
       : null;
-    const chartNote = node('p', `ALL은 최근 7일의 시간별 기록입니다. ${dateLabel(start)} ~ ${dateLabel(end)}`, 'muted');
+    const chartNoteText = this.period === 'ALL'
+      ? `ALL은 최대 30일 기록입니다. 최근 7일은 1시간 단위, 그 이전은 6시간 단위로 압축 저장합니다. ${dateLabel(start)} ~ ${dateLabel(end)}`
+      : this.period === '7D'
+        ? `7일은 최근 7일의 시간별 기록입니다. ${dateLabel(start)} ~ ${dateLabel(end)}`
+        : `${dateLabel(start)} ~ ${dateLabel(end)}`;
+    const chartNote = node('p', chartNoteText, 'muted');
     const gain = Number.isFinite(average) && average > 0 ? (card.currentPrice - average) / average * 100 : null;
     const sellRow = node('div', '', 'market-sell-row');
     const stat = (label, value, className = '') => {

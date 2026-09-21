@@ -4,7 +4,7 @@ import storyAreaDatabase from '../data/world/story-area-residents.json' with { t
 
 // Pure simulation/economy functions. All time and randomness can be supplied by tests.
 export const MARKET_CONFIG = Object.freeze({
-  tickMs: 600000, historyLimit: 144, hourlyHistoryLimit: 168, initialTC: 500000,
+  tickMs: 600000, historyLimit: 144, hourlyHistoryLimit: 168, longHistoryLimit: 120, initialTC: 500000,
   stateMin: 6, stateMax: 30, newsLimit: 5,
   // v34 이전 저장 데이터와 외부 호환을 위한 legacy recovery 설정.
   // v35의 실제 가격 방향은 technical 패턴 엔진이 결정하며, recovery는 recoveryBasePrice 보존에만 남겨둔다.
@@ -40,7 +40,7 @@ export const MARKET_CONFIG = Object.freeze({
   globalGrowth: .000003,
   technical: Object.freeze({
     // 일반: 저가·투기주. 같은 뉴스에도 반응 편차가 크고 드문 급등/급락 꼬리가 존재한다.
-    normal: Object.freeze({ growth: .00035, noise: .0045, pull: .42, duration: [22, 44], amplitude: [.07, .15], maxAmplitude: .28, eventMaxAmplitude: 1.25, eventMaxDownAmplitude: .52, maxStepUp: .085, maxStepDown: .075, eventStepUp: 3.8, eventStepDown: 3.5, regimeInfluence: .035, newsInfluence: .0025 }),
+    normal: Object.freeze({ growth: .00015, noise: .0045, pull: .42, duration: [22, 44], amplitude: [.07, .15], maxAmplitude: .28, eventMaxAmplitude: 1.25, eventMaxDownAmplitude: .52, maxStepUp: .085, maxStepDown: .075, eventStepUp: 3.8, eventStepDown: 3.5, regimeInfluence: .035, newsInfluence: .0025 }),
     // 전설: 중소·중견 성장주. 종목별 민감도는 다르지만 일반보다 극단 꼬리는 작다.
     legendary: Object.freeze({ growth: .00010, noise: .0028, pull: .38, duration: [28, 56], amplitude: [.05, .11], maxAmplitude: .20, eventMaxAmplitude: .58, eventMaxDownAmplitude: .42, maxStepUp: .060, maxStepDown: .055, eventStepUp: 3.1, eventStepDown: 2.9, regimeInfluence: .030, newsInfluence: .0020 }),
     // 환상: 대형주. 반응 분산과 극단 꼬리가 가장 작지만 강한 사건에서는 갭·급락이 가능하다.
@@ -469,6 +469,7 @@ function updateTechnicalFairPrice(card, marketBias, newsCenter) {
 }
 
 const hourMs = MARKET_CONFIG.tickMs * 6;
+const longHistoryMs = hourMs * 6; // 6시간 간격, 최대 30일(120개)
 const buffer = () => ({ values: [], head: 0, count: 0 });
 const tradeBuffer = () => ({ volumes: [], volumeTotal: 0, amountTotal: 0 });
 function appendTrade(trade, index, volume, quote, oldQuote) {
@@ -500,7 +501,7 @@ export function migrateMarket(market) {
     if (!Array.isArray(c?.priceHistory) || !c.priceHistory.length
       || !c.priceHistory.every(n => Number.isFinite(n) && n >= 1 && n <= 1e12)) continue;
     const old = c.priceHistory;
-    c.priceHistory = buffer(); c.hourlyHistory = buffer();
+    c.priceHistory = buffer(); c.hourlyHistory = buffer(); c.longHistory = buffer();
     c.highestPrice = c.lowestPrice = c.averagePrice = old[0]; c.sampleCount = 0;
     for (let i = 0; i < old.length; i++) {
       const value = old[i], time = market.lastMarketUpdate - (old.length - 1 - i) * MARKET_CONFIG.tickMs;
@@ -508,20 +509,84 @@ export function migrateMarket(market) {
       if (i < old.length - 1 && i >= old.length - 1 - MARKET_CONFIG.historyLimit) append(c.priceHistory, value, MARKET_CONFIG.historyLimit);
       if (time > market.lastMarketUpdate - 7 * 24 * hourMs
         && Math.floor(time / hourMs) > Math.floor((time - MARKET_CONFIG.tickMs) / hourMs)) append(c.hourlyHistory, value, MARKET_CONFIG.hourlyHistoryLimit);
+      if (time > market.lastMarketUpdate - 30 * 24 * hourMs
+        && Math.floor(time / longHistoryMs) > Math.floor((time - MARKET_CONFIG.tickMs) / longHistoryMs)) append(c.longHistory, value, MARKET_CONFIG.longHistoryLimit);
     }
   }
   return market;
 }
 
-export function priceHistory(card, lastUpdate, period = '24H') {
-  const hourly = period === 'ALL', history = hourly ? card.hourlyHistory : card.priceHistory;
-  const count = hourly ? history.count : Math.min(history.count, { '1H': 6, '6H': 36, '24H': 144 }[period] ?? 144);
-  const values = Array.from({ length: count }, (_, i) => previous(history, count - i));
-  const step = hourly ? hourMs : MARKET_CONFIG.tickMs;
+function historyBufferShapeOK(history, limit) {
+  return history && Array.isArray(history.values) && Number.isInteger(history.count)
+    && history.count >= 0 && history.count <= limit && history.values.length === history.count
+    && Number.isInteger(history.head) && history.head >= 0 && history.head < limit
+    && (history.count === limit || history.head === history.count);
+}
+
+function orderedHistoryValues(history) {
+  return Array.from({ length: history?.count ?? 0 }, (_, i) => previous(history, history.count - i));
+}
+
+function alignedHistoryEnd(lastUpdate, step) {
   const phase = lastUpdate % MARKET_CONFIG.tickMs;
-  const end = hourly && count ? Math.floor((lastUpdate - phase) / hourMs) * hourMs + phase : lastUpdate;
-  if (!hourly || !count) values.push(card.currentPrice);
-  return { values, start: end - (values.length - 1) * step, end };
+  return Math.floor((lastUpdate - phase) / step) * step + phase;
+}
+
+function timedHistory(history, step, end) {
+  const values = orderedHistoryValues(history);
+  const times = values.map((_, i) => end - (values.length - 1 - i) * step);
+  return { values, times };
+}
+
+function seedLongHistoryFromHourly(card, lastUpdate) {
+  card.longHistory = buffer();
+  if (!Number.isFinite(lastUpdate) || !historyBufferShapeOK(card.hourlyHistory, MARKET_CONFIG.hourlyHistoryLimit) || !card.hourlyHistory.count) return;
+  const hourlyEnd = alignedHistoryEnd(lastUpdate, hourMs);
+  const hourly = timedHistory(card.hourlyHistory, hourMs, hourlyEnd);
+  for (let i = 0; i < hourly.values.length; i++) {
+    const time = hourly.times[i];
+    if (Math.floor(time / longHistoryMs) > Math.floor((time - hourMs) / longHistoryMs)) {
+      append(card.longHistory, hourly.values[i], MARKET_CONFIG.longHistoryLimit);
+    }
+  }
+}
+
+function ensureLongHistory(card, lastUpdate) {
+  if (historyBufferShapeOK(card.longHistory, MARKET_CONFIG.longHistoryLimit)) return;
+  seedLongHistoryFromHourly(card, lastUpdate);
+}
+
+export function priceHistory(card, lastUpdate, period = '24H') {
+  if (period === '7D') {
+    const end = alignedHistoryEnd(lastUpdate, hourMs);
+    const history = timedHistory(card.hourlyHistory, hourMs, end);
+    if (!history.values.length) return { values: [card.currentPrice], times: [lastUpdate], start: lastUpdate, end: lastUpdate };
+    return { values: history.values, times: history.times, start: history.times[0], end: history.times.at(-1) };
+  }
+
+  if (period === 'ALL') {
+    const hourly = timedHistory(card.hourlyHistory, hourMs, alignedHistoryEnd(lastUpdate, hourMs));
+    const long = timedHistory(card.longHistory, longHistoryMs, alignedHistoryEnd(lastUpdate, longHistoryMs));
+    const hourlyStart = hourly.times[0] ?? Infinity;
+    const values = [], times = [];
+
+    // 최근 7일은 1시간 데이터가 더 정밀하므로, 6시간 데이터와 겹치는 구간은 제외한다.
+    for (let i = 0; i < long.values.length; i++) {
+      if (long.times[i] >= hourlyStart) continue;
+      values.push(long.values[i]); times.push(long.times[i]);
+    }
+    values.push(...hourly.values); times.push(...hourly.times);
+
+    if (!values.length) return { values: [card.currentPrice], times: [lastUpdate], start: lastUpdate, end: lastUpdate };
+    return { values, times, start: times[0], end: times.at(-1) };
+  }
+
+  const count = Math.min(card.priceHistory.count, { '1H': 6, '6H': 36, '24H': 144 }[period] ?? 144);
+  const values = Array.from({ length: count }, (_, i) => previous(card.priceHistory, count - i));
+  values.push(card.currentPrice);
+  const start = lastUpdate - (values.length - 1) * MARKET_CONFIG.tickMs;
+  const times = values.map((_, i) => start + i * MARKET_CONFIG.tickMs);
+  return { values, times, start, end: lastUpdate };
 }
 
 const emptyNewsStory = () => ({ type: null, previousType: null, nature: null, opposedType: null, pokemonId: null, streak: 0 });
@@ -536,7 +601,7 @@ export function createMarket(records, now = Date.now(), random = Math.random) {
       const startingPrice = price(config.average * weight(p.id) / mean);
       const card = { cardId: p.id, rarity: grade, startingPrice, fairPrice: startingPrice,
         recoveryBasePrice: startingPrice, currentPrice: startingPrice, volatility: config.volatility, trend: 0,
-        trendStrength: 0, trendRemaining: 0, momentum: 0, trade24h: tradeBuffer(), priceHistory: buffer(), hourlyHistory: buffer(),
+        trendStrength: 0, trendRemaining: 0, momentum: 0, trade24h: tradeBuffer(), priceHistory: buffer(), hourlyHistory: buffer(), longHistory: buffer(),
         highestPrice: startingPrice, lowestPrice: startingPrice, averagePrice: startingPrice, sampleCount: 1 };
       startTechnicalPattern(card, TECH_PATTERN.RANGE, random, 0, false);
       cards[p.id] = card;
@@ -609,6 +674,7 @@ export function validMarket(market, records) {
         && Number.isInteger(c.trendRemaining) && c.trendRemaining >= 0 && c.trendRemaining <= 18
         && Number.isFinite(c.momentum) && Math.abs(c.momentum) <= .08
         && bufferOK(c.priceHistory, MARKET_CONFIG.historyLimit) && bufferOK(c.hourlyHistory, MARKET_CONFIG.hourlyHistoryLimit)
+        && bufferOK(c.longHistory, MARKET_CONFIG.longHistoryLimit)
         && Array.isArray(c.trade24h?.volumes) && c.trade24h.volumes.length === market.trade24h.count
         && c.trade24h.volumes.every(n => Number.isSafeInteger(n) && n >= 1 && n <= NEWS_CONFIG.maxTradeVolume)
         && Number.isInteger(c.trade24h.volumeTotal) && c.trade24h.volumeTotal === c.trade24h.volumes.reduce((sum, n) => sum + n, 0)
@@ -704,6 +770,7 @@ export function migrateNewsSystem(market) {
   // 과거 시장이 이미 성장한 경우 fairPrice를 참고하되 startingPrice보다 낮아지지는 않는다.
   for (const c of Object.values(market.cards)) {
     if (!c || typeof c !== 'object') continue;
+    ensureLongHistory(c, market.lastMarketUpdate);
     if (!Number.isFinite(c.recoveryBasePrice) || c.recoveryBasePrice < 1) {
       const starting = Number.isFinite(c.startingPrice) && c.startingPrice > 0 ? c.startingPrice : 1;
       const fair = Number.isFinite(c.fairPrice) && c.fairPrice > 0 ? c.fairPrice : starting;
@@ -1173,6 +1240,7 @@ export function marketTick(market, records, random = Math.random, recordTrades =
     c.tech[1] = Math.min(120, c.tech[1] + 1);
 
     if (Math.floor(time / hourMs) > Math.floor(market.lastMarketUpdate / hourMs)) append(c.hourlyHistory, next, MARKET_CONFIG.hourlyHistoryLimit);
+    if (Math.floor(time / longHistoryMs) > Math.floor(market.lastMarketUpdate / longHistoryMs)) append(c.longHistory, next, MARKET_CONFIG.longHistoryLimit);
     updateStats(c, next);
 
     if (recordTrades) {
