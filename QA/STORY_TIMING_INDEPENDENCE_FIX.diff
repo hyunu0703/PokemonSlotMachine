@@ -1,0 +1,149 @@
+--- /mnt/data/news_branching_timing/world-news.before.js	2026-09-21 01:30:10.656679485 +0000
++++ /mnt/data/news_branching_timing/package/js/world-news.js	2026-09-21 01:32:06.538561332 +0000
+@@ -6,10 +6,15 @@
+ 
+ const MAX_ACTIVE_STORIES = 3;
+ const RECENT_ARC_LIMIT = 8;
+-const MIN_FOLLOWUP_TICKS = 2;
+ const MAX_FOLLOWUP_TICKS = 5;
++const FOLLOWUP_TICK_WEIGHTS = Object.freeze([
++  Object.freeze({ ticks: 2, weight: .45 }),
++  Object.freeze({ ticks: 3, weight: .35 }),
++  Object.freeze({ ticks: 4, weight: .15 }),
++  Object.freeze({ ticks: 5, weight: .05 }),
++]);
+ const STORY_HISTORY_LIMIT = 160;
+-const STORY_STATE_VERSION = 2;
++const STORY_STATE_VERSION = 3;
+ const RECENT_ROUTE_LIMIT = 18;
+ const ROUTE_NATURES = Object.freeze(['positive', 'neutral', 'negative']);
+ 
+@@ -76,8 +81,36 @@
+ const POSITIVE_TAGS = new Set(['festival', 'competition', 'sports', 'tourism', 'culture', 'education']);
+ 
+ const safeArray = value => Array.isArray(value) ? value : [];
+-const integer = (low, high, random) => low + Math.floor(random() * (high - low + 1));
+ const choose = (items, random) => items.length ? items[Math.min(items.length - 1, Math.floor(random() * items.length))] : null;
++const hashSeed = (...parts) => {
++  const text = parts.join('|');
++  let h = 2166136261;
++  for (let i = 0; i < text.length; i++) h = Math.imul(h ^ text.charCodeAt(i), 16777619);
++  h ^= h >>> 16;
++  h = Math.imul(h, 0x7feb352d);
++  h ^= h >>> 15;
++  h = Math.imul(h, 0x846ca68b);
++  h ^= h >>> 16;
++  return (h >>> 0) || 0x9e3779b9;
++};
++const createIndependentRandom = (...parts) => {
++  let x = hashSeed(...parts);
++  return () => {
++    x ^= x << 13;
++    x ^= x >>> 17;
++    x ^= x << 5;
++    return (x >>> 0) / 4294967296;
++  };
++};
++const followupDelayTicks = (story, nextStageIndex) => {
++  const random = createIndependentRandom('story-followup-timing', story?.runId ?? story?.arcId ?? 'story', nextStageIndex);
++  let roll = random();
++  for (const item of FOLLOWUP_TICK_WEIGHTS) {
++    roll -= item.weight;
++    if (roll <= 0) return item.ticks;
++  }
++  return MAX_FOLLOWUP_TICKS;
++};
+ const sentence = text => {
+   const value = String(text ?? '').trim();
+   if (!value) return '';
+@@ -119,7 +152,7 @@
+ export function migrateWorldNewsState(market) {
+   if (!market || typeof market !== 'object') return null;
+   const state = market.worldNewsState;
+-  const compatible = state && (state.version === 1 || state.version === STORY_STATE_VERSION)
++  const compatible = state && ([1, 2, STORY_STATE_VERSION].includes(state.version))
+     && Array.isArray(state.activeStories) && Array.isArray(state.recentArcIds);
+   if (!compatible) {
+     market.worldNewsState = createWorldNewsState();
+@@ -249,7 +282,8 @@
+   return entries[entries.length - 1][0];
+ }
+ 
+-function rollRouteNature(state, arcId, phase, previousNature, random, story = null) {
++function rollRouteNature(state, arcId, phase, previousNature, story = null) {
++  const random = createIndependentRandom('story-route', story?.runId ?? arcId, phase);
+   const latest = safeArray(state.recentRoutes)[0] ?? null;
+   const latestNature = routeNature(latest, phase);
+   const baseKey = phase === 'opening' ? (latestNature ?? 'none') : (previousNature ?? 'neutral');
+@@ -278,16 +312,16 @@
+   return weightedNature(weights, random);
+ }
+ 
+-function ensureStoryRoute(state, story, arc, stageIndex, random) {
++function ensureStoryRoute(state, story, arc, stageIndex) {
+   const phase = storyPhase(stageIndex, safeArray(arc.stages).length);
+   if (!ROUTE_NATURES.includes(story.seedNature)) {
+-    story.seedNature = rollRouteNature(state, arc.id, 'opening', null, random, story);
++    story.seedNature = rollRouteNature(state, arc.id, 'opening', null, story);
+   }
+   if (phase !== 'opening' && !ROUTE_NATURES.includes(story.branchNature)) {
+-    story.branchNature = rollRouteNature(state, arc.id, 'branch', story.seedNature, random, story);
++    story.branchNature = rollRouteNature(state, arc.id, 'branch', story.seedNature, story);
+   }
+   if (phase === 'outcome' && !ROUTE_NATURES.includes(story.outcomeNature)) {
+-    story.outcomeNature = rollRouteNature(state, arc.id, 'outcome', story.branchNature ?? story.seedNature, random, story);
++    story.outcomeNature = rollRouteNature(state, arc.id, 'outcome', story.branchNature ?? story.seedNature, story);
+   }
+   const nature = phase === 'opening'
+     ? story.seedNature
+@@ -594,7 +628,7 @@
+   if (state.storyHistory.length > STORY_HISTORY_LIMIT) state.storyHistory.splice(0, state.storyHistory.length - STORY_HISTORY_LIMIT);
+ }
+ 
+-function finalizeStoryState(state, story, arc, title, time, tickMs, random) {
++function finalizeStoryState(state, story, arc, title, time, tickMs) {
+   const nextIndex = story.stageIndex + 1;
+   story.lastTime = time;
+   story.lastTitle = title;
+@@ -606,12 +640,22 @@
+     return;
+   }
+   story.stageIndex = nextIndex;
+-  story.nextDueTime = time + integer(MIN_FOLLOWUP_TICKS, MAX_FOLLOWUP_TICKS, random) * tickMs;
++  const delayTicks = followupDelayTicks(story, nextIndex);
++  story.nextDueTime = time + delayTicks * tickMs;
++}
++
++function capLegacyPendingDelays(state, time, tickMs) {
++  const maxLegacyWait = 4 * tickMs;
++  for (const story of safeArray(state?.activeStories)) {
++    if (!story?.lastTime || !Number.isFinite(story.nextDueTime)) continue;
++    if (story.nextDueTime - time > maxLegacyWait) story.nextDueTime = time + maxLegacyWait;
++  }
+ }
+ 
+ export function generateWorldStoryNews(market, records, time, random = Math.random, tickMs = 600000, typeSelector = null) {
+   if (!worldDatabase || !Array.isArray(records) || !records.length) return null;
+   const state = migrateWorldNewsState(market);
++  capLegacyPendingDelays(state, time, tickMs);
+   const story = chooseStory(state, time, random);
+   if (!story) return null;
+   const definition = storyDefinition(story);
+@@ -635,7 +679,7 @@
+   const candidateTypes = scopeCandidateTypes(records, generation, scope, card);
+   const preferredType = inferType(records, generation, text, card, random, candidateTypes);
+   const type = typeof typeSelector === 'function' ? typeSelector(preferredType, candidateTypes) : preferredType;
+-  const route = ensureStoryRoute(state, story, arc, stageIndex, random);
++  const route = ensureStoryRoute(state, story, arc, stageIndex);
+   const nature = route.nature;
+   const isFollowUp = !!story.lastTime;
+   const title = makeTitle(generation, arc, stage, event, nature, route.phase);
+@@ -682,7 +726,7 @@
+ 
+   story.lastType = type;
+   recordStoryEpisode(state, story, result, time);
+-  finalizeStoryState(state, story, arc, title, time, tickMs, random);
++  finalizeStoryState(state, story, arc, title, time, tickMs);
+   return result;
+ }
+ 

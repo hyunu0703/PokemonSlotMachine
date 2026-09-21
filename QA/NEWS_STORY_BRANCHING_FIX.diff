@@ -1,0 +1,420 @@
+diff --git a/mnt/data/news_branching/world-news.original.js b/mnt/data/news_branching/world-news.js
+index c1db7e6..f4f1901 100644
+--- a/mnt/data/news_branching/world-news.original.js
++++ b/mnt/data/news_branching/world-news.js
+@@ -9,6 +9,31 @@ const RECENT_ARC_LIMIT = 8;
+ const MIN_FOLLOWUP_TICKS = 2;
+ const MAX_FOLLOWUP_TICKS = 5;
+ const STORY_HISTORY_LIMIT = 160;
++const STORY_STATE_VERSION = 2;
++const RECENT_ROUTE_LIMIT = 18;
++const ROUTE_NATURES = Object.freeze(['positive', 'neutral', 'negative']);
++
++// 스토리 분기는 각 Stage를 독립 랜덤으로 돌리지 않는다.
++// 한 번의 스토리 실행에서 초반(seed) -> 중간(branch) -> 결과(outcome) 3번만 결정해
++// 가능한 조합을 최대 27개로 제한하면서도 반복 실행 때 다른 흐름이 나오도록 한다.
++const ROUTE_WEIGHTS = Object.freeze({
++  opening: Object.freeze({
++    none: Object.freeze({ positive: .38, neutral: .34, negative: .28 }),
++    positive: Object.freeze({ positive: .19, neutral: .46, negative: .35 }),
++    neutral: Object.freeze({ positive: .43, neutral: .22, negative: .35 }),
++    negative: Object.freeze({ positive: .49, neutral: .36, negative: .15 }),
++  }),
++  branch: Object.freeze({
++    positive: Object.freeze({ positive: .52, neutral: .30, negative: .18 }),
++    neutral: Object.freeze({ positive: .34, neutral: .38, negative: .28 }),
++    negative: Object.freeze({ positive: .22, neutral: .33, negative: .45 }),
++  }),
++  outcome: Object.freeze({
++    positive: Object.freeze({ positive: .50, neutral: .31, negative: .19 }),
++    neutral: Object.freeze({ positive: .38, neutral: .37, negative: .25 }),
++    negative: Object.freeze({ positive: .28, neutral: .33, negative: .39 }),
++  }),
++});
+ const DEFAULT_STORY_COOLDOWN_TICKS = Number(storyAreaDatabase?.policy?.ordinaryCooldownTicks) || 60;
+ 
+ let worldDatabase = worldDatabaseSource;
+@@ -81,10 +106,11 @@ export function worldNewsReady() {
+ 
+ export function createWorldNewsState() {
+   return {
+-    version: 1,
++    version: STORY_STATE_VERSION,
+     sequence: 0,
+     activeStories: [],
+     recentArcIds: [],
++    recentRoutes: [],
+     storyCooldowns: {},
+     storyHistory: [],
+   };
+@@ -93,9 +119,12 @@ export function createWorldNewsState() {
+ export function migrateWorldNewsState(market) {
+   if (!market || typeof market !== 'object') return null;
+   const state = market.worldNewsState;
+-  if (!state || state.version !== 1 || !Array.isArray(state.activeStories) || !Array.isArray(state.recentArcIds)) {
++  const compatible = state && (state.version === 1 || state.version === STORY_STATE_VERSION)
++    && Array.isArray(state.activeStories) && Array.isArray(state.recentArcIds);
++  if (!compatible) {
+     market.worldNewsState = createWorldNewsState();
+   } else {
++    state.version = STORY_STATE_VERSION;
+     state.sequence = Number.isSafeInteger(state.sequence) && state.sequence >= 0 ? state.sequence : 0;
+     state.activeStories = state.activeStories.filter(item => item && typeof item.arcId === 'string'
+       && Number.isInteger(item.stageIndex) && item.stageIndex >= 0
+@@ -103,8 +132,18 @@ export function migrateWorldNewsState(market) {
+     for (const story of state.activeStories) {
+       if (typeof story.runId !== 'string' || !story.runId) story.runId = `${story.arcId}-${Number.isFinite(story.startedAt) ? story.startedAt : 0}`;
+       if (typeof story.lastType !== 'string' || !TYPE_KEYS.includes(story.lastType)) story.lastType = null;
++      if (!ROUTE_NATURES.includes(story.seedNature)) story.seedNature = null;
++      if (!ROUTE_NATURES.includes(story.branchNature)) story.branchNature = null;
++      if (!ROUTE_NATURES.includes(story.outcomeNature)) story.outcomeNature = null;
++      if (!ROUTE_NATURES.includes(story.lastNature)) story.lastNature = null;
+     }
+     state.recentArcIds = state.recentArcIds.filter(id => typeof id === 'string').slice(0, RECENT_ARC_LIMIT);
++    if (!Array.isArray(state.recentRoutes)) state.recentRoutes = [];
++    state.recentRoutes = state.recentRoutes.filter(route => route && typeof route.arcId === 'string'
++      && ROUTE_NATURES.includes(route.seedNature)
++      && ROUTE_NATURES.includes(route.branchNature)
++      && ROUTE_NATURES.includes(route.outcomeNature))
++      .slice(0, RECENT_ROUTE_LIMIT);
+     if (!state.storyCooldowns || typeof state.storyCooldowns !== 'object' || Array.isArray(state.storyCooldowns)) state.storyCooldowns = {};
+     state.storyCooldowns = Object.fromEntries(Object.entries(state.storyCooldowns)
+       .filter(([id, until]) => typeof id === 'string' && Number.isFinite(until) && until >= 0));
+@@ -176,6 +215,108 @@ function scopeCandidateTypes(records, generation, scope, card = null) {
+   return values.length ? values : [...TYPE_KEYS];
+ }
+ 
++function storyPhase(stageIndex, stageCount) {
++  const stageNumber = stageIndex + 1;
++  if (stageCount <= 1) return 'outcome';
++  const outcomeCount = stageCount >= 7 ? 2 : 1;
++  const openingCount = Math.min(stageCount - outcomeCount - 1, Math.max(1, Math.round(stageCount * .34)));
++  const outcomeStart = Math.max(openingCount + 1, stageCount - outcomeCount + 1);
++  if (stageNumber <= openingCount) return 'opening';
++  if (stageNumber >= outcomeStart) return 'outcome';
++  return 'branch';
++}
++
++function routeNature(route, phase) {
++  if (!route) return null;
++  if (phase === 'opening') return route.seedNature ?? null;
++  if (phase === 'branch') return route.branchNature ?? null;
++  return route.outcomeNature ?? null;
++}
++
++function recentRouteForArc(state, arcId) {
++  return safeArray(state?.recentRoutes).find(route => route.arcId === arcId) ?? null;
++}
++
++function weightedNature(weights, random) {
++  const entries = ROUTE_NATURES.map(nature => [nature, Math.max(0, Number(weights?.[nature]) || 0)]);
++  const total = entries.reduce((sum, [, value]) => sum + value, 0);
++  if (total <= 0) return choose(ROUTE_NATURES, random) ?? 'neutral';
++  let roll = random() * total;
++  for (const [nature, value] of entries) {
++    roll -= value;
++    if (roll <= 0) return nature;
++  }
++  return entries[entries.length - 1][0];
++}
++
++function rollRouteNature(state, arcId, phase, previousNature, random, story = null) {
++  const latest = safeArray(state.recentRoutes)[0] ?? null;
++  const latestNature = routeNature(latest, phase);
++  const baseKey = phase === 'opening' ? (latestNature ?? 'none') : (previousNature ?? 'neutral');
++  const base = ROUTE_WEIGHTS[phase]?.[baseKey] ?? ROUTE_WEIGHTS.opening.none;
++  const weights = Object.fromEntries(ROUTE_NATURES.map(nature => [nature, Number(base[nature]) || .01]));
++
++  // 최근 6개 루트에서 자주 나온 성격은 다음 추첨에서 자연스럽게 확률을 낮춘다.
++  for (const route of safeArray(state.recentRoutes).slice(0, 6)) {
++    const nature = routeNature(route, phase);
++    if (nature && weights[nature] != null) weights[nature] *= .82;
++  }
++  if (latestNature && weights[latestNature] != null) weights[latestNature] *= .62;
++
++  // 같은 스토리를 다시 보게 됐을 때 직전 루트와 같은 방향이 연속으로 나오는 것도 억제한다.
++  const sameArc = recentRouteForArc(state, arcId);
++  const sameArcNature = routeNature(sameArc, phase);
++  if (sameArcNature && weights[sameArcNature] != null) weights[sameArcNature] *= .48;
++
++  // 최종 결과까지 직전과 완전히 같은 3단계 루트가 반복되는 것은 막는다.
++  if (phase === 'outcome' && sameArc && story
++      && sameArc.seedNature === story.seedNature
++      && sameArc.branchNature === story.branchNature
++      && weights[sameArc.outcomeNature] != null) {
++    weights[sameArc.outcomeNature] = 0;
++  }
++  return weightedNature(weights, random);
++}
++
++function ensureStoryRoute(state, story, arc, stageIndex, random) {
++  const phase = storyPhase(stageIndex, safeArray(arc.stages).length);
++  if (!ROUTE_NATURES.includes(story.seedNature)) {
++    story.seedNature = rollRouteNature(state, arc.id, 'opening', null, random, story);
++  }
++  if (phase !== 'opening' && !ROUTE_NATURES.includes(story.branchNature)) {
++    story.branchNature = rollRouteNature(state, arc.id, 'branch', story.seedNature, random, story);
++  }
++  if (phase === 'outcome' && !ROUTE_NATURES.includes(story.outcomeNature)) {
++    story.outcomeNature = rollRouteNature(state, arc.id, 'outcome', story.branchNature ?? story.seedNature, random, story);
++  }
++  const nature = phase === 'opening'
++    ? story.seedNature
++    : phase === 'branch'
++      ? story.branchNature
++      : story.outcomeNature;
++  story.lastNature = nature;
++  return { phase, nature };
++}
++
++function routeKey(story) {
++  return [story.seedNature, story.branchNature, story.outcomeNature].filter(Boolean).join('>');
++}
++
++function rememberCompletedRoute(state, story, arc, time) {
++  const seedNature = ROUTE_NATURES.includes(story.seedNature) ? story.seedNature : 'neutral';
++  const branchNature = ROUTE_NATURES.includes(story.branchNature) ? story.branchNature : seedNature;
++  const outcomeNature = ROUTE_NATURES.includes(story.outcomeNature) ? story.outcomeNature : branchNature;
++  state.recentRoutes.unshift({
++    arcId: arc.id,
++    seedNature,
++    branchNature,
++    outcomeNature,
++    routeKey: `${seedNature}>${branchNature}>${outcomeNature}`,
++    time,
++  });
++  state.recentRoutes = state.recentRoutes.slice(0, RECENT_ROUTE_LIMIT);
++}
++
+ function startStory(state, time, random) {
+   const all = arcEntries();
+   if (!all.length) return null;
+@@ -198,6 +339,10 @@ function startStory(state, time, random) {
+     nextDueTime: time,
+     lastTitle: '',
+     lastType: null,
++    seedNature: null,
++    branchNature: null,
++    outcomeNature: null,
++    lastNature: null,
+   };
+   state.activeStories.push(story);
+   return story;
+@@ -225,6 +370,7 @@ function chooseStory(state, time, random) {
+ }
+ 
+ function classifyNature(arc, stage, event, stageIndex) {
++  // 과거 저장 데이터 복원용 fallback. 새 스토리 생성에는 ensureStoryRoute()의 랜덤 분기를 사용한다.
+   const headline = stage?.headlineSeed ?? '';
+   const body = `${headline} ${event?.sixW?.what ?? ''}`;
+   const tags = new Set([...(arc?.tags ?? []), ...(event?.tags ?? [])]);
+@@ -282,7 +428,7 @@ function findMention(generation, text, groups) {
+   return '';
+ }
+ 
+-function makeTitle(generation, arc, stage, event) {
++function makeTitle(generation, arc, stage, event, nature = 'neutral', phase = 'opening') {
+   const seed = stripPeriod(stage?.headlineSeed || event?.nameKo || arc?.nameKo || '포켓몬 세계 소식')
+     .replace(/^후속:\s*/, '')
+     .replace(/^후일담:\s*/, '');
+@@ -290,41 +436,79 @@ function makeTitle(generation, arc, stage, event) {
+   const who = event?.sixW?.who?.[0]
+     || findMention(generation, stageText, ['characters', 'organizations', 'institutions', 'companies'])
+     || '';
+-  return who && !seed.includes(who) ? `${who}, ${seed}` : seed;
++  const base = who && !seed.includes(who) ? `${who}, ${seed}` : seed;
++  const suffix = {
++    opening: {
++      positive: '초기 대응 진전', neutral: '상황 확인 진행', negative: '초기 우려 확대',
++    },
++    branch: {
++      positive: '개선 흐름 확인', neutral: '조사와 대응 계속', negative: '영향 범위 확대',
++    },
++    outcome: {
++      positive: '안정화 진전', neutral: '후속 영향 점검', negative: '불안 요소 지속',
++    },
++  }[phase]?.[nature];
++  return suffix ? `${base} — ${suffix}` : base;
+ }
+ 
+ function reasonSentence(text) {
+   const value = stripPeriod(text);
+   if (!value) return '';
+-  if (value.endsWith('위해서')) return `이는 ${value}다.`;
++  if (value.endsWith('위해서')) return `그 이유는 ${value}다.`;
+   if (value.endsWith('때문이다')) return `${value}.`;
+   if (value.endsWith('때문에')) return `${value.slice(0, -1)}이다.`;
+   if (value.endsWith('때문')) return `${value}이다.`;
+   return sentence(value);
+ }
+ 
+-function makeDescription(generation, arc, stage, event, region, previousTitle, stageIndex) {
++function routeSentence(nature, phase) {
++  if (phase === 'opening') {
++    if (nature === 'positive') return '초기 진행은 비교적 순조롭고, 관련 인물과 기관의 대응이나 조사가 안정적으로 이어지고 있다.';
++    if (nature === 'negative') return '초기 단계부터 예상하지 못한 문제와 부담이 커지면서, 관련 인물과 기관이 추가 대응을 준비하고 있다.';
++    return '아직 사건의 영향과 의미가 모두 확인되지 않아, 현장에서는 새로운 정보와 주변 변화를 함께 확인하고 있다.';
++  }
++  if (phase === 'branch') {
++    if (nature === 'positive') return '중간 과정에서 해결에 도움이 되는 단서와 성과가 확인되면서, 사건은 조금씩 나아지는 방향으로 움직이고 있다.';
++    if (nature === 'negative') return '중간 과정에서 새로운 문제가 확인되면서, 기존 계획이나 대응만으로는 상황을 정리하기 어려워지고 있다.';
++    return '중간 과정에서는 뚜렷한 개선이나 악화가 확인되지 않아, 조사와 현장 대응이 동시에 이어지고 있다.';
++  }
++  if (nature === 'positive') return '최종 단계에서 핵심 문제와 불확실성이 크게 줄었고, 관련 지역과 인물들은 다음 단계로 넘어갈 수 있는 상태에 가까워지고 있다.';
++  if (nature === 'negative') return '최종 단계에서도 핵심 문제와 불확실성이 남아 있어, 관련 지역과 인물들에게 후속 대응과 추가 조사가 필요한 상황이다.';
++  return '최종 단계의 큰 흐름은 정리됐지만 원인과 후속 영향이 모두 확인된 것은 아니어서, 추가 조사와 관찰이 이어지고 있다.';
++}
++
++function makeDescription(generation, arc, stage, event, region, previousTitle, stageIndex, nature = 'neutral', phase = 'opening') {
+   const sixW = event?.sixW ?? {};
+   const who = safeArray(sixW.who).join('·');
+   const where = safeArray(sixW.where).join('·') || region.nameKo;
++  const pieces = [];
+ 
+   if (!event) {
+     const seed = stripPeriod(stage?.headlineSeed || arc?.nameKo || '새로운 소식');
+-    return `${region.nameKo}에서 ${arc.nameKo} 관련 소식이 전해졌다. 현재 확인된 핵심 내용은 '${seed}'이다.`;
++    const summary = stripPeriod(arc?.summary || '관련 사건의 흐름이 이어지고 있다');
++    pieces.push(`${region.nameKo}에서 ${arc.nameKo}와 관련된 새로운 변화가 확인됐다.`);
++    pieces.push(`이번 단계의 핵심은 '${seed}'이다.`);
++    pieces.push(`이 소식은 '${summary}' 흐름 속에서 나온 변화다.`);
++    pieces.push(routeSentence(nature, phase));
++    return pieces.join(' ').replace(/\.\s*\./g, '.');
+   }
+ 
+-  const pieces = [];
+-  if (who) pieces.push(`${where}에서 ${particle(who, '이', '가')} 관련된 상황이 확인됐다.`);
+-  else pieces.push(`${where}에서 새로운 상황이 확인됐다.`);
++  if (who) pieces.push(`${where}에서 ${particle(who, '이', '가')} 이번 사건의 중심에 있다.`);
++  else pieces.push(`${where}에서 새로운 사건이 확인됐다.`);
+ 
+   if (sixW.what) pieces.push(sentence(sixW.what));
++  if (sixW.why) pieces.push(reasonSentence(sixW.why));
++  if (sixW.how) pieces.push(`현장에서는 ${sentence(sixW.how)}`);
+ 
+-  const finalStage = stageIndex >= safeArray(arc.stages).length - 1;
+-  if (finalStage && event.outcome) pieces.push(`결과적으로 ${sentence(event.outcome)}`);
+-  else if (sixW.why) pieces.push(reasonSentence(sixW.why));
+-  else if (sixW.how) pieces.push(`현장에서는 ${sentence(sixW.how)}`);
++  const finalStage = phase === 'outcome';
++  if (finalStage && nature === 'positive' && event.outcome) {
++    pieces.push(`결과적으로 ${sentence(event.outcome)}`);
++  } else {
++    pieces.push(routeSentence(nature, phase));
++  }
+ 
+-  return pieces.filter(Boolean).slice(0, 3).join(' ').replace(/\.\s*\./g, '.');
++  // 한 문장만 길어지는 것을 피하면서도 사건의 장소·인물·행동·이유·대응을 최대 5문장까지 남긴다.
++  return pieces.filter(Boolean).slice(0, 5).join(' ').replace(/\.\s*\./g, '.');
+ }
+ 
+ function makeInterlude(definition, story, records, random, typeSelector = null) {
+@@ -351,6 +535,7 @@ function makeInterlude(definition, story, records, random, typeSelector = null)
+     storyEventId: null,
+     isFollowUp: true,
+     isInterlude: true,
++    // 브리핑은 같은 사건을 반복해 가격에 중복 충격을 주지 않도록 시장 성격은 중립으로 유지한다.
+     nature: 'neutral',
+     type,
+     directCardId: card?.id ?? null,
+@@ -360,7 +545,7 @@ function makeInterlude(definition, story, records, random, typeSelector = null)
+     cooldownTicks: storyCooldownTicks(arc),
+     cooldownClass: storyCooldownClass(storyCooldownTicks(arc)),
+     title: `${arc.nameKo} 후속 브리핑`,
+-    description: `${region.nameKo}에서 ${arc.nameKo} 관련 확인이 이어지고 있다. 아직 새로운 핵심 변화는 확인되지 않았다.`,
++    description: `${region.nameKo}에서 ${arc.nameKo} 관련 확인이 이어지고 있다. 직전 단계의 영향이 계속 남아 있어 현장에서는 추가 정보와 대응 결과를 확인하고 있다. 다음 핵심 단계가 확인되기 전까지는 현재 흐름이 유지된다.`,
+     sixW: null,
+   };
+ }
+@@ -377,6 +562,11 @@ function recordStoryEpisode(state, story, result, time) {
+     storyStage: result.storyStage,
+     storyStageCount: result.storyStageCount,
+     storyEventId: result.storyEventId,
++    storyPhase: result.storyPhase ?? null,
++    storySeedNature: result.storySeedNature ?? null,
++    storyBranchNature: result.storyBranchNature ?? null,
++    storyOutcomeNature: result.storyOutcomeNature ?? null,
++    storyRouteKey: result.storyRouteKey ?? '',
+     nature: result.nature,
+     type: result.type,
+     directCardId: result.directCardId,
+@@ -409,6 +599,7 @@ function finalizeStoryState(state, story, arc, title, time, tickMs, random) {
+   story.lastTime = time;
+   story.lastTitle = title;
+   if (nextIndex >= safeArray(arc.stages).length) {
++    rememberCompletedRoute(state, story, arc, time);
+     state.activeStories = state.activeStories.filter(item => item !== story);
+     state.recentArcIds = [arc.id, ...state.recentArcIds.filter(id => id !== arc.id)].slice(0, RECENT_ARC_LIMIT);
+     state.storyCooldowns[arc.id] = time + storyCooldownTicks(arc) * tickMs;
+@@ -444,10 +635,11 @@ export function generateWorldStoryNews(market, records, time, random = Math.rand
+   const candidateTypes = scopeCandidateTypes(records, generation, scope, card);
+   const preferredType = inferType(records, generation, text, card, random, candidateTypes);
+   const type = typeof typeSelector === 'function' ? typeSelector(preferredType, candidateTypes) : preferredType;
+-  const nature = classifyNature(arc, stage, event, stageIndex);
++  const route = ensureStoryRoute(state, story, arc, stageIndex, random);
++  const nature = route.nature;
+   const isFollowUp = !!story.lastTime;
+-  const title = makeTitle(generation, arc, stage, event, nature, isFollowUp, random);
+-  const description = makeDescription(generation, arc, stage, event, region, story.lastTitle, stageIndex);
++  const title = makeTitle(generation, arc, stage, event, nature, route.phase);
++  const description = makeDescription(generation, arc, stage, event, region, story.lastTitle, stageIndex, nature, route.phase);
+   const sequence = ++state.sequence;
+ 
+   const result = {
+@@ -462,6 +654,11 @@ export function generateWorldStoryNews(market, records, time, random = Math.rand
+     storyStage: stageIndex + 1,
+     storyStageCount: stages.length,
+     storyEventId: event?.id ?? null,
++    storyPhase: route.phase,
++    storySeedNature: story.seedNature,
++    storyBranchNature: story.branchNature,
++    storyOutcomeNature: story.outcomeNature,
++    storyRouteKey: routeKey(story),
+     isFollowUp,
+     nature,
+     type,
+@@ -513,6 +710,12 @@ export function getWorldStoryEpisodes(market, news) {
+   const arc = safeArray(generation?.storyArcs).find(item => item.id === news.storyId) ?? null;
+   const stageCount = Number.isInteger(news.storyStageCount) ? news.storyStageCount : safeArray(arc?.stages).length;
+   const visibleStage = Math.min(Number.isInteger(news.storyStage) ? news.storyStage : stageCount, stageCount || 0);
++  const activeRoute = state.activeStories.find(item => item.runId === currentRunId) ?? null;
++  const historyRoute = state.storyHistory.find(item => item.storyRunId === currentRunId
++    && (item.storySeedNature || item.storyBranchNature || item.storyOutcomeNature)) ?? null;
++  const routeSeedNature = news.storySeedNature ?? activeRoute?.seedNature ?? historyRoute?.storySeedNature ?? null;
++  const routeBranchNature = news.storyBranchNature ?? activeRoute?.branchNature ?? historyRoute?.storyBranchNature ?? null;
++  const routeOutcomeNature = news.storyOutcomeNature ?? activeRoute?.outcomeNature ?? historyRoute?.storyOutcomeNature ?? null;
+   let previousTitle = '';
+ 
+   for (let stageNumber = 1; stageNumber <= visibleStage; stageNumber++) {
+@@ -525,8 +728,15 @@ export function getWorldStoryEpisodes(market, news) {
+     if (!stage || !generation) continue;
+     const event = eventForStage(generation, stage);
+     const region = regionForArc(generation, arc);
+-    const title = stripPeriod(stage.headlineSeed || event?.nameKo || `${arc.nameKo} ${stageNumber}단계`);
+-    const description = makeDescription(generation, arc, stage, event, region, previousTitle, stageNumber - 1);
++    const phase = storyPhase(stageNumber - 1, stageCount);
++    const storedNature = phase === 'opening'
++      ? routeSeedNature
++      : phase === 'branch'
++        ? routeBranchNature
++        : routeOutcomeNature;
++    const nature = ROUTE_NATURES.includes(storedNature) ? storedNature : classifyNature(arc, stage, event, stageNumber - 1);
++    const title = makeTitle(generation, arc, stage, event, nature, phase);
++    const description = makeDescription(generation, arc, stage, event, region, previousTitle, stageNumber - 1, nature, phase);
+     const reconstructed = {
+       storyRunId: currentRunId,
+       storyId: news.storyId,
+@@ -537,7 +747,12 @@ export function getWorldStoryEpisodes(market, news) {
+       storyStage: stageNumber,
+       storyStageCount: stageCount,
+       storyEventId: event?.id ?? null,
+-      nature: classifyNature(arc, stage, event, stageNumber - 1),
++      storyPhase: phase,
++      storySeedNature: routeSeedNature,
++      storyBranchNature: routeBranchNature,
++      storyOutcomeNature: routeOutcomeNature,
++      storyRouteKey: [routeSeedNature, routeBranchNature, routeOutcomeNature].filter(Boolean).join('>'),
++      nature,
+       type: news.type,
+       directCardId: null,
+       ...scopeForStage(arc, stage, stageNumber - 1),
